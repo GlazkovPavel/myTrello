@@ -1,0 +1,41 @@
+.header{
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  border-bottom: 1px solid rgba(84, 84, 84, 0.7);
+  &__border {
+    border-bottom: none;
+  }
+  &__button-container{
+    margin: auto 0;
+  }
+  &__button{
+    color: antiquewhite;
+    margin-left: 12px;
+  }
+
+}
+
+.header__logo{
+  max-width: 140px;
+}
+
+.active{
+  text-shadow: 0 0 20px antiquewhite;
+}
+
+@media screen and (max-width: 879px) {
+  .header__logo {
+    max-width: 175px;
+  }
+}
+@media screen and (max-width: 620px) {
+  .header__logo {
+    max-width: 150px;
+  }
+}
+@media screen and (max-width: 520px) {
+  .header__logo {
+    max-width: 104px;
+  }
+}

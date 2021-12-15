@@ -1,0 +1,48 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+  min-height: 120px;
+  margin-right: 14px;
+  margin-top: 14px;
+  background: #e0e0da;
+  box-shadow:  0 0 10px gray;
+  border-radius: 3px;
+
+  :nth-last-child {
+    margin-right: 0;
+  }
+}
+
+.input__list{
+  position: relative;
+  width: 80%;
+  border: none;
+  background: #e0e0da;
+  border-radius: 4px;
+  box-shadow:  0 0 5px gray;
+
+  height: 30px;
+  padding: 0 20px;
+  margin: 10px 10px;
+  outline: none;
+}
+
+.list__button {
+  margin: 10px auto;
+  height: 30px;
+  width: 80%;
+  border: none;
+  background: #e0e0da;
+  transition: text-shadow 0.2s ease-in;
+  cursor: pointer;
+  line-height: 20px;
+
+  &:hover{
+    text-shadow: 0 0 5px #605e5e;
+  }
+  &::first-letter {
+    font-size: 20px;
+  }
+}
+

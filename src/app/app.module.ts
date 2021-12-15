@@ -10,6 +10,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { FieldComponent } from './field/field.component';
+import {FormsModule} from "@angular/forms";
+import { ListDefaultComponent } from './field/list-default/list-default.component';
 
 @NgModule({
   declarations: [
@@ -20,11 +22,13 @@ import { FieldComponent } from './field/field.component';
     NotFoundComponent,
     HeaderComponent,
     FooterComponent,
-    FieldComponent
+    FieldComponent,
+    ListDefaultComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

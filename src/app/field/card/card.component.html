@@ -1,1 +1,12 @@
-<p>card works!</p>
+<div class="card">
+  <ng-container >
+    <span class="card__textarea">{{card?.title}}</span>
+  </ng-container>
+  <textarea
+    autocomplete="off"
+    [(ngModel)]="value"
+    (touchcancel)="onSend(card?.id)"
+    class="card__textarea"
+    placeholder="Ввести значение карточки"
+    wrap="hard" autofocus></textarea>
+</div>

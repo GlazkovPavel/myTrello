@@ -1,1 +1,18 @@
-<p>header works!</p>
+<header class="header">
+  <a [routerLink]="['/']">
+    <img class="header__logo" src="assets/images/header_white_theme.png" alt="Logo">
+  </a>
+  <div class="header__button-container">
+    <a
+      style="text-decoration: none"
+      class="header__button" [routerLink]="['/']"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{exact: true}"
+    >Главная</a>
+    <a
+      style="text-decoration: none"
+      class="header__button"
+      [routerLink]="['/saved-cards']"
+      routerLinkActive="active">Мои Фото</a>
+  </div>
+</header>

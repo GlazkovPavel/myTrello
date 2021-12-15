@@ -1,1 +1,8 @@
-<p>list works!</p>
+<div class="list" >
+  <p>{{list?.id}}</p>
+  <input type="text" class="input__list" [value]="list?.title"  >
+  <ng-container *ngFor="let card of toDo">
+    <app-card [card]="card"></app-card>
+  </ng-container>
+  <button class="list__button" (click)="onAddCard()">+  Добавить карточку</button>
+</div>

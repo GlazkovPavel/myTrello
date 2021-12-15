@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit, Output} from '@angular/core';
+import {IListInterface} from "../../interface/list.interface";
 
 @Component({
   selector: 'app-card',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CardComponent implements OnInit {
 
+  @Output() sendCardData: IListInterface | undefined;
+  @Input() card: IListInterface | undefined
+  public value: string | undefined;
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  onSend(id: any) {
+    console.log(id)
+  }
 }
