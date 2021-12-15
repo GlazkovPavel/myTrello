@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {IListInterface} from "../../interface/list.interface";
 
 @Component({
@@ -8,16 +8,20 @@ import {IListInterface} from "../../interface/list.interface";
 })
 export class CardComponent implements OnInit {
 
-  @Output() sendCardData: IListInterface | undefined;
+  //@Output() sendCardData: EventEmitter<IListInterface> = new EventEmitter();
   @Input() card: IListInterface | undefined
-  public value: string | undefined;
+  public value: string = '';
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  onSend(id: any) {
-    console.log(id)
-  }
+  // onSend(id: string) {
+  //   this.sendCardData.emit({
+  //     title: this.value,
+  //     id: id
+  //   });
+  //   this.value = '';
+  // }
 }

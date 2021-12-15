@@ -7,7 +7,7 @@
   margin-top: 14px;
   background: #e0e0da;
   box-shadow:  0 0 10px gray;
-  border-radius: 3px;
+  border-radius: 4px;
 
   :nth-last-child {
     margin-right: 0;
@@ -45,4 +45,21 @@
     font-size: 20px;
   }
 }
+
+  .card__textarea {
+    max-width: 90%;
+    min-width: 90%;
+    margin: 0 auto;
+    min-height: 50px;
+    border-radius: 3px;
+    box-shadow: 0 0 10px 2px gray;
+    border: none;
+    background: #f5f5ef;
+
+  }
+
+.card__textarea::placeholder{
+  font-style: italic;
+}
+
 

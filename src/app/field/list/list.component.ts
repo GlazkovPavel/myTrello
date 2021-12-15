@@ -17,7 +17,8 @@ export class ListComponent implements OnInit {
 
   constructor() { }
 
-  public toDo: IListInterface[] = []
+  public toDo: IListInterface[] = [];
+  public inputShow: boolean = false;
 
   ngOnInit(): void {
   }
@@ -29,13 +30,17 @@ export class ListComponent implements OnInit {
   }
 
   onAddCard() {
+    this.inputShow = true;
+  }
+
+  onSend() {
     this.onIdList();
-    debugger;
     this.toDo.push(<IListInterface>{
       title: this.value,
       id: this.id
-    } )
-    this.id = '';
+    } );
+    this.inputShow = false;
     this.value = '';
+    this.id = '';
   }
 }

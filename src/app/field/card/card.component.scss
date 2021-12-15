@@ -1,20 +1,13 @@
 .card{
   margin: 0 auto;
   width: 90%;
+}
 
-  &__textarea {
-    max-width: 100%;
-    min-width: 100%;
+.card__description{
+    width: 100%;
     min-height: 50px;
     border-radius: 3px;
     box-shadow: 0 0 10px 2px gray;
-    border: none;
     background: #f5f5ef;
 
-  }
-
-}
-
-.card__textarea::placeholder{
-  font-style: italic;
 }
