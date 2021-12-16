@@ -1,6 +1,5 @@
 <div class="list">
-  <p>{{list?.id}}</p>
-  <input type="text" class="input__list" [value]="list?.title"  >
+  <input type="text" class="input__list" [value]="list?.title" placeholder="Назовите лист" >
   <ng-container *ngFor="let card of toDo">
     <app-card [card]="card"></app-card>
   </ng-container>
@@ -9,7 +8,7 @@
       <textarea
         autocomplete="off"
         [(ngModel)]="value"
-        (keydown.enter)="onSend()"
+        (click)="onSend()"
         class="card__textarea"
         placeholder="Ввести значение карточки"
         wrap="hard" autofocus></textarea>
