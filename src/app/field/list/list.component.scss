@@ -17,7 +17,9 @@
     overflow: hidden;
   }
   &__item-button{
+    visibility: hidden;
     position: absolute;
+    opacity: 0;
     width: 30px;
     height: 30px;
     outline: none;
@@ -28,13 +30,18 @@
     margin: auto 0;
     cursor: pointer;
     background: url('../../../assets/images/delete__icon.svg') center no-repeat;
-    transition: opacity 0.3s ease-in-out, transform .3s;
+    transition:  transform 300ms linear, visibility 0s linear 300ms, opacity 300ms;
   }
   &__item-button:hover {
-    opacity: 0.8;
     transform:  scale(1.6);
 
   }
+}
+
+.list:hover .list__item-button{
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0s linear 0s, opacity 300ms;
 }
 
 .input__list{

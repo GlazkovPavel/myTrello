@@ -10,6 +10,8 @@
   box-sizing: border-box;
 
   &__item-button {
+    visibility: hidden;
+    opacity: 0;
     position: absolute;
     width: 30px;
     height: 30px;
@@ -21,17 +23,19 @@
     margin: auto 0;
     cursor: pointer;
     background: url('../../../assets/images/delete__icon.svg') center no-repeat;
-    transition: opacity 0.3s ease-in-out, transform .3s;
+    transition:  transform 300ms linear, visibility 0s linear 300ms, opacity 300ms;
 
   }
   &__item-button:hover {
-    opacity: 0.8;
-    transform:  scale(1.6);
+    transform:  scale(1.3);
 
   }
-  &__container{
-    vertical-align: top;
-  }
+}
+
+.card:hover .card__item-button{
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0s linear 0s, opacity 300ms;
 }
 
 .card__description{
@@ -41,5 +45,6 @@
     border-radius: 3px;
     box-shadow: 0 0 10px 2px gray;
     background: #f5f5ef;
+    padding: 5px;
 
 }
