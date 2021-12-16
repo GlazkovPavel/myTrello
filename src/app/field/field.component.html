@@ -1,6 +1,6 @@
 <div class="field" cdkDropListGroup >
     <div *ngFor="let list of lists" >
-      <app-list [list]="list" ></app-list>
+      <app-list [list]="list" (handleDeleteList)="handleDeleteList($event)"></app-list>
     </div>
 
   <app-list-default (listItem)="onAddList($event)"></app-list-default>

@@ -1,6 +1,37 @@
 .card{
   margin: 0 auto;
   width: 90%;
+  cursor: move;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+
+  &__item-button {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    outline: none;
+    border: none;
+    padding: 0;
+    right: 0;
+    top: 7px;
+    margin: auto 0;
+    cursor: pointer;
+    background: url('../../../assets/images/delete__icon.svg') center no-repeat;
+    transition: opacity 0.3s ease-in-out, transform .3s;
+
+  }
+  &__item-button:hover {
+    opacity: 0.8;
+    transform:  scale(1.6);
+
+  }
+  &__container{
+    vertical-align: top;
+  }
 }
 
 .card__description{

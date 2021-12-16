@@ -8,7 +8,7 @@ import {IListInterface} from "../../interface/list.interface";
 })
 export class CardComponent implements OnInit {
 
-  //@Output() sendCardData: EventEmitter<IListInterface> = new EventEmitter();
+  @Output() handleDeleteCard: EventEmitter<string> = new EventEmitter();
   @Input() card: IListInterface | undefined
   public value: string = '';
 
@@ -17,11 +17,8 @@ export class CardComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // onSend(id: string) {
-  //   this.sendCardData.emit({
-  //     title: this.value,
-  //     id: id
-  //   });
-  //   this.value = '';
-  // }
+  onDeleteCard(id: string | undefined) {
+    this.handleDeleteCard.emit(id)
+
+  }
 }

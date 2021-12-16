@@ -11,6 +11,7 @@ import {of} from "rxjs";
 })
 export class ListComponent implements OnInit {
 
+  @Output() handleDeleteList: EventEmitter<string> = new EventEmitter();
   @Input() list: IListInterface | undefined;
   public value: string | undefined;
   public addCard: boolean = false;
@@ -19,14 +20,9 @@ export class ListComponent implements OnInit {
   constructor() { }
 
   public toDo: IListInterface[] = [{
-    title: '4', id: '4'
-  },
-    {
-      title: '5', id: '5'
-    },
-    {
-      title: '6', id: '6'
-    }];
+    title: 'gfad',
+    id: '2'
+  }];
   public inputShow: boolean = false;
 
   ngOnInit(): void {
@@ -64,5 +60,15 @@ export class ListComponent implements OnInit {
     this.inputShow = false;
     this.value = '';
     this.id = '';
+  }
+
+  handleDeleteCard(id: string) {
+    this.toDo = this.toDo.filter((item) => {
+      return item.id !== id
+    })
+  }
+
+  onDeleteList(id: string | undefined) {
+    this.handleDeleteList.emit(id);
   }
 }

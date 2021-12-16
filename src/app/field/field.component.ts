@@ -23,4 +23,7 @@ export class FieldComponent implements OnInit {
   }
 
 
+  handleDeleteList($eventId: string | undefined) {
+    this.lists = this.lists.filter(item => item.id !== $eventId);
+  }
 }
