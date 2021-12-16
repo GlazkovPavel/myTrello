@@ -1,14 +1,14 @@
-<div class="list">
+<div cdkDropList class="list" draggable="true" (cdkDropListDropped)="drop($event)" [cdkDropListData]="toDo">
   <input type="text" class="input__list" [value]="list?.title" placeholder="Назовите лист" >
-  <ng-container *ngFor="let card of toDo">
-    <app-card [card]="card"></app-card>
-  </ng-container>
+  <div *ngFor="let card of toDo" cdkDrag>
+    <app-card [card]="card" ></app-card>
+  </div>
 
-  <ng-container *ngIf="inputShow">
+  <ng-container *ngIf="inputShow" >
       <textarea
         autocomplete="off"
         [(ngModel)]="value"
-        (click)="onSend()"
+        (clickOutside)="onSend()"
         class="card__textarea"
         placeholder="Ввести значение карточки"
         wrap="hard" autofocus></textarea>

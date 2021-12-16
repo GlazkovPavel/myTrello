@@ -1,4 +1,4 @@
 export interface IListInterface {
-  title: string,
+  title?: string,
   id?: string
 }

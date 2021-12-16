@@ -1,7 +1,7 @@
-<div class="field" >
-    <ng-container *ngFor="let list of lists">
+<div class="field" cdkDropListGroup >
+    <div *ngFor="let list of lists" >
       <app-list [list]="list" ></app-list>
-    </ng-container>
+    </div>
 
   <app-list-default (listItem)="onAddList($event)"></app-list-default>
 

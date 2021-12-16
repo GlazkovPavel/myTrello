@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import {ICardInterface} from "../../interface/card.interface";
 import {IListInterface} from "../../interface/list.interface";
 import {of} from "rxjs";
@@ -17,10 +18,31 @@ export class ListComponent implements OnInit {
 
   constructor() { }
 
-  public toDo: IListInterface[] = [];
+  public toDo: IListInterface[] = [{
+    title: '4', id: '4'
+  },
+    {
+      title: '5', id: '5'
+    },
+    {
+      title: '6', id: '6'
+    }];
   public inputShow: boolean = false;
 
   ngOnInit(): void {
+  }
+
+  drop(event: CdkDragDrop<IListInterface[], any>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+      );
+    }
   }
 
   onIdList(){

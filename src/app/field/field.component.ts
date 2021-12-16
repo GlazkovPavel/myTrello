@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ICardInterface} from "../interface/card.interface";
 import {IListInterface} from "../interface/list.interface";
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 
 @Component({
   selector: 'app-field',
@@ -20,4 +21,6 @@ export class FieldComponent implements OnInit {
   onAddList($event: IListInterface) {
     this.lists.push($event)
   }
+
+
 }

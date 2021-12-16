@@ -12,6 +12,8 @@ import { FooterComponent } from './footer/footer.component';
 import { FieldComponent } from './field/field.component';
 import {FormsModule} from "@angular/forms";
 import { ListDefaultComponent } from './field/list-default/list-default.component';
+import {ClickDirective} from "./directives/cliick.directive";
+import {DragDropModule} from "@angular/cdk/drag-drop";
 
 @NgModule({
   declarations: [
@@ -23,12 +25,14 @@ import { ListDefaultComponent } from './field/list-default/list-default.componen
     HeaderComponent,
     FooterComponent,
     FieldComponent,
-    ListDefaultComponent
+    ListDefaultComponent,
+    ClickDirective
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]

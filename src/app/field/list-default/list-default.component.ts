@@ -28,7 +28,6 @@ export class ListDefaultComponent implements OnInit {
 
   onAddList() {
     this.onIdList();
-    debugger;
     this.listItem.emit({
       title: this.value,
       id: this.id
