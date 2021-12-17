@@ -1,0 +1,32 @@
+<section>
+  <div class="calendar__header">
+    Organizer: <strong>{{ dateService.date | async | moment: 'DD.MM.YYYY' }}</strong>
+    <hr />
+  </div>
+
+  <main>
+    <ul *ngIf="tasks?.length; else noTasks">
+      <li class="task" *ngFor="let task of tasks; let i = index">
+        <span>
+          <strong>{{i + 1}}</strong>
+          {{task.title}}
+        </span>
+        <button class="calendar__btn calendar__btn-primary" (click)="remove(task)">Remove</button>
+      </li>
+    </ul>
+    <ng-template #noTasks>
+      <p class="calendar__text-center">No tasks yet...</p>
+    </ng-template>
+  </main>
+
+    <form (ngSubmit)="submit()" [formGroup]="form">
+      <input type="text" formControlName="title" class="calendar__input">
+
+      <button
+        type="submit"
+        class="calendar__btn calendar__btn-primary calendar__btn-block"
+        [disabled]="form.invalid"
+      >
+        Add</button>
+    </form>
+</section>

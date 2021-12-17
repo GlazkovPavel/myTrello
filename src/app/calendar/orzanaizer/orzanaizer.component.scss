@@ -1,0 +1,34 @@
+section {
+  border: 1px solid #000;
+  border-radius: 4px;
+  padding: 1rem;
+  header {
+    margin-bottom: 1rem;
+  }
+}
+
+.calendar__header {
+  margin-bottom: 1rem;
+}
+
+.task{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: .5rem 1rem;
+  border: 1px solid rgba(173, 171, 171, 0.82);
+  border-radius: 4px;
+  margin-bottom: .5rem;
+}
+
+span{
+  margin: 0;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
