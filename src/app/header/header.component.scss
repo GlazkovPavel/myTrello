@@ -3,6 +3,7 @@
   justify-content: space-between;
   margin: 0 auto;
   border-bottom: 1px solid rgba(84, 84, 84, 0.7);
+  padding: 0 7rem;
   &__border {
     border-bottom: none;
   }
@@ -10,10 +11,22 @@
     margin: auto 0;
   }
   &__button{
-    color: antiquewhite;
-    margin-left: 12px;
+    border-radius: 30px;
+    box-shadow:
+      5px 5px 10px #c9c9c9,
+      inset -5px -5px 8px -4px #c9c9c9,
+      -5px -5px 10px #fdfdfd,
+      inset 5px 5px 8px -4px #fdfdfd;
+    margin-left: 20px;
+    width: 60px;
+    height: 40px;
+    padding: 1rem 2rem;
   }
 
+}
+
+a{
+  color: #605e5e;
 }
 
 .header__logo{
@@ -21,7 +34,13 @@
 }
 
 .active{
-  text-shadow: 0 0 20px antiquewhite;
+  box-shadow:
+    5px 5px 10px #c9c9c9,
+    inset -5px -5px 8px -4px #c9c9c9,
+    inset -6px -6px 8px 0 #fdfdfd,
+    -5px -5px 10px #fdfdfd,
+    inset 5px 5px 8px -4px #fdfdfd,
+    inset 6px 6px 8px 0 #c9c9c9;
 }
 
 @media screen and (max-width: 879px) {

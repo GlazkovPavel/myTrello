@@ -1,6 +1,6 @@
 <header class="header">
   <a [routerLink]="['/']">
-    <img class="header__logo" src="assets/images/header_white_theme.png" alt="Logo">
+    <img class="header__logo" src="assets/images/header_white_theme.gif" alt="Logo">
   </a>
   <div class="header__button-container">
     <a
@@ -14,5 +14,10 @@
       class="header__button"
       [routerLink]="['/calendar']"
       routerLinkActive="active">Календарь</a>
+  <a
+    style="text-decoration: none"
+    class="header__button"
+    [routerLink]="['/space']"
+    routerLinkActive="active">Рабочее пространство</a>
   </div>
 </header>

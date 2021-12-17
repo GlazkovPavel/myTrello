@@ -19,10 +19,7 @@ export class ListComponent implements OnInit {
 
   constructor() { }
 
-  public toDo: IListInterface[] = [{
-    title: 'gfad',
-    id: '2'
-  }];
+  public toDo: IListInterface[] = [];
   public inputShow: boolean = false;
 
   ngOnInit(): void {

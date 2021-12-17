@@ -20,6 +20,7 @@ import { AlmanacComponent } from './calendar/almanac/almanac.component';
 import {MomentPipe} from "./shared/pipes/moment.pipe";
 import {OrzanaizerComponent} from "./calendar/orzanaizer/orzanaizer.component";
 import {HttpClientModule} from "@angular/common/http";
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import {HttpClientModule} from "@angular/common/http";
     OrzanaizerComponent,
     SelectorComponent,
     AlmanacComponent,
-    MomentPipe
+    MomentPipe,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

@@ -6,7 +6,7 @@ import {BehaviorSubject} from 'rxjs';
   providedIn: 'root'
 })
 export class DateService {
-  public date: BehaviorSubject<moment.Moment> = new BehaviorSubject(moment())
+  public date: BehaviorSubject<moment.Moment> = new BehaviorSubject(moment().locale('ru'))
 
   changeMonth(dir: number) {
     const value = this.date.value.add(dir, 'month')

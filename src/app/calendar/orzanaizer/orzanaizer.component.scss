@@ -18,7 +18,7 @@ section {
   padding: .5rem 1rem;
   border: 1px solid rgba(173, 171, 171, 0.82);
   border-radius: 4px;
-  margin-bottom: .5rem;
+  margin: .5rem 0;
 }
 
 span{
@@ -31,4 +31,17 @@ form {
   justify-content: center;
   align-items: center;
   align-content: center;
+}
+
+main{
+  max-height: 40vh;
+  overflow: auto;
+}
+
+p{
+  margin: 2rem;
+}
+
+strong{
+  padding: 0 .5rem;
 }
