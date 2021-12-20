@@ -22,6 +22,7 @@ import {OrzanaizerComponent} from "./calendar/orzanaizer/orzanaizer.component";
 import {HttpClientModule} from "@angular/common/http";
 import { HomeComponent } from './home/home.component';
 import {TimePipe} from "./shared/pipes/time.pipe";
+import { WidgetsTaskTodayComponent } from './widgets/widgets-task-today/widgets-task-today.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import {TimePipe} from "./shared/pipes/time.pipe";
     AlmanacComponent,
     MomentPipe,
     TimePipe,
-    HomeComponent
+    HomeComponent,
+    WidgetsTaskTodayComponent
   ],
   imports: [
     BrowserModule,

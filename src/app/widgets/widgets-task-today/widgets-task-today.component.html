@@ -1,0 +1,19 @@
+<div class="widget">
+  <div class="widget__header">
+    <p>Задачи на сегодня</p>
+    <hr />
+  </div>
+  <ng-container *ngIf="tasks?.length; else noTasks">
+    <div class="widget__container" >
+      <div class="widget__task" *ngFor="let task of tasks">
+        <p>{{task.title}}</p>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-template #noTasks>
+    <p class="widget__text-center">Нет задач...</p>
+  </ng-template>
+
+
+</div>
