@@ -3,6 +3,7 @@
     <img class="header__logo" src="assets/images/header_white_theme.gif" alt="Logo">
   </a>
   <div class="header__button-container">
+    <span>{{time$ | async }}</span>
     <a
       style="text-decoration: none"
       class="header__button" [routerLink]="['/']"
