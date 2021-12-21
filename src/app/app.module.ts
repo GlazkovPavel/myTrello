@@ -23,6 +23,8 @@ import {HttpClientModule} from "@angular/common/http";
 import { HomeComponent } from './home/home.component';
 import {TimePipe} from "./shared/pipes/time.pipe";
 import { WidgetsTaskTodayComponent } from './widgets/widgets-task-today/widgets-task-today.component';
+import { WidgetImportantTaskComponent } from './widgets/widget-important-task/widget-important-task.component';
+import { JournalComponent } from './journal/journal.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { WidgetsTaskTodayComponent } from './widgets/widgets-task-today/widgets-
     MomentPipe,
     TimePipe,
     HomeComponent,
-    WidgetsTaskTodayComponent
+    WidgetsTaskTodayComponent,
+    WidgetImportantTaskComponent,
+    JournalComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,11 @@
+<app-header></app-header>
+<div class="journal">
+  <p>
+    <i class="material-icons" (click)="go(-1)">arrow_left</i>
+    <span>
+    {{ dayService.date | async | moment: 'DD MMMM YYYY'}}
+  </span>
+    <i class="material-icons" (click)="go(1)">arrow_right</i>
+  </p>
+</div>
+<app-footer></app-footer>

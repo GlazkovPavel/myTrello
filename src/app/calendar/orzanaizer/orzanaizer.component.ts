@@ -16,8 +16,7 @@ export class OrzanaizerComponent implements OnInit {
   tasks: ITaskInterface[];
 
   constructor(public dateService: DateService,
-              private tasksService: TaskService
-  ) { }
+              private tasksService: TaskService) { }
 
   ngOnInit(): void {
     this.dateService.date.pipe(
