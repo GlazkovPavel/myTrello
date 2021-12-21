@@ -1,24 +1,29 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {IListInterface} from "../../interface/list.interface";
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {ICardInterface} from "../../interface/card.interface";
 
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss']
 })
-export class CardComponent implements OnInit {
+export class CardComponent {
 
   @Output() handleDeleteCard: EventEmitter<string> = new EventEmitter();
-  @Input() card: IListInterface | undefined
+  @Output() handleImportantCard: EventEmitter<string> = new EventEmitter();
+  @Output() handleImportantDelete: EventEmitter<string> = new EventEmitter();
+  @Input() card: ICardInterface | undefined
   public value: string = '';
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
   onDeleteCard(id: string | undefined) {
-    this.handleDeleteCard.emit(id)
+    this.handleDeleteCard.emit(id);
+  }
 
+  onImportantCard(id: string | undefined) {
+    this.handleImportantCard.emit(id);
+  }
+
+  onImportantDelete(id: string | undefined) {
+    this.handleImportantDelete.emit(id);
   }
 }

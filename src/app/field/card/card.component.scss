@@ -18,14 +18,33 @@
     outline: none;
     border: none;
     padding: 0;
-    right: 0;
-    top: 7px;
     margin: auto 0;
     cursor: pointer;
-    background: url('../../../assets/images/delete__icon.svg') center no-repeat;
+    right: 0;
     transition:  transform 300ms linear, visibility 0s linear 300ms, opacity 300ms;
 
   }
+
+  &__item-button-delete{
+    top: 7px;
+    background: url('../../../assets/images/delete__icon.svg') center no-repeat;
+
+  }
+
+  &__item-button-important{
+    bottom: 4px;
+    right: 9px;
+    width: 13px;
+    height: 13px;
+    background: url('../../../assets/images/alarm-svgrepo-com.svg') center no-repeat;
+
+  }
+  &__item-button-visible{
+    visibility: visible;
+    opacity: 1;
+
+  }
+
   &__item-button:hover {
     transform:  scale(1.3);
 

@@ -1,5 +1,8 @@
 <div class="card" >
   <p class="card__description">{{card?.title}}</p>
-  <button  class="card__item-button"
+  <button  class="card__item-button card__item-button-delete"
            (click)=" onDeleteCard(card?.id)"></button>
+  <button  class="card__item-button card__item-button-important"
+           [class.card__item-button-visible]="card.important"
+           (click)="card.important ? onImportantDelete(card?.id) : onImportantCard(card?.id)"></button>
 </div>

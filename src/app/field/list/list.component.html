@@ -1,7 +1,9 @@
 <div cdkDropList class="list list__container" (cdkDropListDropped)="drop($event)" [cdkDropListData]="toDo">
   <input type="text" class="input__list list__container" [value]="list?.title" placeholder="Назовите лист" >
   <div *ngFor="let card of toDo" cdkDrag>
-    <app-card [card]="card" (handleDeleteCard)="handleDeleteCard($event)"></app-card>
+    <app-card [card]="card"  (handleDeleteCard)="handleDeleteCard($event)"
+              (handleImportantDelete)="handleImportantDelete($event)"
+              (handleImportantCard)="handleImportantCard($event)"></app-card>
   </div>
 
   <ng-container *ngIf="inputShow" >

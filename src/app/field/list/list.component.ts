@@ -14,18 +14,17 @@ export class ListComponent implements OnInit {
   @Output() handleDeleteList: EventEmitter<string> = new EventEmitter();
   @Input() list: IListInterface | undefined;
   public value: string | undefined;
-  public addCard: boolean = false;
   public id: string | undefined;
+  public toDo: ICardInterface[] = [];
+  public inputShow: boolean = false;
+  public important: boolean = false;
 
   constructor() { }
-
-  public toDo: IListInterface[] = [];
-  public inputShow: boolean = false;
 
   ngOnInit(): void {
   }
 
-  drop(event: CdkDragDrop<IListInterface[], any>) {
+  drop(event: CdkDragDrop<ICardInterface[], any>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -49,14 +48,18 @@ export class ListComponent implements OnInit {
   }
 
   onSend() {
-    this.onIdList();
-    this.toDo.push(<IListInterface>{
-      title: this.value,
-      id: this.id
-    } );
+    if (this.value) {
+      this.onIdList();
+      this.toDo.push(<ICardInterface>{
+        title: this.value,
+        id: this.id,
+        important: this.important
+      } );
+      this.inputShow = false;
+      this.value = '';
+      this.id = '';
+    }
     this.inputShow = false;
-    this.value = '';
-    this.id = '';
   }
 
   handleDeleteCard(id: string) {
@@ -67,5 +70,19 @@ export class ListComponent implements OnInit {
 
   onDeleteList(id: string | undefined) {
     this.handleDeleteList.emit(id);
+  }
+
+  handleImportantCard(id: string) {
+    this.toDo = this.toDo.map(obj =>
+      obj.id === id ? { ...obj, important: true } : obj
+    );
+    console.log(this.toDo);
+  }
+
+  handleImportantDelete(id: string) {
+    this.toDo = this.toDo.map(obj =>
+      obj.id === id ? { ...obj, important: false } : obj
+    );
+    console.log(this.toDo);
   }
 }
