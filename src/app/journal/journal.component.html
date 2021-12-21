@@ -7,5 +7,10 @@
   </span>
     <i class="material-icons" (click)="go(1)">arrow_right</i>
   </p>
+  <angular-editor [placeholder]="'Enter text here...'" [(ngModel)]="htmlContent"></angular-editor>
+
+  <form [formGroup]="form">
+    <angular-editor formControlName="title" [config]="editorConfig"></angular-editor>
+  </form>
 </div>
 <app-footer></app-footer>

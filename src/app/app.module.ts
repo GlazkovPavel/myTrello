@@ -25,6 +25,8 @@ import {TimePipe} from "./shared/pipes/time.pipe";
 import { WidgetsTaskTodayComponent } from './widgets/widgets-task-today/widgets-task-today.component';
 import { WidgetImportantTaskComponent } from './widgets/widget-important-task/widget-important-task.component';
 import { JournalComponent } from './journal/journal.component';
+import { JournalTextEditComponent } from './journal/journal-text-edit/journal-text-edit.component';
+import {AngularEditorModule} from "@kolkov/angular-editor";
 
 @NgModule({
   declarations: [
@@ -47,7 +49,8 @@ import { JournalComponent } from './journal/journal.component';
     HomeComponent,
     WidgetsTaskTodayComponent,
     WidgetImportantTaskComponent,
-    JournalComponent
+    JournalComponent,
+    JournalTextEditComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +58,8 @@ import { JournalComponent } from './journal/journal.component';
     ReactiveFormsModule,
     FormsModule,
     DragDropModule,
-    HttpClientModule
+    HttpClientModule,
+    AngularEditorModule
   ],
   providers: [],
   bootstrap: [AppComponent]
