@@ -16,7 +16,6 @@ export class TaskService {
   create(task: ITaskInterface): Observable<ITaskInterface>{
     return this.http.post<IResponseTaskInterface>(`${TaskService.url}/${task.date}.json`, task)
       .pipe(map((res) => {
-        console.log(res);
         return {...task, id: res.name}
       }))
   }

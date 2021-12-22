@@ -10,7 +10,7 @@ export class ClickDirective {
   @Output()
   public clickOutside = new EventEmitter<MouseEvent>();
 
-  @HostListener('document:dblclick', ['$event', '$event.target'])
+  @HostListener('document:click', ['$event', '$event.target'])
   public onClick(event: MouseEvent, targetElement: HTMLElement): void {
     if (!targetElement) {
       return;

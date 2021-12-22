@@ -4,6 +4,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {TaskService} from "../../shared/services/task.service";
 import {ITaskInterface} from "../../interface/task.interface";
 import {switchMap} from "rxjs/operators";
+import {JournalService} from "../../shared/services/journal.service";
 
 @Component({
   selector: 'app-orzanaizer',

@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ICardInterface} from "../interface/card.interface";
 import {IListInterface} from "../interface/list.interface";
-import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 
 @Component({
   selector: 'app-field',
@@ -11,17 +9,14 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag
 export class FieldComponent implements OnInit {
 
   public lists: IListInterface[] = [];
-  public valueList: string = '';
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onAddList($event: IListInterface) {
     this.lists.push($event)
   }
-
 
   handleDeleteList($eventId: string | undefined) {
     this.lists = this.lists.filter(item => item.id !== $eventId);

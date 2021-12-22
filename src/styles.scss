@@ -6,4 +6,16 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+.angular-editor-wrapper{
+  margin: 1rem 0;
+  min-height: 40vh;
 
+}
+
+.angular-editor-textarea{
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  min-height: 30vh !important;
+  box-shadow: 0 0 5px gray;
+}

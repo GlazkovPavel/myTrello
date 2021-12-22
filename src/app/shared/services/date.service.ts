@@ -21,8 +21,4 @@ export class DateService {
     this.date.next(value)
   }
 
-  changeDay(dir: number) {
-    const value = this.date.value.add(dir, 'day')
-    this.date.next(value)
-  }
 }

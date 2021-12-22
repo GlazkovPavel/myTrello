@@ -1,79 +1,73 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DayService} from "../shared/services/day.service";
-import { AngularEditorConfig } from '@kolkov/angular-editor';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {IJournalInterface} from "../interface/journal.interface";
+import {IdGeneratorService} from "../shared/services/id-generator.service";
+import {Subscription} from "rxjs";
+import {DateService} from "../shared/services/date.service";
+import {JournalService} from "../shared/services/journal.service";
+import {map, switchMap} from "rxjs/operators";
 
 @Component({
   selector: 'app-journal',
   templateUrl: './journal.component.html',
   styleUrls: ['./journal.component.scss',
-    '../calendar/selector/selector.component.scss']
+    '../calendar/selector/selector.component.scss',
+    '../calendar/calendar.component.scss'
+  ]
 })
 
 export class JournalComponent implements OnInit {
 
-  form: FormGroup;
 
-  editorConfig: AngularEditorConfig = {
-    editable: true,
-    spellcheck: true,
-    height: 'auto',
-    minHeight: '0',
-    maxHeight: 'auto',
-    width: 'auto',
-    minWidth: '0',
-    translate: 'yes',
-    enableToolbar: true,
-    showToolbar: true,
-    placeholder: 'Enter text here...',
-    defaultParagraphSeparator: '',
-    defaultFontName: '',
-    defaultFontSize: '',
-    fonts: [
-      {class: 'arial', name: 'Arial'},
-      {class: 'times-new-roman', name: 'Times New Roman'},
-      {class: 'calibri', name: 'Calibri'},
-      {class: 'comic-sans-ms', name: 'Comic Sans MS'}
-    ],
-    customClasses: [
-      {
-        name: 'quote',
-        class: 'quote',
-      },
-      {
-        name: 'redText',
-        class: 'redText'
-      },
-      {
-        name: 'titleText',
-        class: 'titleText',
-        tag: 'h1',
-      },
-    ],
-    uploadUrl: 'v1/image',
-    //upload: (file: File) => { ... }
-    uploadWithCredentials: false,
-    sanitize: true,
-    toolbarPosition: 'top',
-    toolbarHiddenButtons: [
-      ['bold', 'italic'],
-      ['fontSize']
-    ]
+  public htmlContent: string;
+  private idItem: string;
+
+  constructor(public dayService: DayService,
+              private idGeneratorService: IdGeneratorService,
+              private dateService: DayService,
+              private journalService: JournalService) {
   };
-  htmlContent: any;
-
-
-  constructor(public dayService: DayService) { }
 
   ngOnInit(): void {
-    this.form = new FormGroup({
-      title: new FormControl('', Validators.required)
-    })
-  }
+    this.dayService.date.pipe(
+      switchMap(value => this.journalService.load(value))
+    ).pipe(map((v) => v.map((i) => {
+      this.htmlContent = i.text
+      this.idItem = i.date
+
+    }))).subscribe()
+  };
 
   go(dir: number) {
+    this.htmlContent = '';
+    this.idItem = '';
     this.dayService.changeDay(dir)
   }
 
+  submit() {
+
+    if(this.idItem) {
+      console.log('Update')
+    } else if (this.htmlContent){
+      const value: IJournalInterface = {
+        text: this.htmlContent,
+        date: this.dateService.date.value.format('DD-MM-YYYY')
+      };
+      this.journalService.create(value).subscribe(
+        item => {
+          this.htmlContent = item.text
+          this.idItem = item.date
+        }
+      );
+      console.log(value);
+    }
+    return;
+  }
+
+  // ngOnDestroy(): void {
+  //   if (this.subId){
+  //     this.subId.unsubscribe()
+  //   }
+  // }
 
 }

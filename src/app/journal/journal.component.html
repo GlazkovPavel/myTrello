@@ -7,10 +7,9 @@
   </span>
     <i class="material-icons" (click)="go(1)">arrow_right</i>
   </p>
-  <angular-editor [placeholder]="'Enter text here...'" [(ngModel)]="htmlContent"></angular-editor>
-
-  <form [formGroup]="form">
-    <angular-editor formControlName="title" [config]="editorConfig"></angular-editor>
-  </form>
+  <div class="form" (clickOutside)="submit()">
+    <angular-editor [placeholder]="'Enter text here...'" [(ngModel)]="htmlContent" ></angular-editor>
+    <button type="button" (click)="submit()" class="calendar__btn calendar__btn-primary calendar__btn-block">Сохранить</button>
+  </div>
 </div>
 <app-footer></app-footer>
