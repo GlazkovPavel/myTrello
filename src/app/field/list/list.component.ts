@@ -23,8 +23,7 @@ export class ListComponent implements OnInit, OnDestroy {
 
   constructor(private idGeneratorService: IdGeneratorService) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   drop(event: CdkDragDrop<ICardInterface[], any>) {
     if (event.previousContainer === event.container) {
@@ -55,7 +54,6 @@ export class ListComponent implements OnInit, OnDestroy {
       this.inputShow = false;
       this.value = '';
       this.id = '';
-      console.log(this.toDo)
     }
     this.inputShow = false;
   }

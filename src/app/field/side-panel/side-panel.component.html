@@ -1,0 +1,11 @@
+<div class="side-panel">
+  <app-side-panel-card *ngIf="spaces.length" [spaces]="spaces"></app-side-panel-card>
+  <textarea
+    type="text"
+    autocomplete="off"
+    wrap="hard"
+    class="side-panel__input"
+    [(ngModel)]="value"
+    placeholder="Назовите лист"></textarea>
+  <button class="side-panel__button" (click)="onAddSpace()">+  Добавить пространство</button>
+</div>
