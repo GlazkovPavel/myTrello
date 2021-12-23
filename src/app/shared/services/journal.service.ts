@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {Observable, of} from "rxjs";
 import {map} from "rxjs/operators";
 import {IJournalInterface} from "../../interface/journal.interface";
 import * as moment from "moment";
@@ -21,15 +21,21 @@ export class JournalService {
       }))
   }
 
-  load(date: moment.Moment): Observable<IJournalInterface[]> {
+  load(date: moment.Moment): Observable<IJournalInterface>{
     return this.http
       .get<IJournalInterface>(`${JournalService.url}/${date.format('DD-MM-YYYY')}.json`)
-      .pipe(map(item => {
-        if (!item) {
-          return [];
+      .pipe(map(res => {
+        if (res) {
+          return res;
         }
-        // @ts-ignore
-        return Object.keys(item).map(key => ({...item[key], id: key}))
+        return null;
+      }))
+  }
+
+  update(item: IJournalInterface): Observable<IJournalInterface>{
+    return this.http.put<any>(`${JournalService.url}/${item.date}.json`, item)
+      .pipe(map((res) => {
+        return {...item, id: res.name}
       }))
   }
 
