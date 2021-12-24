@@ -1,5 +1,5 @@
 <div class="side-panel">
-  <app-side-panel-card *ngIf="spaces.length" [spaces]="spaces"></app-side-panel-card>
+  <app-side-panel-card  *ngIf="spacesArray.length" [spaces]="spacesArray" (handelShowSpase)="showSpace(id)"></app-side-panel-card>
   <textarea
     type="text"
     autocomplete="off"

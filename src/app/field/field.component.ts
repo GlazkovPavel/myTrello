@@ -11,6 +11,7 @@ export class FieldComponent implements OnInit {
 
   public lists: IListInterface[] = [];
   @Output() spaces: ISpaceInterface[] = [];
+  public list: IListInterface;
 
   constructor() { }
 
@@ -27,5 +28,10 @@ export class FieldComponent implements OnInit {
   handelSpaceItem($event: ISpaceInterface) {
     this.spaces.push($event)
     console.log($event)
+  }
+
+  spaseShow(id: string) {
+    this.list = this.lists.find(item => item.id === id);
+    console.log(this.list)
   }
 }
