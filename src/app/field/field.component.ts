@@ -10,8 +10,8 @@ import {ISpaceInterface} from "../interface/space.interface";
 export class FieldComponent implements OnInit {
 
   public lists: IListInterface[] = [];
-  @Output() spaces: ISpaceInterface[] = [];
-  public list: IListInterface;
+  public spaces: ISpaceInterface[] = [];
+  public currentSpace: ISpaceInterface;
 
   constructor() { }
 
@@ -31,7 +31,14 @@ export class FieldComponent implements OnInit {
   }
 
   spaseShow(id: string) {
-    this.list = this.lists.find(item => item.id === id);
-    console.log(this.list)
+    this.currentSpace = {
+      id: '',
+      title: '',
+      list: []
+
+    }
+    debugger;
+    this.currentSpace = this.spaces.find(item => item.id === id);
+    console.log(this.currentSpace)
   }
 }

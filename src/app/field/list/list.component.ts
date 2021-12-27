@@ -42,18 +42,20 @@ export class ListComponent implements OnInit, OnDestroy {
     this.inputShow = true;
   }
 
-  onSend() {
+  onSend(idList: string) {
     if (this.value) {
       this.subId = this.idGeneratorService.onId().subscribe(
         val => this.id = val)
       this.toDo.push(<ICardInterface>{
         title: this.value,
         id: this.id,
-        important: this.important
+        important: this.important,
+        idList: idList
       } );
       this.inputShow = false;
       this.value = '';
       this.id = '';
+      debugger;
     }
     this.inputShow = false;
   }

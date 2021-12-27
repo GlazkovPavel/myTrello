@@ -1,5 +1,6 @@
 export interface ICardInterface {
   title?: string,
-  id: string,
+  id?: string,
   important: boolean
+  idList: string
 }

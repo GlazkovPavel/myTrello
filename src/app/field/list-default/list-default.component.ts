@@ -24,7 +24,7 @@ export class ListDefaultComponent implements OnInit, OnDestroy {
       val => this.id = val);
     this.listItem.emit({
       title: this.value,
-      id: this.id
+      id: this.id,
     } )
     this.id = '';
     this.value = '';

@@ -1,6 +1,6 @@
 <div class="field__main">
   <app-side-panel  (spaceCurrent)="spaseShow($event)" (spaceItem)="handelSpaceItem($event)"></app-side-panel>
-  <ng-container *ngFor="let space of spaces">
+  <ng-container *ngIf="currentSpace">
     <div class="field" cdkDropListGroup >
       <div *ngFor="let list of lists" >
         <app-list [list]="list" (handleDeleteList)="handleDeleteList($event)"></app-list>
@@ -12,3 +12,5 @@
 
 
 </div>
+
+<p *ngIf="currentSpace">{{currentSpace.id}}</p>
