@@ -9,36 +9,32 @@ import {ISpaceInterface} from "../interface/space.interface";
 })
 export class FieldComponent implements OnInit {
 
-  public lists: IListInterface[] = [];
+  //public lists: IListInterface[] = [];
   public spaces: ISpaceInterface[] = [];
   public currentSpace: ISpaceInterface;
+  private idSpace: string;
 
   constructor() { }
 
   ngOnInit(): void {}
 
   onAddList($event: IListInterface) {
-    this.lists.push($event)
+     this.spaces.find(item => item.id === this.idSpace).list.push($event)
   }
 
   handleDeleteList($eventId: string | undefined) {
-    this.lists = this.lists.filter(item => item.id !== $eventId);
+    this.currentSpace.list = this.currentSpace.list.filter(item => item.id !== $eventId);
   }
 
-  handelSpaceItem($event: ISpaceInterface) {
+  handleSpaceItem($event: ISpaceInterface) {
     this.spaces.push($event)
     console.log($event)
   }
 
-  spaseShow(id: string) {
-    this.currentSpace = {
-      id: '',
-      title: '',
-      list: []
-
-    }
+  spaceShow(id: string) {
+    this.idSpace = '';
     debugger;
     this.currentSpace = this.spaces.find(item => item.id === id);
-    console.log(this.currentSpace)
+    this.idSpace = id;
   }
 }

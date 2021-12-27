@@ -4,6 +4,7 @@ import {ICardInterface} from "../../interface/card.interface";
 import {IListInterface} from "../../interface/list.interface";
 import { Subscription } from "rxjs";
 import {IdGeneratorService} from "../../shared/services/id-generator.service";
+import {ISpaceInterface} from "../../interface/space.interface";
 
 @Component({
   selector: 'app-list',
@@ -50,12 +51,14 @@ export class ListComponent implements OnInit, OnDestroy {
         title: this.value,
         id: this.id,
         important: this.important,
-        idList: idList
       } );
       this.inputShow = false;
       this.value = '';
       this.id = '';
       debugger;
+      console.log(idList)
+      console.log(this.list)
+
     }
     this.inputShow = false;
   }

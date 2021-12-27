@@ -1,4 +1,7 @@
-<div cdkDropList class="list list__container" (cdkDropListDropped)="drop($event)" [cdkDropListData]="toDo" (clickOutside)="onSend(list?.id)">
+<div cdkDropList class="list list__container"
+     (cdkDropListDropped)="drop($event)"
+     [cdkDropListData]="toDo"
+     (clickOutside)="onSend(list?.id)">
   <input type="text" class="input__list list__container" [value]="list?.title" placeholder="Назовите лист" >
   <div *ngFor="let card of toDo" cdkDrag>
     <app-card [card]="card"
