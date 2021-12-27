@@ -25,6 +25,7 @@ export class ListDefaultComponent implements OnInit, OnDestroy {
     this.listItem.emit({
       title: this.value,
       id: this.id,
+      card: []
     } )
     this.id = '';
     this.value = '';
