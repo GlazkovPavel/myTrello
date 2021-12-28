@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Output} from '@angular/core';
 import {IListInterface} from "../interface/list.interface";
+import {ISpaceInterface} from "../interface/space.interface";
 
 @Component({
   selector: 'app-field',
@@ -8,17 +9,32 @@ import {IListInterface} from "../interface/list.interface";
 })
 export class FieldComponent implements OnInit {
 
-  public lists: IListInterface[] = [];
+  //public lists: IListInterface[] = [];
+  public spaces: ISpaceInterface[] = [];
+  public currentSpace: ISpaceInterface;
+  private idSpace: string;
 
   constructor() { }
 
   ngOnInit(): void {}
 
   onAddList($event: IListInterface) {
-    this.lists.push($event)
+     this.spaces.find(item => item.id === this.idSpace).list.push($event)
   }
 
   handleDeleteList($eventId: string | undefined) {
-    this.lists = this.lists.filter(item => item.id !== $eventId);
+    this.currentSpace.list = this.currentSpace.list.filter(item => item.id !== $eventId);
+  }
+
+  handleSpaceItem($event: ISpaceInterface) {
+    this.spaces.push($event)
+    console.log($event)
+  }
+
+  spaceShow(id: string) {
+    this.idSpace = '';
+    debugger;
+    this.currentSpace = this.spaces.find(item => item.id === id);
+    this.idSpace = id;
   }
 }

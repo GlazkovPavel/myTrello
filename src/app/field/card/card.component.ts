@@ -26,4 +26,8 @@ export class CardComponent {
   onImportantDelete(id: string | undefined) {
     this.handleImportantDelete.emit(id);
   }
+
+  onCard(card: any) {
+    console.log(card)
+  }
 }

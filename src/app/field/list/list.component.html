@@ -1,16 +1,20 @@
-<div cdkDropList class="list list__container" (cdkDropListDropped)="drop($event)" [cdkDropListData]="toDo" (clickOutside)="onSend()">
+<div cdkDropList class="list list__container"
+     (cdkDropListDropped)="drop($event)"
+     [cdkDropListData]="list.card"
+     (clickOutside)="onSend()">
   <input type="text" class="input__list list__container" [value]="list?.title" placeholder="Назовите лист" >
-  <div *ngFor="let card of toDo" cdkDrag>
-    <app-card [card]="card"  (handleDeleteCard)="handleDeleteCard($event)"
+  <div *ngFor="let card of list.card" cdkDrag>
+    <app-card [card]="card"
+              (handleDeleteCard)="handleDeleteCard($event)"
               (handleImportantDelete)="handleImportantDelete($event)"
-              (handleImportantCard)="handleImportantCard($event)"></app-card>
+              (handleImportantCard)="handleImportantCard($event)"
+    ></app-card>
   </div>
 
   <ng-container *ngIf="inputShow" >
       <textarea
         autocomplete="off"
         [(ngModel)]="value"
-
         class="card__textarea"
         placeholder="Ввести значение карточки"
         wrap="hard" autofocus></textarea>

@@ -1,0 +1,46 @@
+.side-panel{
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  width: 160px;
+  min-height: 120px;
+  margin-top: 1.5rem;
+  margin-right: 14px;
+  background: #e0e0da;
+  box-shadow:  0 0 10px gray;
+  border-radius: 4px;
+  position: relative;
+
+  &__button{
+    margin: 10px auto;
+    min-height: 30px;
+    width: 80%;
+    border: none;
+    background: #e0e0da;
+    transition: text-shadow 0.2s ease-in;
+    cursor: pointer;
+    line-height: 20px;
+    padding: 0;
+
+    &:hover{
+      text-shadow: 0 0 5px #605e5e;
+    }
+    &::first-letter {
+      font-size: 18px;
+    }
+  }
+
+  &__input{
+    width: 80% !important;
+    border: none;
+    background: #e0e0da;
+    border-radius: 4px;
+    box-shadow:  0 0 5px gray;
+    overflow: initial;
+
+    min-height: 30px;
+    padding: .3rem;
+    margin: 10px 10px;
+    outline: none;
+  }
+}

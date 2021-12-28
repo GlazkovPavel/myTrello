@@ -26,6 +26,8 @@ import { WidgetsTaskTodayComponent } from './widgets/widgets-task-today/widgets-
 import { WidgetImportantTaskComponent } from './widgets/widget-important-task/widget-important-task.component';
 import { JournalComponent } from './journal/journal.component';
 import { AngularEditorModule } from "@kolkov/angular-editor";
+import { SidePanelComponent } from './field/side-panel/side-panel.component';
+import { SidePanelCardComponent } from './field/side-panel/side-panel-card/side-panel-card.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,9 @@ import { AngularEditorModule } from "@kolkov/angular-editor";
     HomeComponent,
     WidgetsTaskTodayComponent,
     WidgetImportantTaskComponent,
-    JournalComponent
+    JournalComponent,
+    SidePanelComponent,
+    SidePanelCardComponent
   ],
   imports: [
     BrowserModule,
