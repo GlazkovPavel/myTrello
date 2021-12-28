@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {FieldComponent} from "../../field/field.component";
 
 @Component({
   selector: 'app-widget-important-task',
@@ -9,9 +10,11 @@ import { Component, OnInit } from '@angular/core';
 export class WidgetImportantTaskComponent implements OnInit {
   tasks: any;
 
-  constructor() { }
+  constructor(private FieldComponent: FieldComponent) { }
 
   ngOnInit(): void {
+    const vard = this.FieldComponent.spaces
+    console.log(vard)
   }
 
 }

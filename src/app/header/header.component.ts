@@ -3,6 +3,7 @@ import {Moment} from "moment";
 import * as moment from 'moment'
 import {interval, Observable, of} from "rxjs";
 import {map} from "rxjs/operators";
+import {AuthService} from "../shared/services/auth.service";
 
 @Component({
   selector: 'app-header',
@@ -13,7 +14,7 @@ export class HeaderComponent implements OnInit {
 
   public time$: Observable<string>
 
-  constructor() { }
+  constructor(public auth: AuthService) { }
 
   ngOnInit(): void {
     this.time$ = interval(1000).pipe(

@@ -1,4 +1,4 @@
-import {Component, OnInit, Output} from '@angular/core';
+import {Component, Injectable, OnInit, Output} from '@angular/core';
 import {IListInterface} from "../interface/list.interface";
 import {ISpaceInterface} from "../interface/space.interface";
 
@@ -7,9 +7,11 @@ import {ISpaceInterface} from "../interface/space.interface";
   templateUrl: './field.component.html',
   styleUrls: ['./field.component.scss']
 })
+@Injectable({
+  providedIn: 'root'
+})
 export class FieldComponent implements OnInit {
 
-  //public lists: IListInterface[] = [];
   public spaces: ISpaceInterface[] = [];
   public currentSpace: ISpaceInterface;
   private idSpace: string;
