@@ -16,7 +16,6 @@ export class ListComponent implements OnInit, OnDestroy {
   @Input() list: IListInterface | undefined;
   public value: string | undefined;
   public id: string | undefined;
-  public toDo: ICardInterface[] = [];
   public inputShow: boolean = false;
   public important: boolean = false;
   private subId: Subscription;
@@ -42,11 +41,11 @@ export class ListComponent implements OnInit, OnDestroy {
     this.inputShow = true;
   }
 
-  onSend(idList: string) {
+  onSend() {
     if (this.value) {
       this.subId = this.idGeneratorService.onId().subscribe(
         val => this.id = val)
-      this.toDo.push(<ICardInterface>{
+      this.list.card.push(<ICardInterface>{
         title: this.value,
         id: this.id,
         important: this.important,
@@ -54,16 +53,12 @@ export class ListComponent implements OnInit, OnDestroy {
       this.inputShow = false;
       this.value = '';
       this.id = '';
-      debugger;
-      console.log(idList)
-      console.log(this.list)
-
     }
     this.inputShow = false;
   }
 
   handleDeleteCard(id: string) {
-    this.toDo = this.toDo.filter((item) => {
+    this.list.card = this.list.card.filter((item) => {
       return item.id !== id
     })
   }
@@ -73,17 +68,15 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   handleImportantCard(id: string) {
-    this.toDo = this.toDo.map(obj =>
+    this.list.card = this.list.card.map(obj =>
       obj.id === id ? { ...obj, important: true } : obj
     );
-    console.log(this.toDo);
   }
 
   handleImportantDelete(id: string) {
-    this.toDo = this.toDo.map(obj =>
+    this.list.card = this.list.card.map(obj =>
       obj.id === id ? { ...obj, important: false } : obj
     );
-    console.log(this.toDo);
   }
 
   ngOnDestroy(): void {

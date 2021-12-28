@@ -24,10 +24,6 @@ export class SidePanelComponent implements OnInit, OnDestroy {
   ngOnInit(): void {}
 
   showSpace(idSpace: string){
-    debugger
-    console.log(idSpace)
-      //const space = this.spacesArray.find(item => item.id === id);
-    //console.log(space)
     this.spaceCurrent.emit(idSpace);
   }
 
