@@ -6,12 +6,17 @@ import {CalendarComponent} from "./calendar/calendar.component";
 import {HomeComponent} from "./home/home.component";
 import {JournalComponent} from "./journal/journal.component";
 import {AuthGuard} from "./shared/guard/auth.guard";
+import {MainLayoutComponent} from "./shared/component/main-layout/main-layout.component";
 
 const routes: Routes = [
-  {path: '', component: HomeComponent},
-  {path: 'space', component: MainComponent, canActivate: [AuthGuard]},
-  {path: 'calendar', component: CalendarComponent},
-  {path: 'journal', component: JournalComponent},
+  {path: '', component: MainLayoutComponent, children: [
+      {path: '', redirectTo: '/', pathMatch: 'full'},
+      {path: '', component: HomeComponent},
+      {path: 'space', component: MainComponent, canActivate: [AuthGuard]},
+      {path: 'calendar', component: CalendarComponent},
+      {path: 'journal', component: JournalComponent},
+    ]},
+
   {path: '**', component: NotFoundComponent}
 ];
 

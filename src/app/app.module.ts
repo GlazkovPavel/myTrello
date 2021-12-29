@@ -28,6 +28,9 @@ import { JournalComponent } from './journal/journal.component';
 import { AngularEditorModule } from "@kolkov/angular-editor";
 import { SidePanelComponent } from './field/side-panel/side-panel.component';
 import { SidePanelCardComponent } from './field/side-panel/side-panel-card/side-panel-card.component';
+import { SignInComponent } from './authorization/sign-in/sign-in.component';
+import { SignUpComponent } from './authorization/sign-up/sign-up.component';
+import { MainLayoutComponent } from './shared/component/main-layout/main-layout.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +55,10 @@ import { SidePanelCardComponent } from './field/side-panel/side-panel-card/side-
     WidgetImportantTaskComponent,
     JournalComponent,
     SidePanelComponent,
-    SidePanelCardComponent
+    SidePanelCardComponent,
+    SignInComponent,
+    SignUpComponent,
+    MainLayoutComponent
   ],
   imports: [
     BrowserModule,
