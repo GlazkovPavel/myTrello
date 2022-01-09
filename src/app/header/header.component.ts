@@ -3,6 +3,7 @@ import * as moment from 'moment'
 import {interval, Observable, of} from "rxjs";
 import {map} from "rxjs/operators";
 import {AuthService} from "../shared/services/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -14,7 +15,7 @@ export class HeaderComponent implements OnInit {
   public isLoggedIn: boolean = false;
   public time$: Observable<string>
 
-  constructor(public auth: AuthService) { }
+  constructor(public auth: AuthService, private route: Router) { }
 
   ngOnInit(): void {
     debugger
@@ -31,5 +32,6 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.auth.logout();
     this.isLoggedIn = false;
+    this.route.navigate(['/sign-in'])
   }
 }

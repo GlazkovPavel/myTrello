@@ -8,16 +8,18 @@ import {JournalComponent} from "./journal/journal.component";
 import {AuthGuard} from "./shared/guard/auth.guard";
 import {MainLayoutComponent} from "./shared/component/main-layout/main-layout.component";
 import {SignUpComponent} from "./authorization/sign-up/sign-up.component";
+import {SignInComponent} from "./authorization/sign-in/sign-in.component";
 
 const routes: Routes = [
+  {path: 'sign-up', component: SignUpComponent},
+  {path: 'sign-in', component: SignInComponent},
   {path: '', component: MainLayoutComponent, children: [
       {path: '', redirectTo: '/', pathMatch: 'full'},
-      {path: '', component: HomeComponent},
+      {path: '', component: HomeComponent, canActivate: [AuthGuard]},
       {path: 'space', component: MainComponent, canActivate: [AuthGuard]},
-      {path: 'calendar', component: CalendarComponent},
-      {path: 'journal', component: JournalComponent},
+      {path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard]},
+      {path: 'journal', component: JournalComponent, canActivate: [AuthGuard]},
     ]},
-  {path: 'sign-up', component: SignUpComponent},
 
   {path: '**', component: NotFoundComponent}
 ];
