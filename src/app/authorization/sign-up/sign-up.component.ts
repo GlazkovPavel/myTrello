@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {IUserInterface} from "../../interface/user.interface";
+import {AuthService} from "../../shared/services/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-sign-up',
@@ -7,9 +11,35 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SignUpComponent implements OnInit {
 
-  constructor() { }
+  public nameFormGroup: FormGroup;
+  public emailFormGroup: FormGroup;
+  public passwordFormGroup: FormGroup;
+
+  constructor(private formBuilder: FormBuilder,
+              private authService: AuthService,
+              private route: Router
+  ) { }
 
   ngOnInit(): void {
+    this.nameFormGroup = this.formBuilder.group({
+      nameCtrl: ['', Validators.required],
+    });
+    this.emailFormGroup = this.formBuilder.group({
+      emailCtrl: ['',  Validators.email],
+    });
+    this.passwordFormGroup = this.formBuilder.group({
+      passwordCtrl: ['', Validators.min(8)]
+    })
   }
 
+  submit(): void {
+    const user: IUserInterface = {
+      name: this.nameFormGroup.controls['nameCtrl'].value,
+      email: this.emailFormGroup.controls['emailCtrl'].value,
+      password: this.passwordFormGroup.controls['passwordCtrl'].value
+    }
+    this.authService.register(user).subscribe(() => {
+      //this.route.navigate(['/'])
+    })
+  }
 }

@@ -1,0 +1,26 @@
+.mat-stepper-vertical {
+  margin-top: 80px;
+}
+
+.mat-form-field {
+  margin-top: 16px;
+}
+
+.mat-stepper-vertical {
+  background-color: rgba(37, 40, 37, 0.45);
+}
+
+mat-stepper {
+  max-width: 880px;
+  margin: 0 auto;
+  border-radius: 6px;
+}
+
+input {
+  background: transparent;
+  height: 24px;
+}
+
+.mat-form-field {
+  width: 50%;
+}

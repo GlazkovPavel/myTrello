@@ -1,19 +1,27 @@
 <header class="header">
-  <a [routerLink]="['/']">
-    <img class="header__logo" src="assets/images/header_white_theme.gif" alt="Logo">
-  </a>
-  <div class="header__button-container">
+  <div class="header__logo-container">
+    <a [routerLink]="['/']">
+      <img class="header__logo" src="assets/images/header_white_theme.gif" alt="Logo">
+    </a>
+    <span>{{time$ | async }}</span>
+  </div>
+
+  <div class="header__button-container" *ngIf="!isLoggedIn">
     <a
       style="text-decoration: none"
       class="header__button"
-      (click)="auth.login()"
+      [routerLink]="['/sign-in']"
       routerLinkActive="active">Вход</a>
     <a
       style="text-decoration: none"
       class="header__button"
-      (click)="auth.logout()"
-      routerLinkActive="active">Выход</a>
-    <span>{{time$ | async }}</span>
+      [routerLink]="['/sign-up']"
+      routerLinkActive="active">Регистрация</a>
+
+  </div>
+
+  <div class="header__button-container" *ngIf="isLoggedIn">
+
     <a
       style="text-decoration: none"
       class="header__button" [routerLink]="['/']"
@@ -35,6 +43,11 @@
     class="header__button"
     [routerLink]="['/journal']"
     routerLinkActive="active">Дневник</a>
+    <a
+      style="text-decoration: none"
+      class="header__button"
+      (click)="logout()"
+      routerLinkActive="active">Выход</a>
 
   </div>
 </header>

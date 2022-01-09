@@ -7,6 +7,7 @@ import {HomeComponent} from "./home/home.component";
 import {JournalComponent} from "./journal/journal.component";
 import {AuthGuard} from "./shared/guard/auth.guard";
 import {MainLayoutComponent} from "./shared/component/main-layout/main-layout.component";
+import {SignUpComponent} from "./authorization/sign-up/sign-up.component";
 
 const routes: Routes = [
   {path: '', component: MainLayoutComponent, children: [
@@ -16,6 +17,7 @@ const routes: Routes = [
       {path: 'calendar', component: CalendarComponent},
       {path: 'journal', component: JournalComponent},
     ]},
+  {path: 'sign-up', component: SignUpComponent},
 
   {path: '**', component: NotFoundComponent}
 ];

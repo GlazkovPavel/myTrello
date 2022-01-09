@@ -19,7 +19,7 @@ export class AuthGuard implements CanActivate{
     // @ts-ignore
     return this.authService.isAuthenticated().then( isAuth => {
       if (isAuth) {
-        return true
+        return true;
       } else {
         this.router.navigate(['/'], {
           queryParams: {

@@ -31,6 +31,11 @@ import { SidePanelCardComponent } from './field/side-panel/side-panel-card/side-
 import { SignInComponent } from './authorization/sign-in/sign-in.component';
 import { SignUpComponent } from './authorization/sign-up/sign-up.component';
 import { MainLayoutComponent } from './shared/component/main-layout/main-layout.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatStepperModule} from "@angular/material/stepper";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatButtonModule} from "@angular/material/button";
+import {MatInputModule} from "@angular/material/input";
 
 @NgModule({
   declarations: [
@@ -67,7 +72,12 @@ import { MainLayoutComponent } from './shared/component/main-layout/main-layout.
     FormsModule,
     DragDropModule,
     HttpClientModule,
-    AngularEditorModule
+    AngularEditorModule,
+    BrowserAnimationsModule,
+    MatStepperModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

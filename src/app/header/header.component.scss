@@ -25,8 +25,12 @@
 
 }
 
+.header__logo-container {
+  display: flex;
+  flex-direction: column;
+}
+
 span{
-  margin-left: 26px;
   color: #4c4cda;
   font-size: 22px;
 
