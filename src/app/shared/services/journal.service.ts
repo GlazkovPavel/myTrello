@@ -12,7 +12,7 @@ import {ITaskInterface} from "../../interface/task.interface";
 export class JournalService {
   static url = 'https://gretto-597d2-default-rtdb.firebaseio.com/journal'
 
-  constructor(private http: HttpClient ) {}
+  constructor( private http: HttpClient ) {}
 
   create(item: IJournalInterface): Observable<IJournalInterface>{
     return this.http.post<any>(`${JournalService.url}/${item.date}.json`, item)
