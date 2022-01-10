@@ -18,9 +18,10 @@ export class AuthService {
 
   loginIn(userLogin: IUserLoginInterface): Subscription {
     return this.http.post<any>(`${this.isUrl}/signin`, userLogin)
-      .pipe(map((token) => {
+      .pipe(map(({token: token}) => {
         this.isAuth = true;
          console.log(token);
+         localStorage.setItem('jwt', token);
          this.route.navigate(['/home'])
 
         }),
@@ -30,10 +31,10 @@ export class AuthService {
 
   logout() {
     this.isAuth = false;
+    localStorage.removeItem('jwt');
   }
 
   register(user: IUserInterface): Observable<any> {
-    debugger
     return this.http.post<any>(`${this.isUrl}/signup`, user)
       .pipe(map((userResponse) => {
         if(userResponse) {
