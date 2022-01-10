@@ -18,7 +18,6 @@ export class HeaderComponent implements OnInit {
   constructor(public auth: AuthService, private route: Router) { }
 
   ngOnInit(): void {
-    debugger
     this.isLoggedIn = this.auth.isAuth;
 
 

@@ -13,13 +13,12 @@ import {SignInComponent} from "./authorization/sign-in/sign-in.component";
 const routes: Routes = [
   {path: 'sign-up', component: SignUpComponent},
   {path: 'sign-in', component: SignInComponent},
-  {path: '', component: MainLayoutComponent, children: [
-      {path: '', redirectTo: '/', pathMatch: 'full'},
-      {path: '', component: HomeComponent, canActivate: [AuthGuard]},
-      {path: 'space', component: MainComponent, canActivate: [AuthGuard]},
-      {path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard]},
-      {path: 'journal', component: JournalComponent, canActivate: [AuthGuard]},
-    ]},
+  {path: '', component: MainLayoutComponent},
+  {path: '', redirectTo: '/', pathMatch: 'full'},
+  {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
+  {path: 'space', component: MainComponent, canActivate: [AuthGuard]},
+  {path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard]},
+  {path: 'journal', component: JournalComponent, canActivate: [AuthGuard]},
 
   {path: '**', component: NotFoundComponent}
 ];

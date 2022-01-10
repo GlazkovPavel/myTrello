@@ -21,7 +21,7 @@ export class AuthService {
       .pipe(map((token) => {
         this.isAuth = true;
          console.log(token);
-         this.route.navigate(['/'])
+         this.route.navigate(['/home'])
 
         }),
         catchError(() => of(null))
