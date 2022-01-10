@@ -16,7 +16,8 @@ export class HeaderComponent implements OnInit {
   public isLoggedIn: boolean = false;
   public time$: Observable<string>;
 
-  constructor(public auth: AuthService, private route: Router) { }
+  constructor(public auth: AuthService,
+              private route: Router) { }
 
   ngOnInit(): void {
     this.isLoggedIn = this.auth.isAuth;
@@ -33,4 +34,8 @@ export class HeaderComponent implements OnInit {
     this.auth.logout();
     this.route.navigate(['/'])
   };
-};
+
+  setNav() {
+
+  }
+}

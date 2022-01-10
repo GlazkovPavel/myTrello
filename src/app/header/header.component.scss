@@ -25,6 +25,15 @@
 
 }
 
+.header__menu {
+  display: flex;
+  flex-direction: row;
+}
+
+.header__button-menu{
+  margin: auto 30px auto 0;
+}
+
 .header__logo-container {
   display: flex;
   flex-direction: column;
