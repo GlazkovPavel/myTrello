@@ -37,6 +37,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from "@angular/material/icon";
+import {ModalModule} from "./modal/modal.module";
 
 @NgModule({
   declarations: [
@@ -80,6 +81,7 @@ import {MatIconModule} from "@angular/material/icon";
     MatButtonModule,
     MatInputModule,
     MatIconModule,
+    ModalModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

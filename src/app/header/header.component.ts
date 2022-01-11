@@ -6,6 +6,7 @@ import {AuthService} from "../shared/services/auth.service";
 import {Router} from "@angular/router";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {IUpdateUserInfoInterface} from "../interface/updateUserInfo.interface";
+import {ModalService} from "../modal/modal.service";
 
 @Component({
   selector: 'app-header',
@@ -21,7 +22,8 @@ export class HeaderComponent implements OnInit {
   public form: FormGroup;
 
   constructor(public auth: AuthService,
-              private route: Router) { }
+              private route: Router,
+              private readonly modalService: ModalService) { }
 
   ngOnInit(): void {
 
@@ -64,5 +66,15 @@ export class HeaderComponent implements OnInit {
       username: this.form.controls['username'].value
     }
     console.log(updateUserInfo);
+  }
+
+  public async openPop(): Promise<void> {
+    const module = await import('../field/card/card-edit/card-edit.component')
+    this.modalService.open({
+      component: module.CardEditComponent,
+      context: {
+        product: {...this}
+      }
+    })
   }
 }

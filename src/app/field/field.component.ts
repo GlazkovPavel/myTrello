@@ -12,7 +12,25 @@ import {ISpaceInterface} from "../interface/space.interface";
 })
 export class FieldComponent implements OnInit {
 
-  public spaces: ISpaceInterface[] = [];
+  public spaces: ISpaceInterface[] = [
+    {
+      title: "d",
+      id: "16419066707",
+      list: [
+        {
+          title: "d",
+          id: "16419066759",
+          card: [
+            {
+              title: "d",
+              id: "16419066775",
+              important: false
+            }
+          ]
+        }
+      ]
+    }
+  ];
   public currentSpace: ISpaceInterface;
   private idSpace: string;
 
