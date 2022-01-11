@@ -62,3 +62,31 @@
 
   </div>
 </header>
+
+<div class="menu__popup" *ngIf="popupOpen">
+  <div class="menu__popup-container">
+    <h2 class='menu__popup-title'>Привет, Имя!</h2>
+
+    <form class="menu__popup-form" [formGroup]="form" (ngSubmit)="submit()">
+
+      <div class="menu__popup-form-control">
+        <label for="email">E-mail:</label>
+        <input id="email" type="email" formControlName="email">
+      </div>
+
+      <div class="menu__popup-form-control">
+        <label for="name">Имя:</label>
+        <input id="name" type="text" formControlName="name">
+      </div>
+
+      <div class="menu__popup-form-control">
+        <label for="username">Имя пользователя:</label>
+        <input id="username" type="text" formControlName="username">
+      </div>
+
+      <button class="menu__popup-button" type="submit">Сохранить</button>
+
+    </form>
+
+  </div>
+</div>
