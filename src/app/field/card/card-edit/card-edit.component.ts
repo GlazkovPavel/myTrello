@@ -1,4 +1,7 @@
 import {Component, NgModule, OnInit} from '@angular/core';
+import {ICardInterface} from "../../../interface/card.interface";
+import {FormsModule} from "@angular/forms";
+import {ModalService} from "../../../modal/modal.service";
 
 @Component({
   selector: 'app-card-edit',
@@ -7,16 +10,23 @@ import {Component, NgModule, OnInit} from '@angular/core';
 })
 export class CardEditComponent implements OnInit {
 
-  constructor() { }
+  public card: ICardInterface;
+
+  constructor(private readonly modalService: ModalService) { }
 
   ngOnInit(): void {
   }
 
-  //логика
-
+  saveCard(textarea: any) {
+    console.log(textarea);
+    this.modalService.close();
+  }
 }
 
 @NgModule({
+  imports: [
+    FormsModule
+  ],
   declarations: [CardEditComponent]
 })
 export class CardEditModule {

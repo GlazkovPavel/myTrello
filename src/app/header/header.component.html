@@ -2,20 +2,22 @@
   <div class="header__menu">
 
     <button
-      (click)="setNav()"
+      (click)="openPopup()"
       id="menu"
-      class="header__button-menu" mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+      class="header__button-menu"
+      mat-icon-button aria-label="Example icon button with a vertical three dot icon">
       <mat-icon>menu</mat-icon>
       <label for="menu">Меню</label>
     </button>
 
-    <button
-      (click)="openPop()"
-      id="acc"
-      class="header__button-menu" mat-icon-button aria-label="Example icon button with a vertical three dot icon">
-      <mat-icon>mat</mat-icon>
-      <label for="acc">acc</label>
-    </button>
+<!--    <button-->
+<!--      (click)="openPop()"-->
+<!--      id="acc"-->
+<!--      class="header__button-menu"-->
+<!--      mat-icon-button aria-label="Example icon button with a vertical three dot icon">-->
+<!--      <mat-icon>mat</mat-icon>-->
+<!--      <label for="acc">acc</label>-->
+<!--    </button>-->
 
     <div class="header__logo-container">
       <a [routerLink]="['/']">
@@ -72,30 +74,30 @@
   </div>
 </header>
 
-<div class="menu__popup" *ngIf="popupOpen">
-  <div class="menu__popup-container">
-    <h2 class='menu__popup-title'>Привет, Имя!</h2>
+<!--<div class="menu__popup" *ngIf="popupOpen">-->
+<!--  <div class="menu__popup-container">-->
+<!--    <h2 class='menu__popup-title'>Привет, Имя!</h2>-->
 
-    <form class="menu__popup-form" [formGroup]="form" (ngSubmit)="submit()">
+<!--    <form class="menu__popup-form" [formGroup]="form" (ngSubmit)="submit()">-->
 
-      <div class="menu__popup-form-control">
-        <label for="email">E-mail:</label>
-        <input id="email" type="email" formControlName="email">
-      </div>
+<!--      <div class="menu__popup-form-control">-->
+<!--        <label for="email">E-mail:</label>-->
+<!--        <input id="email" type="email" formControlName="email">-->
+<!--      </div>-->
 
-      <div class="menu__popup-form-control">
-        <label for="name">Имя:</label>
-        <input id="name" type="text" formControlName="name">
-      </div>
+<!--      <div class="menu__popup-form-control">-->
+<!--        <label for="name">Имя:</label>-->
+<!--        <input id="name" type="text" formControlName="name">-->
+<!--      </div>-->
 
-      <div class="menu__popup-form-control">
-        <label for="username">Имя пользователя:</label>
-        <input id="username" type="text" formControlName="username">
-      </div>
+<!--      <div class="menu__popup-form-control">-->
+<!--        <label for="username">Имя пользователя:</label>-->
+<!--        <input id="username" type="text" formControlName="username">-->
+<!--      </div>-->
 
-      <button class="menu__popup-button" type="submit">Сохранить</button>
+<!--      <button class="menu__popup-button" type="submit">Сохранить</button>-->
 
-    </form>
+<!--    </form>-->
 
-  </div>
-</div>
+<!--  </div>-->
+<!--</div>-->

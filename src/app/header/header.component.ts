@@ -35,19 +35,19 @@ export class HeaderComponent implements OnInit {
       })
     )
 
-    this.form = new FormGroup({
-      email: new FormControl(null,[
-        Validators.required,
-        Validators.email
-      ]),
-      name: new FormControl(null,[
-      Validators.required
-      ]),
-      username: new FormControl(null,[
-        Validators.required
-      ])
-    })
-  };
+  //   this.form = new FormGroup({
+  //     email: new FormControl(null,[
+  //       Validators.required,
+  //       Validators.email
+  //     ]),
+  //     name: new FormControl(null,[
+  //     Validators.required
+  //     ]),
+  //     username: new FormControl(null,[
+  //       Validators.required
+  //     ])
+  //   })
+   };
 
   logout() {
     this.auth.logout();
@@ -58,20 +58,20 @@ export class HeaderComponent implements OnInit {
     this.popupOpen = !this.popupOpen;
   }
 
-  submit() {
-    this.popupOpen = !this.popupOpen;
-    const updateUserInfo: IUpdateUserInfoInterface = {
-      email: this.form.controls['email'].value,
-      name: this.form.controls['name'].value,
-      username: this.form.controls['username'].value
-    }
-    console.log(updateUserInfo);
-  }
+  // submit() {
+  //   this.popupOpen = !this.popupOpen;
+  //   const updateUserInfo: IUpdateUserInfoInterface = {
+  //     email: this.form.controls['email'].value,
+  //     name: this.form.controls['name'].value,
+  //     username: this.form.controls['username'].value
+  //   }
+  //   console.log(updateUserInfo);
+  // }
 
-  public async openPop(): Promise<void> {
-    const module = await import('../field/card/card-edit/card-edit.component')
+  public async openPopup(): Promise<void> {
+    const module = await import('../user-info/user-info.component')
     this.modalService.open({
-      component: module.CardEditComponent,
+      component: module.UserInfoComponent,
       context: {
         product: {...this}
       }

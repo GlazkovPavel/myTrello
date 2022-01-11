@@ -37,7 +37,6 @@ export class ModalComponent extends UnSubscriber implements OnInit {
         takeUntil(this.unSubscribe)
       )
       .subscribe((data: IModalDataInterface | null) => {
-        console.log('data', data);
         if(!data) {
           this.close();
           return;
@@ -50,7 +49,6 @@ export class ModalComponent extends UnSubscriber implements OnInit {
           .forEach((propName: string) => {
             this.componentRef.instance[propName] = data.context[propName];
           })
-
 
       })
   }

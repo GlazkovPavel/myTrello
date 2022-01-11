@@ -1,27 +1,15 @@
 <div class="menu__popup" >
   <div class="menu__popup-container">
-    <h2 class='menu__popup-title'>Привет, Имя!</h2>
-
-    <form class="menu__popup-form">
-
-      <div class="menu__popup-form-control">
-        <label for="email">E-mail:</label>
-        <input id="email" type="email" formControlName="email">
-      </div>
-
-      <div class="menu__popup-form-control">
-        <label for="name">Имя:</label>
-        <input id="name" type="text" formControlName="name">
-      </div>
-
-      <div class="menu__popup-form-control">
-        <label for="username">Имя пользователя:</label>
-        <input id="username" type="text" formControlName="username">
-      </div>
-
-      <button class="menu__popup-button" type="submit">Сохранить</button>
-
-    </form>
-
+    <div class="menu__popup-form">
+      <h2 class='menu__popup-title'>Редактирование карточки</h2>
+      <textarea
+        #textarea
+        autocomplete="off"
+        [value]="card.title"
+        class="card__textarea"
+        placeholder="Ввести значение карточки"
+        wrap="hard" autofocus></textarea>
+      <button class="menu__popup-button" (click)="saveCard(textarea.value)">Сохранить</button>
+    </div>
   </div>
 </div>
