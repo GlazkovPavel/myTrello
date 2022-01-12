@@ -14,6 +14,7 @@ export class SignUpComponent implements OnInit {
   public nameFormGroup: FormGroup;
   public emailFormGroup: FormGroup;
   public passwordFormGroup: FormGroup;
+  public userNameFormGroup: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
@@ -29,14 +30,18 @@ export class SignUpComponent implements OnInit {
     });
     this.passwordFormGroup = this.formBuilder.group({
       passwordCtrl: ['', Validators.min(8)]
-    })
-  }
+    });
+    this.userNameFormGroup = this.formBuilder.group( {
+      userNameCtrl: ['', Validators.required]
+    });
+  };
 
   submit(): void {
     const user: IUserInterface = {
       name: this.nameFormGroup.controls['nameCtrl'].value,
       email: this.emailFormGroup.controls['emailCtrl'].value,
-      password: this.passwordFormGroup.controls['passwordCtrl'].value
+      password: this.passwordFormGroup.controls['passwordCtrl'].value,
+      username: this.userNameFormGroup.controls['userNameCtrl'].value
     }
     this.authService.register(user).subscribe(() => {
       //this.route.navigate(['/'])

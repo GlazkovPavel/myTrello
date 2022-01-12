@@ -45,7 +45,7 @@ export class AuthService {
           this.loginIn(userLogin)
         }
       }),
-        catchError(() => of(null))
+        catchError(map(value => console.log(value)))
       )
   }
 

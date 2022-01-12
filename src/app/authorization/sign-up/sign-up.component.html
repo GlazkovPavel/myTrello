@@ -1,20 +1,6 @@
 <app-header></app-header>
 <mat-stepper orientation="vertical"  #stepper>
-  <mat-step [stepControl]="nameFormGroup">
-    <form [formGroup]="nameFormGroup">
-      <ng-template matStepLabel>Введите имя</ng-template>
-      <mat-form-field appearance="fill">
-        <mat-label>Имя</mat-label>
-        <input matInput
-               placeholder="Ваше имя"
-               formControlName="nameCtrl"
-               required>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperNext [disabled]="nameFormGroup.invalid">Далее</button>
-      </div>
-    </form>
-  </mat-step>
+
   <mat-step [stepControl]="emailFormGroup">
     <form [formGroup]="emailFormGroup">
       <ng-template matStepLabel>Введите электронный адрес</ng-template>
@@ -48,6 +34,38 @@
       <div>
         <button mat-button matStepperPrevious>Назад</button>
         <button mat-button matStepperNext [disabled]="passwordFormGroup.invalid">Далее</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="nameFormGroup">
+    <form [formGroup]="nameFormGroup">
+      <ng-template matStepLabel>Введите имя</ng-template>
+      <mat-form-field appearance="fill">
+        <mat-label>Имя</mat-label>
+        <input matInput
+               placeholder="Ваше имя"
+               formControlName="nameCtrl"
+               minlength="2"
+               required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext [disabled]="nameFormGroup.invalid">Далее</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="userNameFormGroup">
+    <form [formGroup]="userNameFormGroup">
+      <ng-template matStepLabel>Введите имя пользователя</ng-template>
+      <mat-form-field appearance="fill">
+        <mat-label>Имя пользователя</mat-label>
+        <input matInput
+               placeholder="Ваш логин"
+               formControlName="userNameCtrl"
+               minlength="2"
+               required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext [disabled]="userNameFormGroup.invalid">Далее</button>
       </div>
     </form>
   </mat-step>

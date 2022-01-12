@@ -12,7 +12,7 @@ import { FooterComponent } from './footer/footer.component';
 import { FieldComponent } from './field/field.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { ListDefaultComponent } from './field/list-default/list-default.component';
-import {ClickDirective} from "./directives/cliick.directive";
+import {ClickDirective} from "./shared/directives/cliick.directive";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import { CalendarComponent } from './calendar/calendar.component';
 import { SelectorComponent } from './calendar/selector/selector.component';
@@ -24,7 +24,6 @@ import { HomeComponent } from './home/home.component';
 import { TimePipe } from "./shared/pipes/time.pipe";
 import { WidgetsTaskTodayComponent } from './widgets/widgets-task-today/widgets-task-today.component';
 import { WidgetImportantTaskComponent } from './widgets/widget-important-task/widget-important-task.component';
-import { JournalComponent } from './journal/journal.component';
 import { AngularEditorModule } from "@kolkov/angular-editor";
 import { SidePanelComponent } from './field/side-panel/side-panel.component';
 import { SidePanelCardComponent } from './field/side-panel/side-panel-card/side-panel-card.component';
@@ -38,6 +37,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from "@angular/material/icon";
 import {ModalModule} from "./modal/modal.module";
+import {JournalComponent} from "./journal/journal.component";
 
 @NgModule({
   declarations: [
@@ -51,6 +51,7 @@ import {ModalModule} from "./modal/modal.module";
     FieldComponent,
     ListDefaultComponent,
     ClickDirective,
+    JournalComponent,
     CalendarComponent,
     OrzanaizerComponent,
     SelectorComponent,
@@ -60,7 +61,6 @@ import {ModalModule} from "./modal/modal.module";
     HomeComponent,
     WidgetsTaskTodayComponent,
     WidgetImportantTaskComponent,
-    JournalComponent,
     SidePanelComponent,
     SidePanelCardComponent,
     SignInComponent,
@@ -84,6 +84,11 @@ import {ModalModule} from "./modal/modal.module";
     ModalModule.forRoot()
   ],
   providers: [],
+  exports: [
+    HeaderComponent,
+    FooterComponent,
+    MomentPipe
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

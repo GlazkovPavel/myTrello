@@ -18,9 +18,13 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
   {path: 'space', component: MainComponent, canActivate: [AuthGuard]},
   {path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard]},
+  // {path: 'journal',
+  //   loadChildren: () => import('./journal/journal.module')
+  //     .then((m) => m.JournalModule)},
   {path: 'journal', component: JournalComponent, canActivate: [AuthGuard]},
+  {path: '404', component: NotFoundComponent},
 
-  {path: '**', component: NotFoundComponent}
+  {path: '**', redirectTo: '404'}
 ];
 
 @NgModule({
