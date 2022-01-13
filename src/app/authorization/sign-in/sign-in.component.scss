@@ -43,6 +43,14 @@ input{
   border: 6px;
 }
 
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+input.ng-valid {
+  border: 1px solid green;
+}
+
 
 
 

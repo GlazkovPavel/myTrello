@@ -38,6 +38,8 @@ import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from "@angular/material/icon";
 import {ModalModule} from "./modal/modal.module";
 import {JournalComponent} from "./journal/journal.component";
+import { UsernameValidatorDirective } from './shared/directives/usernameValidator.directive';
+import {UserService} from "./user-info/user.service";
 
 @NgModule({
   declarations: [
@@ -65,7 +67,8 @@ import {JournalComponent} from "./journal/journal.component";
     SidePanelCardComponent,
     SignInComponent,
     SignUpComponent,
-    MainLayoutComponent
+    MainLayoutComponent,
+    UsernameValidatorDirective
   ],
   imports: [
     BrowserModule,
@@ -83,11 +86,12 @@ import {JournalComponent} from "./journal/journal.component";
     MatIconModule,
     ModalModule.forRoot()
   ],
-  providers: [],
+  providers: [UserService],
   exports: [
     HeaderComponent,
     FooterComponent,
-    MomentPipe
+    MomentPipe,
+    UsernameValidatorDirective
   ],
   bootstrap: [AppComponent]
 })

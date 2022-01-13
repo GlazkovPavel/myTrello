@@ -2,6 +2,13 @@ import {Component, NgModule, OnInit} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {IUpdateUserInfoInterface} from "../interface/updateUserInfo.interface";
 import {ModalService} from "../modal/modal.service";
+import {AppModule} from "../app.module";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {CommonModule} from "@angular/common";
+import {UserService} from "./user.service";
+import {IUserInterface} from "../interface/user.interface";
+import {Observable, Subscription} from "rxjs";
+import {map} from "rxjs/operators";
 
 @Component({
   selector: 'app-user-info',
@@ -10,12 +17,20 @@ import {ModalService} from "../modal/modal.service";
 })
 export class UserInfoComponent implements OnInit {
 
+
   public form: FormGroup;
+  public userInfo:  IUserInterface
 
-
-  constructor(private readonly modalService: ModalService) { }
+  constructor(private readonly modalService: ModalService,
+              private readonly userService: UserService) { }
 
   ngOnInit(): void {
+
+    this.userService.getUserInfo().pipe(
+     map((v) => this.userInfo = v)
+   ).subscribe()
+
+
 
     this.form = new FormGroup({
       email: new FormControl(null,[
@@ -47,7 +62,13 @@ export class UserInfoComponent implements OnInit {
   declarations: [UserInfoComponent],
   imports: [
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AppModule,
+    MatFormFieldModule,
+    CommonModule
+  ],
+  providers: [
+    UserService
   ]
 })
 export class UserInfoModule {

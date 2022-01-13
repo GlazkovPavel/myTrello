@@ -6,20 +6,27 @@
 
       <div class="menu__popup-form-control">
         <label for="email">E-mail:</label>
-        <input id="email" type="email" formControlName="email">
+        <input id="email" type="email" formControlName="email" [value]="userInfo?.email">
       </div>
 
       <div class="menu__popup-form-control">
         <label for="name">Имя:</label>
-        <input id="name" type="text" formControlName="name">
+        <input id="name" type="text" formControlName="name" [value]="userInfo?.name">
       </div>
 
       <div class="menu__popup-form-control">
         <label for="username">Имя пользователя:</label>
-        <input id="username" type="text" formControlName="username">
+        <input
+          id="username"
+          type="text"
+          formControlName="username"
+          [value]="userInfo?.username"
+          appUsernameValidator>
+        <mat-error *ngIf="form.controls['username'].errors
+        && form.controls['username'].errors.username">{{form.controls['username'].errors.username}}</mat-error>
       </div>
 
-      <button class="menu__popup-button" type="submit">Сохранить</button>
+      <button class="menu__popup-button" type="submit" [disabled]="form.invalid">Сохранить</button>
 
     </form>
 

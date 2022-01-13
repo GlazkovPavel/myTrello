@@ -11,7 +11,7 @@
         <label for="password">Пароль:</label>
         <input id="password" type="password" formControlName="password">
       </div>
-      <button class="sign-in__button" type="submit">Войти</button>
+      <button class="sign-in__button" type="submit" [disabled]="form.invalid">Войти</button>
     </form>
   </div>
 </div>

@@ -1,4 +1,4 @@
-import {Injectable} from "@angular/core";
+import {Injectable, OnInit} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {IUserInterface} from "../../interface/user.interface";
 import {Observable, of, Subscription, throwError} from "rxjs";
@@ -9,11 +9,15 @@ import {Router} from "@angular/router";
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
-  public isAuth: boolean = false;
+export class AuthService implements OnInit{
+  public isAuth: boolean;
   private isUrl: string = 'http://localhost:3000'
 
   constructor( private http: HttpClient, private route: Router ) {
+  }
+
+  ngOnInit(): void {
+
   }
 
   loginIn(userLogin: IUserLoginInterface): Subscription {
@@ -49,9 +53,15 @@ export class AuthService {
       )
   }
 
-  isAuthenticated(): Promise<boolean> {
-    return new Promise<boolean>( resolve => {
-      resolve(this.isAuth)
-    })
+  isAuthenticated(): Observable<boolean> {
+
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      this.isAuth = true;
+      return of( true);
+    }
+    this.isAuth = false
+    return of( false);
   }
+
 }
