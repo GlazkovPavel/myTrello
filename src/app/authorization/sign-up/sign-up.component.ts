@@ -5,7 +5,8 @@ import {AuthService} from "../../shared/services/auth.service";
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {map, switchMap, tap} from "rxjs/operators";
+import {delay, tap} from "rxjs/operators";
+import {ValidationService} from "../../shared/services/validation.service";
 
 @Component({
   selector: 'app-sign-up',
@@ -14,51 +15,60 @@ import {map, switchMap, tap} from "rxjs/operators";
 })
 export class SignUpComponent implements OnInit {
 
-  public nameFormGroup: FormGroup;
-  public emailFormGroup: FormGroup;
-  public passwordFormGroup: FormGroup;
-  public userNameFormGroup: FormGroup;
+  public form: FormGroup;
+  public errorMessage: string = '';
+
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
               private http: HttpClient,
-              private route: Router
-  ) {
-  }
+              private validationService: ValidationService
+  ) {}
 
   ngOnInit(): void {
-    this.nameFormGroup = this.formBuilder.group({
-      nameCtrl: [''],
-    }, {
-      validators: [Validators.required, Validators.min(2)],
-    });
-    this.emailFormGroup = this.formBuilder.group({
-      emailCtrl: [''],
-    }, {
-      validators: [Validators.required]
-    });
-    this.passwordFormGroup = this.formBuilder.group({
-      passwordCtrl: [''],
-      cpassword: ['']
-    }, {
-      validators: [Validators.required, Validators.min(8), this.equalValidator]
-    });
-    this.userNameFormGroup = this.formBuilder.group({
-      userNameCtrl: ['', null, this.uniqueUsername.bind(this)]
-    }, {
-      validators: [Validators.required, Validators.min(2)]
-    });
-  };
+
+    this.form = new FormGroup({
+      nameCtrl: new FormControl(null, [
+        Validators.required,
+        this.validationService.usernameSpecialSymbols
+      ]),
+      emailCtrl: new FormControl(null, [
+        Validators.required,
+        Validators.email
+      ]),
+      password: new FormGroup({
+        passwordCtrl: new FormControl(null, [
+          Validators.required,
+          Validators.min(8)
+        ]),
+        cpassword: new FormControl(null, [
+          Validators.required,
+          Validators.min(8),
+        ])
+        // @ts-ignore
+
+      }, [this.equalValidator]),
+
+      userNameCtrl: new FormControl('' || null, [
+        Validators.required,
+        Validators.min(2),
+        this.validationService.usernameSpecialSymbols
+        // @ts-ignore
+      ], [this.uniqueUsername.bind(this)])
+    })
+  }
 
   submit(): void {
     const user: IUserInterface = {
-      name: this.nameFormGroup.controls['nameCtrl'].value,
-      email: this.emailFormGroup.controls['emailCtrl'].value,
-      password: this.passwordFormGroup.controls['passwordCtrl'].value,
-      username: this.userNameFormGroup.controls['userNameCtrl'].value
+      name: this.form.controls['nameCtrl'].value,
+      email: this.form.controls['emailCtrl'].value,
+      password: this.form.controls['password'].value['passwordCtrl'],
+      username: this.form.controls['userNameCtrl'].value
     }
+    console.log('user-->', user)
     this.authService.register(user).subscribe(() => {
       //this.route.navigate(['/'])
+      console.log('this.authService.register(user).subscribe')
     })
   }
 
@@ -72,17 +82,14 @@ export class SignUpComponent implements OnInit {
   public uniqueUsername({value: username}: FormControl): Observable<ValidationErrors | null> {
     return this.http.post('http://localhost:3000/username', {
       username
-    })
-    //   .pipe(tap((v) => {
-    //   //this.usernameValidator(v.data)
-    // }))
+    }).pipe(
+      tap((v) => {
+      if(v?.message){
+        return this.errorMessage = v?.message;
+      }
+      return this.errorMessage = '';
+
+    } ))
   }
 
-
-  // public usernameValidator(data: string | null): ValidationErrors | null {
-  //   return data ? {
-  //     username: 'Имя пользователя уже существует'
-  //   } : null
-  //
-  // }
 }

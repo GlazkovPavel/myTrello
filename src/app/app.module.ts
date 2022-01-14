@@ -40,6 +40,7 @@ import {ModalModule} from "./modal/modal.module";
 import {JournalComponent} from "./journal/journal.component";
 import { UsernameValidatorDirective } from './shared/directives/usernameValidator.directive';
 import {UserService} from "./user-info/user.service";
+import {ValidationService} from "./shared/services/validation.service";
 
 @NgModule({
   declarations: [
@@ -86,7 +87,7 @@ import {UserService} from "./user-info/user.service";
     MatIconModule,
     ModalModule.forRoot()
   ],
-  providers: [UserService],
+  providers: [UserService, ValidationService],
   exports: [
     HeaderComponent,
     FooterComponent,

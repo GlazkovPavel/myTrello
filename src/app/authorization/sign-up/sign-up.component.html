@@ -1,8 +1,8 @@
 <app-header></app-header>
 <mat-stepper orientation="vertical"  #stepper>
+  <form [formGroup]="form">
+  <mat-step >
 
-  <mat-step [stepControl]="emailFormGroup">
-    <form [formGroup]="emailFormGroup">
       <ng-template matStepLabel>Введите электронный адрес</ng-template>
       <mat-form-field appearance="fill">
         <mat-label>E-mail</mat-label>
@@ -15,12 +15,10 @@
       </mat-form-field>
       <div>
         <button mat-button matStepperPrevious>Назад</button>
-        <button mat-button matStepperNext [disabled]="emailFormGroup.invalid">Далее</button>
+        <button mat-button matStepperNext [disabled]="form.controls['emailCtrl'].invalid">Далее</button>
       </div>
-    </form>
   </mat-step>
-  <mat-step [stepControl]="passwordFormGroup">
-    <form [formGroup]="passwordFormGroup">
+  <mat-step  formGroupName="password">
       <ng-template matStepLabel>Введите пароль</ng-template>
       <mat-form-field appearance="fill">
         <mat-label>Пароль</mat-label>
@@ -40,16 +38,14 @@
                >
 
       </mat-form-field>
-      <mat-error *ngIf="passwordFormGroup?.errors?.password">
-        {{passwordFormGroup?.errors?.password}}</mat-error>
+      <mat-error *ngIf="form.controls['password']?.errors?.password">
+        {{form.controls['password']?.errors?.password}}</mat-error>
       <div>
         <button mat-button matStepperPrevious>Назад</button>
-        <button mat-button matStepperNext [disabled]="passwordFormGroup.invalid">Далее</button>
+        <button mat-button matStepperNext [disabled]="form.controls['password'].invalid">Далее</button>
       </div>
-    </form>
   </mat-step>
-  <mat-step [stepControl]="nameFormGroup">
-    <form [formGroup]="nameFormGroup">
+  <mat-step >
       <ng-template matStepLabel>Введите имя</ng-template>
       <mat-form-field appearance="fill">
         <mat-label>Имя</mat-label>
@@ -59,14 +55,14 @@
                minlength="2"
                >
       </mat-form-field>
+    <mat-error *ngIf="form.controls['nameCtrl'].errors
+        && form.controls['nameCtrl'].errors.username">{{form.controls['nameCtrl'].errors.username}}</mat-error>
       <div>
         <button mat-button matStepperPrevious>Назад</button>
-        <button mat-button matStepperNext [disabled]="nameFormGroup.invalid">Далее</button>
+        <button mat-button matStepperNext [disabled]="form.controls['nameCtrl'].invalid">Далее</button>
       </div>
-    </form>
   </mat-step>
-  <mat-step [stepControl]="userNameFormGroup">
-    <form [formGroup]="userNameFormGroup">
+  <mat-step >
       <ng-template matStepLabel>Введите имя пользователя</ng-template>
       <mat-form-field appearance="fill">
         <mat-label>Имя пользователя</mat-label>
@@ -76,11 +72,15 @@
                minlength="2"
                required>
       </mat-form-field>
+    <mat-error *ngIf="errorMessage">
+      {{errorMessage}}</mat-error>
+    <mat-error *ngIf="form.controls['userNameCtrl'].errors
+    && form.controls['userNameCtrl']?.errors?.username">
+      {{form.controls['userNameCtrl']?.errors?.username}}</mat-error>
       <div>
         <button mat-button matStepperPrevious>Назад</button>
-        <button mat-button matStepperNext [disabled]="userNameFormGroup.invalid">Далее</button>
+        <button mat-button matStepperNext [disabled]="form.controls['userNameCtrl'].invalid">Далее</button>
       </div>
-    </form>
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Регистрация</ng-template>
@@ -88,10 +88,12 @@
     <div>
       <button mat-button matStepperPrevious>Назад</button>
       <button mat-button (click)="stepper.reset()">Сбросить</button>
-      <button mat-button (click)="submit()">Зарегистрироваться</button>
+      <button mat-button [disabled]="form.invalid" (click)="submit()">Зарегистрироваться</button>
 
     </div>
   </mat-step>
+  </form>
 </mat-stepper>
+
 
 <app-footer></app-footer>
