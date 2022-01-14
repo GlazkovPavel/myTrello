@@ -16,10 +16,10 @@ export class UsernameValidatorDirective implements Validator{
   constructor() { }
 
 
-  validate(control: FormControl): ValidationErrors | null {
+  public validate(control: FormControl): ValidationErrors | null {
 
-    const valid = /^[a-zA-Z]*$/.test(control.value)
-    return valid ? null : { username: 'Используйте только буквы'}
+    const valid = /^[a-zA-Z0-9]*$/.test(control.value)
+    return valid ? null : { username: 'Используйте только буквы и цифры'}
   }
 
 }

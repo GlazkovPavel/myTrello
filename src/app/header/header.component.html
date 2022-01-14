@@ -1,7 +1,7 @@
 <header class="header">
   <div class="header__menu">
 
-    <button
+    <button *ngIf="isLoggedIn"
       (click)="openPopup()"
       id="menu"
       class="header__button-menu"
@@ -9,15 +9,6 @@
       <mat-icon>menu</mat-icon>
       <label for="menu">Меню</label>
     </button>
-
-<!--    <button-->
-<!--      (click)="openPop()"-->
-<!--      id="acc"-->
-<!--      class="header__button-menu"-->
-<!--      mat-icon-button aria-label="Example icon button with a vertical three dot icon">-->
-<!--      <mat-icon>mat</mat-icon>-->
-<!--      <label for="acc">acc</label>-->
-<!--    </button>-->
 
     <div class="header__logo-container">
       <a [routerLink]="['/']">

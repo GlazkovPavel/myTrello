@@ -28,9 +28,20 @@
                matInput
                formControlName="passwordCtrl"
                placeholder="Пароль"
-               minlength="8"
-               required>
+               >
       </mat-form-field>
+      <ng-template matStepLabel>Введите пароль</ng-template>
+      <mat-form-field appearance="fill">
+        <mat-label>Повторите пароль</mat-label>
+        <input type="password"
+               matInput
+               formControlName="cpassword"
+               placeholder="Пароль"
+               >
+
+      </mat-form-field>
+      <mat-error *ngIf="passwordFormGroup?.errors?.password">
+        {{passwordFormGroup?.errors?.password}}</mat-error>
       <div>
         <button mat-button matStepperPrevious>Назад</button>
         <button mat-button matStepperNext [disabled]="passwordFormGroup.invalid">Далее</button>
@@ -46,9 +57,10 @@
                placeholder="Ваше имя"
                formControlName="nameCtrl"
                minlength="2"
-               required>
+               >
       </mat-form-field>
       <div>
+        <button mat-button matStepperPrevious>Назад</button>
         <button mat-button matStepperNext [disabled]="nameFormGroup.invalid">Далее</button>
       </div>
     </form>
@@ -65,6 +77,7 @@
                required>
       </mat-form-field>
       <div>
+        <button mat-button matStepperPrevious>Назад</button>
         <button mat-button matStepperNext [disabled]="userNameFormGroup.invalid">Далее</button>
       </div>
     </form>
