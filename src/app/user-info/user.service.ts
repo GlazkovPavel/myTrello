@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {catchError, map} from "rxjs/operators";
+import {catchError, map, tap} from "rxjs/operators";
 import {IUserInterface} from "../interface/user.interface";
 import {ITaskInterface} from "../interface/task.interface";
 import {IResponseTaskInterface} from "../interface/responseTask.interface";
+import {FormControl, ValidationErrors} from "@angular/forms";
 
 
 @Injectable()
@@ -25,6 +26,15 @@ export class UserService {
       }
     }).pipe(map((res) => {
       return res
+    }))
+  }
+
+  public uniqueUsername({value: username}: FormControl): Observable<ValidationErrors | null> {
+    return this.http.post('http://localhost:3000/username', {
+      username
+    }).pipe(map((valid) => {
+      debugger
+      return !valid ? null : { usernameErr: 'Данное имя пользователя занято'}
     }))
   }
 

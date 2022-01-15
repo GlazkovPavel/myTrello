@@ -6,12 +6,25 @@
 
       <div class="menu__popup-form-control">
         <label for="email">E-mail:</label>
-        <input id="email" type="email" formControlName="email" [value]="userInfo?.email">
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+
+        >
       </div>
 
       <div class="menu__popup-form-control">
         <label for="name">Имя:</label>
-        <input id="name" type="text" formControlName="name" [value]="userInfo?.name">
+        <input
+          id="name"
+          type="text"
+          formControlName="name"
+
+          appUsernameValidator
+          >
+        <mat-error *ngIf="form?.controls['name'].errors
+        && form.controls['name'].errors.username">{{form.controls['name'].errors.username}}</mat-error>
       </div>
 
       <div class="menu__popup-form-control">
@@ -20,13 +33,23 @@
           id="username"
           type="text"
           formControlName="username"
-          [value]="userInfo?.username"
-          appUsernameValidator>
-        <mat-error *ngIf="form.controls['username'].errors
-        && form.controls['username'].errors.username">{{form.controls['username'].errors.username}}</mat-error>
-      </div>
 
-      <button class="menu__popup-button" type="submit" [disabled]="form.invalid">Сохранить</button>
+          appUsernameValidator>
+        <mat-error *ngIf="form?.controls['username'].errors
+        && form?.controls['username'].errors.username">{{form?.controls['username'].errors.username}}</mat-error>
+        <mat-error *ngIf="form.controls['username'].errors
+        && form.controls['username'].errors.usernameErr">{{form.controls['username'].errors.usernameErr}}</mat-error>
+      </div>
+      <button
+        *ngIf="isFormDisabled"
+        class="menu__popup-button"
+        type="submit"
+        (click)="onEdit()">Редактировать</button>
+
+      <button *ngIf="!isFormDisabled"
+              class="menu__popup-button"
+              type="submit"
+              [disabled]="form.invalid">Сохранить</button>
 
     </form>
 

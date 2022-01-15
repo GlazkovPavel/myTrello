@@ -2,8 +2,7 @@ import {ModuleWithProviders, NgModule} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ModalComponent } from './modal.component';
 import {ModalService} from "./modal.service";
-
-
+import {UserInfoResolver} from "../user-info/user-info.resolver";
 
 @NgModule({
   declarations: [
@@ -23,7 +22,8 @@ export class ModalModule {
       ngModule: ModalModule,
       providers: [
         ModalService,
-      ]
+        UserInfoResolver
+      ],
     }
   }
 }
