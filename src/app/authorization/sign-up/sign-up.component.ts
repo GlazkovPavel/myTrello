@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from "@angular/forms";
 import {IUserInterface} from "../../interface/user.interface";
 import {AuthService} from "../../shared/services/auth.service";
-import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {delay, tap} from "rxjs/operators";
+import {tap} from "rxjs/operators";
 import {ValidationService} from "../../shared/services/validation.service";
 
 @Component({
@@ -47,7 +46,7 @@ export class SignUpComponent implements OnInit {
         ])
         // @ts-ignore
 
-      }, [this.equalValidator]),
+      }, [this.validationService.equalValidator]),
 
       userNameCtrl: new FormControl('' || null, [
         Validators.required,
@@ -70,13 +69,6 @@ export class SignUpComponent implements OnInit {
       //this.route.navigate(['/'])
       console.log('this.authService.register(user).subscribe')
     })
-  }
-
-  public equalValidator({value}: FormGroup): ValidationErrors | null {
-    const [passwordCtrl, cpassword] = Object.values(value);
-    return passwordCtrl === cpassword ? null : {
-      password: 'Пароли не совпадают'
-    }
   }
 
   public uniqueUsername({value: username}: FormControl): Observable<ValidationErrors | null> {
