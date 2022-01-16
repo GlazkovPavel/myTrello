@@ -41,6 +41,7 @@ import {JournalComponent} from "./journal/journal.component";
 import { UsernameValidatorDirective } from './shared/directives/usernameValidator.directive';
 import {UserService} from "./user-info/user.service";
 import {ValidationService} from "./shared/services/validation.service";
+import {Header_hotComponent} from "./header_hot/header_hot.component";
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import {ValidationService} from "./shared/services/validation.service";
     SignInComponent,
     SignUpComponent,
     MainLayoutComponent,
-    UsernameValidatorDirective
+    UsernameValidatorDirective,
+    Header_hotComponent
   ],
   imports: [
     BrowserModule,

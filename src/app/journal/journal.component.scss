@@ -1,7 +1,7 @@
 .journal{
   display: flex;
   flex-direction: column;
-  max-width: 1140px;
+  max-width: 1680px;
   min-height: 70vh;
   margin: 0 auto;
 }
@@ -21,4 +21,9 @@
 .angular-editor-wrapper{
   margin: 1rem 0;
   min-height: 50vh;
+}
+
+.hot {
+  display: flex;
+  flex-direction: row;
 }

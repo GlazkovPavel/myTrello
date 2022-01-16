@@ -9,16 +9,17 @@ import {IUpdateUserInfoInterface} from "../interface/updateUserInfo.interface";
 import {ModalService} from "../modal/modal.service";
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
+  selector: 'app-header-hot',
+  templateUrl: './header_hot.component.html',
+  styleUrls: ['./header_hot.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HeaderComponent implements OnInit {
+export class Header_hotComponent implements OnInit {
 
   public isLoggedIn: boolean = false;
   public time$: Observable<string>;
   public popupOpen: boolean = false;
+  public data: number = new Date().getFullYear();
   public form: FormGroup;
 
   constructor(public auth: AuthService,
@@ -41,19 +42,6 @@ export class HeaderComponent implements OnInit {
     this.route.navigate(['/'])
   };
 
-  setNav() {
-    this.popupOpen = !this.popupOpen;
-  }
-
-  // submit() {
-  //   this.popupOpen = !this.popupOpen;
-  //   const updateUserInfo: IUpdateUserInfoInterface = {
-  //     email: this.form.controls['email'].value,
-  //     name: this.form.controls['name'].value,
-  //     username: this.form.controls['username'].value
-  //   }
-  //   console.log(updateUserInfo);
-  // }
 
   public async openPopup(): Promise<void> {
     const module = await import('../user-info/user-info.component')

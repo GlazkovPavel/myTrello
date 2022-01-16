@@ -1,20 +1,16 @@
 <header class="header">
   <div class="header__menu">
 
-    <button *ngIf="isLoggedIn"
-      (click)="openPopup()"
-      id="menu"
-      class="header__button-menu"
-      mat-icon-button aria-label="Example icon button with a vertical three dot icon">
-      <mat-icon>menu</mat-icon>
-      <label for="menu">Меню</label>
-    </button>
-
     <div class="header__logo-container">
       <a [routerLink]="['/']">
         <img class="header__logo" src="assets/images/header_white_theme.gif" alt="Logo">
       </a>
-      <span>{{time$ | async }}</span>
+    </div>
+
+    <div class="profile__foto-container" *ngIf="isLoggedIn"
+         (click)="openPopup()">
+      <button class="profile__foto-edit"></button>
+      <img class="profile__foto" alt="" src=""  />
     </div>
   </div>
 
@@ -56,6 +52,7 @@
     class="header__button"
     [routerLink]="['/journal']"
     routerLinkActive="active">Дневник</a>
+
     <a
       style="text-decoration: none"
       class="header__button"
@@ -63,4 +60,8 @@
       routerLinkActive="active">Выход</a>
 
   </div>
+
+  <footer class="footer">
+    <p class="footer__copyright">&copy; {{data}} GteTTo</p>
+  </footer>
 </header>
