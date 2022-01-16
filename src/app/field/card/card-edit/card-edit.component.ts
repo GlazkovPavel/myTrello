@@ -6,7 +6,7 @@ import {ModalService} from "../../../modal/modal.service";
 @Component({
   selector: 'app-card-edit',
   templateUrl: './card-edit.component.html',
-  styleUrls: ['./card-edit.component.scss']
+  styleUrls: ['../../../user-info/user-info.component.scss']
 })
 export class CardEditComponent implements OnInit {
 
@@ -19,6 +19,10 @@ export class CardEditComponent implements OnInit {
 
   saveCard(textarea: any) {
     console.log(textarea);
+    this.modalService.close();
+  }
+
+  isClose() {
     this.modalService.close();
   }
 }

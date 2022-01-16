@@ -1,4 +1,6 @@
 <app-header></app-header>
+<mat-error *ngIf="form.controls['username']?.errors
+        && form.controls['username'].errors?.usernameErr">{{form.controls['username']?.errors.usernameErr}}</mat-error>
 <mat-stepper orientation="vertical"  #stepper>
   <form [formGroup]="form">
   <mat-step >
@@ -55,8 +57,8 @@
                minlength="2"
                >
       </mat-form-field>
-    <mat-error *ngIf="form.controls['nameCtrl'].errors
-        && form.controls['nameCtrl'].errors.username">{{form.controls['nameCtrl'].errors.username}}</mat-error>
+    <mat-error *ngIf="form.controls['nameCtrl']?.errors
+        && form.controls['nameCtrl'].errors?.username">{{form.controls['nameCtrl']?.errors.username}}</mat-error>
       <div>
         <button mat-button matStepperPrevious>Назад</button>
         <button mat-button matStepperNext [disabled]="form.controls['nameCtrl'].invalid">Далее</button>
@@ -77,6 +79,8 @@
     <mat-error *ngIf="form.controls['userNameCtrl'].errors
     && form.controls['userNameCtrl']?.errors?.username">
       {{form.controls['userNameCtrl']?.errors?.username}}</mat-error>
+    <mat-error *ngIf="form.controls['userNameCtrl']?.errors
+        && form.controls['userNameCtrl'].errors?.usernameErr">{{form.controls['userNameCtrl']?.errors.usernameErr}}</mat-error>
       <div>
         <button mat-button matStepperPrevious>Назад</button>
         <button mat-button matStepperNext [disabled]="form.controls['userNameCtrl'].invalid">Далее</button>

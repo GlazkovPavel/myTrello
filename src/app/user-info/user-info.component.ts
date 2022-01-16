@@ -6,11 +6,7 @@ import {AppModule} from "../app.module";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {CommonModule} from "@angular/common";
 import {UserService} from "./user.service";
-import {IUserInterface} from "../interface/user.interface";
-import {map, pluck} from "rxjs/operators";
 import {ValidationService} from "../shared/services/validation.service";
-import {ActivatedRoute} from "@angular/router";
-import {Observable} from "rxjs";
 import {IUserInfoInterface} from "../interface/user-info.interface";
 
 @Component({
@@ -21,22 +17,14 @@ import {IUserInfoInterface} from "../interface/user-info.interface";
 export class UserInfoComponent implements OnInit {
 
   public form: FormGroup;
-  //public userInfo:  Observable<IUserInterface> = this.activatedRoute.root.data.pipe(pluck('userInfo'))
   public isFormDisabled: boolean = true;
 
   constructor(private readonly modalService: ModalService,
               private readonly userService: UserService,
-              private readonly validationService: ValidationService,
-              private readonly activatedRoute: ActivatedRoute) {
+              private readonly validationService: ValidationService) {
   }
 
   ngOnInit(): void {
-
-    //console.log(this.userInfo.subscribe())
-
-   //  this.userService.getUserInfo().pipe(
-   //   map((v) => this.userInfo = v)
-   // ).subscribe()
 
     const userInfo: IUserInfoInterface = JSON.parse(localStorage.getItem('userInfo'))
 
@@ -55,15 +43,9 @@ export class UserInfoComponent implements OnInit {
         Validators.min(2),
         this.validationService.usernameSpecialSymbols
         // @ts-ignore
-      ], [this.userService.uniqueUsername.bind(this.userService) ])
+      ], [this.validationService.uniqueUsername.bind(this.userService) ])
     })
   };
-
-  // public equalValidator({value}: FormGroup): ValidationErrors | null {
-  //   debugger
-  //   const [email, name, username] = Object.values(value);
-  //   return email === this.form?.controls['email'].value ? null : null
-  // }
 
   submit() {
     const updateUserInfo: IUpdateUserInfoInterface = {
@@ -78,6 +60,10 @@ export class UserInfoComponent implements OnInit {
   onEdit() {
     this.isFormDisabled = false;
     this.form.enable();
+  }
+
+  isClose() {
+    this.modalService.close();
   }
 }
 

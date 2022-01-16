@@ -1,5 +1,6 @@
 <div class="menu__popup" >
   <div class="menu__popup-container" >
+    <button class="popup__close" type="button" (click)="isClose()"></button>
     <h2 class='menu__popup-title'>Привет, Имя!</h2>
 
     <form class="menu__popup-form" [formGroup]="form" (ngSubmit)="submit()" >

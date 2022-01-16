@@ -53,7 +53,7 @@ export class SignUpComponent implements OnInit {
         Validators.min(2),
         this.validationService.usernameSpecialSymbols
         // @ts-ignore
-      ], [this.uniqueUsername.bind(this)])
+      ], [this.validationService.uniqueUsername.bind(this)])
     })
   }
 
@@ -71,17 +71,17 @@ export class SignUpComponent implements OnInit {
     })
   }
 
-  public uniqueUsername({value: username}: FormControl): Observable<ValidationErrors | null> {
-    return this.http.post('http://localhost:3000/username', {
-      username
-    }).pipe(
-      tap((v) => {
-      if(v?.message){
-        return this.errorMessage = v?.message;
-      }
-      return this.errorMessage = '';
-
-    } ))
-  }
+  // public uniqueUsername({value: username}: FormControl): Observable<ValidationErrors | null> {
+  //   return this.http.post('http://localhost:3000/username', {
+  //     username
+  //   }).pipe(
+  //     tap((v) => {
+  //     if(v?.message){
+  //       return this.errorMessage = v?.message;
+  //     }
+  //     return this.errorMessage = '';
+  //
+  //   } ))
+  // }
 
 }

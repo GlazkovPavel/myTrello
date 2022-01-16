@@ -29,13 +29,6 @@ export class UserService {
     }))
   }
 
-  public uniqueUsername({value: username}: FormControl): Observable<ValidationErrors | null> {
-    return this.http.post('http://localhost:3000/username', {
-      username
-    }).pipe(map((valid) => {
-      debugger
-      return !valid ? null : { usernameErr: 'Данное имя пользователя занято'}
-    }))
-  }
+
 
 }
