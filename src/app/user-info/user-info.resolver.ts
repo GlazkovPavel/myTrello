@@ -30,7 +30,8 @@ export class UserInfoResolver implements Resolve<IUserInfoInterface | null> {
       const userInfo: IUserInfoInterface = {
         email: res.email,
         name: res.name,
-        username: res?.username
+        username: res?.username,
+        avatar: res?.avatar
       }
       localStorage.setItem('userInfo', JSON.stringify(userInfo))
         return res

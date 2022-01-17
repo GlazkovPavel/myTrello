@@ -6,12 +6,20 @@
     <form class="menu__popup-form" [formGroup]="form" (ngSubmit)="submit()" >
 
       <div class="menu__popup-form-control">
+        <label for="avatar">Аватар:</label>
+        <input
+          id="avatar"
+          type="url"
+          formControlName="avatar"
+        >
+      </div>
+
+      <div class="menu__popup-form-control">
         <label for="email">E-mail:</label>
         <input
           id="email"
           type="email"
           formControlName="email"
-
         >
       </div>
 
@@ -21,7 +29,6 @@
           id="name"
           type="text"
           formControlName="name"
-
           appUsernameValidator
           >
         <mat-error *ngIf="form?.controls['name'].errors
@@ -34,7 +41,6 @@
           id="username"
           type="text"
           formControlName="username"
-
           appUsernameValidator>
         <mat-error *ngIf="form?.controls['username'].errors
         && form?.controls['username'].errors.username">{{form?.controls['username'].errors.username}}</mat-error>

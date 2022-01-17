@@ -10,7 +10,7 @@
     <div class="profile__foto-container" *ngIf="isLoggedIn"
          (click)="openPopup()">
       <button class="profile__foto-edit"></button>
-      <img class="profile__foto" alt="" src=""  />
+      <img class="profile__foto" alt="Аватар" src="{{userInfo.avatar}}"  />
     </div>
   </div>
 

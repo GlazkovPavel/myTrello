@@ -1,6 +1,5 @@
 import {Component, NgModule, OnInit} from '@angular/core';
-import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, Validators} from "@angular/forms";
-import {IUpdateUserInfoInterface} from "../interface/updateUserInfo.interface";
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {ModalService} from "../modal/modal.service";
 import {AppModule} from "../app.module";
 import {MatFormFieldModule} from "@angular/material/form-field";
@@ -33,6 +32,10 @@ export class UserInfoComponent implements OnInit {
         Validators.email,
         Validators.required
       ]),
+      avatar: new FormControl({value: userInfo?.avatar, disabled: true},[
+        Validators.required,
+        Validators.pattern(/^((http|https):\/\/)?(([A-Z0-9][A-Z0-9_-]*)(\.[A-Z0-9][A-Z0-9_-]*)+)/i),
+      ]),
       name: new FormControl({value: userInfo.name, disabled: true},[
         Validators.required,
         Validators.min(2),
@@ -48,11 +51,13 @@ export class UserInfoComponent implements OnInit {
   };
 
   submit() {
-    const updateUserInfo: IUpdateUserInfoInterface = {
+    const updateUserInfo: IUserInfoInterface = {
       email: this.form.controls['email'].value,
       name: this.form.controls['name'].value,
-      username: this.form.controls['username'].value
+      username: this.form.controls['username'].value,
+      avatar: this.form.controls['avatar'].value
     }
+    this.userService.updateUserInfo(updateUserInfo).subscribe()
     console.log(updateUserInfo);
     this.modalService.close();
   }
