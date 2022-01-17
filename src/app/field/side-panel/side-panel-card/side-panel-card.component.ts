@@ -21,4 +21,8 @@ export class SidePanelCardComponent implements OnInit {
   showId(id: string) {
     this.handleShowSpace.emit(id);
   }
+
+  oenCard(space: any) {
+    console.log(space)
+  }
 }

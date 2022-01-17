@@ -36,6 +36,7 @@ export class AuthService implements OnInit{
   logout() {
     this.isAuth = false;
     localStorage.removeItem('jwt');
+    localStorage.removeItem('userInfo');
   }
 
   register(user: IUserInterface): Observable<any> {

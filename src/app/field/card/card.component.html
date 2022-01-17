@@ -11,4 +11,5 @@
   <button  class="card__item-button card__item-button-important"
            [class.card__item-button-visible]="card.important"
            (click)="card.important ? onImportantDelete(card?.id) : onImportantCard(card?.id)"></button>
+  <mat-button-toggle (click)="oenCard(card)">ff</mat-button-toggle>
 </div>

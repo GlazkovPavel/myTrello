@@ -84,4 +84,8 @@ export class ListComponent implements OnInit, OnDestroy {
       this.subId.unsubscribe()
     }
   }
+
+  oenCard(list: any) {
+    console.log(list)
+  }
 }

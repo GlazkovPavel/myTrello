@@ -42,6 +42,7 @@ import {UserService} from "./user-info/user.service";
 import {ValidationService} from "./shared/services/validation.service";
 import {HeaderComponent} from "./header/header.component";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
 
 @NgModule({
   declarations: [
@@ -87,7 +88,8 @@ import {MatTooltipModule} from "@angular/material/tooltip";
     MatInputModule,
     MatIconModule,
     ModalModule.forRoot(),
-    MatTooltipModule
+    MatTooltipModule,
+    MatButtonToggleModule
   ],
   providers: [UserService, ValidationService],
   exports: [
