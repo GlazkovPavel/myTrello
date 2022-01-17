@@ -19,6 +19,7 @@ export class HeaderComponent implements OnInit {
   public isLoggedIn: boolean = false;
   public time$: Observable<string>;
   public popupOpen: boolean = false;
+  public data: number = new Date().getFullYear();
   public form: FormGroup;
 
   constructor(public auth: AuthService,
@@ -41,19 +42,6 @@ export class HeaderComponent implements OnInit {
     this.route.navigate(['/'])
   };
 
-  setNav() {
-    this.popupOpen = !this.popupOpen;
-  }
-
-  // submit() {
-  //   this.popupOpen = !this.popupOpen;
-  //   const updateUserInfo: IUpdateUserInfoInterface = {
-  //     email: this.form.controls['email'].value,
-  //     name: this.form.controls['name'].value,
-  //     username: this.form.controls['username'].value
-  //   }
-  //   console.log(updateUserInfo);
-  // }
 
   public async openPopup(): Promise<void> {
     const module = await import('../user-info/user-info.component')

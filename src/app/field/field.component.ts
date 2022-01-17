@@ -53,7 +53,6 @@ export class FieldComponent implements OnInit {
 
   spaceShow(id: string) {
     this.idSpace = '';
-    debugger;
     this.currentSpace = this.spaces.find(item => item.id === id);
     this.idSpace = id;
   }

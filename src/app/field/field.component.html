@@ -1,16 +1,15 @@
-<div class="field__main">
-  <app-side-panel  (spaceCurrent)="spaceShow($event)" (spaceItem)="handleSpaceItem($event)"></app-side-panel>
-  <ng-container *ngIf="currentSpace">
-    <div class="field" cdkDropListGroup >
-      <div *ngFor="let list of currentSpace.list" >
-        <app-list [list]="list" (handleDeleteList)="handleDeleteList($event)"></app-list>
+<div class="hot">
+  <div class="field__main">
+    <app-side-panel  (spaceCurrent)="spaceShow($event)" (spaceItem)="handleSpaceItem($event)"></app-side-panel>
+    <ng-container *ngIf="currentSpace">
+      <div class="field" cdkDropListGroup >
+        <div *ngFor="let list of currentSpace.list" >
+          <app-list [list]="list" (handleDeleteList)="handleDeleteList($event)"></app-list>
+        </div>
+
+        <app-list-default (listItem)="onAddList($event)"></app-list-default>
       </div>
-
-      <app-list-default (listItem)="onAddList($event)"></app-list-default>
-    </div>
-  </ng-container>
-
-
+    </ng-container>
+  </div>
 </div>
 
-<p *ngIf="currentSpace">{{currentSpace.id}}</p>
