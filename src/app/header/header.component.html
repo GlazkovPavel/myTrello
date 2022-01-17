@@ -1,20 +1,16 @@
 <header class="header">
   <div class="header__menu">
 
-    <button *ngIf="isLoggedIn"
-      (click)="openPopup()"
-      id="menu"
-      class="header__button-menu"
-      mat-icon-button aria-label="Example icon button with a vertical three dot icon">
-      <mat-icon>menu</mat-icon>
-      <label for="menu">Меню</label>
-    </button>
-
     <div class="header__logo-container">
       <a [routerLink]="['/']">
         <img class="header__logo" src="assets/images/header_white_theme.gif" alt="Logo">
       </a>
-      <span>{{time$ | async }}</span>
+    </div>
+
+    <div class="profile__foto-container" *ngIf="isLoggedIn"
+         (click)="openPopup()">
+      <button class="profile__foto-edit"></button>
+      <img class="profile__foto" alt="" src=""  />
     </div>
   </div>
 
@@ -40,55 +36,40 @@
       class="header__button" [routerLink]="['/home']"
       routerLinkActive="active"
       [routerLinkActiveOptions]="{exact: true}"
-    >Главная</a>
+    ><img class="header__button-image" src="assets/images/home.svg" alt="Logo"></a>
     <a
       style="text-decoration: none"
       class="header__button"
       [routerLink]="['/calendar']"
-      routerLinkActive="active">Календарь</a>
+      routerLinkActive="active">
+      <img class="header__button-image" src="assets/images/calendar.svg" alt="Logo">
+    </a>
   <a
     style="text-decoration: none"
     class="header__button"
     [routerLink]="['/space']"
-    routerLinkActive="active">Рабочее пространство</a>
+    routerLinkActive="active">
+    <img class="header__button-image" src="assets/images/workspace.svg" alt="Logo">
+  </a>
   <a
     style="text-decoration: none"
     class="header__button"
     [routerLink]="['/journal']"
-    routerLinkActive="active">Дневник</a>
+    routerLinkActive="active">
+    <img class="header__button-image" src="assets/images/journal.svg" alt="Logo">
+  </a>
+
     <a
       style="text-decoration: none"
       class="header__button"
       (click)="logout()"
-      routerLinkActive="active">Выход</a>
+      routerLinkActive="active">
+      <img class="header__button-image" src="assets/images/logout.svg" alt="Logo">
+    </a>
 
   </div>
+
+  <footer class="footer">
+    <p class="footer__copyright">&copy; {{data}} GreTTo</p>
+  </footer>
 </header>
-
-<!--<div class="menu__popup" *ngIf="popupOpen">-->
-<!--  <div class="menu__popup-container">-->
-<!--    <h2 class='menu__popup-title'>Привет, Имя!</h2>-->
-
-<!--    <form class="menu__popup-form" [formGroup]="form" (ngSubmit)="submit()">-->
-
-<!--      <div class="menu__popup-form-control">-->
-<!--        <label for="email">E-mail:</label>-->
-<!--        <input id="email" type="email" formControlName="email">-->
-<!--      </div>-->
-
-<!--      <div class="menu__popup-form-control">-->
-<!--        <label for="name">Имя:</label>-->
-<!--        <input id="name" type="text" formControlName="name">-->
-<!--      </div>-->
-
-<!--      <div class="menu__popup-form-control">-->
-<!--        <label for="username">Имя пользователя:</label>-->
-<!--        <input id="username" type="text" formControlName="username">-->
-<!--      </div>-->
-
-<!--      <button class="menu__popup-button" type="submit">Сохранить</button>-->
-
-<!--    </form>-->
-
-<!--  </div>-->
-<!--</div>-->

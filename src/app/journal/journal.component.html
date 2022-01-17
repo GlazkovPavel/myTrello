@@ -1,15 +1,16 @@
-<app-header></app-header>
-<div class="journal">
-  <p>
-    <i class="material-icons" (click)="go(-1)">arrow_left</i>
-    <span>
+<div class="hot">
+  <app-header></app-header>
+  <div class="journal">
+    <p>
+      <i class="material-icons" (click)="go(-1)">arrow_left</i>
+      <span>
     {{ dayService.date | async | moment: 'DD MMMM YYYY'}}
   </span>
-    <i class="material-icons" (click)="go(1)">arrow_right</i>
-  </p>
-  <div class="form" (clickOutside)="submit()">
-    <angular-editor [placeholder]="placeholder" [(ngModel)]="htmlContent" ></angular-editor>
-    <button type="button" (click)="submit()" class="calendar__btn calendar__btn-primary calendar__btn-block">Сохранить</button>
+      <i class="material-icons" (click)="go(1)">arrow_right</i>
+    </p>
+    <div class="form" (clickOutside)="submit()">
+      <angular-editor [placeholder]="placeholder" [(ngModel)]="htmlContent" ></angular-editor>
+      <button type="button" (click)="submit()" class="calendar__btn calendar__btn-primary calendar__btn-block">Сохранить</button>
+    </div>
   </div>
 </div>
-<app-footer></app-footer>

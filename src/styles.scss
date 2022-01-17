@@ -20,6 +20,10 @@ body {
   box-shadow: 0 0 5px gray;
 }
 
+.hot {
+  display: flex;
+  flex-direction: row;
+}
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
