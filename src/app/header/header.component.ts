@@ -5,7 +5,6 @@ import {map} from "rxjs/operators";
 import {AuthService} from "../shared/services/auth.service";
 import {Router} from "@angular/router";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {IUpdateUserInfoInterface} from "../interface/updateUserInfo.interface";
 import {ModalService} from "../modal/modal.service";
 
 @Component({
@@ -18,7 +17,6 @@ export class HeaderComponent implements OnInit {
 
   public isLoggedIn: boolean = false;
   public time$: Observable<string>;
-  public popupOpen: boolean = false;
   public data: number = new Date().getFullYear();
   public form: FormGroup;
 

@@ -32,30 +32,40 @@
   <div class="header__button-container" *ngIf="isLoggedIn">
 
     <a
-      style="text-decoration: none"
+      style="text-decoration: none; font-size: 30px"
       class="header__button" [routerLink]="['/home']"
       routerLinkActive="active"
       [routerLinkActiveOptions]="{exact: true}"
+      matTooltip="Домашняя страница"
+      matTooltipPosition="right"
     ><img class="header__button-image" src="assets/images/home.svg" alt="Logo"></a>
     <a
       style="text-decoration: none"
       class="header__button"
       [routerLink]="['/calendar']"
-      routerLinkActive="active">
+      routerLinkActive="active"
+      matTooltip="Календарь"
+      matTooltipPosition="right">
       <img class="header__button-image" src="assets/images/calendar.svg" alt="Logo">
     </a>
   <a
     style="text-decoration: none"
     class="header__button"
     [routerLink]="['/space']"
-    routerLinkActive="active">
+    routerLinkActive="active"
+    matTooltip="Рабочее пространство"
+    matTooltipPosition="right"
+  >
     <img class="header__button-image" src="assets/images/workspace.svg" alt="Logo">
   </a>
   <a
     style="text-decoration: none"
     class="header__button"
     [routerLink]="['/journal']"
-    routerLinkActive="active">
+    routerLinkActive="active"
+    matTooltip="Дневник"
+    matTooltipPosition="right"
+  >
     <img class="header__button-image" src="assets/images/journal.svg" alt="Logo">
   </a>
 
@@ -63,7 +73,10 @@
       style="text-decoration: none"
       class="header__button"
       (click)="logout()"
-      routerLinkActive="active">
+      routerLinkActive="active"
+      matTooltip="Выход"
+      matTooltipPosition="right"
+    >
       <img class="header__button-image" src="assets/images/logout.svg" alt="Logo">
     </a>
 

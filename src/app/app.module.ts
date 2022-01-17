@@ -41,6 +41,7 @@ import { UsernameValidatorDirective } from './shared/directives/usernameValidato
 import {UserService} from "./user-info/user.service";
 import {ValidationService} from "./shared/services/validation.service";
 import {HeaderComponent} from "./header/header.component";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 @NgModule({
   declarations: [
@@ -85,7 +86,8 @@ import {HeaderComponent} from "./header/header.component";
     MatButtonModule,
     MatInputModule,
     MatIconModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    MatTooltipModule
   ],
   providers: [UserService, ValidationService],
   exports: [
