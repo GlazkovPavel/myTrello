@@ -11,8 +11,7 @@ export class SidePanelCardComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onDeleteSpace() {
 
@@ -22,7 +21,4 @@ export class SidePanelCardComponent implements OnInit {
     this.handleShowSpace.emit(id);
   }
 
-  oenCard(space: any) {
-    console.log(space)
-  }
 }

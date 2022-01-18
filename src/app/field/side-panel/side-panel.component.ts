@@ -1,5 +1,4 @@
-import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
-import {IListInterface} from "../../interface/list.interface";
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {Subscription} from "rxjs";
 import {IdGeneratorService} from "../../shared/services/id-generator.service";
 import {ISpaceInterface} from "../../interface/space.interface";
@@ -12,7 +11,7 @@ import {ISpaceInterface} from "../../interface/space.interface";
 export class SidePanelComponent implements OnInit, OnDestroy {
   public value: string = '';
   public id: string | undefined;
-  public spacesArray: ISpaceInterface[] = [];
+  @Input() public spacesArray: ISpaceInterface[] = [];
   //public space: ISpaceInterface;
 
   @Output() spaceItem:  EventEmitter<ISpaceInterface> = new EventEmitter();
@@ -21,7 +20,10 @@ export class SidePanelComponent implements OnInit, OnDestroy {
 
   constructor(private idGeneratorService: IdGeneratorService) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // this.spacesArray = JSON.parse(localStorage.getItem('spaces'));
+    // console.log(this.spacesArray)
+  }
 
   showSpace(idSpace: string){
     this.spaceCurrent.emit(idSpace);

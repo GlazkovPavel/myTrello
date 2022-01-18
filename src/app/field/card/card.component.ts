@@ -30,9 +30,6 @@ export class CardComponent {
     this.handleImportantDelete.emit(id);
   }
 
-  onCard(card: any) {
-    console.log(card)
-  }
 
   public async openPopup(): Promise<void> {
     const module = await import('./card-edit/card-edit.component')

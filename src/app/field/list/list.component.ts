@@ -13,6 +13,7 @@ import {IdGeneratorService} from "../../shared/services/id-generator.service";
 export class ListComponent implements OnInit, OnDestroy {
 
   @Output() handleDeleteList: EventEmitter<string> = new EventEmitter();
+  @Output() editSpase: EventEmitter<Event> = new EventEmitter();
   @Input() list: IListInterface | undefined;
   public value: string | undefined;
   public id: string | undefined;
@@ -50,6 +51,7 @@ export class ListComponent implements OnInit, OnDestroy {
         id: this.id,
         important: this.important,
       } );
+      this.editSpase.emit()
       this.inputShow = false;
       this.value = '';
       this.id = '';
@@ -60,7 +62,8 @@ export class ListComponent implements OnInit, OnDestroy {
   handleDeleteCard(id: string) {
     this.list.card = this.list.card.filter((item) => {
       return item.id !== id
-    })
+    });
+    this.editSpase.emit();
   }
 
   onDeleteList(id: string | undefined) {
@@ -71,12 +74,14 @@ export class ListComponent implements OnInit, OnDestroy {
     this.list.card = this.list.card.map(obj =>
       obj.id === id ? { ...obj, important: true } : obj
     );
+    this.editSpase.emit()
   }
 
   handleImportantDelete(id: string) {
     this.list.card = this.list.card.map(obj =>
       obj.id === id ? { ...obj, important: false } : obj
     );
+    this.editSpase.emit()
   }
 
   ngOnDestroy(): void {
@@ -85,7 +90,4 @@ export class ListComponent implements OnInit, OnDestroy {
     }
   }
 
-  oenCard(list: any) {
-    console.log(list)
-  }
 }
