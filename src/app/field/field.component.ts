@@ -15,35 +15,36 @@ export class FieldComponent implements OnInit {
   public spaces: ISpaceInterface[] = [];
   public currentSpace: ISpaceInterface;
   private idSpace: string;
-  public spacesHot: ISpaceInterface[] = [];
 
   constructor() { }
 
   ngOnInit(): void {
-    this.spaces = JSON.parse(localStorage.getItem('spaces'));
-    console.log(this.spaces)
+    const spaces = JSON.parse(localStorage.getItem('spaces'));
+    if(spaces) {
+      this.spaces = spaces
+      this.currentSpace = this.spaces[0];
+    }
+    console.log(this.spaces);
+    return
   }
 
   onAddList($event: IListInterface) {
      this.spaces.find(item => item.id === this.idSpace).list.push($event)
-    localStorage.setItem('spaces', JSON.stringify(this.spaces));
-  }
+    this.spacesAdd()  }
 
   handleDeleteList($eventId: string | undefined) {
     this.currentSpace.list = this.currentSpace.list.filter(item => item.id !== $eventId);
-    localStorage.setItem('spaces', JSON.stringify(this.spaces));
-  }
+    this.spacesAdd()  }
 
   handleSpaceItem($event: ISpaceInterface) {
     this.spaces.push($event)
-    localStorage.setItem('spaces', JSON.stringify(this.spaces));
-  }
+    this.spacesAdd()  }
 
   spaceShow(id: string) {
     this.idSpace = '';
     this.currentSpace = this.spaces.find(item => item.id === id);
     this.idSpace = id;
-    localStorage.setItem('spaces', JSON.stringify(this.spaces));
+    this.spacesAdd()
   }
 
   spacesAdd() {

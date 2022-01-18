@@ -13,7 +13,7 @@ import {IdGeneratorService} from "../../shared/services/id-generator.service";
 export class ListComponent implements OnInit, OnDestroy {
 
   @Output() handleDeleteList: EventEmitter<string> = new EventEmitter();
-  @Output() editSpase: EventEmitter<Event> = new EventEmitter();
+  @Output() editSpaсe: EventEmitter<Event> = new EventEmitter();
   @Input() list: IListInterface | undefined;
   public value: string | undefined;
   public id: string | undefined;
@@ -36,6 +36,7 @@ export class ListComponent implements OnInit, OnDestroy {
         event.currentIndex,
       );
     }
+    this.editSpaсe.emit();
   }
 
   onAddCard() {
@@ -51,7 +52,7 @@ export class ListComponent implements OnInit, OnDestroy {
         id: this.id,
         important: this.important,
       } );
-      this.editSpase.emit()
+      this.editSpaсe.emit()
       this.inputShow = false;
       this.value = '';
       this.id = '';
@@ -63,7 +64,7 @@ export class ListComponent implements OnInit, OnDestroy {
     this.list.card = this.list.card.filter((item) => {
       return item.id !== id
     });
-    this.editSpase.emit();
+    this.editSpaсe.emit();
   }
 
   onDeleteList(id: string | undefined) {
@@ -74,14 +75,14 @@ export class ListComponent implements OnInit, OnDestroy {
     this.list.card = this.list.card.map(obj =>
       obj.id === id ? { ...obj, important: true } : obj
     );
-    this.editSpase.emit()
+    this.editSpaсe.emit()
   }
 
   handleImportantDelete(id: string) {
     this.list.card = this.list.card.map(obj =>
       obj.id === id ? { ...obj, important: false } : obj
     );
-    this.editSpase.emit()
+    this.editSpaсe.emit()
   }
 
   ngOnDestroy(): void {

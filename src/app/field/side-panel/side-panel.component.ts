@@ -12,7 +12,6 @@ export class SidePanelComponent implements OnInit, OnDestroy {
   public value: string = '';
   public id: string | undefined;
   @Input() public spacesArray: ISpaceInterface[] = [];
-  //public space: ISpaceInterface;
 
   @Output() spaceItem:  EventEmitter<ISpaceInterface> = new EventEmitter();
   @Output() spaceCurrent:  EventEmitter<string> = new EventEmitter();
@@ -20,10 +19,7 @@ export class SidePanelComponent implements OnInit, OnDestroy {
 
   constructor(private idGeneratorService: IdGeneratorService) { }
 
-  ngOnInit(): void {
-    // this.spacesArray = JSON.parse(localStorage.getItem('spaces'));
-    // console.log(this.spacesArray)
-  }
+  ngOnInit(): void {}
 
   showSpace(idSpace: string){
     this.spaceCurrent.emit(idSpace);
@@ -38,16 +34,14 @@ export class SidePanelComponent implements OnInit, OnDestroy {
         id: this.id,
         list: []
       } )
-      this.spacesArray.push({
-        title: this.value,
-        id: this.id,
-        list: []
-      })
+      // this.spacesArray.push({
+      //   title: this.value,
+      //   id: this.id,
+      //   list: []
+      // })
 
       this.id = '';
       this.value = '';
-
-      console.log(this.spacesArray)
     }
     return;
   }
