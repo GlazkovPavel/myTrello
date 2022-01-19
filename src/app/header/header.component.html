@@ -8,7 +8,9 @@
     </div>
 
     <div class="profile__foto-container" *ngIf="isLoggedIn"
-         (click)="openPopup()">
+         (click)="openPopup()"
+         matTooltip="Редактировать"
+         matTooltipPosition="right">
       <button class="profile__foto-edit"></button>
       <img class="profile__foto" alt="Аватар" src="{{userInfo.avatar}}"  />
     </div>

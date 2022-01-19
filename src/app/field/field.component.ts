@@ -49,6 +49,7 @@ export class FieldComponent implements OnInit {
 
   spacesAdd() {
     localStorage.setItem('spaces', JSON.stringify(this.spaces));
+    console.log(this.spaces)
   }
 
 }
