@@ -24,7 +24,6 @@ export class AuthService implements OnInit{
     return this.http.post<any>(`${this.isUrl}/signin`, userLogin)
       .pipe(map(({token: token}) => {
         this.isAuth = true;
-         console.log(token);
          localStorage.setItem('jwt', token);
          this.route.navigate(['/home'])
 

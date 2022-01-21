@@ -13,7 +13,7 @@ import {IdGeneratorService} from "../../shared/services/id-generator.service";
 export class ListComponent implements OnInit, OnDestroy {
 
   @Output() handleDeleteList: EventEmitter<string> = new EventEmitter();
-  @Output() editSpaсe: EventEmitter<Event> = new EventEmitter();
+  @Output() editSpace: EventEmitter<Event> = new EventEmitter();
   @Input() list: IListInterface | undefined;
   public value: string | undefined;
   public id: string | undefined;
@@ -36,7 +36,7 @@ export class ListComponent implements OnInit, OnDestroy {
         event.currentIndex,
       );
     }
-    this.editSpaсe.emit();
+    this.editSpace.emit();
   }
 
   onAddCard() {
@@ -48,11 +48,11 @@ export class ListComponent implements OnInit, OnDestroy {
       this.subId = this.idGeneratorService.onId().subscribe(
         val => this.id = val)
       this.list.card.push(<ICardInterface>{
-        title: this.value,
-        id: this.id,
-        important: this.important,
+        titleCard: this.value,
+        idCard: this.id,
+        importantCard: this.important,
       } );
-      this.editSpaсe.emit()
+      this.editSpace.emit()
       this.inputShow = false;
       this.value = '';
       this.id = '';
@@ -62,9 +62,9 @@ export class ListComponent implements OnInit, OnDestroy {
 
   handleDeleteCard(id: string) {
     this.list.card = this.list.card.filter((item) => {
-      return item.id !== id
+      return item.idCard !== id
     });
-    this.editSpaсe.emit();
+    this.editSpace.emit();
   }
 
   onDeleteList(id: string | undefined) {
@@ -73,16 +73,16 @@ export class ListComponent implements OnInit, OnDestroy {
 
   handleImportantCard(id: string) {
     this.list.card = this.list.card.map(obj =>
-      obj.id === id ? { ...obj, important: true } : obj
+      obj.idCard === id ? { ...obj, important: true } : obj
     );
-    this.editSpaсe.emit()
+    this.editSpace.emit()
   }
 
   handleImportantDelete(id: string) {
     this.list.card = this.list.card.map(obj =>
-      obj.id === id ? { ...obj, important: false } : obj
+      obj.idCard === id ? { ...obj, important: false } : obj
     );
-    this.editSpaсe.emit()
+    this.editSpace.emit()
   }
 
   ngOnDestroy(): void {

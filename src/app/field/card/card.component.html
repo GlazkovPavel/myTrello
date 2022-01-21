@@ -5,10 +5,11 @@
     mat-icon-button aria-label="Example icon button with a vertical three dot icon">
     <mat-icon>more_vert</mat-icon>
   </button>
-  <p class="card__description">{{card?.title}}</p>
+  <p class="card__description">{{card?.titleCard}}</p>
   <button  class="card__item-button card__item-button-delete"
-           (click)=" onDeleteCard(card?.id)"></button>
+           (click)=" onDeleteCard(card?.idCard)"></button>
   <button  class="card__item-button card__item-button-important"
-           [class.card__item-button-visible]="card.important"
-           (click)="card.important ? onImportantDelete(card?.id) : onImportantCard(card?.id)"></button>
+           [class.card__item-button-visible]="card.importantCard"
+           (click)="card.importantCard ?
+           onImportantDelete(card?.idCard) : onImportantCard(card?.idCard)"></button>
 </div>

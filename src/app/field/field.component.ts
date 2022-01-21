@@ -1,6 +1,8 @@
 import {Component, Injectable, OnInit} from '@angular/core';
 import {IListInterface} from "../interface/list.interface";
 import {ISpaceInterface} from "../interface/space.interface";
+import {WorkSpaceService} from "../shared/services/work-space.service";
+import {map, tap} from "rxjs/operators";
 
 @Component({
   selector: 'app-field',
@@ -16,40 +18,49 @@ export class FieldComponent implements OnInit {
   public currentSpace: ISpaceInterface;
   private idSpace: string;
 
-  constructor() { }
+  constructor(private readonly workSpaceService: WorkSpaceService) { }
 
   ngOnInit(): void {
-    const spaces = JSON.parse(localStorage.getItem('spaces'));
-    if(spaces) {
-      this.spaces = spaces
-      this.currentSpace = this.spaces[0];
-    }
-    console.log(this.spaces);
-    return
+
+    this.workSpaceService.getWorkSave().pipe(
+      tap((value: ISpaceInterface[]) => this.spaces = value )
+      ).subscribe();
+
+    this.currentSpace = this.spaces[0];
+
+    // const spaces = JSON.parse(localStorage.getItem('spaces'));
+    // if(spaces) {
+    //   this.spaces = spaces
+    //   this.currentSpace = this.spaces[0];
+    // }
+    // console.log(this.spaces);
+    // return;
   }
 
   onAddList($event: IListInterface) {
      this.spaces.find(item => item.id === this.idSpace).list.push($event)
-    this.spacesAdd()  }
+    this.spacesAdd();
+  }
 
   handleDeleteList($eventId: string | undefined) {
-    this.currentSpace.list = this.currentSpace.list.filter(item => item.id !== $eventId);
-    this.spacesAdd()  }
+    this.currentSpace.list = this.currentSpace.list.filter(item => item.idList !== $eventId);
+    this.spacesAdd();
+  }
 
   handleSpaceItem($event: ISpaceInterface) {
     this.spaces.push($event)
-    this.spacesAdd()  }
+    //this.spacesAdd();
+  }
 
   spaceShow(id: string) {
     this.idSpace = '';
     this.currentSpace = this.spaces.find(item => item.id === id);
     this.idSpace = id;
-    this.spacesAdd()
+    this.spacesAdd();
   }
 
   spacesAdd() {
-    localStorage.setItem('spaces', JSON.stringify(this.spaces));
-    console.log(this.spaces)
+    this.workSpaceService.saveWorkSpace(this.currentSpace);
   }
 
 }

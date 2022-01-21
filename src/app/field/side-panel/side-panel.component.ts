@@ -34,12 +34,6 @@ export class SidePanelComponent implements OnInit, OnDestroy {
         id: this.id,
         list: []
       } )
-      // this.spacesArray.push({
-      //   title: this.value,
-      //   id: this.id,
-      //   list: []
-      // })
-
       this.id = '';
       this.value = '';
     }

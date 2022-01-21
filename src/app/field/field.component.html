@@ -11,7 +11,7 @@
         <div *ngFor="let list of currentSpace.list" >
           <app-list [list]="list"
                     (handleDeleteList)="handleDeleteList($event)"
-                    (editSpaсe)="spacesAdd()"></app-list>
+                    (editSpace)="spacesAdd()"></app-list>
         </div>
 
         <app-list-default (listItem)="onAddList($event)"></app-list-default>
