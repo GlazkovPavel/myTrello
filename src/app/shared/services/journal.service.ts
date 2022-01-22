@@ -10,14 +10,21 @@ import {ITaskInterface} from "../../interface/task.interface";
   providedIn: 'root'
 })
 export class JournalService {
-  static url = 'https://gretto-597d2-default-rtdb.firebaseio.com/journal'
+  static url = 'http://localhost:3000'
 
   constructor( private http: HttpClient ) {}
 
   create(item: IJournalInterface): Observable<IJournalInterface>{
-    return this.http.post<any>(`${JournalService.url}/${item.date}.json`, item)
+    const jwt: string = localStorage.getItem('jwt');
+    return this.http.post<any>(`${JournalService.url}/journal`, item, {
+      headers: {
+        authorization: `Bearer ${jwt}`,
+        'Content-Type': 'application/json'
+      }
+    })
       .pipe(map((res) => {
-        return {...item, id: res.name}
+        console.log(res)
+        return {...item}
       }))
   }
 
