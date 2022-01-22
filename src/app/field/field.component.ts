@@ -26,8 +26,7 @@ export class FieldComponent implements OnInit {
       tap((value: ISpaceInterface[]) => {
         this.spaces = value;
         this.currentSpace = this.spaces[0];
-      } )
-      ).subscribe();
+      } )).subscribe();
   }
 
   onAddList($event: IListInterface) {
