@@ -31,7 +31,7 @@ export class SidePanelComponent implements OnInit, OnDestroy {
         val => this.id = val);
       this.spaceItem.emit({
         title: this.value,
-        id: this.id,
+        _id: this.id,
         list: []
       } )
       this.id = '';

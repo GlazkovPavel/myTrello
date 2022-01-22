@@ -23,44 +23,43 @@ export class FieldComponent implements OnInit {
   ngOnInit(): void {
 
     this.workSpaceService.getWorkSave().pipe(
-      tap((value: ISpaceInterface[]) => this.spaces = value )
+      tap((value: ISpaceInterface[]) => {
+        this.spaces = value;
+        this.currentSpace = this.spaces[0];
+      } )
       ).subscribe();
-
-    this.currentSpace = this.spaces[0];
-
-    // const spaces = JSON.parse(localStorage.getItem('spaces'));
-    // if(spaces) {
-    //   this.spaces = spaces
-    //   this.currentSpace = this.spaces[0];
-    // }
-    // console.log(this.spaces);
-    // return;
   }
 
   onAddList($event: IListInterface) {
-     this.spaces.find(item => item.id === this.idSpace).list.push($event)
+     this.spaces.find(item => item._id === this.idSpace).list.push($event)
     this.spacesAdd();
   }
 
   handleDeleteList($eventId: string | undefined) {
-    this.currentSpace.list = this.currentSpace.list.filter(item => item.idList !== $eventId);
+    this.currentSpace.list = this.currentSpace.list.filter(item => item._id !== $eventId);
     this.spacesAdd();
   }
 
   handleSpaceItem($event: ISpaceInterface) {
     this.spaces.push($event)
-    //this.spacesAdd();
+    this.spacesAdd();
   }
 
   spaceShow(id: string) {
     this.idSpace = '';
-    this.currentSpace = this.spaces.find(item => item.id === id);
+    this.currentSpace = this.spaces.find(item => item._id === id);
     this.idSpace = id;
     this.spacesAdd();
   }
 
   spacesAdd() {
-    this.workSpaceService.saveWorkSpace(this.currentSpace);
+    const space: ISpaceInterface = {
+      _id: this.currentSpace._id,
+      title: this.currentSpace.title,
+      list: this.currentSpace.list
+    }
+
+    this.workSpaceService.saveWorkSpace(space);
   }
 
 }

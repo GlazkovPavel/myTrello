@@ -8,7 +8,7 @@
 
     <ng-container *ngIf="currentSpace">
       <div class="field" cdkDropListGroup >
-        <div *ngFor="let list of currentSpace.list" >
+        <div *ngFor="let list of currentSpace?.list" >
           <app-list [list]="list"
                     (handleDeleteList)="handleDeleteList($event)"
                     (editSpace)="spacesAdd()"></app-list>

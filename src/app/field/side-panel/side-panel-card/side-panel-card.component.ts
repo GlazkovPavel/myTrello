@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ISpaceInterface} from "../../../interface/space.interface";
 
 @Component({
   selector: 'app-side-panel-card',
@@ -7,7 +8,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 })
 export class SidePanelCardComponent implements OnInit {
   @Output() public handleShowSpace: EventEmitter<string> = new EventEmitter<string>()
-  @Input() public spaces: any;
+  @Input() public spaces: ISpaceInterface[];
 
   constructor() { }
 

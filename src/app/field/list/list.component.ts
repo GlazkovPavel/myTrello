@@ -18,7 +18,7 @@ export class ListComponent implements OnInit, OnDestroy {
   public value: string | undefined;
   public id: string | undefined;
   public inputShow: boolean = false;
-  public important: boolean = false;
+  public importantCard: boolean = false;
   private subId: Subscription;
 
   constructor(private idGeneratorService: IdGeneratorService) { }
@@ -49,8 +49,8 @@ export class ListComponent implements OnInit, OnDestroy {
         val => this.id = val)
       this.list.card.push(<ICardInterface>{
         titleCard: this.value,
-        idCard: this.id,
-        importantCard: this.important,
+        _id: this.id,
+        importantCard: this.importantCard,
       } );
       this.editSpace.emit()
       this.inputShow = false;
@@ -62,7 +62,7 @@ export class ListComponent implements OnInit, OnDestroy {
 
   handleDeleteCard(id: string) {
     this.list.card = this.list.card.filter((item) => {
-      return item.idCard !== id
+      return item._id !== id
     });
     this.editSpace.emit();
   }
@@ -73,14 +73,14 @@ export class ListComponent implements OnInit, OnDestroy {
 
   handleImportantCard(id: string) {
     this.list.card = this.list.card.map(obj =>
-      obj.idCard === id ? { ...obj, important: true } : obj
+      obj._id === id ? { ...obj, importantCard: true } : obj
     );
     this.editSpace.emit()
   }
 
   handleImportantDelete(id: string) {
     this.list.card = this.list.card.map(obj =>
-      obj.idCard === id ? { ...obj, important: false } : obj
+      obj._id === id ? { ...obj, importantCard: false } : obj
     );
     this.editSpace.emit()
   }

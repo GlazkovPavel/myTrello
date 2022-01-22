@@ -1,6 +1,6 @@
 
 export interface ICardInterface {
   titleCard?: string,
-  idCard?: string,
+  _id?: string,
   importantCard: boolean
 }

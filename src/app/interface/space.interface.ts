@@ -2,6 +2,6 @@ import {IListInterface} from "./list.interface";
 
 export interface ISpaceInterface {
   title?: string,
-  id?: string,
+  _id?: string,
   list?: IListInterface[]
 }

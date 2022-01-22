@@ -7,9 +7,9 @@
   </button>
   <p class="card__description">{{card?.titleCard}}</p>
   <button  class="card__item-button card__item-button-delete"
-           (click)=" onDeleteCard(card?.idCard)"></button>
+           (click)=" onDeleteCard(card?._id)"></button>
   <button  class="card__item-button card__item-button-important"
            [class.card__item-button-visible]="card.importantCard"
            (click)="card.importantCard ?
-           onImportantDelete(card?.idCard) : onImportantCard(card?.idCard)"></button>
+           onImportantDelete(card?._id) : onImportantCard(card?._id)"></button>
 </div>

@@ -40,8 +40,4 @@ export class CardComponent {
       }
     })
   }
-
-  oenCard(card: ICardInterface) {
-    console.log(card)
-  }
 }
