@@ -15,6 +15,7 @@ export class SidePanelComponent implements OnInit, OnDestroy {
 
   @Output() spaceItem:  EventEmitter<ISpaceInterface> = new EventEmitter();
   @Output() spaceCurrent:  EventEmitter<string> = new EventEmitter();
+  @Output() handleDeleteSpaceId:  EventEmitter<string> = new EventEmitter();
   private subId: Subscription;
 
   constructor(private idGeneratorService: IdGeneratorService) { }
@@ -23,6 +24,10 @@ export class SidePanelComponent implements OnInit, OnDestroy {
 
   showSpace(idSpace: string){
     this.spaceCurrent.emit(idSpace);
+  }
+
+  handleSpaceId($event: string) {
+    this.handleDeleteSpaceId.emit($event)
   }
 
   onAddSpace() {
@@ -45,4 +50,5 @@ export class SidePanelComponent implements OnInit, OnDestroy {
       this.subId.unsubscribe()
     }
   }
+
 }

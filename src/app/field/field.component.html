@@ -3,6 +3,7 @@
     <app-side-panel
       (spaceCurrent)="spaceShow($event)"
       (spaceItem)="handleSpaceItem($event)"
+      (handleDeleteSpaceId)="handleDeleteSpaceId($event)"
       [spacesArray]="spaces"
     ></app-side-panel>
 

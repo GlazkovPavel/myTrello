@@ -21,22 +21,29 @@ export class WorkSpaceService {
         'Content-Type': 'application/json'
       }
     })
-      .pipe(map((value:ISpaceInterface) => {
-
-          console.log(value);
-        }),
+      .pipe(
         catchError(() => of(null))
       ).subscribe()
   }
 
   public getWorkSave(): Observable<ISpaceInterface[]> {
+  const jwt: string = localStorage.getItem('jwt');
     return this.http.get<ISpaceInterface[]>(`${this.isUrl}/work-space`, {
+      headers: {
+        authorization: `Bearer ${jwt}`,
+        'Content-Type': 'application/json'
+      }
+    })
+}
+
+  public deleteWorkSpace(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.isUrl}/work-space/${id}`, {
       headers: {
         authorization: `Bearer ${this.jwt}`,
         'Content-Type': 'application/json'
       }
     })
-}
+  }
 
 
 }

@@ -30,7 +30,7 @@ export class FieldComponent implements OnInit {
   }
 
   onAddList($event: IListInterface) {
-     this.spaces.find(item => item._id === this.idSpace).list.push($event)
+     this.currentSpace.list.push($event)
     this.spacesAdd();
   }
 
@@ -61,4 +61,11 @@ export class FieldComponent implements OnInit {
     this.workSpaceService.saveWorkSpace(space);
   }
 
+  handleDeleteSpaceId(id: string) {
+    this.workSpaceService.deleteWorkSpace(id).subscribe(
+      () => {
+        this.spaces = this.spaces.filter(item => item._id !== id);
+      }
+    )
+  }
 }
