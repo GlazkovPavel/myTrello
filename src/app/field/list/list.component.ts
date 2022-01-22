@@ -13,11 +13,12 @@ import {IdGeneratorService} from "../../shared/services/id-generator.service";
 export class ListComponent implements OnInit, OnDestroy {
 
   @Output() handleDeleteList: EventEmitter<string> = new EventEmitter();
+  @Output() editSpace: EventEmitter<Event> = new EventEmitter();
   @Input() list: IListInterface | undefined;
   public value: string | undefined;
   public id: string | undefined;
   public inputShow: boolean = false;
-  public important: boolean = false;
+  public importantCard: boolean = false;
   private subId: Subscription;
 
   constructor(private idGeneratorService: IdGeneratorService) { }
@@ -35,6 +36,7 @@ export class ListComponent implements OnInit, OnDestroy {
         event.currentIndex,
       );
     }
+    this.editSpace.emit();
   }
 
   onAddCard() {
@@ -46,10 +48,11 @@ export class ListComponent implements OnInit, OnDestroy {
       this.subId = this.idGeneratorService.onId().subscribe(
         val => this.id = val)
       this.list.card.push(<ICardInterface>{
-        title: this.value,
-        id: this.id,
-        important: this.important,
+        titleCard: this.value,
+        _id: this.id,
+        importantCard: this.importantCard,
       } );
+      this.editSpace.emit()
       this.inputShow = false;
       this.value = '';
       this.id = '';
@@ -59,8 +62,9 @@ export class ListComponent implements OnInit, OnDestroy {
 
   handleDeleteCard(id: string) {
     this.list.card = this.list.card.filter((item) => {
-      return item.id !== id
-    })
+      return item._id !== id
+    });
+    this.editSpace.emit();
   }
 
   onDeleteList(id: string | undefined) {
@@ -69,14 +73,16 @@ export class ListComponent implements OnInit, OnDestroy {
 
   handleImportantCard(id: string) {
     this.list.card = this.list.card.map(obj =>
-      obj.id === id ? { ...obj, important: true } : obj
+      obj._id === id ? { ...obj, importantCard: true } : obj
     );
+    this.editSpace.emit()
   }
 
   handleImportantDelete(id: string) {
     this.list.card = this.list.card.map(obj =>
-      obj.id === id ? { ...obj, important: false } : obj
+      obj._id === id ? { ...obj, importantCard: false } : obj
     );
+    this.editSpace.emit()
   }
 
   ngOnDestroy(): void {
@@ -84,4 +90,5 @@ export class ListComponent implements OnInit, OnDestroy {
       this.subId.unsubscribe()
     }
   }
+
 }

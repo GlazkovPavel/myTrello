@@ -2,7 +2,11 @@
      (cdkDropListDropped)="drop($event)"
      [cdkDropListData]="list.card"
      (clickOutside)="onSend()">
-  <input type="text" class="input__list list__container" [value]="list?.title" placeholder="Назовите лист" >
+  <input
+    type="text"
+    class="input__list list__container"
+    [value]="list?.titleList"
+    placeholder="Назовите лист">
   <div *ngFor="let card of list.card" cdkDrag>
     <app-card [card]="card"
               (handleDeleteCard)="handleDeleteCard($event)"
@@ -22,6 +26,7 @@
 
   <button class="list__button" (click)="onAddCard()">+  Добавить карточку</button>
   <button  class="list__item-button"
-           (click)=" onDeleteList(list?.id)"></button>
+           (click)=" onDeleteList(list?._id)"></button>
+
 
 </div>

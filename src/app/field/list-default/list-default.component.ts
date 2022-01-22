@@ -20,11 +20,14 @@ export class ListDefaultComponent implements OnInit, OnDestroy {
   ngOnInit(): void {}
 
   onAddList() {
+    if(!this.value){
+      return
+    }
     this.subId = this.idGeneratorService.onId().subscribe(
       val => this.id = val);
     this.listItem.emit({
-      title: this.value,
-      id: this.id,
+      titleList: this.value,
+      _id: this.id,
       card: []
     } )
     this.id = '';

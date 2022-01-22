@@ -1,5 +1,4 @@
-import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
-import {IListInterface} from "../../interface/list.interface";
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {Subscription} from "rxjs";
 import {IdGeneratorService} from "../../shared/services/id-generator.service";
 import {ISpaceInterface} from "../../interface/space.interface";
@@ -12,11 +11,11 @@ import {ISpaceInterface} from "../../interface/space.interface";
 export class SidePanelComponent implements OnInit, OnDestroy {
   public value: string = '';
   public id: string | undefined;
-  public spacesArray: ISpaceInterface[] = [];
-  //public space: ISpaceInterface;
+  @Input() public spacesArray: ISpaceInterface[] = [];
 
   @Output() spaceItem:  EventEmitter<ISpaceInterface> = new EventEmitter();
   @Output() spaceCurrent:  EventEmitter<string> = new EventEmitter();
+  @Output() handleDeleteSpaceId:  EventEmitter<string> = new EventEmitter();
   private subId: Subscription;
 
   constructor(private idGeneratorService: IdGeneratorService) { }
@@ -27,25 +26,21 @@ export class SidePanelComponent implements OnInit, OnDestroy {
     this.spaceCurrent.emit(idSpace);
   }
 
+  handleSpaceId($event: string) {
+    this.handleDeleteSpaceId.emit($event)
+  }
+
   onAddSpace() {
     if(this.value){
       this.subId = this.idGeneratorService.onId().subscribe(
         val => this.id = val);
       this.spaceItem.emit({
         title: this.value,
-        id: this.id,
+        _id: this.id,
         list: []
       } )
-      this.spacesArray.push({
-        title: this.value,
-        id: this.id,
-        list: []
-      })
-
       this.id = '';
       this.value = '';
-
-      console.log(this.spacesArray)
     }
     return;
   }
@@ -55,4 +50,5 @@ export class SidePanelComponent implements OnInit, OnDestroy {
       this.subId.unsubscribe()
     }
   }
+
 }

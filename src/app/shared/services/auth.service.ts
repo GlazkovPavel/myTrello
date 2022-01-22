@@ -24,7 +24,6 @@ export class AuthService implements OnInit{
     return this.http.post<any>(`${this.isUrl}/signin`, userLogin)
       .pipe(map(({token: token}) => {
         this.isAuth = true;
-         console.log(token);
          localStorage.setItem('jwt', token);
          this.route.navigate(['/home'])
 
@@ -36,6 +35,7 @@ export class AuthService implements OnInit{
   logout() {
     this.isAuth = false;
     localStorage.removeItem('jwt');
+    localStorage.removeItem('userInfo');
   }
 
   register(user: IUserInterface): Observable<any> {

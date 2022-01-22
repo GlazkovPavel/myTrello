@@ -13,17 +13,18 @@ import {IUserInfoInterface} from "../interface/user-info.interface";
 export class UserInfoResolver implements Resolve<IUserInfoInterface | null> {
 
   private isUrl: string = 'http://localhost:3000';
-  private jwt: string = localStorage.getItem('jwt');
+
 
 
   constructor(private http: HttpClient) {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IUserInfoInterface | null> {
+  const jwt: string = localStorage.getItem('jwt');
 
     return this.http.get<IUserInfoInterface | null>(`${this.isUrl}/users/me`, {
       headers: {
-        authorization: `Bearer ${this.jwt}`,
+        authorization: `Bearer ${jwt}`,
         'Content-Type': 'application/json'
       }
     }).pipe(map((res: IUserInfoInterface | null) => {

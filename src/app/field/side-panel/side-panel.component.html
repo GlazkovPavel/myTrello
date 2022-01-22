@@ -3,6 +3,7 @@
     *ngIf="spacesArray.length"
     [spaces]="spacesArray"
     (handleShowSpace)="showSpace($event)"
+    (handleSpaceId)="handleSpaceId($event)"
   ></app-side-panel-card>
   <textarea
     type="text"
