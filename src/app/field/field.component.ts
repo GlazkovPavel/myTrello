@@ -2,7 +2,7 @@ import {Component, Injectable, OnInit} from '@angular/core';
 import {IListInterface} from "../interface/list.interface";
 import {ISpaceInterface} from "../interface/space.interface";
 import {WorkSpaceService} from "../shared/services/work-space.service";
-import {map, tap} from "rxjs/operators";
+import {tap} from "rxjs/operators";
 
 @Component({
   selector: 'app-field',
@@ -53,9 +53,9 @@ export class FieldComponent implements OnInit {
 
   spacesAdd() {
     const space: ISpaceInterface = {
-      _id: this.currentSpace._id,
-      title: this.currentSpace.title,
-      list: this.currentSpace.list
+      _id: this.currentSpace?._id,
+      title: this.currentSpace?.title,
+      list: this.currentSpace?.list
     }
 
     this.workSpaceService.saveWorkSpace(space);
