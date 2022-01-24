@@ -4,9 +4,8 @@ import {interval, Observable} from "rxjs";
 import {map} from "rxjs/operators";
 import {AuthService} from "../shared/services/auth.service";
 import {Router} from "@angular/router";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import { FormGroup} from "@angular/forms";
 import {ModalService} from "../modal/modal.service";
-import {parse} from "@angular/compiler/src/render3/view/style_parser";
 import {IUserInfoInterface} from "../interface/user-info.interface";
 
 @Component({
