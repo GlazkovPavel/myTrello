@@ -33,7 +33,6 @@ export class JournalComponent implements OnInit {
         if (i) {
           this.htmlContent = i.text
           this.idItem = i.date
-          console.log('Load', i);
         }
         this.placeholder = `Записей на ${this.dayService.date.value.format('L')} нет. Пора начать ;)`
     })
@@ -52,23 +51,13 @@ export class JournalComponent implements OnInit {
       date: this.dateService.date.value.format('DD-MM-YYYY')
     };
 
-    if(this.idItem) {
-      this.journalService.update(value).subscribe(
-        item => {
-          this.htmlContent = item.text
-          this.idItem = item.date
-        }
-      );
-      console.log('Update', value)
-    } else if (this.htmlContent){
+    if (this.htmlContent){
 
       this.journalService.create(value).subscribe(
         item => {
           this.htmlContent = item.text
           this.idItem = item.date
-        }
-      );
-      console.log('Create', value);
+        });
     }
     return;
   }

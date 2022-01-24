@@ -10,20 +10,19 @@ import {ITaskInterface} from "../../interface/task.interface";
   providedIn: 'root'
 })
 export class JournalService {
-  static url = 'https://gretto-597d2-default-rtdb.firebaseio.com/journal'
+  static url = 'http://localhost:3000'
 
   constructor( private http: HttpClient ) {}
 
-  create(item: IJournalInterface): Observable<IJournalInterface>{
-    return this.http.post<any>(`${JournalService.url}/${item.date}.json`, item)
-      .pipe(map((res) => {
-        return {...item, id: res.name}
-      }))
-  }
-
   load(date: moment.Moment): Observable<IJournalInterface>{
+    const jwt: string = localStorage.getItem('jwt');
     return this.http
-      .get<IJournalInterface>(`${JournalService.url}/${date.format('DD-MM-YYYY')}.json`)
+      .get<IJournalInterface>(`${JournalService.url}/journal/${date.format('DD-MM-YYYY')}`, {
+        headers: {
+          authorization: `Bearer ${jwt}`,
+          'Content-Type': 'application/json'
+        }
+      })
       .pipe(map(res => {
         if (res) {
           return res;
@@ -32,8 +31,14 @@ export class JournalService {
       }))
   }
 
-  update(item: IJournalInterface): Observable<IJournalInterface>{
-    return this.http.put<any>(`${JournalService.url}/${item.date}.json`, item)
+  create(item: IJournalInterface): Observable<IJournalInterface>{
+    const jwt: string = localStorage.getItem('jwt');
+    return this.http.post<any>(`${JournalService.url}/journal`, item, {
+      headers: {
+        authorization: `Bearer ${jwt}`,
+        'Content-Type': 'application/json'
+      }
+    })
       .pipe(map((res) => {
         return {...item, id: res.name}
       }))

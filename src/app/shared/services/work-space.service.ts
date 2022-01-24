@@ -14,10 +14,10 @@ export class WorkSpaceService {
   constructor( private http: HttpClient ) {}
 
   public saveWorkSpace(currentSpace: ISpaceInterface) {
-
+    const jwt: string = localStorage.getItem('jwt');
     return this.http.post<ISpaceInterface>(`${this.isUrl}/work-space`, currentSpace, {
       headers: {
-        authorization: `Bearer ${this.jwt}`,
+        authorization: `Bearer ${jwt}`,
         'Content-Type': 'application/json'
       }
     })
