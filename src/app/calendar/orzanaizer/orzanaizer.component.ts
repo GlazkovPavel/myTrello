@@ -13,8 +13,8 @@ import {JournalService} from "../../shared/services/journal.service";
 })
 export class OrzanaizerComponent implements OnInit {
 
-  form: FormGroup;
-  tasks: ITaskInterface[];
+  public form: FormGroup;
+  public tasks: ITaskInterface[] = [];
 
   constructor(public dateService: DateService,
               private tasksService: TaskService) { }
@@ -36,12 +36,13 @@ export class OrzanaizerComponent implements OnInit {
 
     const task: ITaskInterface = {
       title,
-      date: this.dateService.date.value.format('DD-MM-YYYY')
+      date: this.dateService.date.value.format('DD-MM-YYYY'),
     };
 
     this.tasksService.create(task).subscribe(task => {
-      this.tasks.push(task);
+      this.tasks.push(task)
       this.form.reset();
+
     }, error => console.log(error))
 
   };
@@ -49,7 +50,7 @@ export class OrzanaizerComponent implements OnInit {
   remove(task: ITaskInterface) {
     this.tasksService.remove(task).subscribe(
       () => {
-        this.tasks = this.tasks.filter(t => t.id !== task.id)
+        this.tasks = this.tasks.filter(t => t._id !== task._id)
       },
       error => console.log(error)
     )

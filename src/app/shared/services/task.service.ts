@@ -8,32 +8,51 @@ import * as moment from "moment";
 
 @Injectable({providedIn: 'root'})
 export class TaskService {
-  static url = 'https://gretto-597d2-default-rtdb.firebaseio.com/task'
+  static url = 'http://localhost:3000'
 
   constructor(private http: HttpClient ) {
   }
 
   create(task: ITaskInterface): Observable<ITaskInterface>{
-    return this.http.post<IResponseTaskInterface>(`${TaskService.url}/${task.date}.json`, task)
+    const jwt: string = localStorage.getItem('jwt');
+
+    return this.http.post<IResponseTaskInterface>(`${TaskService.url}/tasks`, task, {
+      headers: {
+        authorization: `Bearer ${jwt}`,
+        'Content-Type': 'application/json'
+      }
+    })
       .pipe(map((res) => {
-        return {...task, id: res.name}
+        return {...task, _id: res._id}
       }))
   }
 
   load(date: moment.Moment): Observable<ITaskInterface[]> {
+    const jwt: string = localStorage.getItem('jwt');
     return this.http
-      .get<ITaskInterface[]>(`${TaskService.url}/${date.format('DD-MM-YYYY')}.json`)
+      .get<ITaskInterface[]>(`${TaskService.url}/tasks/${date.format('DD-MM-YYYY')}`, {
+        headers: {
+          authorization: `Bearer ${jwt}`,
+          'Content-Type': 'application/json'
+        }
+      })
       .pipe(map(tasks => {
         if (!tasks) {
           return []
         }
-        // @ts-ignore
-        return Object.keys(tasks).map(key => ({...tasks[key], id: key}))
+        return tasks
       }))
   }
 
   remove(task: ITaskInterface): Observable<void> {
-    return this.http.delete<void>(`${TaskService.url}/${task.date}/${task.id}.json`)
+    const jwt: string = localStorage.getItem('jwt');
+
+    return this.http.delete<void>(`${TaskService.url}/tasks/${task._id}`, {
+      headers: {
+        authorization: `Bearer ${jwt}`,
+        'Content-Type': 'application/json'
+      }
+    })
   }
 
 }

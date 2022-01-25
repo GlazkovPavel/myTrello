@@ -1,14 +1,10 @@
 section {
   border: 1px solid #000;
   border-radius: 4px;
-  padding: 1rem;
+  padding:.8rem;
   header {
     margin-bottom: 1rem;
   }
-}
-
-.calendar__header {
-  margin-bottom: 1rem;
 }
 
 .task{
@@ -38,9 +34,6 @@ main{
   overflow: auto;
 }
 
-p{
-  margin: 2rem;
-}
 
 strong{
   padding: 0 .5rem;

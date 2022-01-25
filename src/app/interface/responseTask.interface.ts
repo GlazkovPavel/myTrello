@@ -1,3 +1,3 @@
 export interface IResponseTaskInterface{
-  name: string
+  _id: string
 }
