@@ -1,6 +1,6 @@
 import {
   Directive,
-  HostListener, HostBinding,
+  HostListener, Renderer2, ElementRef,
 } from '@angular/core'
 
 @Directive({
@@ -8,18 +8,47 @@ import {
 })
 export class BoldDirective {
 
-  private fontWeight = 'grab'
-
-  @HostBinding('style.cursor') get getFontWeight() {
-    return this.fontWeight
+  constructor(
+    private element: ElementRef,
+    private renderer: Renderer2
+  ) {
+    this.renderer.setStyle(
+      this.element.nativeElement,
+      'cursor',
+      'grab'
+    )
   }
 
-  @HostListener('mousedown') onMouseEnter() {
-    this.fontWeight = 'grabbing'
+  @HostListener('mousedown') onMouseDown() {
+    this.setMouseEvent('grabbing');
+    this.setTransform('rotate(-10deg)');
   }
 
-  @HostListener('mouseup') onMouseLeave() {
-    this.fontWeight = 'grab'
+  @HostListener('mouseup') onMouseUp() {
+    this.setMouseEvent('grab');
+    this.setTransform('rotate(0)');
+  }
+
+  @HostListener('mouseleave') mouseleave() {
+    this.setMouseEvent('grab');
+    this.setTransform('rotate(0)');
+
+  }
+
+  private setMouseEvent(val: string) {
+    this.renderer.setStyle(
+      this.element.nativeElement,
+      'cursor',
+      val
+    )
+  };
+
+  private setTransform(val: string) {
+    this.renderer.setStyle(
+      this.element.nativeElement,
+      'transform',
+      val,
+    )
   }
 }
 

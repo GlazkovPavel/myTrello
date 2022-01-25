@@ -1,11 +1,13 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {ICardInterface} from "../../interface/card.interface";
 import {ModalService} from "../../modal/modal.service";
+import {state, style, trigger} from "@angular/animations";
 
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
-  styleUrls: ['./card.component.scss']
+  styleUrls: ['./card.component.scss'],
+
 })
 export class CardComponent {
 
@@ -40,4 +42,5 @@ export class CardComponent {
       }
     })
   }
+
 }
