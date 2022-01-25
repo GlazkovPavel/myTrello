@@ -6,7 +6,7 @@ import {
 @Directive({
   selector: '[appMousedown]'
 })
-export class BoldDirective {
+export class MousedownDirective {
 
   constructor(
     private element: ElementRef,

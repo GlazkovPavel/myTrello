@@ -43,7 +43,7 @@ import {ValidationService} from "./shared/services/validation.service";
 import {HeaderComponent} from "./header/header.component";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
-import {BoldDirective} from './shared/directives/mousedown.directive';
+import {MousedownDirective} from './shared/directives/mousedown.directive';
 
 @NgModule({
   declarations: [
@@ -57,7 +57,7 @@ import {BoldDirective} from './shared/directives/mousedown.directive';
     FieldComponent,
     ListDefaultComponent,
     ClickDirective,
-    BoldDirective,
+    MousedownDirective,
     JournalComponent,
     CalendarComponent,
     OrzanaizerComponent,
