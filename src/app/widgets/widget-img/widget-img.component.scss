@@ -1,0 +1,25 @@
+.article{
+  background-color: white;
+  width: 500px;
+  display: flex;
+  padding: 10px;
+
+}
+
+.article__container{
+  border: 1px solid grey;
+}
+
+.article__img{
+  width: 300px;
+}
+
+.article__description{
+  display: flex;
+  flex-direction: column;
+  margin-left: 30px;
+}
+
+.article__description-title{
+  font-weight: 700;
+}

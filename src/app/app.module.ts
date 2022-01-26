@@ -44,6 +44,7 @@ import {HeaderComponent} from "./header/header.component";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {MousedownDirective} from './shared/directives/mousedown.directive';
+import { WidgetImgComponent } from './widgets/widget-img/widget-img.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import {MousedownDirective} from './shared/directives/mousedown.directive';
     SignUpComponent,
     MainLayoutComponent,
     UsernameValidatorDirective,
+    WidgetImgComponent,
   ],
   imports: [
     BrowserModule,

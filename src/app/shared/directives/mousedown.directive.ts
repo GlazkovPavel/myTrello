@@ -2,6 +2,7 @@ import {
   Directive,
   HostListener, Renderer2, ElementRef,
 } from '@angular/core'
+import {swipe$} from "../utils/swipe";
 
 @Directive({
   selector: '[appMousedown]'
@@ -23,12 +24,18 @@ export class MousedownDirective {
 
   @HostListener('mousedown') onMouseDown() {
     this.setMouseEvent('grabbing');
-    this.setTransform('rotate(-10deg)');
+    swipe$.subscribe((v) => {
+      if (v > 0) {
+        this.setTransform('rotate(-10deg)');
+        return;
+      }
+      this.setTransform('rotate(10deg)');
+    })
+    //this.setTransform('rotate(-10deg)');
   }
 
   @HostListener('mousemove') onMouseMove() {
-    this.setMouseEvent('grabbing');
-    this.setTransform('rotate(-10deg)');
+
   }
 
   @HostListener('mouseup') onMouseUp() {
@@ -37,6 +44,11 @@ export class MousedownDirective {
   }
 
   @HostListener('mouseleave') mouseleave() {
+    this.setMouseEvent('grab');
+    this.setTransform('rotate(0)');
+
+  }
+  @HostListener('mouseout') mouseOut() {
     this.setMouseEvent('grab');
     this.setTransform('rotate(0)');
 
@@ -57,7 +69,7 @@ export class MousedownDirective {
       val,
     )
   }
-  
+
 
 }
 

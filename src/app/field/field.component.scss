@@ -8,3 +8,12 @@
   flex-direction: row;
 
 }
+.title{
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  letter-spacing: 0.4rem;
+  text-shadow: 3px -3px 2px #0db096;
+  font-weight: 500;
+  font-size: 24px;
+}

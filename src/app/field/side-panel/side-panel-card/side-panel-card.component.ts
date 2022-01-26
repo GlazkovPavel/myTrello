@@ -11,6 +11,7 @@ export class SidePanelCardComponent implements OnInit {
   @Output() public handleSpaceId: EventEmitter<string> = new EventEmitter<string>()
 
   @Input() public spaces: ISpaceInterface[];
+  public activeSpace: boolean = false;
 
   constructor() { }
 
@@ -20,8 +21,9 @@ export class SidePanelCardComponent implements OnInit {
     this.handleSpaceId.emit(space._id)
   }
 
-  showId(id: string) {
+  showSpace(id: string) {
     this.handleShowSpace.emit(id);
+    this.activeSpace = true
   }
 
 }

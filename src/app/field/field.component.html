@@ -8,6 +8,7 @@
     ></app-side-panel>
 
     <ng-container *ngIf="currentSpace">
+      <span class="title">{{currentSpace.title}}</span>
       <div class="field" cdkDropListGroup >
         <div *ngFor="let list of currentSpace?.list" >
           <app-list [list]="list"

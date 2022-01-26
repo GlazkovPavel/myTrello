@@ -1,3 +1,6 @@
+.active{
+  background-color: aquamarine !important;
+}
 .card{
   margin: 0 auto;
   width: 90%;
@@ -57,5 +60,6 @@
   box-shadow: 0 0 6px 2px gray;
   background: #f5f5ef;
   padding: 5px;
+  cursor: pointer;
 
 }

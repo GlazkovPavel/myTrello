@@ -40,11 +40,16 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   onAddCard() {
+    if(this.value) {
+      this.onSend();
+      this.inputShow = false;
+    }
     this.inputShow = true;
   }
 
   onSend() {
     if (this.value) {
+      this.inputShow = false;
       this.subId = this.idGeneratorService.onId().subscribe(
         val => this.id = val)
       this.list.card.push(<ICardInterface>{
@@ -53,7 +58,7 @@ export class ListComponent implements OnInit, OnDestroy {
         importantCard: this.importantCard,
       } );
       this.editSpace.emit()
-      this.inputShow = false;
+
       this.value = '';
       this.id = '';
     }
