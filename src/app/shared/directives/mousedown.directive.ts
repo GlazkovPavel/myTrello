@@ -8,6 +8,8 @@ import {
 })
 export class MousedownDirective {
 
+  public value: WindowEventHandlers;
+
   constructor(
     private element: ElementRef,
     private renderer: Renderer2
@@ -20,6 +22,11 @@ export class MousedownDirective {
   }
 
   @HostListener('mousedown') onMouseDown() {
+    this.setMouseEvent('grabbing');
+    this.setTransform('rotate(-10deg)');
+  }
+
+  @HostListener('mousemove') onMouseMove() {
     this.setMouseEvent('grabbing');
     this.setTransform('rotate(-10deg)');
   }
@@ -50,5 +57,7 @@ export class MousedownDirective {
       val,
     )
   }
+  
+
 }
 

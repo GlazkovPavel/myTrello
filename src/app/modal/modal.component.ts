@@ -9,7 +9,7 @@ import {
 import {ModalService} from "./modal.service";
 import {IModalDataInterface} from "../interface/modalData.interface";
 import {takeUntil} from "rxjs/operators";
-import { UnSubscriber } from "../utils/unsubscriber";
+import { UnSubscriber } from "../shared/utils/unsubscriber";
 
 @Component({
   selector: 'app-modal',
