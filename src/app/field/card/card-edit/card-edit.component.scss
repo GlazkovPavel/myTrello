@@ -11,8 +11,8 @@
   z-index: 1;
 
   &-container {
-    width: 360px;
-    height: 300px;
+    max-width: 660px;
+    max-height: 65vh;
     position: absolute;
     margin: auto;
     padding: 6px;
@@ -55,4 +55,22 @@
     box-shadow: 0 0 5px 2px gray;
   }
 
+}
+.popup__close{
+  background: url('../../../../assets/images/close_module_Icon.svg');
+  overflow: hidden;
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-repeat: no-repeat;
+  position: absolute;
+  right: -30px;
+  top: -30px;
+  cursor: pointer;
+  outline: none;
+  transition: transform .8s ease-in-out;
+}
+.popup__close:hover{
+  opacity: .6;
+  transform: rotate(360deg);
 }

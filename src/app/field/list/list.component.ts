@@ -4,6 +4,8 @@ import {ICardInterface} from "../../interface/card.interface";
 import {IListInterface} from "../../interface/list.interface";
 import { Subscription } from "rxjs";
 import {IdGeneratorService} from "../../shared/services/id-generator.service";
+import {ModalService} from "../../modal/modal.service";
+import {FieldComponent} from "../field.component";
 
 @Component({
   selector: 'app-list',
@@ -21,9 +23,13 @@ export class ListComponent implements OnInit, OnDestroy {
   public importantCard: boolean = false;
   private subId: Subscription;
 
-  constructor(private idGeneratorService: IdGeneratorService) { }
+  constructor(private idGeneratorService: IdGeneratorService,
+              private modalService: ModalService,
+              private fieldService: FieldComponent) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+  }
 
   drop(event: CdkDragDrop<ICardInterface[], any>) {
     if (event.previousContainer === event.container) {
@@ -46,6 +52,19 @@ export class ListComponent implements OnInit, OnDestroy {
     }
     this.inputShow = true;
   }
+
+  //onEdit(card: ICardInterface){
+
+    //
+    // setTimeout(() => {
+    //   this.list.card = this.list.card.map(obj =>
+    //     obj._id === card._id ? { ...obj, titleCard: card.titleCard } : obj
+    //   );
+    // }, 0)
+
+    //localStorage.setItem('cardEdit', JSON.stringify(card))
+    //this.editSpace.emit()
+  //}
 
   onSend() {
     if (this.value) {

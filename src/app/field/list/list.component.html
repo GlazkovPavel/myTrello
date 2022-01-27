@@ -1,7 +1,8 @@
 <div cdkDropList class="list list__container"
      (cdkDropListDropped)="drop($event)"
      [cdkDropListData]="list.card"
-     (clickOutside)="onSend()">
+     (clickOutside)="onSend()"
+>
   <input
     type="text"
     class="input__list list__container"

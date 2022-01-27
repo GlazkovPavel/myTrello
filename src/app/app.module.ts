@@ -95,7 +95,7 @@ import { WidgetImgComponent } from './widgets/widget-img/widget-img.component';
     MatTooltipModule,
     MatButtonToggleModule
   ],
-  providers: [UserService, ValidationService],
+  providers: [UserService, ValidationService, ListComponent],
   exports: [
     HeaderComponent,
     FooterComponent,

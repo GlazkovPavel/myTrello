@@ -3,14 +3,9 @@
     <button class="popup__close" type="button" (click)="isClose()"></button>
     <div class="menu__popup-form">
       <h2 class='menu__popup-title'>Редактирование карточки</h2>
-      <textarea
-        #textarea
-        autocomplete="off"
-        [value]="card.titleCard"
-        class="card__textarea"
-        placeholder="Ввести значение карточки"
-        wrap="hard" autofocus></textarea>
-      <button class="menu__popup-button" (click)="saveCard(textarea.value)">Сохранить</button>
+      <angular-editor [placeholder]="placeholder" [(ngModel)]="htmlContent" ></angular-editor>
+
+      <button class="menu__popup-button" (click)="saveCard(card)">Сохранить</button>
     </div>
   </div>
 </div>
