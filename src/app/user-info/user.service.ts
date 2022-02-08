@@ -6,7 +6,7 @@ import {IUserInterface} from "../interface/user.interface";
 import {ITaskInterface} from "../interface/task.interface";
 import {IResponseTaskInterface} from "../interface/responseTask.interface";
 import {FormControl, ValidationErrors} from "@angular/forms";
-import {IUserInfoInterface} from "../interface/user-info.interface";
+import {IUserInfoInterface, IUserInfoInterfaceResponse} from "../interface/user-info.interface";
 
 
 @Injectable()
@@ -30,21 +30,20 @@ export class UserService {
   //   }))
   // }
 
-  public updateUserInfo(userInfo: IUserInfoInterface): Observable<IUserInfoInterface>{
+  public updateUserInfo(userInfo: IUserInfoInterface): Observable<IUserInfoInterfaceResponse>{
 
-    return this.http.patch<IUserInfoInterface>(`${this.isUrl}/users/me`,
+    return this.http.patch<IUserInfoInterfaceResponse>(`${this.isUrl}/users/me`,
       userInfo, {
         headers: {
           authorization: `Bearer ${this.jwt}`,
           'Content-Type': 'application/json'
         }
-      }).pipe(map((res: IUserInfoInterface | null) => {
-        debugger
+      }).pipe(map((res: IUserInfoInterfaceResponse | null) => {
       const userInfo: IUserInfoInterface = {
-        email: res.email,
-        name: res.name,
-        username: res?.username,
-        avatar: res?.avatar
+        email: res.data.email,
+        name: res.data.name,
+        username: res?.data.username,
+        avatar: res?.data.avatar
       }
       localStorage.setItem('userInfo', JSON.stringify(userInfo))
       return res

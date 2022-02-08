@@ -1,15 +1,14 @@
-import {Component, Injectable, OnInit} from '@angular/core';
+import { Component, Injectable, OnInit} from '@angular/core';
 import {IListInterface} from "../interface/list.interface";
 import {ISpaceInterface} from "../interface/space.interface";
 import {WorkSpaceService} from "../shared/services/work-space.service";
-import {map, tap} from "rxjs/operators";
-import {ICardInterface} from "../interface/card.interface";
-import {Observable} from "rxjs";
+import {map} from "rxjs/operators";
+
 
 @Component({
   selector: 'app-field',
   templateUrl: './field.component.html',
-  styleUrls: ['./field.component.scss']
+  styleUrls: ['./field.component.scss'],
 })
 @Injectable({
   providedIn: 'root'
@@ -19,24 +18,16 @@ export class FieldComponent implements OnInit {
   public spaces: ISpaceInterface[] = [];
   public currentSpace: ISpaceInterface;
   private idSpace: string;
-  public proverka$: Observable<IListInterface>;
 
   constructor(private readonly workSpaceService: WorkSpaceService) {}
 
   ngOnInit(): void {
 
     this.workSpaceService.getWorkSave().pipe(
-      tap((value: ISpaceInterface[]) => {
+      map((value: ISpaceInterface[]) => {
         this.spaces = value;
         this.currentSpace = this.spaces[0];
-      } ),
-    map((value) => {
-      // @ts-ignore
-      this.proverka$ = value[0]
-    }),
-      tap(() => {
-        console.log(this.proverka$)
-      })).subscribe();
+      } )).subscribe();
 
 
   }

@@ -58,7 +58,6 @@ export class UserInfoComponent implements OnInit {
       avatar: this.form.controls['avatar'].value
     }
     this.userService.updateUserInfo(updateUserInfo).subscribe()
-    console.log(updateUserInfo);
     this.modalService.close();
   }
 

@@ -3,5 +3,7 @@ export interface IUserInfoInterface {
   email: string,
   username: string,
   avatar?: string
-
+}
+export interface IUserInfoInterfaceResponse {
+  data: IUserInfoInterface
 }
