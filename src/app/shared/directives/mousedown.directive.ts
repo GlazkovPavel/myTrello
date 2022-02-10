@@ -31,22 +31,10 @@ export class MousedownDirective {
       }
       this.setTransform('rotate(10deg)');
     })
-    //this.setTransform('rotate(-10deg)');
-  }
-
-  @HostListener('mousemove') onMouseMove() {
-
   }
 
   @HostListener('mouseup') onMouseUp() {
     this.setMouseEvent('grab');
-    this.setTransform('rotate(0)');
-  }
-
-  @HostListener('mouseleave') mouseleave() {
-    this.setMouseEvent('grab');
-    this.setTransform('rotate(0)');
-
   }
   @HostListener('mouseout') mouseOut() {
     this.setMouseEvent('grab');

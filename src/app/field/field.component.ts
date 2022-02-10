@@ -29,7 +29,6 @@ export class FieldComponent implements OnInit {
         this.currentSpace = this.spaces[0];
       } )).subscribe();
 
-
   }
 
   onAddList($event: IListInterface) {

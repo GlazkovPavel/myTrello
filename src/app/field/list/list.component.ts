@@ -1,11 +1,18 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component, ElementRef,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import {ICardInterface} from "../../interface/card.interface";
 import {IListInterface} from "../../interface/list.interface";
 import { Subscription } from "rxjs";
 import {IdGeneratorService} from "../../shared/services/id-generator.service";
-import {ModalService} from "../../modal/modal.service";
-import {FieldComponent} from "../field.component";
 
 @Component({
   selector: 'app-list',
@@ -16,24 +23,21 @@ import {FieldComponent} from "../field.component";
 })
 export class ListComponent implements OnInit, OnDestroy {
 
-  @Output() handleDeleteList: EventEmitter<string> = new EventEmitter();
-  @Output() editSpace: EventEmitter<Event> = new EventEmitter();
-  @Input() list: IListInterface | undefined;
+  @Output() public handleDeleteList: EventEmitter<string> = new EventEmitter();
+  @Output() public editSpace: EventEmitter<Event> = new EventEmitter();
+  @Input() public list: IListInterface | undefined;
+  @ViewChild('input') public input: ElementRef;
   public value: string | undefined;
   public id: string | undefined;
   public inputShow: boolean = false;
   public importantCard: boolean = false;
   private subId: Subscription;
 
-  constructor(private idGeneratorService: IdGeneratorService,
-              private modalService: ModalService,
-              private fieldService: FieldComponent) { }
+  constructor(private idGeneratorService: IdGeneratorService) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
 
-  }
-
-  drop(event: CdkDragDrop<ICardInterface[], any>) {
+  public drop(event: CdkDragDrop<ICardInterface[], any>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -47,7 +51,7 @@ export class ListComponent implements OnInit, OnDestroy {
     this.editSpace.emit();
   }
 
-  onAddCard() {
+  public onAddCard() {
     if(this.value) {
       this.onSend();
       this.inputShow = false;
@@ -55,20 +59,7 @@ export class ListComponent implements OnInit, OnDestroy {
     this.inputShow = true;
   }
 
-  //onEdit(card: ICardInterface){
-
-    //
-    // setTimeout(() => {
-    //   this.list.card = this.list.card.map(obj =>
-    //     obj._id === card._id ? { ...obj, titleCard: card.titleCard } : obj
-    //   );
-    // }, 0)
-
-    //localStorage.setItem('cardEdit', JSON.stringify(card))
-    //this.editSpace.emit()
-  //}
-
-  onSend() {
+  public onSend() {
     if (this.value) {
       this.inputShow = false;
       this.subId = this.idGeneratorService.onId().subscribe(
@@ -86,25 +77,33 @@ export class ListComponent implements OnInit, OnDestroy {
     this.inputShow = false;
   }
 
-  handleDeleteCard(id: string) {
+  public onSendInput() {
+    if (this.list?.titleList === this.input.nativeElement.value) {
+      return;
+    }
+    this.list.titleList = this.input.nativeElement.value
+    this.editSpace.emit();
+  }
+
+  public handleDeleteCard(id: string) {
     this.list.card = this.list.card.filter((item) => {
       return item._id !== id
     });
     this.editSpace.emit();
   }
 
-  onDeleteList(id: string | undefined) {
+  public onDeleteList(id: string | undefined) {
     this.handleDeleteList.emit(id);
   }
 
-  handleImportantCard(id: string) {
+  public handleImportantCard(id: string) {
     this.list.card = this.list.card.map(obj =>
       obj._id === id ? { ...obj, importantCard: true } : obj
     );
     this.editSpace.emit()
   }
 
-  handleImportantDelete(id: string) {
+  public handleImportantDelete(id: string) {
     this.list.card = this.list.card.map(obj =>
       obj._id === id ? { ...obj, importantCard: false } : obj
     );

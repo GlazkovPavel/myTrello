@@ -4,10 +4,12 @@
      (clickOutside)="onSend()"
 >
   <input
+    #input
     type="text"
     class="input__list list__container"
     [value]="list?.titleList"
-    placeholder="Назовите лист">
+    placeholder="Назовите лист"
+    (clickOutside)="onSendInput()">
   <div *ngFor="let card of list.card" cdkDrag>
     <app-card [card]="card"
               (handleDeleteCard)="handleDeleteCard($event)"
