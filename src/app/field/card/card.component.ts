@@ -15,6 +15,7 @@ export class CardComponent {
   @Output() handleImportantDelete: EventEmitter<string> = new EventEmitter();
   @Input() card: ICardInterface | undefined
   public value: string = '';
+  public showEditCard: boolean = false;
 
   constructor(private readonly modalService: ModalService) {
   }
@@ -32,13 +33,11 @@ export class CardComponent {
   }
 
 
-  public async openPopup(): Promise<void> {
-    const module = await import('./card-edit/card-edit.component')
-    this.modalService.open({
-      component: module.CardEditComponent,
-      context: {
-        card: {...this.card}
-      }
-    })
+  public  openPopup() {
+    this.showEditCard = true;
+  }
+
+  closeModal($event: boolean) {
+    this.showEditCard = $event;
   }
 }

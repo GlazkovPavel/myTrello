@@ -14,3 +14,9 @@
            (click)="card.importantCard ?
            onImportantDelete(card?._id) : onImportantCard(card?._id)"></button>
 </div>
+
+<ng-container *ngIf="showEditCard">
+  <app-card-edit
+  (closeModal)="closeModal(false)"
+  ></app-card-edit>
+</ng-container>

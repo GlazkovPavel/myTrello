@@ -1,9 +1,6 @@
-import {Component, NgModule, OnInit} from '@angular/core';
+import {Component, ComponentRef, EventEmitter, HostListener, OnInit, Output} from '@angular/core';
 import {ICardInterface} from "../../../interface/card.interface";
-import {FormsModule} from "@angular/forms";
 import {ModalService} from "../../../modal/modal.service";
-import {AppModule} from "../../../app.module";
-import {AngularEditorModule} from "@kolkov/angular-editor";
 import {ListComponent} from "../../list/list.component";
 
 @Component({
@@ -12,6 +9,8 @@ import {ListComponent} from "../../list/list.component";
   styleUrls: ['./card-edit.component.scss']
 })
 export class CardEditComponent implements OnInit {
+
+  @Output() closeModal: EventEmitter<boolean> = new EventEmitter();
 
   public card: ICardInterface;
   public placeholder: string;
@@ -30,23 +29,19 @@ export class CardEditComponent implements OnInit {
       titleCard: this.htmlContent,
       importantCard: card.importantCard
     }
-    //this.listComponent.onEdit(cardEdit)
+    this.listComponent.onEdit(cardEdit)
     this.modalService.close();
   }
 
-  isClose() {
-    this.modalService.close();
+
+
+  @HostListener('window:keyup', ['$event.keyCode'])
+  public isClose(code: number = 27): void {
+    if(code !== 27) {
+      return;
+    }
+      this.closeModal.emit(false)
+
   }
 }
 
-@NgModule({
-  imports: [
-    FormsModule,
-    AppModule,
-    AngularEditorModule
-  ],
-  declarations: [CardEditComponent]
-})
-export class CardEditModule {
-
-}

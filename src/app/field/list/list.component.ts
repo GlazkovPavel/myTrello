@@ -116,4 +116,10 @@ export class ListComponent implements OnInit, OnDestroy {
     }
   }
 
+  onEdit(cardEdit: ICardInterface) {
+    this.list.card = this.list?.card.map(obj =>
+      obj._id === cardEdit._id ? { ...obj, titleCard: cardEdit.titleCard } : obj
+    );
+    this.editSpace.emit()
+  }
 }

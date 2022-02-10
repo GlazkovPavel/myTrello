@@ -45,6 +45,7 @@ import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {MousedownDirective} from './shared/directives/mousedown.directive';
 import { WidgetImgComponent } from './widgets/widget-img/widget-img.component';
+import {CardEditComponent} from "./field/card/card-edit/card-edit.component";
 
 @NgModule({
   declarations: [
@@ -76,25 +77,26 @@ import { WidgetImgComponent } from './widgets/widget-img/widget-img.component';
     MainLayoutComponent,
     UsernameValidatorDirective,
     WidgetImgComponent,
+    CardEditComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    FormsModule,
-    DragDropModule,
-    HttpClientModule,
-    AngularEditorModule,
-    BrowserAnimationsModule,
-    MatStepperModule,
-    MatFormFieldModule,
-    MatButtonModule,
-    MatInputModule,
-    MatIconModule,
-    ModalModule.forRoot(),
-    MatTooltipModule,
-    MatButtonToggleModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        FormsModule,
+        DragDropModule,
+        HttpClientModule,
+        AngularEditorModule,
+        BrowserAnimationsModule,
+        MatStepperModule,
+        MatFormFieldModule,
+        MatButtonModule,
+        MatInputModule,
+        MatIconModule,
+        ModalModule.forRoot(),
+        MatTooltipModule,
+        MatButtonToggleModule,
+    ],
   providers: [UserService, ValidationService, ListComponent],
   exports: [
     HeaderComponent,
