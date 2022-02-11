@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ISpaceInterface} from "../../../interface/space.interface";
 
 @Component({
@@ -7,9 +7,9 @@ import {ISpaceInterface} from "../../../interface/space.interface";
   styleUrls: ['./side-panel-card.component.scss']
 })
 export class SidePanelCardComponent implements OnInit {
-  @Output() public handleShowSpace: EventEmitter<string> = new EventEmitter<string>()
-  @Output() public handleSpaceId: EventEmitter<string> = new EventEmitter<string>()
 
+  @Output() public handleShowSpace: EventEmitter<string> = new EventEmitter<string>()
+  @Output() public handleSpace: EventEmitter<string> = new EventEmitter<string>()
   @Input() public spaces: ISpaceInterface[];
   public activeSpace: boolean = false;
 
@@ -17,13 +17,13 @@ export class SidePanelCardComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onDeleteSpace(space: ISpaceInterface) {
-    this.handleSpaceId.emit(space._id)
+
+  showSpace($event: string) {
+    this.handleShowSpace.emit($event)
+
   }
 
-  showSpace(id: string) {
-    this.handleShowSpace.emit(id);
-    this.activeSpace = true
+  handleSpaceId($event: string) {
+    this.handleSpace.emit($event)
   }
-
 }

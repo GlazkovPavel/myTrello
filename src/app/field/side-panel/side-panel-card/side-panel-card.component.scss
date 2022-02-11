@@ -1,6 +1,3 @@
-.active{
-  background-color: aquamarine !important;
-}
 .card{
   margin: 0 auto;
   width: 90%;
@@ -61,5 +58,9 @@
   background: #f5f5ef;
   padding: 5px;
   cursor: pointer;
+
+  &-active {
+    background-color: #0db096;
+  }
 
 }

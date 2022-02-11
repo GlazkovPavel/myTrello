@@ -132,4 +132,8 @@ export class ListComponent implements OnInit, OnDestroy {
   public showEditCard($event: boolean) {
     this.showEditCardModal = $event;
   }
+
+  editCardData(cardEdit: ICardInterface) {
+    this.editCard = cardEdit;
+  }
 }

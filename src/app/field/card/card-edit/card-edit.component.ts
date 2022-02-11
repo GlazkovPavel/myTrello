@@ -17,8 +17,7 @@ export class CardEditComponent implements OnInit {
   public placeholder: string;
   public htmlContent: string;
 
-  constructor(private readonly modalService: ModalService,
-              private listComponent: ListComponent) { }
+  constructor(private listComponent: ListComponent) { }
 
   ngOnInit(): void {
     this.htmlContent = this.editCard.titleCard;
@@ -30,8 +29,8 @@ export class CardEditComponent implements OnInit {
       titleCard: this.htmlContent,
       importantCard: card.importantCard
     }
-    this.listComponent.onEdit(cardEdit)
-    this.modalService.close();
+    this.listComponent.onEdit(cardEdit);
+    this.closeModal.emit(false);
   }
 
 

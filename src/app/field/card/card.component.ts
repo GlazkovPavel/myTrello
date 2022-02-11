@@ -14,8 +14,10 @@ export class CardComponent {
   @Output() handleImportantCard: EventEmitter<string> = new EventEmitter();
   @Output() handleImportantDelete: EventEmitter<string> = new EventEmitter();
   @Output() showEditCard: EventEmitter<boolean> = new EventEmitter();
+  @Output() editCardData: EventEmitter<ICardInterface> = new EventEmitter();
+
   @Input() card: ICardInterface | undefined
-  public editCard: ICardInterface;
+  //public editCard: ICardInterface;
   public value: string = '';
 
   constructor(private readonly modalService: ModalService) {
@@ -36,7 +38,9 @@ export class CardComponent {
 
   public  openPopup(card: ICardInterface) {
     this.showEditCard.emit(true);
-    this.editCard = card;
+    this.editCardData.emit(card);
+
+    //this.editCard = card;
   }
 
 

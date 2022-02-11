@@ -46,6 +46,7 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {MousedownDirective} from './shared/directives/mousedown.directive';
 import { WidgetImgComponent } from './widgets/widget-img/widget-img.component';
 import {CardEditComponent} from "./field/card/card-edit/card-edit.component";
+import { CurrentCardComponent } from './field/side-panel/side-panel-card/current-card/current-card.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import {CardEditComponent} from "./field/card/card-edit/card-edit.component";
     MainLayoutComponent,
     UsernameValidatorDirective,
     WidgetImgComponent,
-    CardEditComponent
+    CardEditComponent,
+    CurrentCardComponent
   ],
     imports: [
         BrowserModule,

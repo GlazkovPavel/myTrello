@@ -10,12 +10,13 @@
     [value]="list?.titleList"
     placeholder="Назовите лист"
     (clickOutside)="onSendInput()">
-  <div *ngFor="let card of list.card" cdkDrag="0">
+  <div *ngFor="let card of list.card" cdkDrag>
     <app-card [card]="card"
               (handleDeleteCard)="handleDeleteCard($event)"
               (handleImportantDelete)="handleImportantDelete($event)"
               (handleImportantCard)="handleImportantCard($event)"
               (showEditCard)="showEditCard($event)"
+              (editCardData)="editCardData($event)"
     ></app-card>
   </div>
 
