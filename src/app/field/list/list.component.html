@@ -15,6 +15,7 @@
               (handleDeleteCard)="handleDeleteCard($event)"
               (handleImportantDelete)="handleImportantDelete($event)"
               (handleImportantCard)="handleImportantCard($event)"
+              (showEditCard)="showEditCard($event)"
     ></app-card>
   </div>
 
@@ -31,5 +32,11 @@
   <button  class="list__item-button"
            (click)=" onDeleteList(list?._id)"></button>
 
-
 </div>
+
+<ng-container *ngIf="showEditCardModal">
+  <app-card-edit
+    (closeModal)="closeModal(false)"
+    [editCard]="editCard"
+  ></app-card-edit>
+</ng-container>

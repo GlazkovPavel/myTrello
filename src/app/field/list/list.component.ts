@@ -31,6 +31,8 @@ export class ListComponent implements OnInit, OnDestroy {
   public id: string | undefined;
   public inputShow: boolean = false;
   public importantCard: boolean = false;
+  public showEditCardModal: boolean = false;
+  public editCard: ICardInterface;
   private subId: Subscription;
 
   constructor(private idGeneratorService: IdGeneratorService) { }
@@ -116,10 +118,18 @@ export class ListComponent implements OnInit, OnDestroy {
     }
   }
 
-  onEdit(cardEdit: ICardInterface) {
+  public onEdit(cardEdit: ICardInterface) {
     this.list.card = this.list?.card.map(obj =>
       obj._id === cardEdit._id ? { ...obj, titleCard: cardEdit.titleCard } : obj
     );
     this.editSpace.emit()
+  }
+
+  public closeModal($event: boolean) {
+    this.showEditCardModal = $event;
+  }
+
+  public showEditCard($event: boolean) {
+    this.showEditCardModal = $event;
   }
 }
