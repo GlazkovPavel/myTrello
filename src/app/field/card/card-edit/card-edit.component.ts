@@ -1,4 +1,4 @@
-import {Component, ComponentRef, EventEmitter, HostListener, OnInit, Output} from '@angular/core';
+import {Component, ComponentRef, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
 import {ICardInterface} from "../../../interface/card.interface";
 import {ModalService} from "../../../modal/modal.service";
 import {ListComponent} from "../../list/list.component";
@@ -10,7 +10,8 @@ import {ListComponent} from "../../list/list.component";
 })
 export class CardEditComponent implements OnInit {
 
-  @Output() closeModal: EventEmitter<boolean> = new EventEmitter();
+  @Output() public closeModal: EventEmitter<boolean> = new EventEmitter();
+  @Input() public editCard: ICardInterface;
 
   public card: ICardInterface;
   public placeholder: string;
@@ -20,7 +21,7 @@ export class CardEditComponent implements OnInit {
               private listComponent: ListComponent) { }
 
   ngOnInit(): void {
-    this.htmlContent = this.card.titleCard
+    this.htmlContent = this.editCard.titleCard;
   }
 
   saveCard(card: ICardInterface) {

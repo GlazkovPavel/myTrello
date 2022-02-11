@@ -1,6 +1,6 @@
 <div class="card" appMousedown>
   <button
-    (click)="openPopup()"
+    (click)="openPopup(card)"
     class="card__item-button card__item-button-edit"
     mat-icon-button aria-label="Example icon button with a vertical three dot icon">
     <mat-icon>more_vert</mat-icon>
@@ -18,5 +18,6 @@
 <ng-container *ngIf="showEditCard">
   <app-card-edit
   (closeModal)="closeModal(false)"
+  [editCard]="editCard"
   ></app-card-edit>
 </ng-container>
