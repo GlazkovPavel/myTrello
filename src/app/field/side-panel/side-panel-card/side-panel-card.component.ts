@@ -11,7 +11,6 @@ export class SidePanelCardComponent implements OnInit {
   @Output() public handleShowSpace: EventEmitter<string> = new EventEmitter<string>()
   @Output() public handleSpace: EventEmitter<string> = new EventEmitter<string>()
   @Input() public spaces: ISpaceInterface[];
-  public activeSpace: boolean = false;
 
   constructor() { }
 
