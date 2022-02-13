@@ -1,0 +1,12 @@
+
+<div class="add-container">
+  <span class="photo-container">
+    <ng-container *ngIf="mask.avatar; else initials">
+        <img class="photo"  src="{{mask.avatar}}" alt="{{mask.name}}">
+    </ng-container>
+
+    <ng-template #initials>
+    <span class="initials">{{firstLetter}}</span>
+  </ng-template>
+  </span>
+</div>

@@ -10,7 +10,7 @@ import {IUserInfoInterface, IUserInfoInterfaceResponse} from "../interface/user-
 
 
 @Injectable()
-export class UserService {
+export class UserCheckService {
 
   private isUrl: string = 'http://localhost:3000';
   private jwt: string = localStorage.getItem('jwt');

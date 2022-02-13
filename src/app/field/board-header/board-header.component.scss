@@ -1,0 +1,54 @@
+.board{
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0;
+  padding: 36px 12px 24px 24px;
+
+  &__input {
+    width: 15vw;
+    border-radius: 6px;
+   }
+}
+
+.button{
+  width: 98px;
+  height: 32px;
+  background-color: #F2F2F2;
+  border-radius: 8px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: -0.035em;
+  color: #828282;
+  border: none;
+  cursor: pointer;
+}
+
+.button-lock{
+  background: url("../../../assets/images/lock.svg") 12px no-repeat;
+  background-color: #F2F2F2;
+}
+
+.button:first-child{
+  margin-right: 16px;
+}
+.button-add{
+  width: 32px !important;
+  height: 32px;
+  background-color: #2F80ED;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  color: white;
+  font-size: 24px;
+  margin-right: 16px;
+
+}
+
+.mask{
+  margin-right: auto;
+  display: flex;
+}

@@ -38,7 +38,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {ModalModule} from "./modal/modal.module";
 import {JournalComponent} from "./journal/journal.component";
 import { UsernameValidatorDirective } from './shared/directives/usernameValidator.directive';
-import {UserService} from "./user-info/user.service";
+import {UserCheckService} from "./user-info/user.service";
 import {ValidationService} from "./shared/services/validation.service";
 import {HeaderComponent} from "./header/header.component";
 import {MatTooltipModule} from "@angular/material/tooltip";
@@ -47,6 +47,9 @@ import {MousedownDirective} from './shared/directives/mousedown.directive';
 import { WidgetImgComponent } from './widgets/widget-img/widget-img.component';
 import {CardEditComponent} from "./field/card/card-edit/card-edit.component";
 import { CurrentCardComponent } from './field/side-panel/side-panel-card/current-card/current-card.component';
+import {BoardHeaderComponent} from "./field/board-header/board-header.component";
+import {MaskComponent} from "./field/mask/mask.component";
+import {UsersService} from "./shared/services/users.service";
 
 @NgModule({
   declarations: [
@@ -79,7 +82,9 @@ import { CurrentCardComponent } from './field/side-panel/side-panel-card/current
     UsernameValidatorDirective,
     WidgetImgComponent,
     CardEditComponent,
-    CurrentCardComponent
+    CurrentCardComponent,
+    BoardHeaderComponent,
+    MaskComponent
   ],
     imports: [
         BrowserModule,
@@ -99,7 +104,7 @@ import { CurrentCardComponent } from './field/side-panel/side-panel-card/current
         MatTooltipModule,
         MatButtonToggleModule,
     ],
-  providers: [UserService, ValidationService, ListComponent],
+  providers: [UserCheckService, ValidationService, ListComponent, UsersService],
   exports: [
     HeaderComponent,
     FooterComponent,

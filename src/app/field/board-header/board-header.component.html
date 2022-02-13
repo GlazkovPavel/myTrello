@@ -1,0 +1,19 @@
+<div class="board">
+  <button class="button button-lock">Private</button>
+
+    <div class="mask" *ngIf="users$ | async as users">
+      <ng-container *ngFor="let mask of users">
+        <app-mask [mask]="mask" class="mask"></app-mask>
+      </ng-container>
+      <button class="button-add">+</button>
+      <input
+        *ngIf="inputShow"
+        id="input"
+        (input)="searchUser($event)"
+        [(ngModel)]="search"
+        class="board__input"
+        placeholder="Введите имя" >
+    </div>
+
+  <button class="button menu">Show Menu</button>
+</div>

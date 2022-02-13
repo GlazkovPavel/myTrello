@@ -4,7 +4,7 @@ import {ModalService} from "../modal/modal.service";
 import {AppModule} from "../app.module";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {CommonModule} from "@angular/common";
-import {UserService} from "./user.service";
+import {UserCheckService} from "./user.service";
 import {ValidationService} from "../shared/services/validation.service";
 import {IUserInfoInterface} from "../interface/user-info.interface";
 
@@ -19,7 +19,7 @@ export class UserInfoComponent implements OnInit {
   public isFormDisabled: boolean = true;
 
   constructor(private readonly modalService: ModalService,
-              private readonly userService: UserService,
+              private readonly userService: UserCheckService,
               private readonly validationService: ValidationService) {
   }
 
@@ -81,7 +81,7 @@ export class UserInfoComponent implements OnInit {
     CommonModule
   ],
   providers: [
-    UserService
+    UserCheckService
   ]
 })
 export class UserInfoModule {

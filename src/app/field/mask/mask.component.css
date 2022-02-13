@@ -1,0 +1,31 @@
+.add-container{
+  display: flex;
+  border-radius: 8px;
+}
+
+.photo-container{
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background-color: #BDBDBD;
+  margin-right: 16px;
+  display: flex;
+  justify-content: center;
+
+}
+
+.photo {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.initials{
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: -0.1em;
+  align-self: center;
+  color: white;
+
+}

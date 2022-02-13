@@ -1,5 +1,10 @@
 <div class="hot">
+<div class="field__column">
+
+  <app-board-header></app-board-header>
+
   <div class="field__main">
+
     <app-side-panel
       (spaceCurrent)="spaceShow($event)"
       (spaceItem)="handleSpaceItem($event)"
@@ -9,16 +14,22 @@
 
     <ng-container *ngIf="currentSpace">
       <span class="title">{{currentSpace.title}}</span>
-      <div class="field" cdkDropListGroup >
-        <div *ngFor="let list of currentSpace?.list" >
-          <app-list [list]="list"
-                    (handleDeleteList)="handleDeleteList($event)"
-                    (editSpace)="spacesAdd()"></app-list>
+
+
+        <div class="field" cdkDropListGroup >
+
+          <div *ngFor="let list of currentSpace?.list" >
+            <app-list [list]="list"
+                      (handleDeleteList)="handleDeleteList($event)"
+                      (editSpace)="spacesAdd()"></app-list>
+          </div>
+
+          <app-list-default (listItem)="onAddList($event)"></app-list-default>
         </div>
 
-        <app-list-default (listItem)="onAddList($event)"></app-list-default>
-      </div>
+
     </ng-container>
   </div>
+</div>
 </div>
 
