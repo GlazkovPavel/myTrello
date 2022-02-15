@@ -21,6 +21,7 @@ export class HeaderComponent implements OnInit {
   public data: number = new Date().getFullYear();
   public form: FormGroup;
   public userInfo: IUserInfoInterface = JSON.parse(localStorage.getItem('userInfo'))
+  public firstLetter!: string;
 
   constructor(public auth: AuthService,
               private route: Router,
@@ -34,7 +35,17 @@ export class HeaderComponent implements OnInit {
       map(() => {
        return  moment().locale('ru').format('dddd, LL LTS')
       })
-    )
+    );
+
+    const initials = {
+      name: this.userInfo.name,
+      username: this.userInfo.surname,
+      get firstLetter() {
+        return `${this.name[0]} ${this.username[0]}`
+      }
+    }
+    this.firstLetter = initials.firstLetter
+
    };
 
   logout() {

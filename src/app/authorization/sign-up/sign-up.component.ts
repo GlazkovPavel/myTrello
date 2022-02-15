@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {IUserInterface} from "../../interface/user.interface";
 import {AuthService} from "../../shared/services/auth.service";
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {tap} from "rxjs/operators";
+
 import {ValidationService} from "../../shared/services/validation.service";
 
 @Component({
@@ -28,6 +27,10 @@ export class SignUpComponent implements OnInit {
 
     this.form = new FormGroup({
       nameCtrl: new FormControl(null, [
+        Validators.required,
+        this.validationService.usernameSpecialSymbols
+      ]),
+      surnameCtrl: new FormControl(null, [
         Validators.required,
         this.validationService.usernameSpecialSymbols
       ]),
@@ -59,10 +62,11 @@ export class SignUpComponent implements OnInit {
 
   submit(): void {
     const user: IUserInterface = {
-      name: this.form.controls['nameCtrl'].value,
+      name: this.form.controls['nameCtrl'].value.toLowerCase(),
+      surname: this.form.controls['surnameCtrl'].value.toLowerCase(),
       email: this.form.controls['emailCtrl'].value,
       password: this.form.controls['password'].value['passwordCtrl'],
-      username: this.form.controls['userNameCtrl'].value
+      username: this.form.controls['userNameCtrl'].value.toLowerCase()
     }
     console.log('user-->', user)
     this.authService.register(user).subscribe(() => {

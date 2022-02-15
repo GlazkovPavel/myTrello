@@ -31,7 +31,7 @@ export class CurrentCardComponent implements DoCheck {
   // }
 
   ngDoCheck(): void {
-    if (this.space._id === this.fieldComponent.currentSpace._id) {
+    if (this.space._id === this.fieldComponent?.currentSpace?._id) {
       this.activeSpace = true;
       return;
     }

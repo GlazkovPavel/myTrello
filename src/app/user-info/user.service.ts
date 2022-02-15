@@ -42,6 +42,7 @@ export class UserCheckService {
       const userInfo: IUserInfoInterface = {
         email: res.data.email,
         name: res.data.name,
+        surname: res.data.surname,
         username: res?.data.username,
         avatar: res?.data.avatar
       }

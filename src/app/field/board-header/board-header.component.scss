@@ -3,6 +3,7 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
+  height: 50px;
   margin: 0;
   padding: 36px 12px 24px 24px;
 
@@ -51,4 +52,14 @@
 .mask{
   margin-right: auto;
   display: flex;
+}
+
+.user-modal {
+  margin-top: 5px;
+  z-index: 11;
+}
+
+.user-container {
+  display: flex;
+  margin-bottom: 5px;
 }

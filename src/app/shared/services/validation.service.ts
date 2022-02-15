@@ -10,7 +10,7 @@ export class ValidationService {
   constructor(private http: HttpClient) { }
 
   public usernameSpecialSymbols(control: FormControl): ValidationErrors | null {
-    const valid = /^[a-zA-Z0-9]*$/.test(control.value)
+    const valid = /^[а-яА-ЯёЁa-zA-Z0-9]+$/.test(control.value)
     return valid ? null : { username: 'Используйте только буквы и цифры'}
   }
 
@@ -21,7 +21,10 @@ export class ValidationService {
     }
   }
 
-  public uniqueUsername({value: username}: FormControl): Observable<ValidationErrors | null> {
+  public uniqueUsername({value: user}: FormControl): Observable<ValidationErrors | null> {
+
+    const username = user.toLowerCase()
+
     return this.http.post('http://localhost:3000/username', {
       username
     }).pipe(map((valid) => {

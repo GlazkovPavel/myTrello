@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {IUserInterfaceBoardHeader} from "../interface/user.interface";
+import {IUserInfoInterface, IUserInfoInterfaceResponse} from "../../interface/user-info.interface";
 
 @Component({
   selector: 'app-mask',
@@ -8,7 +8,7 @@ import {IUserInterfaceBoardHeader} from "../interface/user.interface";
 })
 export class MaskComponent implements OnInit {
 
-  @Input() mask!: IUserInterfaceBoardHeader;
+  @Input() mask!: IUserInfoInterface;
   public firstLetter!: string;
 
   constructor() {}
@@ -16,7 +16,7 @@ export class MaskComponent implements OnInit {
   ngOnInit(): void {
     const initials = {
       name: this.mask.name,
-      username: this.mask.surname,
+      username: this.mask?.surname,
       get firstLetter() {
         return `${this.name[0]} ${this.username[0]}`
       }

@@ -4,7 +4,7 @@ import {arrayUsers} from "../../shared/utils/data";
 import {IUserInterfaceBoardHeader} from "../interface/user.interface";
 import {debounceTime, distinctUntilChanged, filter, map, switchMap} from "rxjs/operators";
 import {UsersService} from "../../shared/services/users.service";
-import {IUserInfoInterfaceResponse} from "../../interface/user-info.interface";
+import {IUserInfoInterface, IUserInfoInterfaceResponse} from "../../interface/user-info.interface";
 
 @Component({
   selector: 'app-board-header',
@@ -13,10 +13,10 @@ import {IUserInfoInterfaceResponse} from "../../interface/user-info.interface";
 })
 export class BoardHeaderComponent implements OnInit {
 
-  public users$!: Observable<IUserInterfaceBoardHeader[] | null>;
-  public user!: Observable<IUserInterfaceBoardHeader>;
-  public mask!: IUserInterfaceBoardHeader;
-  public inputShow: boolean = true;
+  public users$!: Observable<IUserInfoInterface[]>;
+  //public user!: IUserInfoInterfaceResponse;
+  //public mask!: IUserInfoInterfaceResponse;
+  public inputShow: boolean = false;
   public searchText: Observable<string>;
   search: any;
 
@@ -25,21 +25,24 @@ export class BoardHeaderComponent implements OnInit {
   constructor(private usersService: UsersService) {}
 
   ngOnInit(): void {
-    this.users$ = of(arrayUsers);
+    //this.users$ = of(arrayUsers);
 
 
   }
 
 
   searchUser($event: Event) {
-    this.searchText = of(($event.target as HTMLInputElement).value)
-    this.searchText.pipe(
+    this.searchText = of(($event.target as HTMLInputElement).value.toLowerCase())
+    this.users$ = this.searchText.pipe(
       filter(text => text.length > 2),
       debounceTime(150),
       distinctUntilChanged(),
       switchMap( users => this.usersService.searchUser(users)
       )
-    ).subscribe()
+    )
   }
 
+  onInputShow() {
+    this.inputShow = true;
+  }
 }

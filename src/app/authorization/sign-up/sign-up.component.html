@@ -66,6 +66,23 @@
         </div>
       </mat-step>
       <mat-step >
+        <ng-template matStepLabel>Ваша фамилия</ng-template>
+        <mat-form-field appearance="fill">
+          <mat-label>Фамилия</mat-label>
+          <input matInput
+                 placeholder="Ваша фамилия"
+                 formControlName="surnameCtrl"
+                 minlength="2"
+          >
+        </mat-form-field>
+        <mat-error *ngIf="form.controls['surnameCtrl']?.errors
+        && form.controls['surnameCtrl'].errors?.username">{{form.controls['surnameCtrl']?.errors.username}}</mat-error>
+        <div>
+          <button mat-button matStepperPrevious>Назад</button>
+          <button mat-button matStepperNext [disabled]="form.controls['surnameCtrl'].invalid">Далее</button>
+        </div>
+      </mat-step>
+      <mat-step >
         <ng-template matStepLabel>Введите имя пользователя</ng-template>
         <mat-form-field appearance="fill">
           <mat-label>Имя пользователя</mat-label>

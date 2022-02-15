@@ -1,7 +1,7 @@
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Injectable} from "@angular/core";
-import {IUserInfoInterfaceResponse} from "../../interface/user-info.interface";
+import {IUserInfoInterface, IUserInfoInterfaceResponse} from "../../interface/user-info.interface";
 
 @Injectable()
 export class UsersService {
@@ -10,14 +10,14 @@ export class UsersService {
 
   constructor(private http: HttpClient) { }
 
-  public searchUser(search: string): Observable<IUserInfoInterfaceResponse> {
+  public searchUser(search: string): Observable<IUserInfoInterface[]> {
   const jwt: string = localStorage.getItem('jwt');
 
   const req = {
     name: search
   }
 
-    return this.http.post<IUserInfoInterfaceResponse>(`${this.isUrl}/users`, req, {
+    return this.http.post<IUserInfoInterface[]>(`${this.isUrl}/users`, req, {
       headers: {
         authorization: `Bearer ${jwt}`,
         'Content-Type': 'application/json'

@@ -1,7 +1,7 @@
 <div class="menu__popup" >
   <div class="menu__popup-container" >
     <button class="popup__close" type="button" (click)="isClose()"></button>
-    <h2 class='menu__popup-title'>Привет, Имя!</h2>
+    <h2 class='menu__popup-title capitalize'>Привет, {{userName}}!</h2>
 
     <form class="menu__popup-form" [formGroup]="form" (ngSubmit)="submit()" >
 
@@ -29,10 +29,22 @@
           id="name"
           type="text"
           formControlName="name"
-          appUsernameValidator
+          class="capitalize"
           >
         <mat-error *ngIf="form?.controls['name'].errors
         && form.controls['name'].errors.username">{{form.controls['name'].errors.username}}</mat-error>
+      </div>
+
+      <div class="menu__popup-form-control">
+        <label for="surname">Фамилия:</label>
+        <input
+          id="surname"
+          type="text"
+          formControlName="surname"
+          class="capitalize"
+        >
+        <mat-error *ngIf="form?.controls['surname'].errors
+        && form.controls['surname'].errors.username">{{form.controls['surname'].errors.username}}</mat-error>
       </div>
 
       <div class="menu__popup-form-control">

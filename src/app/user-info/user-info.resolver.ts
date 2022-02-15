@@ -31,6 +31,7 @@ export class UserInfoResolver implements Resolve<IUserInfoInterface | null> {
       const userInfo: IUserInfoInterface = {
         email: res.email,
         name: res.name,
+        surname: res.surname,
         username: res?.username,
         avatar: res?.avatar
       }

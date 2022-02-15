@@ -17,6 +17,7 @@ export class UserInfoComponent implements OnInit {
 
   public form: FormGroup;
   public isFormDisabled: boolean = true;
+  public userName: string = '';
 
   constructor(private readonly modalService: ModalService,
               private readonly userService: UserCheckService,
@@ -27,13 +28,14 @@ export class UserInfoComponent implements OnInit {
 
     const userInfo: IUserInfoInterface = JSON.parse(localStorage.getItem('userInfo'))
 
+    this.userName = userInfo.name;
+
     this.form = new FormGroup({
       email: new FormControl({value: userInfo.email, disabled: true},[
         Validators.email,
         Validators.required
       ]),
       avatar: new FormControl({value: userInfo?.avatar, disabled: true},[
-        Validators.required,
         Validators.pattern(/^((http|https):\/\/)?(([A-Z0-9][A-Z0-9_-]*)(\.[A-Z0-9][A-Z0-9_-]*)+)/i),
       ]),
       name: new FormControl({value: userInfo.name, disabled: true},[
@@ -41,7 +43,12 @@ export class UserInfoComponent implements OnInit {
         Validators.min(2),
         this.validationService.usernameSpecialSymbols
       ]),
-      username: new FormControl({value: userInfo?.username, disabled: true},[
+      surname: new FormControl({value: userInfo.surname, disabled: true},[
+        Validators.required,
+        Validators.min(2),
+        this.validationService.usernameSpecialSymbols
+      ]),
+      username: new FormControl({value: userInfo.username, disabled: true},[
         Validators.required,
         Validators.min(2),
         this.validationService.usernameSpecialSymbols
@@ -53,8 +60,9 @@ export class UserInfoComponent implements OnInit {
   submit() {
     const updateUserInfo: IUserInfoInterface = {
       email: this.form.controls['email'].value,
-      name: this.form.controls['name'].value,
-      username: this.form.controls['username'].value,
+      name: this.form.controls['name'].value.toLowerCase(),
+      surname: this.form.controls['surname'].value.toLowerCase(),
+      username: this.form.controls['username'].value.toLowerCase(),
       avatar: this.form.controls['avatar'].value
     }
     this.userService.updateUserInfo(updateUserInfo).subscribe()

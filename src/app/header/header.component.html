@@ -15,7 +15,15 @@
          matTooltip="Редактировать"
          matTooltipPosition="right">
       <button class="profile__foto-edit"></button>
-      <img class="profile__foto" alt="Аватар" src="{{userInfo.avatar}}"  />
+
+      <ng-container *ngIf="userInfo.avatar; else initials">
+        <img class="profile__foto" alt="Аватар" src="{{userInfo.avatar}}"  />
+      </ng-container>
+
+      <ng-template #initials>
+        <span class="initials">{{firstLetter}}</span>
+      </ng-template>
+
     </div>
   </div>
 

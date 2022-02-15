@@ -78,6 +78,7 @@ a{
   position: relative;
   padding: 20px;
   cursor: pointer;
+  justify-content: center;
 }
 
 .profile__foto-container:hover .profile__foto-edit{
@@ -112,6 +113,17 @@ a{
   align-self: center;
   object-fit: cover;
   transition: all .3s ease;
+}
+
+.initials{
+  font-style: normal;
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 48px;
+  letter-spacing: -0.1em;
+  align-self: center;
+  color: white;
+
 }
 
 .footer{
