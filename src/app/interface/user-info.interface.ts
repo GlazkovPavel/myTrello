@@ -3,7 +3,8 @@ export interface IUserInfoInterface {
   surname: string,
   email: string,
   username: string,
-  avatar?: string
+  avatar?: string,
+  _id?: string
 }
 export interface IUserInfoInterfaceResponse {
   data: IUserInfoInterface

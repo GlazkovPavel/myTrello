@@ -1,8 +1,8 @@
-import {Component, DoCheck, OnInit} from '@angular/core';
+import {Component, DoCheck, EventEmitter, OnInit, Output} from '@angular/core';
 import {fromEvent, Observable, of} from "rxjs";
 import {arrayUsers} from "../../shared/utils/data";
 import {IUserInterfaceBoardHeader} from "../interface/user.interface";
-import {debounceTime, distinctUntilChanged, filter, map, switchMap} from "rxjs/operators";
+import {debounceTime, distinctUntilChanged, filter, map, switchMap, tap} from "rxjs/operators";
 import {UsersService} from "../../shared/services/users.service";
 import {IUserInfoInterface, IUserInfoInterfaceResponse} from "../../interface/user-info.interface";
 
@@ -13,12 +13,15 @@ import {IUserInfoInterface, IUserInfoInterfaceResponse} from "../../interface/us
 })
 export class BoardHeaderComponent implements OnInit {
 
+  @Output() public handleAddWorkspaceOwner: EventEmitter<string> = new EventEmitter();
   public users$!: Observable<IUserInfoInterface[]>;
+  public usersOwnerWorkSpace: IUserInfoInterface[] = [];
   //public user!: IUserInfoInterfaceResponse;
   //public mask!: IUserInfoInterfaceResponse;
   public inputShow: boolean = false;
   public searchText: Observable<string>;
-  search: any;
+  public userModalShow:  boolean = false;
+  //search: any;
 
 
 
@@ -26,10 +29,7 @@ export class BoardHeaderComponent implements OnInit {
 
   ngOnInit(): void {
     //this.users$ = of(arrayUsers);
-
-
   }
-
 
   searchUser($event: Event) {
     this.searchText = of(($event.target as HTMLInputElement).value.toLowerCase())
@@ -37,12 +37,26 @@ export class BoardHeaderComponent implements OnInit {
       filter(text => text.length > 2),
       debounceTime(150),
       distinctUntilChanged(),
-      switchMap( users => this.usersService.searchUser(users)
-      )
+      switchMap( users => this.usersService.searchUser(users))
     )
   }
 
   onInputShow() {
-    this.inputShow = true;
+    this.userModalShow = true;
+  }
+
+  addWorkspaceOwner(user: IUserInfoInterface) {
+    this.handleAddWorkspaceOwner.emit(user._id);
+    this.userModalShow = false;
+    const userOwner = {
+      name: user.name,
+      surname: user.surname,
+      email: user.email,
+      username: user.username,
+      avatar: user.avatar,
+      _id: user._id
+    }
+    this.usersOwnerWorkSpace.push(userOwner);
+    this.users$ = of(null)
   }
 }

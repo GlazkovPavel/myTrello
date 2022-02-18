@@ -1,33 +1,28 @@
 <div class="board">
   <button class="button button-lock">Private</button>
 
-    <div class="mask" *ngIf="users$ | async as users">
-      <ng-container *ngFor="let mask of users">
+    <div class="mask" *ngIf="usersOwnerWorkSpace">
+      <ng-container *ngFor="let mask of usersOwnerWorkSpace">
         <app-mask [mask]="mask" class="mask"></app-mask>
       </ng-container>
-
     </div>
+
   <button class="button-add" (click)="onInputShow()">+</button>
 
-  <div class="input-container">
+  <div class="input-container" *ngIf="userModalShow">
     <input
-      *ngIf="inputShow"
       id="input"
       (input)="searchUser($event)"
-      [(ngModel)]="search"
       class="board__input"
       placeholder="Введите имя" >
 
-
-      <div class="user-modal" *ngIf="users$ | async as users">
-      <div class="user-container" *ngFor="let mask of users">
-        <app-mask [mask]="mask" class="mask"></app-mask>
-        <p class="capitalize">{{mask.name}} {{mask.surname}}</p>
+      <div class="user-modal" *ngIf="users$ | async as users" >
+        <div class="user-container" *ngFor="let mask of users" (click)="addWorkspaceOwner(mask)">
+          <app-mask [mask]="mask" class="mask"></app-mask>
+          <p class="capitalize">{{mask.name}} {{mask.surname}}</p>
+        </div>
       </div>
-      </div>
-
   </div>
 
-
-  <button class="button menu">Show Menu</button>
+  <button class="button menu margin">Show Menu</button>
 </div>

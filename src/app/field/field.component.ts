@@ -3,6 +3,7 @@ import {IListInterface} from "../interface/list.interface";
 import {ISpaceInterface} from "../interface/space.interface";
 import {WorkSpaceService} from "../shared/services/work-space.service";
 import {map} from "rxjs/operators";
+import {$e} from "@angular/compiler/src/chars";
 
 
 @Component({
@@ -69,5 +70,13 @@ export class FieldComponent implements OnInit {
         this.spaces = this.spaces.filter(item => item._id !== id);
       }
     )
+  }
+
+  handleAddWorkspaceOwner($event: string) {
+    this.workSpaceService.updateWorkSpace($event,  this.currentSpace._id)
+      .subscribe(
+        value => console.log(value)
+      )
+    console.log($event,  this.currentSpace._id);
   }
 }

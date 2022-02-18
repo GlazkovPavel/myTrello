@@ -1,7 +1,9 @@
 <div class="hot">
 <div class="field__column">
 
-  <app-board-header></app-board-header>
+  <app-board-header
+    (handleAddWorkspaceOwner)="handleAddWorkspaceOwner($event)"
+  ></app-board-header>
 
   <div class="field__main">
 
