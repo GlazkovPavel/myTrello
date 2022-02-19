@@ -44,7 +44,8 @@ export class UserCheckService {
         name: res.data.name,
         surname: res.data.surname,
         username: res?.data.username,
-        avatar: res?.data.avatar
+        avatar: res?.data.avatar,
+        _id: res?.data._id
       }
       localStorage.setItem('userInfo', JSON.stringify(userInfo))
       return res

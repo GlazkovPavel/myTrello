@@ -33,7 +33,8 @@ export class UserInfoResolver implements Resolve<IUserInfoInterface | null> {
         name: res.name,
         surname: res.surname,
         username: res?.username,
-        avatar: res?.avatar
+        avatar: res?.avatar,
+        _id: res?._id
       }
       localStorage.setItem('userInfo', JSON.stringify(userInfo))
         return res

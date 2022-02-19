@@ -3,8 +3,6 @@ import {IListInterface} from "../interface/list.interface";
 import {ISpaceInterface} from "../interface/space.interface";
 import {WorkSpaceService} from "../shared/services/work-space.service";
 import {map} from "rxjs/operators";
-import {$e} from "@angular/compiler/src/chars";
-
 
 @Component({
   selector: 'app-field',
@@ -29,7 +27,6 @@ export class FieldComponent implements OnInit {
         this.spaces = value;
         this.currentSpace = this.spaces[0];
       } )).subscribe();
-
   }
 
   onAddList($event: IListInterface) {
@@ -58,9 +55,9 @@ export class FieldComponent implements OnInit {
     const space: ISpaceInterface = {
       _id: this.currentSpace?._id,
       title: this.currentSpace?.title,
-      list: this.currentSpace?.list
+      list: this.currentSpace?.list,
+      owner: this.currentSpace?.owner.length ? this.currentSpace?.owner : [JSON.parse(localStorage.getItem('userInfo'))._id],
     }
-
     this.workSpaceService.saveWorkSpace(space);
   }
 
@@ -73,7 +70,8 @@ export class FieldComponent implements OnInit {
   }
 
   handleAddWorkspaceOwner($event: string) {
-    this.workSpaceService.updateWorkSpace($event,  this.currentSpace._id)
+    this.currentSpace?.owner.push($event);
+    this.workSpaceService.updateWorkSpaceOwner($event,  this.currentSpace._id)
       .subscribe(
         value => console.log(value)
       )

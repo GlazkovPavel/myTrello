@@ -38,8 +38,8 @@ export class HeaderComponent implements OnInit {
     );
 
     const initials = {
-      name: this.userInfo.name,
-      username: this.userInfo.surname,
+      name: this.userInfo?.name,
+      username: this.userInfo?.surname,
       get firstLetter() {
         return `${this.name[0]} ${this.username[0]}`
       }

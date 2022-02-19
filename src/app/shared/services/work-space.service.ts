@@ -36,7 +36,7 @@ export class WorkSpaceService {
     })
 }
 
-  public updateWorkSpace(id: string, _id: string): Observable<ISpaceInterface[]> {
+  public updateWorkSpaceOwner(id: string, _id: string): Observable<ISpaceInterface[]> {
     const body = {
       id: id
     }
