@@ -14,7 +14,7 @@ export class SidePanelComponent implements OnInit, OnDestroy {
   @Input() public spacesArray: ISpaceInterface[] = [];
 
   @Output() spaceItem:  EventEmitter<ISpaceInterface> = new EventEmitter();
-  @Output() spaceCurrent:  EventEmitter<string> = new EventEmitter();
+  @Output() spaceCurrent:  EventEmitter<ISpaceInterface> = new EventEmitter();
   @Output() handleDeleteSpaceId:  EventEmitter<string> = new EventEmitter();
   private subId: Subscription;
 
@@ -22,7 +22,7 @@ export class SidePanelComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {}
 
-  showSpace(idSpace: string){
+  showSpace(idSpace: ISpaceInterface){
     this.spaceCurrent.emit(idSpace);
   }
 

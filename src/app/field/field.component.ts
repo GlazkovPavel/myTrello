@@ -3,6 +3,9 @@ import {IListInterface} from "../interface/list.interface";
 import {ISpaceInterface} from "../interface/space.interface";
 import {WorkSpaceService} from "../shared/services/work-space.service";
 import {map} from "rxjs/operators";
+import {UsersService} from "../shared/services/users.service";
+import {IUserInfoInterface} from "../interface/user-info.interface";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-field',
@@ -16,9 +19,11 @@ export class FieldComponent implements OnInit {
 
   public spaces: ISpaceInterface[] = [];
   public currentSpace: ISpaceInterface;
+  public usersWorkSpaceOwner$: Observable<IUserInfoInterface[]>;
   private idSpace: string;
 
-  constructor(private readonly workSpaceService: WorkSpaceService) {}
+  constructor(private readonly workSpaceService: WorkSpaceService,
+              private readonly usersService: UsersService) {}
 
   ngOnInit(): void {
 
@@ -27,6 +32,7 @@ export class FieldComponent implements OnInit {
         this.spaces = value;
         this.currentSpace = this.spaces[0];
       } )).subscribe();
+
   }
 
   onAddList($event: IListInterface) {
@@ -44,11 +50,17 @@ export class FieldComponent implements OnInit {
     this.spacesAdd();
   }
 
-  spaceShow(id: string) {
+  spaceShow(space: ISpaceInterface) {
+    this.searchUsersWorkSpace(space)
+    console.log(space.owner)
     this.idSpace = '';
-    this.currentSpace = this.spaces.find(item => item._id === id);
-    this.idSpace = id;
+    this.currentSpace = this.spaces.find(item => item._id === space._id);
+    this.idSpace = space._id;
     this.spacesAdd();
+  }
+
+  private searchUsersWorkSpace(space: ISpaceInterface) {
+   this.usersWorkSpaceOwner$ = this.usersService.searchUsersWorkSpace(space)
   }
 
   spacesAdd() {

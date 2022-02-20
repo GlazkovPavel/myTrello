@@ -15,7 +15,7 @@ import {FieldComponent} from "../../../field.component";
   styleUrls: ['../side-panel-card.component.scss'],
 })
 export class CurrentCardComponent implements DoCheck {
-  @Output() public handleShowSpace: EventEmitter<string> = new EventEmitter<string>()
+  @Output() public handleShowSpace: EventEmitter<ISpaceInterface> = new EventEmitter<ISpaceInterface>()
   @Output() public handleSpaceId: EventEmitter<string> = new EventEmitter<string>()
   @Input() public activeSpace: boolean = false;
   @Input() public space: ISpaceInterface;
@@ -42,9 +42,9 @@ export class CurrentCardComponent implements DoCheck {
     this.handleSpaceId.emit(space._id)
   }
 
-  showSpace(id: string) {
-    this.handleShowSpace.emit(id);
-    if (this.fieldComponent.currentSpace._id === id) {
+  showSpace(spase: ISpaceInterface) {
+    this.handleShowSpace.emit(spase);
+    if (this.fieldComponent.currentSpace._id === spase._id) {
       this.activeSpace = true;
       return;
     } else {

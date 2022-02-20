@@ -1,10 +1,9 @@
-import {Component, DoCheck, EventEmitter, OnInit, Output} from '@angular/core';
-import {fromEvent, Observable, of} from "rxjs";
-import {arrayUsers} from "../../shared/utils/data";
-import {IUserInterfaceBoardHeader} from "../interface/user.interface";
-import {debounceTime, distinctUntilChanged, filter, map, switchMap, tap} from "rxjs/operators";
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Observable, of} from "rxjs";
+import {debounceTime, distinctUntilChanged, filter, switchMap} from "rxjs/operators";
 import {UsersService} from "../../shared/services/users.service";
-import {IUserInfoInterface, IUserInfoInterfaceResponse} from "../../interface/user-info.interface";
+import {IUserInfoInterface} from "../../interface/user-info.interface";
+import {ISpaceInterface} from "../../interface/space.interface";
 
 @Component({
   selector: 'app-board-header',
@@ -14,14 +13,12 @@ import {IUserInfoInterface, IUserInfoInterfaceResponse} from "../../interface/us
 export class BoardHeaderComponent implements OnInit {
 
   @Output() public handleAddWorkspaceOwner: EventEmitter<string> = new EventEmitter();
+  @Input() public currentSpace: ISpaceInterface;
+  @Input() public usersWorkSpaceOwner$: Observable<IUserInfoInterface[]>;
   public users$!: Observable<IUserInfoInterface[]>;
   public usersOwnerWorkSpace: IUserInfoInterface[] = [];
-  //public user!: IUserInfoInterfaceResponse;
-  //public mask!: IUserInfoInterfaceResponse;
-  public inputShow: boolean = false;
   public searchText: Observable<string>;
   public userModalShow:  boolean = false;
-  //search: any;
 
 
 

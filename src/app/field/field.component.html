@@ -3,9 +3,11 @@
 
   <app-board-header
     (handleAddWorkspaceOwner)="handleAddWorkspaceOwner($event)"
+    [currentSpace]="currentSpace"
+    [usersWorkSpaceOwner$]="usersWorkSpaceOwner$"
   ></app-board-header>
 
-  <div class="field__main">
+  <div class="field__main" >
 
     <app-side-panel
       (spaceCurrent)="spaceShow($event)"
@@ -15,7 +17,7 @@
     ></app-side-panel>
 
     <ng-container *ngIf="currentSpace">
-      <span class="title">{{currentSpace.title}}</span>
+      <span class="title" >{{currentSpace.title}}</span>
 
 
         <div class="field" cdkDropListGroup >

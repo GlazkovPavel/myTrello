@@ -1,8 +1,8 @@
 <div class="board">
   <button class="button button-lock">Private</button>
 
-    <div class="mask" *ngIf="usersOwnerWorkSpace">
-      <ng-container *ngFor="let mask of usersOwnerWorkSpace">
+    <div class="mask" *ngIf="usersWorkSpaceOwner$ | async as usersWorkSpaceOwner">
+      <ng-container *ngFor="let mask of usersWorkSpaceOwner">
         <app-mask [mask]="mask" class="mask"></app-mask>
       </ng-container>
     </div>

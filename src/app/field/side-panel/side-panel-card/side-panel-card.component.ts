@@ -8,7 +8,7 @@ import {ISpaceInterface} from "../../../interface/space.interface";
 })
 export class SidePanelCardComponent implements OnInit {
 
-  @Output() public handleShowSpace: EventEmitter<string> = new EventEmitter<string>()
+  @Output() public handleShowSpace: EventEmitter<ISpaceInterface> = new EventEmitter<ISpaceInterface>()
   @Output() public handleSpace: EventEmitter<string> = new EventEmitter<string>()
   @Input() public spaces: ISpaceInterface[];
 
@@ -17,7 +17,7 @@ export class SidePanelCardComponent implements OnInit {
   ngOnInit(): void {}
 
 
-  showSpace($event: string) {
+  showSpace($event: ISpaceInterface) {
     this.handleShowSpace.emit($event)
 
   }

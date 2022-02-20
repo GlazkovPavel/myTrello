@@ -1,7 +1,7 @@
 <div class="card" >
   <p class="card__description"
      [class.card__description-active]="activeSpace"
-     (click)="showSpace(space._id)">{{space.title}}</p>
+     (click)="showSpace(space)">{{space.title}}</p>
   <button  class="card__item-button card__item-button-delete"
            (click)=" onDeleteSpace(space)"></button>
 </div>
