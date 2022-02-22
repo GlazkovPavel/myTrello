@@ -2,7 +2,7 @@ import { Component, Injectable, OnInit} from '@angular/core';
 import {IListInterface} from "../interface/list.interface";
 import {ISpaceInterface} from "../interface/space.interface";
 import {WorkSpaceService} from "../shared/services/work-space.service";
-import {map} from "rxjs/operators";
+import { concatMap, map, switchMap} from "rxjs/operators";
 import {UsersService} from "../shared/services/users.service";
 import {IUserInfoInterface} from "../interface/user-info.interface";
 import {Observable} from "rxjs";
@@ -31,6 +31,7 @@ export class FieldComponent implements OnInit {
       map((value: ISpaceInterface[]) => {
         this.spaces = value;
         this.currentSpace = this.spaces[0];
+        this.usersWorkSpaceOwner$ = this.usersService.searchUsersWorkSpace(this.currentSpace)
       } )).subscribe();
 
   }

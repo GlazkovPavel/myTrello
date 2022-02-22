@@ -19,7 +19,6 @@
     <ng-container *ngIf="currentSpace">
       <span class="title" >{{currentSpace.title}}</span>
 
-
         <div class="field" cdkDropListGroup >
 
           <div *ngFor="let list of currentSpace?.list" >
@@ -30,7 +29,6 @@
 
           <app-list-default (listItem)="onAddList($event)"></app-list-default>
         </div>
-
 
     </ng-container>
   </div>
