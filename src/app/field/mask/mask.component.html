@@ -1,12 +1,16 @@
 
 <div class="add-container">
-  <span class="photo-container">
+  <span class="photo-container" (clickMouseOver)="clickMouseOver($event, mask)">
     <ng-container *ngIf="mask.avatar; else initials">
         <img class="photo"  src="{{mask.avatar}}" alt="{{mask.name}}">
     </ng-container>
 
     <ng-template #initials>
-    <span class="initials">{{firstLetter}}</span>
+    <span class="initials capitalize">{{firstLetter}}</span>
   </ng-template>
   </span>
 </div>
+
+<ng-container class="user-card" [style.show]="showUserCard">
+  <app-user-card [userData]="userData" ></app-user-card>
+</ng-container>

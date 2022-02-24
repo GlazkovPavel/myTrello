@@ -2,27 +2,28 @@
   <button class="button button-lock">Private</button>
 
     <div class="mask" *ngIf="usersWorkSpaceOwner$ | async as usersWorkSpaceOwner">
-      <ng-container *ngFor="let mask of usersWorkSpaceOwner">
-        <app-mask [mask]="mask" class="mask"></app-mask>
+      <ng-container *ngFor="let mask of usersWorkSpaceOwner | filterSelf">
+        <app-mask  [mask]="mask" class="mask"></app-mask>
       </ng-container>
     </div>
 
-  <button class="button-add" (click)="onInputShow()">+</button>
+  <div (clickOutside)="clickOutside()" style="display: flex">
+    <button class="button-add" (click)="onInputShow()">+</button>
 
-  <div class="input-container" *ngIf="userModalShow">
-    <input
-      id="input"
-      (input)="searchUser($event)"
-      class="board__input"
-      placeholder="Введите имя" >
+    <div class="input-container" *ngIf="userModalShow" >
+      <input
+        id="input"
+        (input)="searchUser($event)"
+        class="board__input"
+        placeholder="Введите имя" >
 
-      <div class="user-modal" *ngIf="users$ | async as users" >
+      <div  class="user-modal" *ngIf="users$ | async as users" >
         <div class="user-container" *ngFor="let mask of users" (click)="addWorkspaceOwner(mask)">
           <app-mask [mask]="mask" class="mask"></app-mask>
           <p class="capitalize">{{mask.name}} {{mask.surname}}</p>
         </div>
       </div>
+    </div>
   </div>
-
   <button class="button menu margin">Show Menu</button>
 </div>

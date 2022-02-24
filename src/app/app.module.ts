@@ -50,6 +50,9 @@ import { CurrentCardComponent } from './field/side-panel/side-panel-card/current
 import {BoardHeaderComponent} from "./field/board-header/board-header.component";
 import {MaskComponent} from "./field/mask/mask.component";
 import {UsersService} from "./shared/services/users.service";
+import { FilterSelfPipe } from './shared/pipes/filter-self.pipe';
+import { UserCardComponent } from './shared/component/user-card/user-card/user-card.component';
+import { MouseoverDirective } from './shared/directives/mouseover.directive';
 
 @NgModule({
   declarations: [
@@ -84,7 +87,10 @@ import {UsersService} from "./shared/services/users.service";
     CardEditComponent,
     CurrentCardComponent,
     BoardHeaderComponent,
-    MaskComponent
+    MaskComponent,
+    FilterSelfPipe,
+    UserCardComponent,
+    MouseoverDirective
   ],
     imports: [
         BrowserModule,

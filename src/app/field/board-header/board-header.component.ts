@@ -19,14 +19,11 @@ export class BoardHeaderComponent implements OnInit {
   public usersOwnerWorkSpace: IUserInfoInterface[] = [];
   public searchText: Observable<string>;
   public userModalShow:  boolean = false;
-
-
+  public showUserCard: boolean = false;
 
   constructor(private usersService: UsersService) {}
 
-  ngOnInit(): void {
-    //this.users$ = of(arrayUsers);
-  }
+  ngOnInit(): void {}
 
   searchUser($event: Event) {
     this.searchText = of(($event.target as HTMLInputElement).value.toLowerCase())
@@ -56,4 +53,12 @@ export class BoardHeaderComponent implements OnInit {
     this.usersOwnerWorkSpace.push(userOwner);
     this.users$ = of(null)
   }
+
+  public clickOutside() {
+    this.userModalShow = false;
+  }
+
+  // public showCardUser($event: boolean) {
+  //   this.showUserCard = $event;
+  // }
 }

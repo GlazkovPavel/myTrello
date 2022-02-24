@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {IUserInfoInterface, IUserInfoInterfaceResponse} from "../../interface/user-info.interface";
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {IUserInfoInterface} from "../../interface/user-info.interface";
 
 @Component({
   selector: 'app-mask',
@@ -7,8 +7,10 @@ import {IUserInfoInterface, IUserInfoInterfaceResponse} from "../../interface/us
   styleUrls: ['./mask.component.css']
 })
 export class MaskComponent implements OnInit {
-
+  //@Output() public showUserCard = new EventEmitter<boolean>();
   @Input() mask!: IUserInfoInterface;
+  public showUserCard: boolean = false;
+  public userData: IUserInfoInterface;
   public firstLetter!: string;
 
   constructor() {}
@@ -16,13 +18,22 @@ export class MaskComponent implements OnInit {
   ngOnInit(): void {
     const initials = {
       name: this.mask.name,
-      username: this.mask?.surname,
+      surname: this.mask?.surname,
       get firstLetter() {
-        return `${this.name[0]} ${this.username[0]}`
+        if(this.surname) {
+          return `${this.name[0]} ${this.surname[0]}`
+        }
+        else {
+          return `${this.name[0]}`
+        }
       }
     }
     this.firstLetter = initials.firstLetter
   }
 
-
+  clickMouseOver($event: boolean, mask: IUserInfoInterface) {
+    this.showUserCard = $event;
+    this.userData = mask;
+    console.log($event, mask)
+  }
 }
