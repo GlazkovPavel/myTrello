@@ -9,10 +9,14 @@ import {IUserInfoInterface} from "../../../../interface/user-info.interface";
 export class UserCardComponent implements OnInit {
 
   @Input() public userData: IUserInfoInterface;
+  @Input() public showUserCard: boolean;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  clickMouseOver($event: boolean) {
+    this.showUserCard = $event
+  }
 }

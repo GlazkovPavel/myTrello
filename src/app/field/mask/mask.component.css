@@ -29,16 +29,3 @@
   color: white;
 
 }
-
-.user-card {
-  visibility: hidden;
-  opacity: 0;
-  cursor: pointer;
-  transition:  transform 500ms linear, visibility 0s linear 500ms, opacity 500ms;
-}
-
-.show{
-  visibility: visible;
-  opacity: 1;
-  transition: visibility 0s linear 0s, opacity 500ms;
-}

@@ -1,6 +1,6 @@
 .user {
   display: flex;
-  max-width: 300px;
+  max-width: 360px;
   max-height: 260px;
   margin-top: 35px;
   margin-left: -48px;
@@ -8,9 +8,49 @@
   position: absolute;
   background: rgba(101, 100, 100, 0.8);
   border-radius: 6px;
+  visibility: hidden;
+  opacity: 0;
+  cursor: pointer;
+  transition:  transform 500ms linear, visibility 0s linear 500ms, opacity 500ms;
 
     img {
-      width: 100%;
+      max-width: 150px;
       object-fit: cover;
     }
 }
+
+.user-description {
+  display: flex;
+  flex-direction: column;
+  width: 240px;
+}
+
+.user-title {
+  margin-top: auto;
+}
+
+.show{
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0s linear 0s, opacity 500ms;
+}
+
+.close{
+  background: url('../../../../../assets/images/close_module_Icon.svg');
+  overflow: hidden;
+  width: 20px;
+  height: 20px;
+  border: none;
+  background-repeat: no-repeat;
+  position: absolute;
+  right: -20px;
+  top: -20px;
+  cursor: pointer;
+  outline: none;
+  transition: transform .8s ease-in-out;
+}
+.close:hover{
+  opacity: .6;
+  transform: rotate(360deg);
+}
+

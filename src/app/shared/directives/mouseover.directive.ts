@@ -29,7 +29,7 @@ export class MouseoverDirective {
 
     const clickedInside = this._elementRef.nativeElement.contains(targetElement);
     if (clickedInside) {
-      this.clickMouseOver.emit(false);
+      //this.clickMouseOver.emit(false);
     }
   }
 

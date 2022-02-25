@@ -11,6 +11,7 @@
   </span>
 </div>
 
-<ng-container class="user-card" [style.show]="showUserCard">
-  <app-user-card [userData]="userData" ></app-user-card>
-</ng-container>
+<app-user-card
+  [userData]="userData"
+  [showUserCard]="showUserCard">
+</app-user-card>

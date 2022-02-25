@@ -7,7 +7,6 @@ import {IUserInfoInterface} from "../../interface/user-info.interface";
   styleUrls: ['./mask.component.css']
 })
 export class MaskComponent implements OnInit {
-  //@Output() public showUserCard = new EventEmitter<boolean>();
   @Input() mask!: IUserInfoInterface;
   public showUserCard: boolean = false;
   public userData: IUserInfoInterface;
@@ -34,6 +33,5 @@ export class MaskComponent implements OnInit {
   clickMouseOver($event: boolean, mask: IUserInfoInterface) {
     this.showUserCard = $event;
     this.userData = mask;
-    console.log($event, mask)
   }
 }

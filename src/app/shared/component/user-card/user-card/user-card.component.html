@@ -1,12 +1,12 @@
-<div class="user">
-  <button class="close"></button>
+<div class="user " [class.show]="showUserCard" (clickMouseOver)="clickMouseOver($event)">
+  <button class="close" type="button"></button>
   <div class="user-photo">
-    <img src="{{userData.avatar}}" >
+    <img src="{{userData?.avatar}}" >
   </div>
   <div class="user-description">
-    <span>{{userData.name}}</span>
-    <span>{{userData.surname}}</span>
-    <p>Информация о пользователе</p>
+    <span class="capitalize">{{userData?.name}}</span>
+    <span class="capitalize">{{userData?.surname}}</span>
+    <span class="capitalize user-title">Информация о пользователе</span>
   </div>
-  <button class="delete">Удалить из WorkSpase</button>
+  <button class="delete">Удалить из WorkSpace</button>
 </div>
