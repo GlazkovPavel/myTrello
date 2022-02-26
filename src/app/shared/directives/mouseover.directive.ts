@@ -25,11 +25,11 @@ export class MouseoverDirective {
   }
 
   @HostListener('document:mouseout', ['$event', '$event.target'])
-  public onMouseOut(event: MouseEvent, targetElement: HTMLElement, item: IUserInfoInterface): void {
+  public onMouseOut(event: MouseEvent, targetElement: HTMLElement): void {
 
     const clickedInside = this._elementRef.nativeElement.contains(targetElement);
     if (clickedInside) {
-      //this.clickMouseOver.emit(false);
+      this.clickMouseOver.emit(false);
     }
   }
 

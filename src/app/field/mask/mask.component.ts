@@ -7,6 +7,7 @@ import {IUserInfoInterface} from "../../interface/user-info.interface";
   styleUrls: ['./mask.component.css']
 })
 export class MaskComponent implements OnInit {
+  @Output() public deletedOwnerWorkspace: EventEmitter<IUserInfoInterface> = new EventEmitter();
   @Input() mask!: IUserInfoInterface;
   public showUserCard: boolean = false;
   public userData: IUserInfoInterface;
@@ -30,8 +31,12 @@ export class MaskComponent implements OnInit {
     this.firstLetter = initials.firstLetter
   }
 
-  clickMouseOver($event: boolean, mask: IUserInfoInterface) {
+  public clickMouseOver($event: boolean, mask: IUserInfoInterface) {
     this.showUserCard = $event;
     this.userData = mask;
+  }
+
+  public deletedWorkspaceOwner($event: IUserInfoInterface) {
+    this.deletedOwnerWorkspace.emit($event);
   }
 }

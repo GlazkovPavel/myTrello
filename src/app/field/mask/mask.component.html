@@ -12,6 +12,7 @@
 </div>
 
 <app-user-card
+  (deletedWorkspaceOwner)="deletedWorkspaceOwner($event)"
   [userData]="userData"
   [showUserCard]="showUserCard">
 </app-user-card>

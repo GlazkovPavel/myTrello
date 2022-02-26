@@ -2,7 +2,7 @@ import { Component, Injectable, OnInit} from '@angular/core';
 import {IListInterface} from "../interface/list.interface";
 import {ISpaceInterface} from "../interface/space.interface";
 import {WorkSpaceService} from "../shared/services/work-space.service";
-import { concatMap, map, switchMap} from "rxjs/operators";
+import {map, switchMap} from "rxjs/operators";
 import {UsersService} from "../shared/services/users.service";
 import {IUserInfoInterface} from "../interface/user-info.interface";
 import {Observable} from "rxjs";
@@ -82,12 +82,15 @@ export class FieldComponent implements OnInit {
     )
   }
 
-  handleAddWorkspaceOwner($event: string) {
-    this.currentSpace?.owner.push($event);
-    this.workSpaceService.updateWorkSpaceOwner($event,  this.currentSpace._id)
-      .subscribe(
-        value => console.log(value)
-      )
-    console.log($event,  this.currentSpace._id);
+  //тут сделать запрос юзеров
+  handleAddWorkspaceOwner($event: IUserInfoInterface) {
+    this.currentSpace?.owner.push($event._id);
+    this.workSpaceService.updateWorkSpaceOwner($event._id,  this.currentSpace._id)
+      .pipe(
+        switchMap((data: ISpaceInterface) => {
+          return this.usersWorkSpaceOwner$ = this.usersService.searchUsersWorkSpace(data)
+        }),
+
+      ).subscribe()
   }
 }

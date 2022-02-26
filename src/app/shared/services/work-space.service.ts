@@ -36,12 +36,12 @@ export class WorkSpaceService {
     })
 }
 
-  public updateWorkSpaceOwner(id: string, _id: string): Observable<ISpaceInterface[]> {
+  public updateWorkSpaceOwner(id: string, _id: string): Observable<ISpaceInterface> {
     const body = {
       id: id
     }
     const jwt: string = localStorage.getItem('jwt');
-    return this.http.patch<ISpaceInterface[]>(`${this.isUrl}/work-space/${_id}`, body, {
+    return this.http.patch<ISpaceInterface>(`${this.isUrl}/work-space/${_id}`, body, {
       headers: {
         authorization: `Bearer ${jwt}`,
         'Content-Type': 'application/json'

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {IUserInfoInterface} from "../../../../interface/user-info.interface";
 
 @Component({
@@ -7,7 +7,7 @@ import {IUserInfoInterface} from "../../../../interface/user-info.interface";
   styleUrls: ['./user-card.component.scss']
 })
 export class UserCardComponent implements OnInit {
-
+  @Output() public deletedWorkspaceOwner: EventEmitter<IUserInfoInterface> = new EventEmitter();
   @Input() public userData: IUserInfoInterface;
   @Input() public showUserCard: boolean;
 
@@ -17,6 +17,10 @@ export class UserCardComponent implements OnInit {
   }
 
   clickMouseOver($event: boolean) {
-    this.showUserCard = $event
+    this.showUserCard = $event;
+  }
+
+  delete(user: IUserInfoInterface) {
+    this.deletedWorkspaceOwner.emit(user);
   }
 }
