@@ -1,7 +1,7 @@
 .user {
   display: flex;
   max-width: 380px;
-  max-height: 300px;
+  height: 200px;
   margin-top: 35px;
   margin-left: -48px;
   z-index: 11;
@@ -16,7 +16,6 @@
 
 .user-photo {
   width: 150px;
-  height: 200px;
   object-fit: cover;
   margin-right: 5px;
   border-bottom-left-radius: 10px;
@@ -41,6 +40,17 @@ span{
   visibility: visible;
   opacity: 1;
   transition: visibility 0s linear 0s, opacity 500ms;
+}
+
+.initials{
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: -0.1em;
+  align-self: center;
+  color: white;
+
 }
 
 .delete{

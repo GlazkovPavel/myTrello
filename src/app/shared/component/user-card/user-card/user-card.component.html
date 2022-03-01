@@ -1,5 +1,8 @@
 <div class="user " [class.show]="showUserCard" (clickMouseOver)="clickMouseOver($event)">
-    <img class="user-photo" alt="{{userData?.username}}" src="{{userData?.avatar}}" >
+    <img class="user-photo" *ngIf="userData?.avatar; else initials" alt="{{userData?.username}}" src="{{userData?.avatar}}" >
+  <ng-template #initials>
+    <span class="initials capitalize">{{firstLetter}}</span>
+  </ng-template>
   <div class="user-description">
     <span class="capitalize">{{userData?.name}}</span>
     <span class="capitalize">{{userData?.surname}}</span>

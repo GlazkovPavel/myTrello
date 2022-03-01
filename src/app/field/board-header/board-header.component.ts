@@ -62,5 +62,6 @@ export class BoardHeaderComponent implements OnInit {
 
   deletedOwnerWorkspace($event: IUserInfoInterface) {
     //this.deletedWorkspaceOwner.emit($event);
+    console.log($event)
   }
 }
