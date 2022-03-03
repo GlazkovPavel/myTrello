@@ -53,6 +53,7 @@ import {UsersService} from "./shared/services/users.service";
 import { FilterSelfPipe } from './shared/pipes/filter-self.pipe';
 import { UserCardComponent } from './shared/component/user-card/user-card/user-card.component';
 import { MouseoverDirective } from './shared/directives/mouseover.directive';
+import {TodoModule} from "./shared/component/todo/module/todo.module";
 
 @NgModule({
   declarations: [
@@ -90,7 +91,7 @@ import { MouseoverDirective } from './shared/directives/mouseover.directive';
     MaskComponent,
     FilterSelfPipe,
     UserCardComponent,
-    MouseoverDirective
+    MouseoverDirective,
   ],
     imports: [
         BrowserModule,
@@ -109,6 +110,7 @@ import { MouseoverDirective } from './shared/directives/mouseover.directive';
         ModalModule.forRoot(),
         MatTooltipModule,
         MatButtonToggleModule,
+        TodoModule
     ],
   providers: [UserCheckService, ValidationService, ListComponent, UsersService],
   exports: [
