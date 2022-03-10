@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import {TodoService} from "../services/todo.service";
 import {Observable} from "rxjs";
 import {ITodoInterface} from "../interface/todo.interface";
@@ -7,7 +7,7 @@ import {map, switchMap, tap} from "rxjs/operators";
 @Component({
   selector: 'app-todo',
   templateUrl: './todo.component.html',
-  styleUrls: ['./todo.component.scss']
+  styleUrls: ['./todo.component.scss'],
 })
 export class TodoComponent implements OnInit {
 
@@ -17,12 +17,17 @@ export class TodoComponent implements OnInit {
   constructor(private todoService: TodoService) { }
 
   ngOnInit(): void {
-    this.todoList$ = this.todoService.getTodo()
+     this.todoList$ = this.todoService.getTodo()
   }
 
-  onCreate(): void {
+  onCreate() {
     if(this.title) {
-      this.todoService.createTodo(this.title).subscribe( value => this.todoList$.pipe(tap((todoList) => todoList.push(value))))
+      this.todoService.createTodo(this.title).pipe(
+        map(() => {
+          this.title = '';
+          return this.todoList$ = this.todoService.getTodo();
+        })
+      ).subscribe()
     }
   }
 }
