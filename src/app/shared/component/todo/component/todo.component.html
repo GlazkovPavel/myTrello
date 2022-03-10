@@ -1,17 +1,13 @@
-<form action="#">
-  <input type="text" name="title">
+<form action="#" (ngSubmit)="onCreate()">
+  <input type="text" name="title" [(ngModel)]="title">
     <button>Добавить новую запись</button>
 </form>
 
 <ul>
-  <li>
-    <input type="checkbox" name="isCompleted">
-    <span>То что нужно сделать</span>
-    <span>Удалить</span>
-  </li>
-  <li>
-    <input type="checkbox" name="isCompleted" checked="checked">
-    <span><del>То что сделано</del></span>
-    <span>Удалить</span>
+  <li *ngFor="let todo of todoList$ | async">
+    <input type="checkbox" name="isCompleted" [checked]="todo.isCompleted">
+    <span *ngIf="!todo.isCompleted">{{ todo.title }}</span>
+    <span *ngIf="todo.isCompleted"><del>{{ todo.title }}</del></span>
+    <span> Удалить</span>
   </li>
 </ul>

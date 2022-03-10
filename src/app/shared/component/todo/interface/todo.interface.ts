@@ -1,5 +1,5 @@
 export interface ITodoInterface {
-  id: number,
+  _id: string,
   title: string,
   isCompleted: boolean
 }
