@@ -12,10 +12,11 @@ import {map, tap} from "rxjs/operators";
 export class TodoComponent implements OnInit {
 
   public todoList$: Observable<ITodoInterface[]>;
+  public lists$: Observable<IListTodoInterface[]>;
   public titleTask: string = '';
   public titleList: string = '';
   private todoList: ITodoInterface[];
-  private list: IListTodoInterface;
+  private list: IListTodoInterface[] = [];
 
   constructor(private todoService: TodoService) { }
 
@@ -24,17 +25,17 @@ export class TodoComponent implements OnInit {
   }
 
   public onCreateTask() {
-    if(this.titleTask) {
-      this.todoService.createTodo(this.titleTask).pipe(
-      ).subscribe(
-        (value) => {
-          this.titleTask = '';
-          this.todoList.unshift(value)
-          this.todoList$ = of(this.todoList);
-        },
-        error => console.log(error)
-      )
-    }
+    // if(this.titleTask) {
+    //   this.todoService.createTodo(this.titleTask).pipe(
+    //   ).subscribe(
+    //     (value) => {
+    //       this.titleTask = '';
+    //       this.todoList.unshift(value)
+    //       this.todoList$ = of(this.todoList);
+    //     },
+    //     error => console.log(error)
+    //   )
+    // }
   }
 
   private getTodoList(): Observable<ITodoInterface[]> {
@@ -86,7 +87,16 @@ export class TodoComponent implements OnInit {
   public onCreateList() {
 
     if (this.titleList) {
-
+      this.todoService.createTodo(this.titleList).pipe(
+      ).subscribe(
+        (value) => {
+          this.titleTask = '';
+          this.list.unshift(value)
+          this.lists$ = of(this.list);
+          console.log(this.list)
+        },
+        error => console.log(error)
+      )
     }
 
   }

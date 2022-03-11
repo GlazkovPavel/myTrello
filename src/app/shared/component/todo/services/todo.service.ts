@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {ITodoInterface} from "../interface/todo.interface";
+import {IListTodoInterface, ITodoInterface} from "../interface/todo.interface";
 import {Observable} from "rxjs";
-import {ITaskInterface} from "../../../../interface/task.interface";
 
 @Injectable()
 export class TodoService {
@@ -11,10 +10,10 @@ export class TodoService {
 
   constructor(private http: HttpClient) { }
 
-  public createTodo(title: string): Observable<ITodoInterface> {
+  public createTodo(title: string): Observable<IListTodoInterface> {
   const jwt: string = localStorage.getItem('jwt');
-  const data = {title: title}
-    return this.http.post<ITodoInterface>(`${this.isUrl}/todo`, data, {
+  const data = {titleList: title}
+    return this.http.post<IListTodoInterface>(`${this.isUrl}/todo`, data, {
       headers: {
         authorization: `Bearer ${jwt}`,
         'Content-Type': 'application/json'

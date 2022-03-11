@@ -5,6 +5,10 @@
       <input class="form__input" type="text" name="title" placeholder="Назовите список..." [(ngModel)]="titleList">
       <button class="form__button">Добавить новый список</button>
     </form>
+    <ng-container *ngFor="let list of lists$ | async">
+      <p>{{list.title}}</p>
+    </ng-container>
+
   </mat-drawer>
 
   <div class="example-sidenav-content">
