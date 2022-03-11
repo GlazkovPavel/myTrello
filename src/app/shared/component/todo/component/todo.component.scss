@@ -1,5 +1,6 @@
 .example-container {
   width: 360px;
+  min-height: 300px;
   box-shadow:  0 0 10px gray;
   padding: 1rem;
   margin: 1.5rem;
@@ -73,4 +74,52 @@
 
 .checkbox {
   margin: auto 10px auto 0;
+}
+
+.sidenav{
+  display: flex;
+  flex-direction: column;
+}
+
+.list-title{
+  min-height: 24px;
+  box-shadow:  0 0 5px gray;
+  cursor: pointer;
+  transition: box-shadow 300ms, opacity 300ms;
+  padding: 3px;
+  position: relative;
+}
+
+.list-title:hover{
+  box-shadow:  0 0 8px gray;
+  opacity: .8;
+}
+
+.button-delete {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    outline: none;
+    border: none;
+    padding: 0;
+    margin: auto 0;
+    cursor: pointer;
+    right: 0;
+    background: url('../../../../../assets/images/delete__icon-white.svg') center no-repeat;
+    transition: transform 300ms linear, visibility 0s linear 300ms, opacity 300ms;
+
+  }
+
+.button-delete:hover {
+  transform:  scale(1.3);
+
+}
+
+
+.list-title:hover .button-delete{
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0s linear 0s, opacity 300ms;
 }

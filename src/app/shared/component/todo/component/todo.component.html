@@ -1,17 +1,23 @@
 <mat-drawer-container class="example-container" autosize>
   <mat-drawer #drawer class="example-sidenav" mode="side">
-    <p>Списки</p>
-    <form class="form" action="#" (ngSubmit)="onCreateList()">
-      <input class="form__input" type="text" name="title" placeholder="Назовите список..." [(ngModel)]="titleList">
-      <button class="form__button">Добавить новый список</button>
-    </form>
-    <ng-container *ngFor="let list of lists$ | async">
-      <p>{{list.title}}</p>
-    </ng-container>
-
+    <div class="sidenav">
+      <p>Списки</p>
+      <form class="form" action="#" (ngSubmit)="onCreateList()">
+        <input class="form__input" type="text" name="title" placeholder="Назовите список..." [(ngModel)]="titleList">
+        <button class="form__button">Добавить новый список</button>
+      </form>
+      <ng-container *ngFor="let list of lists$ | async">
+        <div class="list-title" (click)="currentTodo(list)">
+          <span>{{list.titleList}}</span>
+          <button  class="button-delete"
+                   (click)=" onDeleteCard(list)"></button>
+          </div>
+      </ng-container>
+    </div>
   </mat-drawer>
 
   <div class="example-sidenav-content">
+    <p>{{currentTodoList?.titleList}}</p>
     <button class="button-sidenav" type="button" mat-button (click)="drawer.toggle()">
       <mat-icon>keyboard_arrow_left</mat-icon>Списки
     </button>
@@ -20,16 +26,16 @@
       <button [hidden]="drawer.opened" class="form__button">Добавить новую запись</button>
     </form>
 
-    <ul class="todo-list">
-      <li class="todo" *ngFor="let todo of todoList$ | async">
+    <ul class="todo-list" *ngIf="currentTodoList">
+      <li class="todo" *ngFor="let todo of currentTodoList?.list">
         <input
           class="checkbox"
           type="checkbox"
           name="isCompleted"
           (change)="onComplete(todo)"
-          [checked]="todo.isCompleted">
-        <span class="text" *ngIf="!todo.isCompleted">{{ todo.title }}</span>
-        <span class="text" *ngIf="todo.isCompleted"><del>{{ todo.title }}</del></span>
+          [checked]="todo?.isCompleted">
+        <span class="text" *ngIf="!todo?.isCompleted">{{ todo?.titleTodo }}</span>
+        <span class="text" *ngIf="todo?.isCompleted"><del>{{ todo?.titleTodo }}</del></span>
         <button mat-icon-button color="accent" class="remove" mat-button (click)="onRemove(todo)">
           <mat-icon>delete</mat-icon>
         </button>

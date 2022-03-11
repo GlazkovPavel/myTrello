@@ -20,9 +20,16 @@ export class TodoService {
       }
     })
   }
-  public updateTodo(todo: ITodoInterface): Observable<ITodoInterface> {
+  public updateTodo(todoList: IListTodoInterface): Observable<IListTodoInterface> {
+
+    const todo: IListTodoInterface = {
+      _id: todoList._id,
+      titleList: todoList.titleList,
+      list: todoList.list
+    }
+
     const jwt: string = localStorage.getItem('jwt');
-    return this.http.patch<ITodoInterface>(`${this.isUrl}/todo`, todo, {
+    return this.http.patch<IListTodoInterface>(`${this.isUrl}/todo`, todo, {
       headers: {
         authorization: `Bearer ${jwt}`,
         'Content-Type': 'application/json'
@@ -30,9 +37,9 @@ export class TodoService {
     })
   }
 
-  public getTodo(): Observable<ITodoInterface[]> {
+  public getTodo(): Observable<IListTodoInterface[]> {
     const jwt: string = localStorage.getItem('jwt');
-    return this.http.get<ITodoInterface[]>(`${this.isUrl}/todos`, {
+    return this.http.get<IListTodoInterface[]>(`${this.isUrl}/todos`, {
       headers: {
         authorization: `Bearer ${jwt}`,
         'Content-Type': 'application/json'
@@ -40,13 +47,13 @@ export class TodoService {
     })
   }
 
-  public deleteTodoById(todo: ITodoInterface): Observable<void> {
-    const jwt: string = localStorage.getItem('jwt');
-    return this.http.delete<void>(`${this.isUrl}/todo/${todo._id}`, {
-      headers: {
-        authorization: `Bearer ${jwt}`,
-        'Content-Type': 'application/json'
-      }
-    })
-  }
+  // public deleteTodoById(todo: ITodoInterface): Observable<void> {
+  //   const jwt: string = localStorage.getItem('jwt');
+  //   return this.http.delete<void>(`${this.isUrl}/todo/${todo._id}`, {
+  //     headers: {
+  //       authorization: `Bearer ${jwt}`,
+  //       'Content-Type': 'application/json'
+  //     }
+  //   })
+  // }
 }
