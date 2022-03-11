@@ -1,0 +1,76 @@
+.example-container {
+  width: 360px;
+  box-shadow:  0 0 10px gray;
+  padding: 1rem;
+  margin: 1.5rem;
+}
+
+.example-sidenav-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.example-sidenav {
+  padding: 20px;
+}
+
+.mat-drawer-container {
+  background: none;
+  color: black;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  &__input{
+    height: 30px;
+    margin-bottom: 6px;
+    border: none;
+    border-radius: 4px;
+  }
+  &__button{
+    height: 24px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: opacity 300ms;
+  }
+  &__button:hover{
+    opacity: .8;
+  }
+}
+
+.button-sidenav{
+  place-self: start;
+}
+
+.todo-list {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  place-self: start;
+  width: 100%;
+}
+
+.todo{
+  list-style-type: none;
+  display: flex;
+  justify-content: space-between;
+  min-height: 40px;
+  box-shadow:  0 0 5px gray;
+  border-radius: 5px;
+  padding: .3rem;
+}
+
+.text{
+  margin: auto auto auto 0;
+}
+
+.checkbox {
+  margin: auto 10px auto 0;
+}

@@ -21,6 +21,15 @@ export class TodoService {
       }
     })
   }
+  public updateTodo(todo: ITodoInterface): Observable<ITodoInterface> {
+    const jwt: string = localStorage.getItem('jwt');
+    return this.http.patch<ITodoInterface>(`${this.isUrl}/todo`, todo, {
+      headers: {
+        authorization: `Bearer ${jwt}`,
+        'Content-Type': 'application/json'
+      }
+    })
+  }
 
   public getTodo(): Observable<ITodoInterface[]> {
     const jwt: string = localStorage.getItem('jwt');
@@ -34,12 +43,11 @@ export class TodoService {
 
   public deleteTodoById(todo: ITodoInterface): Observable<void> {
     const jwt: string = localStorage.getItem('jwt');
-    return this.http.delete<void>(`${this.isUrl}/todos/${todo._id}`, {
+    return this.http.delete<void>(`${this.isUrl}/todo/${todo._id}`, {
       headers: {
         authorization: `Bearer ${jwt}`,
         'Content-Type': 'application/json'
       }
     })
-
   }
 }
