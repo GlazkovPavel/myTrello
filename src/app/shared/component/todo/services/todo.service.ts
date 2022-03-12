@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {IListTodoInterface, ITodoInterface} from "../interface/todo.interface";
+import {IListTodoInterface} from "../interface/todo.interface";
 import {Observable} from "rxjs";
 
 @Injectable()
@@ -47,7 +47,7 @@ export class TodoService {
     })
   }
 
-  public deleteTodoById(todo: ITodoInterface): Observable<void> {
+  public deleteTodoById(todo: IListTodoInterface): Observable<void> {
     const jwt: string = localStorage.getItem('jwt');
     return this.http.delete<void>(`${this.isUrl}/todo/${todo._id}`, {
       headers: {
