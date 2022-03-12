@@ -66,14 +66,17 @@ export class TodoComponent implements OnInit {
 
  public onRemove(todoDelete: ITodoInterface): void {
 
-    console.log(todoDelete)
-    // this.todoService.deleteTodoById(todoDelete).subscribe(
-    //   () => {
-    //     this.todoList = this.todoList.filter(todo => todo._id !== todoDelete._id);
-    //     //this.todoList$ = of(this.todoList);
-    //   },
-    //   error => console.log(error)
-    // )
+    const listUpdate = this.currentTodoList
+   listUpdate.list = listUpdate.list.filter(todo => todo._id !== todoDelete._id);
+
+   this.todoService.updateTodo(listUpdate).subscribe(
+      (value: IListTodoInterface) => {
+        this.currentTodoList = value;
+        this.lists.map((list: IListTodoInterface) => list === value)
+        this.lists$ = of(this.lists);
+      },
+      error => console.log(error)
+    )
   }
 
   public onComplete(todoOnComplete: ITodoInterface) {
@@ -112,7 +115,6 @@ export class TodoComponent implements OnInit {
         error => console.log(error)
       )
     }
-
   }
 
   public onCreateTask() {
@@ -122,17 +124,16 @@ export class TodoComponent implements OnInit {
       const todo: ITodoInterface = {
         titleTodo: this.titleTask,
         isCompleted: false
-      }
+      };
+      const listArray = this.currentTodoList;
+      listArray.list.unshift(todo);
 
-      this.currentTodoList.list.push(todo)
-
-      this.todoService.updateTodo(this.currentTodoList).pipe(
+      this.todoService.updateTodo(listArray).pipe(
       ).subscribe(
         (value) => {
           this.titleTask = '';
-          //this.lists.unshift(value)
+          this.currentTodoList = value;
           this.lists$ = of(this.lists);
-          console.log(this.lists)
         },
         error => {
           this.currentTodoList.list.pop()
@@ -140,7 +141,6 @@ export class TodoComponent implements OnInit {
         }
       )
     }
-
   }
 
   currentTodo(list: IListTodoInterface) {

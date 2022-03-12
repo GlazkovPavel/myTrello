@@ -47,13 +47,13 @@ export class TodoService {
     })
   }
 
-  // public deleteTodoById(todo: ITodoInterface): Observable<void> {
-  //   const jwt: string = localStorage.getItem('jwt');
-  //   return this.http.delete<void>(`${this.isUrl}/todo/${todo._id}`, {
-  //     headers: {
-  //       authorization: `Bearer ${jwt}`,
-  //       'Content-Type': 'application/json'
-  //     }
-  //   })
-  // }
+  public deleteTodoById(todo: ITodoInterface): Observable<void> {
+    const jwt: string = localStorage.getItem('jwt');
+    return this.http.delete<void>(`${this.isUrl}/todo/${todo._id}`, {
+      headers: {
+        authorization: `Bearer ${jwt}`,
+        'Content-Type': 'application/json'
+      }
+    })
+  }
 }
