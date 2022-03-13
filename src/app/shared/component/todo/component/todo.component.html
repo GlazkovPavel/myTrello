@@ -42,7 +42,7 @@
         </div>
       </ng-container>
 
-      <button mat-icon-button color="#9E9E9E"  mat-button (click)="onShowCompleted()">
+      <button *ngIf="checkCompletedTodo" mat-icon-button color="#9E9E9E"  mat-button (click)="onShowCompleted()">
         <mat-icon *ngIf="!showCompletedTodo">keyboard_arrow_right</mat-icon>
         <mat-icon *ngIf="showCompletedTodo">keyboard_arrow_down</mat-icon>
         Выполненные
@@ -66,3 +66,4 @@
     </div>
   </div>
 </mat-drawer-container>
+.

@@ -17,6 +17,7 @@ export class TodoComponent implements OnInit {
   public titleList: string = '';
   public lists: IListTodoInterface[] = [];
   public showCompletedTodo: boolean = false;
+  public checkCompletedTodo: boolean = false;
 
   constructor(private todoService: TodoService) { }
 
@@ -27,7 +28,6 @@ export class TodoComponent implements OnInit {
   private getTodoList(): Observable<IListTodoInterface[]> {
     return this.todoService.getTodo().pipe(
       tap((data: IListTodoInterface[]) => {
-
         this.lists = data;
         this.lists.map(val => val.list.reverse().sort(function (todo: ITodoInterface) {
           if(todo.isCompleted === true) {
@@ -36,6 +36,7 @@ export class TodoComponent implements OnInit {
           return -1;
         }));
         this.currentTodoList = this.lists[0];
+        this.checkCompleted(this.currentTodoList);
       })
     );
   }
@@ -53,6 +54,10 @@ export class TodoComponent implements OnInit {
       },
       error => console.log(error)
     )
+  };
+
+  private checkCompleted(item: IListTodoInterface) {
+    this.checkCompletedTodo = item.list.some(value => value.isCompleted === true);
   }
 
   public onComplete(todoOnComplete: ITodoInterface) {
@@ -68,6 +73,7 @@ export class TodoComponent implements OnInit {
     } else if (todo.isCompleted === true) {
       this.currentTodoList.list.push(todo);
     }
+    this.checkCompleted(this.currentTodoList);
 
     this.todoService.updateTodo(this.currentTodoList).subscribe(
       (value: IListTodoInterface) => {
@@ -118,7 +124,8 @@ export class TodoComponent implements OnInit {
   }
 
   public currentTodo(list: IListTodoInterface) {
-    this.currentTodoList = this.lists.find((value) => value._id === list._id)
+    this.currentTodoList = this.lists.find((value) => value._id === list._id);
+    this.checkCompleted(this.currentTodoList);
   }
 
   public onDeleteList(list: IListTodoInterface) {
