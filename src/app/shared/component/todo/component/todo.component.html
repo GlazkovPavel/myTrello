@@ -18,13 +18,20 @@
 
   <div class="example-sidenav-content" >
     <p>{{currentTodoList?.titleList}}</p>
-    <button class="button-sidenav" type="button" mat-button (click)="drawer.toggle()">
+    <button *ngIf="!checkArrayTodo" class="button-sidenav" type="button" mat-button (click)="drawer.toggle()">
       <mat-icon>keyboard_arrow_left</mat-icon>Списки
     </button>
     <form class="form" action="#" (ngSubmit)="onCreateTask()" (click)="drawer.close()">
       <input class="form__input" type="text" name="title" placeholder="Нужно сделать..." [(ngModel)]="titleTask">
       <button [hidden]="drawer.opened" class="form__button">Добавить новую запись</button>
     </form>
+
+    <ng-container *ngIf="checkArrayTodo" >
+      <span class="warning">Сначала создайте список</span>
+      <button class="button-sidenav" type="button" mat-button (click)="drawer.toggle()">
+        <mat-icon>keyboard_arrow_left</mat-icon>Создать список
+      </button>
+    </ng-container>
 
     <div class="todo-list" *ngIf="currentTodoList" (click)="drawer.close()">
       <ng-container *ngFor="let todo of currentTodoList?.list">

@@ -18,6 +18,7 @@ export class TodoComponent implements OnInit {
   public lists: IListTodoInterface[] = [];
   public showCompletedTodo: boolean = false;
   public checkCompletedTodo: boolean = false;
+  public checkArrayTodo: boolean = false;
 
   constructor(private todoService: TodoService) { }
 
@@ -37,6 +38,7 @@ export class TodoComponent implements OnInit {
         }));
         this.currentTodoList = this.lists[0];
         this.checkCompleted(this.currentTodoList);
+        this.checkArrayTodos();
       })
     );
   }
@@ -57,7 +59,13 @@ export class TodoComponent implements OnInit {
   };
 
   private checkCompleted(item: IListTodoInterface) {
-    this.checkCompletedTodo = item.list.some(value => value.isCompleted === true);
+    this.checkCompletedTodo = item?.list.some(value => value.isCompleted === true);
+  }
+
+  private checkArrayTodos(): void {
+    if(this.lists.length === 0) {
+      this.checkArrayTodo = true;
+    }
   }
 
   public onComplete(todoOnComplete: ITodoInterface) {
@@ -92,6 +100,7 @@ export class TodoComponent implements OnInit {
           this.titleList = '';
           this.lists.unshift(value)
           this.lists$ = of(this.lists);
+          this.checkArrayTodo = false;
           console.log(this.lists)
         },
         error => console.log(error)
@@ -133,6 +142,7 @@ export class TodoComponent implements OnInit {
       this.lists = this.lists.filter((listDelete: IListTodoInterface) => listDelete._id !== list._id);
       this.lists$ = of(this.lists);
       this.currentTodoList = this.lists[0];
+      this.checkArrayTodos();
     })
   }
 
