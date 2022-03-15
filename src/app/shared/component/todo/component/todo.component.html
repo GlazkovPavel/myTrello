@@ -1,36 +1,69 @@
 <mat-drawer-container class="example-container" autosize>
   <mat-drawer #drawer class="example-sidenav" mode="side">
-    <p>Списки</p>
-    <form class="form" action="#" (ngSubmit)="onCreateList()">
-      <input class="form__input" type="text" name="title" placeholder="Назовите список..." [(ngModel)]="titleList">
-      <button class="form__button">Добавить новый список</button>
-    </form>
+    <div class="sidenav">
+      <p>Списки</p>
+      <form class="form" action="#" (ngSubmit)="onCreateList()">
+        <input class="form__input" type="text" name="title" placeholder="Назовите список..." [(ngModel)]="titleList">
+        <button class="form__button">Добавить новый список</button>
+      </form>
+      <ng-container *ngFor="let list of lists$ | async">
+        <div class="list-title" (click)="currentTodo(list)">
+          <span>{{list.titleList}}</span>
+          <button  class="button-delete"
+                   (click)=" onDeleteList(list)"></button>
+          </div>
+      </ng-container>
+    </div>
   </mat-drawer>
 
-  <div class="example-sidenav-content">
+  <div class="example-sidenav-content" >
+    <p>{{currentTodoList?.titleList}}</p>
     <button class="button-sidenav" type="button" mat-button (click)="drawer.toggle()">
       <mat-icon>keyboard_arrow_left</mat-icon>Списки
     </button>
-    <form class="form" action="#" (ngSubmit)="onCreateTask()">
+    <form class="form" action="#" (ngSubmit)="onCreateTask()" (click)="drawer.close()">
       <input class="form__input" type="text" name="title" placeholder="Нужно сделать..." [(ngModel)]="titleTask">
       <button [hidden]="drawer.opened" class="form__button">Добавить новую запись</button>
     </form>
 
-    <ul class="todo-list">
-      <li class="todo" *ngFor="let todo of todoList$ | async">
-        <input
-          class="checkbox"
-          type="checkbox"
-          name="isCompleted"
-          (change)="onComplete(todo)"
-          [checked]="todo.isCompleted">
-        <span class="text" *ngIf="!todo.isCompleted">{{ todo.title }}</span>
-        <span class="text" *ngIf="todo.isCompleted"><del>{{ todo.title }}</del></span>
-        <button mat-icon-button color="accent" class="remove" mat-button (click)="onRemove(todo)">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </li>
-    </ul>
-  </div>
+    <div class="todo-list" *ngIf="currentTodoList" (click)="drawer.close()">
+      <ng-container *ngFor="let todo of currentTodoList?.list">
+        <div class="todo" *ngIf="!todo?.isCompleted">
+          <input
+            class="checkbox"
+            type="checkbox"
+            name="isCompleted"
+            (change)="onComplete(todo)"
+            [checked]="todo?.isCompleted">
+          <span class="text" *ngIf="!todo?.isCompleted">{{ todo?.titleTodo }}</span>
+          <button mat-icon-button color="accent" class="remove" mat-button (click)="onRemove(todo)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </ng-container>
 
+      <button *ngIf="checkCompletedTodo" mat-icon-button color="#9E9E9E"  mat-button (click)="onShowCompleted()">
+        <mat-icon *ngIf="!showCompletedTodo">keyboard_arrow_right</mat-icon>
+        <mat-icon *ngIf="showCompletedTodo">keyboard_arrow_down</mat-icon>
+        Выполненные
+      </button>
+      <ng-container *ngIf="showCompletedTodo">
+        <ng-container *ngFor="let todo of currentTodoList?.list">
+          <div class="todo" *ngIf="todo?.isCompleted">
+            <input
+              class="checkbox"
+              type="checkbox"
+              name="isCompleted"
+              (change)="onComplete(todo)"
+              [checked]="todo?.isCompleted">
+            <span class="text" *ngIf="todo?.isCompleted"><del>{{ todo?.titleTodo }}</del></span>
+            <button mat-icon-button color="accent" class="remove" mat-button (click)="onRemove(todo)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
 </mat-drawer-container>
+.

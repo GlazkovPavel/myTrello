@@ -18,7 +18,7 @@ import {MatIconModule} from "@angular/material/icon";
     FormsModule,
     MatSidenavModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
   ]
 })
 export class TodoModule { }

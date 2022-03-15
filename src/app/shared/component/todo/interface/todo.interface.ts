@@ -1,11 +1,11 @@
 export interface ITodoInterface {
-  _id: string,
-  title: string,
-  isCompleted: boolean
+  titleTodo: string,
+  isCompleted?: boolean,
+  _id?: string
 }
 
 export interface IListTodoInterface {
   _id: string,
-  title: string,
-  todoList: ITodoInterface
+  titleList: string,
+  list: ITodoInterface[]
 }
