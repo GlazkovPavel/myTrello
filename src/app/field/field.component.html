@@ -3,6 +3,7 @@
 
   <app-board-header
     (handleAddWorkspaceOwner)="handleAddWorkspaceOwner($event)"
+    (deletedWorkspaceOwner)="handleDeletedWorkspaceOwner($event)"
     [currentSpace]="currentSpace"
     [usersWorkSpaceOwner$]="usersWorkSpaceOwner$"
   ></app-board-header>

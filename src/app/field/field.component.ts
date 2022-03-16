@@ -93,4 +93,20 @@ export class FieldComponent implements OnInit {
 
       ).subscribe()
   }
+
+  handleDeletedWorkspaceOwner($event: IUserInfoInterface) {
+    console.log('$event',$event)
+    this.workSpaceService.deleteUserWorkSpace($event._id,  this.currentSpace._id)
+      .pipe(
+        switchMap((data: ISpaceInterface) => {
+          return this.usersWorkSpaceOwner$ = this.usersService.searchUsersWorkSpace(data)
+        }),
+
+      ).subscribe(
+      () => {
+        this.currentSpace?.owner.filter((val) => val !== $event._id)
+      }
+    )
+
+  }
 }

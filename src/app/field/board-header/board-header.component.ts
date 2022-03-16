@@ -12,7 +12,7 @@ import {ISpaceInterface} from "../../interface/space.interface";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BoardHeaderComponent implements OnInit {
-  //@Output() public deletedWorkspaceOwner: EventEmitter<IUserInfoInterface> = new EventEmitter();
+  @Output() public deletedWorkspaceOwner: EventEmitter<IUserInfoInterface> = new EventEmitter();
   @Output() public handleAddWorkspaceOwner: EventEmitter<IUserInfoInterface> = new EventEmitter();
   @Input() public currentSpace: ISpaceInterface;
   @Input() public usersWorkSpaceOwner$: Observable<IUserInfoInterface[]>;
@@ -28,7 +28,7 @@ export class BoardHeaderComponent implements OnInit {
     this.searchText = of(($event.target as HTMLInputElement).value.trim().toLowerCase())
     this.users$ = this.searchText.pipe(
       filter(text => text.length > 2),
-      debounceTime(150),
+      debounceTime(300),
       distinctUntilChanged(),
       switchMap( users => this.usersService.searchUser(users))
     )
@@ -61,7 +61,6 @@ export class BoardHeaderComponent implements OnInit {
   }
 
   deletedOwnerWorkspace($event: IUserInfoInterface) {
-    //this.deletedWorkspaceOwner.emit($event);
-    console.log($event)
+    this.deletedWorkspaceOwner.emit($event);
   }
 }

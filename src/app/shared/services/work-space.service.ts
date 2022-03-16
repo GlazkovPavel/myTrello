@@ -9,7 +9,6 @@ import {ISpaceInterface} from "../../interface/space.interface";
 })
 export class WorkSpaceService {
   private isUrl: string = 'http://localhost:3000'
-  private jwt: string = localStorage.getItem('jwt');
 
   constructor( private http: HttpClient ) {}
 
@@ -49,10 +48,24 @@ export class WorkSpaceService {
     })
   }
 
+  public deleteUserWorkSpace(id: string, _id: string): Observable<ISpaceInterface> {
+    const body = {
+      id: id
+    }
+    const jwt: string = localStorage.getItem('jwt');
+    return this.http.patch<ISpaceInterface>(`${this.isUrl}/work-space-delete/${_id}`, body, {
+      headers: {
+        authorization: `Bearer ${jwt}`,
+        'Content-Type': 'application/json'
+      }
+    })
+  }
+
   public deleteWorkSpace(id: string): Observable<void> {
+    const jwt: string = localStorage.getItem('jwt');
     return this.http.delete<void>(`${this.isUrl}/work-space/${id}`, {
       headers: {
-        authorization: `Bearer ${this.jwt}`,
+        authorization: `Bearer ${jwt}`,
         'Content-Type': 'application/json'
       }
     })
