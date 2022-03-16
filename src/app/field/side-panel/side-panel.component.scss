@@ -31,7 +31,8 @@
   }
 
   &__input{
-    width: 80% !important;
+    max-width: 80%;
+    font-family: 'Roboto',  sans-serif;
     border: none;
     background: #e0e0da;
     border-radius: 4px;
