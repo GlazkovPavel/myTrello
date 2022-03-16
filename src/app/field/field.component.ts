@@ -2,7 +2,7 @@ import { Component, Injectable, OnInit} from '@angular/core';
 import {IListInterface} from "../interface/list.interface";
 import {ISpaceInterface} from "../interface/space.interface";
 import {WorkSpaceService} from "../shared/services/work-space.service";
-import {map, switchMap} from "rxjs/operators";
+import {filter, map, switchMap} from "rxjs/operators";
 import {UsersService} from "../shared/services/users.service";
 import {IUserInfoInterface} from "../interface/user-info.interface";
 import {Observable} from "rxjs";
@@ -97,14 +97,13 @@ export class FieldComponent implements OnInit {
   handleDeletedWorkspaceOwner($event: IUserInfoInterface) {
     console.log('$event',$event)
     this.workSpaceService.deleteUserWorkSpace($event._id,  this.currentSpace._id)
-      .pipe(
-        switchMap((data: ISpaceInterface) => {
-          return this.usersWorkSpaceOwner$ = this.usersService.searchUsersWorkSpace(data)
-        }),
+      .subscribe(
+      (v: ISpaceInterface) => {
+        this.currentSpace.owner = this.currentSpace?.owner.filter((val) => val !== $event._id)
+        this.usersWorkSpaceOwner$ = this.usersWorkSpaceOwner$.pipe(map((value: IUserInfoInterface[]) => {
+         return value.filter((item: IUserInfoInterface) => item._id !== $event._id)
+        }))
 
-      ).subscribe(
-      () => {
-        this.currentSpace?.owner.filter((val) => val !== $event._id)
       }
     )
 
