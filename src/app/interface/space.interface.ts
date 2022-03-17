@@ -4,6 +4,7 @@ export interface ISpaceInterface {
   title?: string,
   _id?: string,
   list?: IListInterface[],
-  owner: string[]
+  owner: string[],
+  holder?: string
 }
 
