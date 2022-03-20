@@ -6,6 +6,7 @@ import {map, switchMap} from "rxjs/operators";
 import {UsersService} from "../shared/services/users.service";
 import {IUserInfoInterface} from "../interface/user-info.interface";
 import {Observable} from "rxjs";
+import {ErrorService} from "../shared/component/error-handing/error.service";
 
 @Component({
   selector: 'app-field',
@@ -23,7 +24,8 @@ export class FieldComponent implements OnInit {
   private idSpace: string;
 
   constructor(private readonly workSpaceService: WorkSpaceService,
-              private readonly usersService: UsersService) {}
+              private readonly usersService: UsersService,
+              private readonly errorService: ErrorService) {}
 
   ngOnInit(): void {
 
@@ -95,7 +97,6 @@ export class FieldComponent implements OnInit {
   }
 
   handleDeletedWorkspaceOwner($event: IUserInfoInterface) {
-
     if(JSON.parse(localStorage.getItem('userInfo'))._id === this.currentSpace?.holder) {
       this.workSpaceService.deleteUserWorkSpace($event._id,  this.currentSpace._id)
         .subscribe(
@@ -104,10 +105,10 @@ export class FieldComponent implements OnInit {
             this.usersWorkSpaceOwner$ = this.usersWorkSpaceOwner$.pipe(map((value: IUserInfoInterface[]) => {
               return value.filter((item: IUserInfoInterface) => item._id !== $event._id)
             }))
-          }
-        )
+          })
     } else {
       console.log('Нельзя удалять пользователей если вы не владелец данного рабочего пространства');
+      this.errorService.errorModal();
     }
   }
 

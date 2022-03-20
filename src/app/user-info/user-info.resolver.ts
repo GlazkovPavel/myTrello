@@ -13,9 +13,6 @@ import {IUserInfoInterface} from "../interface/user-info.interface";
 export class UserInfoResolver implements Resolve<IUserInfoInterface | null> {
 
   private isUrl: string = 'http://localhost:3000';
-
-
-
   constructor(private http: HttpClient) {
   }
 
