@@ -108,7 +108,7 @@ export class FieldComponent implements OnInit {
           })
     } else {
       console.log('Нельзя удалять пользователей если вы не владелец данного рабочего пространства');
-      this.errorService.errorModal();
+      this.errorService.errorModal('ошибочка такая');
     }
   }
 

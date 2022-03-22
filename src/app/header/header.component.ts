@@ -60,7 +60,7 @@ export class HeaderComponent implements OnInit {
     this.modalService.open({
       component: module.UserInfoComponent,
       context: {
-        product: {...this}
+        user: {...this}
       }
     })
   }

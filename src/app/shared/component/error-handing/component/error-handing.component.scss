@@ -1,0 +1,39 @@
+.error{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 260px;
+  background-color: white;
+  padding: 10px;
+  position: relative;
+}
+.image{
+  width: 100%;
+}
+
+.popup__close{
+  background: url('../../../../../assets/images/close_module_Icon.svg');
+  overflow: hidden;
+  width: 18px;
+  height: 18px;
+  border: none;
+  background-repeat: no-repeat;
+  position: absolute;
+  right: -30px;
+  top: -30px;
+  cursor: pointer;
+  outline: none;
+  transition: transform .8s ease-in-out;
+}
+.popup__close:hover{
+  opacity: .6;
+  transform: rotate(360deg);
+}
+@media (max-width: 520px){
+  .popup__close{
+    background: url('../../../../../assets/images/close_module_Icon.svg');
+    background-position: center;
+    right: 0;
+    top: -35px;
+  }
+}

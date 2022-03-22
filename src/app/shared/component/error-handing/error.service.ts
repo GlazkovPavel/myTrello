@@ -7,8 +7,7 @@ export class ErrorService {
 
   constructor(private readonly modalService: ModalService) { }
 
-  public errorModal() {
-    const module = ErrorHandingComponent
+  public errorModal(err: string) {
     this.modalService.open({
       component: ErrorHandingComponent,
       context: {

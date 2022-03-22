@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ModalService} from "../../../../modal/modal.service";
 
 @Component({
   selector: 'app-error-handing',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ErrorHandingComponent implements OnInit {
 
-  constructor() { }
+  constructor(private readonly modalService: ModalService) { }
 
   ngOnInit(): void {
   }
 
+  isClose() {
+    this.modalService.close();
+  }
 }
