@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ErrorHandingComponent } from './component/error-handing.component';
-import {ErrorService} from "./error.service";
+import {ErrorService} from "./services/error.service";
+import {GetMessageErrorService} from "./services/get-message-error.service";
 
 
 
@@ -13,7 +14,8 @@ import {ErrorService} from "./error.service";
     CommonModule
   ],
   providers: [
-    ErrorService
+    ErrorService,
+    GetMessageErrorService
   ]
 })
 export class ErrorModule { }

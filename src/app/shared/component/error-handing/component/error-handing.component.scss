@@ -29,6 +29,9 @@
   opacity: .6;
   transform: rotate(360deg);
 }
+.error-title {
+  color: #4c4cda;
+}
 @media (max-width: 520px){
   .popup__close{
     background: url('../../../../../assets/images/close_module_Icon.svg');

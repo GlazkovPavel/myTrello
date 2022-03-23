@@ -1,5 +1,6 @@
 .modal {
-  display: none;
+  visibility: hidden;
+  opacity: 0;
   position: fixed;
   top: 0;
   bottom: 0;
@@ -11,7 +12,9 @@
 }
 
 .modal.open {
-  display: block;
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0s linear 0s, opacity 300ms;
 }
 
 .modal.open .content {

@@ -6,7 +6,9 @@ import {map, switchMap} from "rxjs/operators";
 import {UsersService} from "../shared/services/users.service";
 import {IUserInfoInterface} from "../interface/user-info.interface";
 import {Observable} from "rxjs";
-import {ErrorService} from "../shared/component/error-handing/error.service";
+import {ErrorService} from "../shared/component/error-handing/services/error.service";
+import {GetMessageErrorService} from "../shared/component/error-handing/services/get-message-error.service";
+import {ErrorMessageEnum} from "../shared/component/error-handing/error-messages/enum/error-message.enum";
 
 @Component({
   selector: 'app-field',
@@ -25,7 +27,8 @@ export class FieldComponent implements OnInit {
 
   constructor(private readonly workSpaceService: WorkSpaceService,
               private readonly usersService: UsersService,
-              private readonly errorService: ErrorService) {}
+              private readonly errorService: ErrorService,
+              private readonly getMessageErrorService: GetMessageErrorService) {}
 
   ngOnInit(): void {
 
@@ -66,7 +69,7 @@ export class FieldComponent implements OnInit {
    this.usersWorkSpaceOwner$ = this.usersService.searchUsersWorkSpace(space)
   }
 
-  spacesAdd() {
+  public spacesAdd() {
     const space: ISpaceInterface = {
       _id: this.currentSpace?._id,
       title: this.currentSpace?.title,
@@ -76,16 +79,23 @@ export class FieldComponent implements OnInit {
     this.workSpaceService.saveWorkSpace(space);
   }
 
-  handleDeleteSpaceId(id: string) {
+  public handleDeleteSpaceId(id: string) {
     this.workSpaceService.deleteWorkSpace(id).subscribe(
       () => {
         this.spaces = this.spaces.filter(item => item._id !== id);
+      },
+      error => {
+        if (error.status === 403) {
+          this.getMessageErrorService.showError(ErrorMessageEnum.MESSAGE_03);
+        } else {
+          this.getMessageErrorService.showError(ErrorMessageEnum.MESSAGE_01);
+        }
       }
     )
   }
 
   //тут сделать запрос юзеров
-  handleAddWorkspaceOwner($event: IUserInfoInterface) {
+  public handleAddWorkspaceOwner($event: IUserInfoInterface) {
     this.currentSpace?.owner.push($event._id);
     this.workSpaceService.updateWorkSpaceOwner($event._id,  this.currentSpace._id)
       .pipe(
@@ -96,7 +106,7 @@ export class FieldComponent implements OnInit {
       ).subscribe()
   }
 
-  handleDeletedWorkspaceOwner($event: IUserInfoInterface) {
+  public handleDeletedWorkspaceOwner($event: IUserInfoInterface) {
     if(JSON.parse(localStorage.getItem('userInfo'))._id === this.currentSpace?.holder) {
       this.workSpaceService.deleteUserWorkSpace($event._id,  this.currentSpace._id)
         .subscribe(
@@ -107,8 +117,7 @@ export class FieldComponent implements OnInit {
             }))
           })
     } else {
-      console.log('Нельзя удалять пользователей если вы не владелец данного рабочего пространства');
-      this.errorService.errorModal('ошибочка такая');
+      this.getMessageErrorService.showError(ErrorMessageEnum.MESSAGE_02);
     }
   }
 

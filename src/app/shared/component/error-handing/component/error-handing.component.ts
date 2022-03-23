@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ModalService} from "../../../../modal/modal.service";
+import {IErrorInterface} from "../interfaces/error.interface";
 
 @Component({
   selector: 'app-error-handing',
@@ -7,6 +8,8 @@ import {ModalService} from "../../../../modal/modal.service";
   styleUrls: ['./error-handing.component.scss']
 })
 export class ErrorHandingComponent implements OnInit {
+
+  public error: IErrorInterface;
 
   constructor(private readonly modalService: ModalService) { }
 

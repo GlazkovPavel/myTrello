@@ -1,6 +1,5 @@
-import {Component, ComponentRef, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
 import {ICardInterface} from "../../../interface/card.interface";
-import {ModalService} from "../../../modal/modal.service";
 import {ListComponent} from "../../list/list.component";
 
 @Component({

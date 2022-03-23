@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {ICardInterface} from "../../interface/card.interface";
-import {ModalService} from "../../modal/modal.service";
 
 @Component({
   selector: 'app-card',
@@ -17,10 +16,9 @@ export class CardComponent {
   @Output() editCardData: EventEmitter<ICardInterface> = new EventEmitter();
 
   @Input() card: ICardInterface | undefined
-  //public editCard: ICardInterface;
   public value: string = '';
 
-  constructor(private readonly modalService: ModalService) {
+  constructor() {
   }
 
   onDeleteCard(id: string | undefined) {
@@ -40,7 +38,6 @@ export class CardComponent {
     this.showEditCard.emit(true);
     this.editCardData.emit(card);
 
-    //this.editCard = card;
   }
 
 
