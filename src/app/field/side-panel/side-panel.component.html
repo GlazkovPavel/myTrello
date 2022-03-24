@@ -1,10 +1,13 @@
 <div class="side-panel">
-  <app-side-panel-card
-    *ngIf="spacesArray.length"
-    [spaces]="spacesArray"
-    (handleShowSpace)="showSpace($event)"
-    (handleSpace)="handleSpaceId($event)"
-  ></app-side-panel-card>
+  <ng-container *ngIf="spacesArray | async as spacesArray">
+    <app-side-panel-card
+      *ngIf="spacesArray.length"
+      [spaces]="spacesArray"
+      (handleShowSpace)="showSpace($event)"
+      (handleSpace)="handleSpaceId($event)"
+    ></app-side-panel-card>
+  </ng-container>
+
   <textarea
     type="text"
     autocomplete="off"

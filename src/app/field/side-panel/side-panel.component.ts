@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
-import {Subscription} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {IdGeneratorService} from "../../shared/services/id-generator.service";
 import {ISpaceInterface} from "../../interface/space.interface";
 
@@ -11,7 +11,7 @@ import {ISpaceInterface} from "../../interface/space.interface";
 export class SidePanelComponent implements OnInit, OnDestroy {
   public value: string = '';
   public id: string | undefined;
-  @Input() public spacesArray: ISpaceInterface[] = [];
+  @Input() public spacesArray: Observable<ISpaceInterface[]>;
 
   @Output() spaceItem:  EventEmitter<ISpaceInterface> = new EventEmitter();
   @Output() spaceCurrent:  EventEmitter<ISpaceInterface> = new EventEmitter();

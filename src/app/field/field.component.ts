@@ -1,14 +1,14 @@
-import { Component, Injectable, OnInit} from '@angular/core';
+import {Component, DoCheck, Injectable, OnInit} from '@angular/core';
 import {IListInterface} from "../interface/list.interface";
 import {ISpaceInterface} from "../interface/space.interface";
 import {WorkSpaceService} from "../shared/services/work-space.service";
 import {map, switchMap} from "rxjs/operators";
 import {UsersService} from "../shared/services/users.service";
 import {IUserInfoInterface} from "../interface/user-info.interface";
-import {Observable} from "rxjs";
-import {ErrorService} from "../shared/component/error-handing/services/error.service";
-import {GetMessageErrorService} from "../shared/component/error-handing/services/get-message-error.service";
-import {ErrorMessageEnum} from "../shared/component/error-handing/error-messages/enum/error-message.enum";
+import {BehaviorSubject, Observable, of} from "rxjs";
+import {MessageService} from "../shared/component/message/services/message.service";
+import {GetMessageService} from "../shared/component/message/services/get-message.service";
+import {MessageEnum} from "../shared/component/message/enum/message.enum";
 
 @Component({
   selector: 'app-field',
@@ -23,22 +23,37 @@ export class FieldComponent implements OnInit {
   public spaces: ISpaceInterface[] = [];
   public currentSpace: ISpaceInterface;
   public usersWorkSpaceOwner$: Observable<IUserInfoInterface[]>;
+  public dada: BehaviorSubject<ISpaceInterface[]> = new BehaviorSubject<ISpaceInterface[]>([])
+  public lala: Observable<ISpaceInterface[]>;
+  private idDeleteSpace: string;
   private idSpace: string;
 
   constructor(private readonly workSpaceService: WorkSpaceService,
               private readonly usersService: UsersService,
-              private readonly errorService: ErrorService,
-              private readonly getMessageErrorService: GetMessageErrorService) {}
+              private readonly errorService: MessageService,
+              private readonly getMessageErrorService: GetMessageService) {}
 
   ngOnInit(): void {
+    this.initialization();
+  }
 
+  public dadada() {
+    this.lala = this.dada.asObservable()
+  }
+
+  private initialization() {
     this.workSpaceService.getWorkSave().pipe(
       map((value: ISpaceInterface[]) => {
-        this.spaces = value;
+        this.spaces = value.concat();
+        this.dada.next(value);
         this.currentSpace = this.spaces[0];
+        return value;
+      } ),
+      switchMap((value: ISpaceInterface[]) => {
         this.usersWorkSpaceOwner$ = this.usersService.searchUsersWorkSpace(this.currentSpace)
-      } )).subscribe();
-
+        return of(value);
+      })).subscribe()
+    this.lala = this.dada.asObservable()
   }
 
   onAddList($event: IListInterface) {
@@ -52,7 +67,8 @@ export class FieldComponent implements OnInit {
   }
 
   handleSpaceItem($event: ISpaceInterface) {
-    this.spaces.push($event)
+    this.dada.value.push($event);
+    this.spaces.push($event);
     this.spacesAdd();
   }
 
@@ -74,25 +90,35 @@ export class FieldComponent implements OnInit {
       _id: this.currentSpace?._id,
       title: this.currentSpace?.title,
       list: this.currentSpace?.list,
+      holder: this.currentSpace.holder,
       owner: this.currentSpace?.owner.length ? this.currentSpace?.owner : [JSON.parse(localStorage.getItem('userInfo'))._id],
     }
     this.workSpaceService.saveWorkSpace(space);
   }
 
   public handleDeleteSpaceId(id: string) {
-    this.workSpaceService.deleteWorkSpace(id).subscribe(
-      () => {
-        this.spaces = this.spaces.filter(item => item._id !== id);
-      },
-      error => {
-        if (error.status === 403) {
-          this.getMessageErrorService.showError(ErrorMessageEnum.MESSAGE_03);
-        } else {
-          this.getMessageErrorService.showError(ErrorMessageEnum.MESSAGE_01);
-        }
-      }
-    )
+    if(JSON.parse(localStorage.getItem('userInfo'))._id === this.currentSpace?.holder) {
+      this.idDeleteSpace = id;
+      this.getMessageErrorService.showDialog(MessageEnum.MESSAGE_10, 'handleDeleteSpaceId', id);
+    }
+    // this.workSpaceService.deleteWorkSpace(id).subscribe(
+    //   () => {
+    //     this.spaces = this.spaces.filter(item => item._id !== id);
+    //   },
+    //   error => {
+    //     if (error.status === 403) {
+    //       this.getMessageErrorService.showError(MessageEnum.MESSAGE_03);
+    //     } else {
+    //       this.getMessageErrorService.showError(MessageEnum.MESSAGE_01);
+    //     }
+    //   }
+    // )
   }
+
+  public deleteSpaceId(id: string) {
+    this.dada.value.filter(item => item._id !== id);
+        this.initialization();
+      }
 
   //тут сделать запрос юзеров
   public handleAddWorkspaceOwner($event: IUserInfoInterface) {
@@ -117,7 +143,7 @@ export class FieldComponent implements OnInit {
             }))
           })
     } else {
-      this.getMessageErrorService.showError(ErrorMessageEnum.MESSAGE_02);
+      this.getMessageErrorService.showError(MessageEnum.MESSAGE_02);
     }
   }
 

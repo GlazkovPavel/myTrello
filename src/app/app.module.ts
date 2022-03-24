@@ -54,7 +54,7 @@ import { FilterSelfPipe } from './shared/pipes/filter-self.pipe';
 import { UserCardComponent } from './shared/component/user-card/user-card/user-card.component';
 import { MouseoverDirective } from './shared/directives/mouseover.directive';
 import {TodoModule} from "./shared/component/todo/module/todo.module";
-import {ErrorModule} from "./shared/component/error-handing/error.module";
+import {MessageModule} from "./shared/component/message/message.module";
 
 @NgModule({
   declarations: [
@@ -112,7 +112,7 @@ import {ErrorModule} from "./shared/component/error-handing/error.module";
         MatTooltipModule,
         MatButtonToggleModule,
         TodoModule,
-        ErrorModule
+        MessageModule
     ],
   providers: [UserCheckService, ValidationService, ListComponent, UsersService],
   exports: [

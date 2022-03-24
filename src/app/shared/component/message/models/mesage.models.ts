@@ -1,10 +1,10 @@
-import {IErrorInterface} from "../interfaces/error.interface";
+import {IMessageInterface} from "../interfaces/message.interface";
 
-export class ErrorMessage {
+export class MessageModel {
   protected code: string = '';
   protected message: string = '';
 
-  public constructor(message?: IErrorInterface) {
+  public constructor(message?: IMessageInterface) {
     this.code = message.code || '';
     this.message = message.message || '';
   }

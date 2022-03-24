@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import {Observable, Subject} from "rxjs";
+import {BehaviorSubject, Observable, Subject} from "rxjs";
 import {IModalDataInterface} from "../interface/modalData.interface";
 
 @Injectable()
 export class ModalService {
 
-  private modalSequence: Subject<IModalDataInterface | null> = new Subject()
+  private modalSequence: Subject<IModalDataInterface | null> = new Subject();
+  private confirm: BehaviorSubject<boolean | null> = new BehaviorSubject<boolean | null>(false);
 
   constructor() { }
 
@@ -19,5 +20,13 @@ export class ModalService {
 
   public close(): void {
     this.modalSequence.next(null)
+  }
+
+  public confirmSend(event$: boolean) {
+    this.confirm.next(event$)
+  }
+
+  public get confirmSequence$(): Observable<any> {
+    return this.confirm.asObservable();
   }
 }
