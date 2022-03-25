@@ -47,13 +47,13 @@ export class FieldComponent implements OnInit {
         this.spaces = value.concat();
         this.dada.next(value);
         this.currentSpace = this.spaces[0];
+        this.lala = this.dada.asObservable()
         return value;
       } ),
       switchMap((value: ISpaceInterface[]) => {
         this.usersWorkSpaceOwner$ = this.usersService.searchUsersWorkSpace(this.currentSpace)
         return of(value);
       })).subscribe()
-    this.lala = this.dada.asObservable()
   }
 
   onAddList($event: IListInterface) {

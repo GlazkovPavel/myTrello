@@ -1,7 +1,7 @@
-<ng-container *ngFor="let space of spaces" >
-<app-current-card
-  (handleShowSpace)="showSpace($event)"
-  (handleSpaceId)="handleSpaceId($event)"
-  [space]="space"></app-current-card>
-
+<ng-container *ngFor="let space of spaces | async" >
+  <app-current-card
+    (handleShowSpace)="showSpace($event)"
+    (handleSpaceId)="handleSpaceId($event)"
+    [space]="space">
+  </app-current-card>
 </ng-container>

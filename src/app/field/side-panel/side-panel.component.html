@@ -1,7 +1,7 @@
 <div class="side-panel">
-  <ng-container *ngIf="spacesArray | async as spacesArray">
+  <ng-container *ngIf="spacesArray">
     <app-side-panel-card
-      *ngIf="spacesArray.length"
+      *ngIf="spacesArray"
       [spaces]="spacesArray"
       (handleShowSpace)="showSpace($event)"
       (handleSpace)="handleSpaceId($event)"

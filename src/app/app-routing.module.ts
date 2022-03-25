@@ -2,9 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {MainComponent} from "./main/main.component";
 import {NotFoundComponent} from "./not-found/not-found.component";
-import {CalendarComponent} from "./calendar/calendar.component";
 import {HomeComponent} from "./home/home.component";
-import {JournalComponent} from "./journal/journal.component";
 import {AuthGuard} from "./shared/guard/auth.guard";
 import {MainLayoutComponent} from "./shared/component/main-layout/main-layout.component";
 import {SignUpComponent} from "./authorization/sign-up/sign-up.component";
@@ -18,8 +16,15 @@ const routes: Routes = [
   {path: '', redirectTo: '/', pathMatch: 'full'},
   {path: 'home', component: HomeComponent,resolve: {userInfo: UserInfoResolver}, canActivate: [AuthGuard]},
   {path: 'space', component: MainComponent, canActivate: [AuthGuard]},
-  {path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard]},
-  {path: 'journal', component: JournalComponent, canActivate: [AuthGuard]},
+  //{path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard]},
+  {path: 'calendar',
+    loadChildren: () => import('./calendar/calendar.module')
+      .then((module) => module.CalendarModule)
+  },
+  {path: 'journal',
+    loadChildren: () => import('./journal/journal.module')
+      .then((module) => module.JournalModule)
+  },
   {path: '404', component: NotFoundComponent},
 
   {path: '**', redirectTo: '404'}

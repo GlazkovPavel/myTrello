@@ -11,16 +11,9 @@ import { FooterComponent } from './footer/footer.component';
 import { FieldComponent } from './field/field.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { ListDefaultComponent } from './field/list-default/list-default.component';
-import {ClickDirective} from "./shared/directives/cliick.directive";
 import {DragDropModule} from "@angular/cdk/drag-drop";
-import { CalendarComponent } from './calendar/calendar.component';
-import { SelectorComponent } from './calendar/selector/selector.component';
-import { AlmanacComponent } from './calendar/almanac/almanac.component';
-import {MomentPipe} from "./shared/pipes/moment.pipe";
-import { OrzanaizerComponent } from "./calendar/orzanaizer/orzanaizer.component";
 import { HttpClientModule } from "@angular/common/http";
 import { HomeComponent } from './home/home.component';
-import { TimePipe } from "./shared/pipes/time.pipe";
 import { WidgetsTaskTodayComponent } from './widgets/widgets-task-today/widgets-task-today.component';
 import { WidgetImportantTaskComponent } from './widgets/widget-important-task/widget-important-task.component';
 import { AngularEditorModule } from "@kolkov/angular-editor";
@@ -36,11 +29,9 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from "@angular/material/icon";
 import {ModalModule} from "./modal/modal.module";
-import {JournalComponent} from "./journal/journal.component";
 import { UsernameValidatorDirective } from './shared/directives/usernameValidator.directive';
 import {UserCheckService} from "./user-info/user.service";
 import {ValidationService} from "./shared/services/validation.service";
-import {HeaderComponent} from "./header/header.component";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {MousedownDirective} from './shared/directives/mousedown.directive';
@@ -55,6 +46,8 @@ import { UserCardComponent } from './shared/component/user-card/user-card/user-c
 import { MouseoverDirective } from './shared/directives/mouseover.directive';
 import {TodoModule} from "./shared/component/todo/module/todo.module";
 import {MessageModule} from "./shared/component/message/message.module";
+import {HeaderModule} from "./header/header.module";
+import {MomentPipeModule} from "./shared/pipes/moment.module";
 
 @NgModule({
   declarations: [
@@ -63,19 +56,10 @@ import {MessageModule} from "./shared/component/message/message.module";
     ListComponent,
     CardComponent,
     NotFoundComponent,
-    HeaderComponent,
     FooterComponent,
     FieldComponent,
     ListDefaultComponent,
-    ClickDirective,
     MousedownDirective,
-    JournalComponent,
-    CalendarComponent,
-    OrzanaizerComponent,
-    SelectorComponent,
-    AlmanacComponent,
-    MomentPipe,
-    TimePipe,
     HomeComponent,
     WidgetsTaskTodayComponent,
     WidgetImportantTaskComponent,
@@ -112,14 +96,14 @@ import {MessageModule} from "./shared/component/message/message.module";
         MatTooltipModule,
         MatButtonToggleModule,
         TodoModule,
-        MessageModule
+        MessageModule,
+        HeaderModule,
+        MomentPipeModule
     ],
   providers: [UserCheckService, ValidationService, ListComponent, UsersService],
   exports: [
-    HeaderComponent,
     FooterComponent,
-    MomentPipe,
-    UsernameValidatorDirective
+    UsernameValidatorDirective,
   ],
   bootstrap: [AppComponent]
 })

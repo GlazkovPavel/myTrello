@@ -11,7 +11,6 @@ export class UserCheckService {
   private isUrl: string = 'http://localhost:3000';
   private jwt: string = localStorage.getItem('jwt');
 
-
   constructor(private http: HttpClient) { }
 
   public updateUserInfo(userInfo: IUserInfoInterface): Observable<IUserInfoInterfaceResponse>{
