@@ -24,7 +24,6 @@ export class FieldComponent implements OnInit {
   public currentSpace: ISpaceInterface;
   public usersWorkSpaceOwner$: Observable<IUserInfoInterface[]>;
   public dada: BehaviorSubject<ISpaceInterface[]> = new BehaviorSubject<ISpaceInterface[]>([])
-  public lala: Observable<ISpaceInterface[]>;
   private idDeleteSpace: string;
   private idSpace: string;
 
@@ -37,17 +36,12 @@ export class FieldComponent implements OnInit {
     this.initialization();
   }
 
-  public dadada() {
-    this.lala = this.dada.asObservable()
-  }
-
   private initialization() {
     this.workSpaceService.getWorkSave().pipe(
       map((value: ISpaceInterface[]) => {
         this.spaces = value.concat();
-        this.dada.next(value);
         this.currentSpace = this.spaces[0];
-        this.lala = this.dada.asObservable()
+        this.dada.next(value);
         return value;
       } ),
       switchMap((value: ISpaceInterface[]) => {
@@ -116,8 +110,9 @@ export class FieldComponent implements OnInit {
   }
 
   public deleteSpaceId(id: string) {
-    this.dada.value.filter(item => item._id !== id);
-        this.initialization();
+     const card = document.querySelectorAll('.side-card');
+    card.forEach((value => value.id === id ? value.remove() : value))
+     this.initialization();
       }
 
   //тут сделать запрос юзеров

@@ -1,5 +1,7 @@
 <ng-container *ngFor="let space of spaces | async" >
   <app-current-card
+    class="side-card"
+    [id]="space._id"
     (handleShowSpace)="showSpace($event)"
     (handleSpaceId)="handleSpaceId($event)"
     [space]="space">

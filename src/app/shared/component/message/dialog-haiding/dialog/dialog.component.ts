@@ -6,6 +6,8 @@ import {MatButtonModule} from "@angular/material/button";
 import {map} from "rxjs/operators";
 import {FieldComponent} from "../../../../../field/field.component";
 import {WorkSpaceService} from "../../../../services/work-space.service";
+import {GetMessageService} from "../../services/get-message.service";
+import {MessageEnum} from "../../enum/message.enum";
 
 @Component({
   selector: 'app-dialog',
@@ -20,7 +22,8 @@ export class DialogComponent {
 
   constructor(private readonly modalService: ModalService,
               private readonly fieldService: FieldComponent,
-              private readonly workSpaceService: WorkSpaceService) { }
+              private readonly workSpaceService: WorkSpaceService,
+              private readonly getMessageErrorService: GetMessageService) { }
 
   isClose() {
     this.modalService.close();
@@ -31,18 +34,27 @@ export class DialogComponent {
     if(this.method === 'handleDeleteSpaceId') {
       this.modalService.confirmSend(true);
       this.modalService.close();
-      const a = this.modalService.confirmSequence$.pipe(
+      this.modalService.confirmSequence$.pipe(
         map((v:boolean) => {
          if(v.valueOf()) {
            this.workSpaceService.deleteWorkSpace(this.id).subscribe(
-             value => {
-               this.fieldService.deleteSpaceId(this.id)
-               console.log(value)
+             () => {
+               this.fieldService.deleteSpaceId(this.id);
+             },
+             (error) => {
+               this.getMessageErrorService.showError(MessageEnum.MESSAGE_01);
+               console.log(`Error: ${error.url}`, error);
              }
              )
          } })
-      ).subscribe()
-      console.log(a)
+      ).subscribe(
+        {
+          error: err => {
+            this.getMessageErrorService.showError(MessageEnum.MESSAGE_01);
+            console.log(`Error: ${err.url}`, err);
+          }
+        }
+      )
     }
   }
 }
