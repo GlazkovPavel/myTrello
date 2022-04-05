@@ -55,5 +55,12 @@ export class GetMessageService {
         message: 'Вы действительно хотите выйти из данного рабочего пространства?'
       }
     ],
+    [
+      MessageEnum.MESSAGE_11,
+      {
+        code: 'MESSAGE_11',
+        message: 'Вы действительно хотите удалить данное рабочее пространство?'
+      }
+    ],
   ])
 }

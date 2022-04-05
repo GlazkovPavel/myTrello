@@ -24,7 +24,6 @@ export class FieldComponent implements OnInit {
   public currentSpace: ISpaceInterface;
   public usersWorkSpaceOwner$: Observable<IUserInfoInterface[]>;
   public dada: BehaviorSubject<ISpaceInterface[]> = new BehaviorSubject<ISpaceInterface[]>([])
-  private idDeleteSpace: string;
   private idSpace: string;
 
   constructor(private readonly workSpaceService: WorkSpaceService,
@@ -91,22 +90,17 @@ export class FieldComponent implements OnInit {
   }
 
   public handleDeleteSpaceId(id: string) {
-    if(JSON.parse(localStorage.getItem('userInfo'))._id === this.currentSpace?.holder) {
-      this.idDeleteSpace = id;
-      this.getMessageErrorService.showDialog(MessageEnum.MESSAGE_10, 'handleDeleteSpaceId', id);
+    const user = JSON.parse(localStorage.getItem('userInfo'))
+    const spaceDelete = this.spaces.find((item: ISpaceInterface) => item._id === id);
+    if(user._id === spaceDelete.holder) {
+      this.getMessageErrorService.showDialog(MessageEnum.MESSAGE_11, 'handleDeleteSpaceId', id);
+      return;
     }
-    // this.workSpaceService.deleteWorkSpace(id).subscribe(
-    //   () => {
-    //     this.spaces = this.spaces.filter(item => item._id !== id);
-    //   },
-    //   error => {
-    //     if (error.status === 403) {
-    //       this.getMessageErrorService.showError(MessageEnum.MESSAGE_03);
-    //     } else {
-    //       this.getMessageErrorService.showError(MessageEnum.MESSAGE_01);
-    //     }
-    //   }
-    // )
+    if(user._id !== spaceDelete.holder) {
+      this.getMessageErrorService.showDialog(MessageEnum.MESSAGE_10, 'leaveWorkspace', id);
+      return;
+    }
+    return;
   }
 
   public deleteSpaceId(id: string) {

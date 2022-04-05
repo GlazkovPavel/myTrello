@@ -25,37 +25,71 @@ export class DialogComponent {
               private readonly workSpaceService: WorkSpaceService,
               private readonly getMessageErrorService: GetMessageService) { }
 
-  isClose() {
+  public isClose() {
     this.modalService.close();
   }
 
-  isConfirm() {
+  public isConfirm() {
 
     if(this.method === 'handleDeleteSpaceId') {
-      this.modalService.confirmSend(true);
-      this.modalService.close();
-      this.modalService.confirmSequence$.pipe(
-        map((v:boolean) => {
-         if(v.valueOf()) {
-           this.workSpaceService.deleteWorkSpace(this.id).subscribe(
-             () => {
-               this.fieldService.deleteSpaceId(this.id);
-             },
-             (error) => {
-               this.getMessageErrorService.showError(MessageEnum.MESSAGE_01);
-               console.log(`Error: ${error.url}`, error);
-             }
-             )
-         } })
-      ).subscribe(
-        {
-          error: err => {
-            this.getMessageErrorService.showError(MessageEnum.MESSAGE_01);
-            console.log(`Error: ${err.url}`, err);
-          }
-        }
-      )
+      this.deleteSpaceId();
     }
+    if(this.method === 'leaveWorkspace') {
+      this.leaveWorkspace();
+    }
+  }
+
+  private leaveWorkspace() {
+    this.modalService.confirmSend(true);
+    this.modalService.close();
+    this.modalService.confirmSequence$.pipe(
+      map((v:boolean) => {
+        if(v.valueOf()) {
+          const userId = JSON.parse(localStorage.getItem('userInfo'))._id
+          this.workSpaceService.deleteUserWorkSpace(userId, this.id).subscribe(
+            () => {
+              this.fieldService.deleteSpaceId(this.id);
+            },
+            (error) => {
+              this.getMessageErrorService.showError(MessageEnum.MESSAGE_01);
+              console.log(`Error: ${error.url}`, error);
+            }
+          )
+        } })
+    ).subscribe(
+      {
+        error: err => {
+          this.getMessageErrorService.showError(MessageEnum.MESSAGE_01);
+          console.log(`Error: ${err.url}`, err);
+        }
+      }
+    )
+  }
+
+  private deleteSpaceId() {
+    this.modalService.confirmSend(true);
+    this.modalService.close();
+    this.modalService.confirmSequence$.pipe(
+      map((v:boolean) => {
+        if(v.valueOf()) {
+          this.workSpaceService.deleteWorkSpace(this.id).subscribe(
+            () => {
+              this.fieldService.deleteSpaceId(this.id);
+            },
+            (error) => {
+              this.getMessageErrorService.showError(MessageEnum.MESSAGE_01);
+              console.log(`Error: ${error.url}`, error);
+            }
+          )
+        } })
+    ).subscribe(
+      {
+        error: err => {
+          this.getMessageErrorService.showError(MessageEnum.MESSAGE_01);
+          console.log(`Error: ${err.url}`, err);
+        }
+      }
+    )
   }
 }
 
