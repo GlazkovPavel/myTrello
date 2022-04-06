@@ -44,14 +44,17 @@ export class DialogComponent {
     this.modalService.close();
     this.modalService.confirmSequence$.pipe(
       map((v:boolean) => {
-        if(v.valueOf()) {
+        if(v.valueOf() && this.id) {
           const userId = JSON.parse(localStorage.getItem('userInfo'))._id
+
           this.workSpaceService.deleteUserWorkSpace(userId, this.id).subscribe(
             () => {
               this.fieldService.deleteSpaceId(this.id);
+              this.id = null;
             },
             (error) => {
               this.getMessageErrorService.showError(MessageEnum.MESSAGE_01);
+              this.id = null;
               console.log(`Error: ${error.url}`, error);
             }
           )
@@ -60,6 +63,7 @@ export class DialogComponent {
       {
         error: err => {
           this.getMessageErrorService.showError(MessageEnum.MESSAGE_01);
+          this.id = '';
           console.log(`Error: ${err.url}`, err);
         }
       }
@@ -71,13 +75,15 @@ export class DialogComponent {
     this.modalService.close();
     this.modalService.confirmSequence$.pipe(
       map((v:boolean) => {
-        if(v.valueOf()) {
+        if(v.valueOf() && this.id) {
           this.workSpaceService.deleteWorkSpace(this.id).subscribe(
             () => {
               this.fieldService.deleteSpaceId(this.id);
+              this.id = null;
             },
             (error) => {
               this.getMessageErrorService.showError(MessageEnum.MESSAGE_01);
+              this.id = null;
               console.log(`Error: ${error.url}`, error);
             }
           )
@@ -86,6 +92,7 @@ export class DialogComponent {
       {
         error: err => {
           this.getMessageErrorService.showError(MessageEnum.MESSAGE_01);
+          this.id = '';
           console.log(`Error: ${err.url}`, err);
         }
       }

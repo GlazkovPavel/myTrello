@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angula
 import {Observable, Subscription} from "rxjs";
 import {IdGeneratorService} from "../../shared/services/id-generator.service";
 import {ISpaceInterface} from "../../interface/space.interface";
+import {IUserInfoInterface} from "../../interface/user-info.interface";
 
 @Component({
   selector: 'app-side-panel',
@@ -32,13 +33,15 @@ export class SidePanelComponent implements OnInit, OnDestroy {
 
   onAddSpace() {
     if(this.value){
+      const holder: IUserInfoInterface = JSON.parse(localStorage.getItem('userInfo'))
       this.subId = this.idGeneratorService.onId().subscribe(
         val => this.id = val);
       this.spaceItem.emit({
         title: this.value,
         _id: this.id,
         list: [],
-        owner: []
+        owner: [],
+        holder: holder._id,
       } )
       this.id = '';
       this.value = '';
