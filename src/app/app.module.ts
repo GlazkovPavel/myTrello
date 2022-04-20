@@ -1,3 +1,5 @@
+import { NgDompurifySanitizer } from "@tinkoff/ng-dompurify";
+import { TuiRootModule, TuiDialogModule, TuiNotificationsModule, TUI_SANITIZER } from "@taiga-ui/core";
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -98,9 +100,12 @@ import {MomentPipeModule} from "./shared/pipes/moment.module";
         TodoModule,
         MessageModule,
         HeaderModule,
-        MomentPipeModule
+        MomentPipeModule,
+        TuiRootModule,
+        TuiDialogModule,
+        TuiNotificationsModule
     ],
-  providers: [UserCheckService, ValidationService, ListComponent, UsersService],
+  providers: [UserCheckService, ValidationService, ListComponent, UsersService, {provide: TUI_SANITIZER, useClass: NgDompurifySanitizer}],
   exports: [
     FooterComponent,
     UsernameValidatorDirective,

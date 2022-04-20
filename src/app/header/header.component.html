@@ -1,5 +1,5 @@
 <div class="header__time">
-  <p class="header__time-title">{{time$ | async | momentTime}}</p>
+  <p [class.header__time-title]="time$">{{time$ | async | momentTime}}</p>
 </div>
 <header class="header">
   <div class="header__menu">
@@ -52,6 +52,18 @@
       matTooltip="Домашняя страница"
       matTooltipPosition="right"
     ><img class="header__button-image" src="assets/images/home.svg" alt="Logo"></a>
+    <a
+      style="text-decoration: none"
+      class="header__button"
+      [routerLink]="['/chat']"
+      routerLinkActive="active"
+      matTooltip="Чат"
+      matTooltipPosition="right">
+      <tui-svg
+        src="tuiIconCommentLarge"
+        class="header__button-image icon"
+      ></tui-svg>
+    </a>
     <a
       style="text-decoration: none"
       class="header__button"

@@ -25,6 +25,10 @@ const routes: Routes = [
     loadChildren: () => import('./journal/journal.module')
       .then((module) => module.JournalModule)
   },
+  {path: 'chat',
+  loadChildren: () => import('./chat/chat.module')
+    .then((module) => module.ChatModule)
+  },
   {path: '404', component: NotFoundComponent},
 
   {path: '**', redirectTo: '404'}
