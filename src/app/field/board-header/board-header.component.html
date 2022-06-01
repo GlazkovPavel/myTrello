@@ -1,5 +1,4 @@
 <div class="board">
-  <button class="button button-lock">Private</button>
 
     <div class="mask" *ngIf="usersWorkSpaceOwner$ | async as usersWorkSpaceOwner">
       <ng-container *ngFor="let mask of usersWorkSpaceOwner | filterSelf">
@@ -27,5 +26,4 @@
       </div>
     </div>
   </div>
-  <button class="button menu margin">Show Menu</button>
 </div>

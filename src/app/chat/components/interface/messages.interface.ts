@@ -1,7 +1,7 @@
-import {User} from "../../models/user.model";
 import {Action} from "../../enum/action";
+import {User} from "./user.interface";
 
-export interface Message {
+export interface Messages {
   from?: User;
   content?: any;
   action?: Action;
