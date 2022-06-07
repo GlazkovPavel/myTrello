@@ -1,5 +1,5 @@
 import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {IUserInfoInterface} from "../../interface/user-info.interface";
+import {IUserInfoInterface} from "../interface/user-info.interface";
 
 @Component({
   selector: 'app-mask',

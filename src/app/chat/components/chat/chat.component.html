@@ -1,7 +1,38 @@
 <div class="hot">
   <app-header></app-header>
   <div class="container">
-    <div class="header">f</div>
+    <div class="header">
+      <div class="board">
+
+        <div class="mask" *ngIf="usersWorkSpaceOwner$ | async as usersWorkSpaceOwner">
+          <ng-container *ngFor="let mask of usersWorkSpaceOwner | filterSelf">
+            <app-mask
+              (deletedOwnerWorkspace)="deletedOwnerWorkspace($event)"
+              [mask]="mask" class="mask"></app-mask>
+          </ng-container>
+        </div>
+
+        <div (clickOutside)="clickOutside()" style="display: flex">
+          <button class="button-add" (click)="onInputShow()">+</button>
+
+          <div class="input-container" *ngIf="userModalShow" >
+            <input
+              id="input"
+              (input)="searchUser($event)"
+              class="board__input"
+              placeholder="Введите имя" >
+
+            <div  class="user-modal" *ngIf="users$ | async as users" >
+              <div class="user-container" *ngFor="let mask of users" (click)="addWorkspaceOwner(mask)">
+                <app-mask [mask]="mask" class="mask"></app-mask>
+                <p class="capitalize">{{mask.name}} {{mask.surname}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
     <div class="main">
       <div class="side">sd</div>
       <div class="content">dgf</div>

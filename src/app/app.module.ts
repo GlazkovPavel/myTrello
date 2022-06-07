@@ -31,25 +31,21 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from "@angular/material/icon";
 import {ModalModule} from "./modal/modal.module";
-import { UsernameValidatorDirective } from './shared/directives/usernameValidator.directive';
 import {UserCheckService} from "./user-info/user.service";
 import {ValidationService} from "./shared/services/validation.service";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
-import {MousedownDirective} from './shared/directives/mousedown.directive';
 import { WidgetImgComponent } from './widgets/widget-img/widget-img.component';
 import {CardEditComponent} from "./field/card/card-edit/card-edit.component";
 import { CurrentCardComponent } from './field/side-panel/side-panel-card/current-card/current-card.component';
 import {BoardHeaderComponent} from "./field/board-header/board-header.component";
-import {MaskComponent} from "./field/mask/mask.component";
 import {UsersService} from "./shared/services/users.service";
-import { FilterSelfPipe } from './shared/pipes/filter-self.pipe';
-import { UserCardComponent } from './shared/component/user-card/user-card/user-card.component';
-import { MouseoverDirective } from './shared/directives/mouseover.directive';
 import {TodoModule} from "./shared/component/todo/module/todo.module";
 import {MessageModule} from "./shared/component/message/message.module";
 import {HeaderModule} from "./header/header.module";
 import {MomentPipeModule} from "./shared/pipes/moment.module";
+import {MaskModule} from "./mask/mask.module";
+import {DirectiveModule} from "./shared/directives/directive.module";
 
 @NgModule({
   declarations: [
@@ -61,7 +57,6 @@ import {MomentPipeModule} from "./shared/pipes/moment.module";
     FooterComponent,
     FieldComponent,
     ListDefaultComponent,
-    MousedownDirective,
     HomeComponent,
     WidgetsTaskTodayComponent,
     WidgetImportantTaskComponent,
@@ -70,15 +65,10 @@ import {MomentPipeModule} from "./shared/pipes/moment.module";
     SignInComponent,
     SignUpComponent,
     MainLayoutComponent,
-    UsernameValidatorDirective,
     WidgetImgComponent,
     CardEditComponent,
     CurrentCardComponent,
     BoardHeaderComponent,
-    MaskComponent,
-    FilterSelfPipe,
-    UserCardComponent,
-    MouseoverDirective,
   ],
     imports: [
         BrowserModule,
@@ -100,15 +90,16 @@ import {MomentPipeModule} from "./shared/pipes/moment.module";
         TodoModule,
         MessageModule,
         HeaderModule,
+        MaskModule,
         MomentPipeModule,
         TuiRootModule,
         TuiDialogModule,
+        DirectiveModule,
         TuiNotificationsModule
     ],
   providers: [UserCheckService, ValidationService, ListComponent, UsersService, {provide: TUI_SANITIZER, useClass: NgDompurifySanitizer}],
   exports: [
     FooterComponent,
-    UsernameValidatorDirective,
   ],
   bootstrap: [AppComponent]
 })

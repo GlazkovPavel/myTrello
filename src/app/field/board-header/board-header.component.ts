@@ -48,11 +48,11 @@ export class BoardHeaderComponent implements OnInit {
       username: user.username,
       avatar: user.avatar,
       _id: user._id
-    }
+    };
     // this.usersWorkSpaceOwner$.subscribe(
     //   (value: IUserInfoInterface[]) => value.push(userOwner)
     // )
-    this.users$ = of(null)
+    this.users$ = of(null);
 
   }
 

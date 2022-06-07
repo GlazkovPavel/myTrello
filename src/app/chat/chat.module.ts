@@ -18,6 +18,9 @@ import { DialogUserComponent } from './components/dialog-user/dialog-user.compon
 import {MatDialogModule} from "@angular/material/dialog";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {StoreUserService} from "./services/store-user-service";
+import {MaskModule} from "../mask/mask.module";
+import {DirectiveModule} from "../shared/directives/directive.module";
+import {MomentPipeModule} from "../shared/pipes/moment.module";
 
 @NgModule({
   declarations: [
@@ -29,27 +32,30 @@ import {StoreUserService} from "./services/store-user-service";
     SocketService,
     StoreUserService,
   ],
-  imports: [
-    CommonModule,
-    RouterModule.forChild([
-      {
-        path: '',
-        component: ChatComponent,
-        canActivate: [AuthGuard]
-      }
-    ]),
-    HeaderModule,
-    MatListModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatInputModule,
-    MatCardModule,
-    MatMenuModule,
-    MatDialogModule,
-    ReactiveFormsModule,
-    FormsModule,
-  ]
+    imports: [
+        CommonModule,
+        RouterModule.forChild([
+            {
+                path: '',
+                component: ChatComponent,
+                canActivate: [AuthGuard]
+            }
+        ]),
+        HeaderModule,
+        MatListModule,
+        MatSidenavModule,
+        MatIconModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatInputModule,
+        MatCardModule,
+        MatMenuModule,
+        MatDialogModule,
+        ReactiveFormsModule,
+        FormsModule,
+        MaskModule,
+        DirectiveModule,
+        MomentPipeModule,
+    ]
 })
 export class ChatModule { }

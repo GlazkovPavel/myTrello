@@ -1,7 +1,7 @@
 
 <div class="add-container">
   <span class="photo-container" (clickMouseOver)="clickMouseOver($event, mask)">
-    <ng-container *ngIf="mask.avatar; else initials">
+    <ng-container *ngIf="mask?.avatar; else initials">
         <img class="photo"  src="{{mask.avatar}}" alt="{{mask.name}}">
     </ng-container>
 

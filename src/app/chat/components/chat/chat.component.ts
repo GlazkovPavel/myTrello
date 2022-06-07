@@ -1,9 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Action} from "../../enum/action";
 import {Event} from "../../enum/event";
 import {SocketService} from "../../services/socket.service";
 import {User} from "../interface/user.interface";
 import {Message} from "../../models/message.model";
+import {IUserInfoInterface} from "../../../interface/user-info.interface";
+import {Observable} from "rxjs";
 
 
 @Component({
@@ -12,7 +14,9 @@ import {Message} from "../../models/message.model";
   styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit {
-
+  public usersWorkSpaceOwner$: Observable<IUserInfoInterface[]>;
+  public users$!: Observable<IUserInfoInterface[]>;
+  public userModalShow:  boolean = false;
   action = Action;
   user: User;
   messages: Message[] = [];
@@ -77,4 +81,23 @@ export class ChatComponent implements OnInit {
   //   this.socketService.send(message);
   // }
 
+  deletedOwnerWorkspace($event: IUserInfoInterface) {
+
+  }
+
+  clickOutside() {
+
+  }
+
+  public onInputShow(): void {
+    this.userModalShow = !this.userModalShow ;
+  }
+
+  searchUser($event: any) {
+
+  }
+
+  addWorkspaceOwner(mask: any) {
+
+  }
 }
