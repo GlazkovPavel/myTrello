@@ -1,69 +1,12 @@
 <div class="hot">
   <app-header></app-header>
-  <mat-sidenav-container>
-    <mat-sidenav #sidenav>
-      <mat-nav-list>
-        <a mat-list-item href="https://luixaviles.com" target="_blank">
-          <mat-icon mat-list-icon>person</mat-icon>
-          <span mat-line>Author</span>
-        </a>
-        <a mat-list-item href="https://github.com/luixaviles/socket-io-typescript-chat" target="_blank">
-          <mat-icon mat-list-icon>code</mat-icon>
-          <span mat-line>Source Code</span>
-        </a>
-        <a mat-list-item href="https://medium.com/dailyjs/real-time-apps-with-typescript-integrating-web-sockets-node-angular-e2b57cbd1ec1" target="_blank">
-          <mat-icon mat-list-icon>web</mat-icon>
-          <span mat-line>Blog Post</span>
-        </a>
-      </mat-nav-list>
-    </mat-sidenav>
-
-    <div>
-      <mat-toolbar color="primary">
-        <button mat-icon-button (click)="sidenav.toggle()">
-          <mat-icon>menu</mat-icon>
-        </button>
-        <span>Typescript Chat</span>
-      </mat-toolbar>
-
-      <div class="app-content">
-        <button mat-fab (click)="onClickUserInfo()">
-          <mat-icon>person</mat-icon>
-        </button>
-        <div class="chat-container">
-          <mat-card class="main-card">
-            <mat-list class="chat-list">
-              <mat-list-item *ngFor="let message of messages" [ngClass]="[(message.action === undefined && message.from.id === user.id)? 'chat-list-item': '']">
-                <img mat-list-avatar *ngIf="message.action === undefined" [src]="message.from.avatar">
-                <h4 mat-line *ngIf="message.action === undefined">
-                  <b>{{message.from.name}}</b>
-                </h4>
-                <p mat-line *ngIf="message.action === undefined">
-                  <span> {{message.content}} </span>
-                </p>
-                <p mat-line *ngIf="message.action === action.JOINED" class="chat-notification">
-                  <span> <b>{{message.from.name}}</b> joined to the conversation. </span>
-                </p>
-                <p mat-line *ngIf="message.action === action.RENAME" class="chat-notification">
-                  <span> <b>{{message.content.previousUsername}}</b> is now <b>{{message.content.username}}</b> </span>
-                </p>
-              </mat-list-item>
-            </mat-list>
-            <div class="chat-footer-container">
-              <mat-icon>message</mat-icon>
-              <mat-form-field class="chat-input">
-                <input matInput
-                       #inputMessage
-                       maxlength="140"
-                       placeholder="Type your message"
-                       [(ngModel)]="messageContent"
-                       (keyup.enter)="sendMessage(messageContent)">
-                <mat-hint align="end">{{inputMessage.value.length}}/140</mat-hint>
-              </mat-form-field>
-            </div>
-          </mat-card>
-        </div>
-      </div>
+  <div class="container">
+    <div class="header">f</div>
+    <div class="main">
+      <div class="side">sd</div>
+      <div class="content">dgf</div>
     </div>
-  </mat-sidenav-container>
+    <div class="footer">sg</div>
+  </div>
+
 </div>
