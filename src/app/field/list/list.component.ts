@@ -13,6 +13,8 @@ import {ICardInterface} from "../../interface/card.interface";
 import {IListInterface} from "../../interface/list.interface";
 import { Subscription } from "rxjs";
 import {IdGeneratorService} from "../../shared/services/id-generator.service";
+import {UnSubscriber} from "../../shared/utils/unsubscriber";
+import {takeUntil} from "rxjs/operators";
 
 @Component({
   selector: 'app-list',
@@ -21,7 +23,7 @@ import {IdGeneratorService} from "../../shared/services/id-generator.service";
   changeDetection: ChangeDetectionStrategy.OnPush
 
 })
-export class ListComponent implements OnInit, OnDestroy {
+export class ListComponent extends UnSubscriber implements OnInit, OnDestroy {
 
   @Output() public handleDeleteList: EventEmitter<string> = new EventEmitter();
   @Output() public editSpace: EventEmitter<Event> = new EventEmitter();
@@ -35,7 +37,9 @@ export class ListComponent implements OnInit, OnDestroy {
   public editCard: ICardInterface;
   private subId: Subscription;
 
-  constructor(private idGeneratorService: IdGeneratorService) { }
+  constructor(private idGeneratorService: IdGeneratorService) {
+    super();
+  }
 
   ngOnInit(): void {}
 
@@ -64,7 +68,9 @@ export class ListComponent implements OnInit, OnDestroy {
   public onSend() {
     if (this.value) {
       this.inputShow = false;
-      this.subId = this.idGeneratorService.onId().subscribe(
+      this.subId = this.idGeneratorService.onId()
+        .pipe(takeUntil(this.unSubscribe))
+        .subscribe(
         val => this.id = val)
       this.list.card.push(<ICardInterface>{
         titleCard: this.value,

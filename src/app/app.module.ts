@@ -98,9 +98,10 @@ import {DirectiveModule} from "./shared/directives/directive.module";
         TuiNotificationsModule
     ],
   providers: [UserCheckService, ValidationService, ListComponent, UsersService, {provide: TUI_SANITIZER, useClass: NgDompurifySanitizer}],
-  exports: [
-    FooterComponent,
-  ],
+    exports: [
+        FooterComponent,
+        SidePanelComponent,
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

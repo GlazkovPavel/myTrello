@@ -1,4 +1,4 @@
-import {Action} from "../../enum/action";
+import {Action} from "../enum/action";
 import {User} from "./user.interface";
 
 export interface Messages {

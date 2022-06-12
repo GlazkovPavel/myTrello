@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {DayService} from "../shared/services/day.service";
 import {IJournalInterface} from "../interface/journal.interface";
-import {IdGeneratorService} from "../shared/services/id-generator.service";
 import {JournalService} from "../shared/services/journal.service";
 import {map, switchMap} from "rxjs/operators";
 
@@ -20,7 +19,6 @@ export class JournalComponent implements OnInit {
   private idItem: string;
 
   constructor(public dayService: DayService,
-              private idGeneratorService: IdGeneratorService,
               private dateService: DayService,
               private journalService: JournalService) {
   };

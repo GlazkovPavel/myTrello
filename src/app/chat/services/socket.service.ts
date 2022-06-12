@@ -3,8 +3,6 @@ import * as socketIo from 'socket.io-client';
 import {Message} from "../models/message.model";
 import {Observable} from "rxjs";
 import {Event} from "../enum/event";
-import {User} from "../components/interface/user.interface";
-import {Messages} from "../components/interface/messages.interface";
 
 const jwt: string = localStorage.getItem('jwt');
 const SERVER_URL = 'http://localhost:3000';
@@ -22,7 +20,6 @@ export class SocketService {
       }
     });
   }
-
 
   public send(message: Message): void {
     this.socket.emit('message', message);

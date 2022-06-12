@@ -21,41 +21,63 @@ import {StoreUserService} from "./services/store-user-service";
 import {MaskModule} from "../mask/mask.module";
 import {DirectiveModule} from "../shared/directives/directive.module";
 import {MomentPipeModule} from "../shared/pipes/moment.module";
+import { SidePanelComponent } from './components/side-panel/side-panel.component';
+import {
+  TuiAccordionModule,
+  TuiDataListWrapperModule,
+  TuiInputModule,
+  TuiMarkerIconModule,
+  TuiSelectModule
+} from "@taiga-ui/kit";
+import {
+  TuiButtonModule,
+  TuiSvgModule,
+} from "@taiga-ui/core";
+import {ChatCardComponent} from "./components/chat-card/chat-card.component";
 
 @NgModule({
   declarations: [
     ChatComponent,
-    DialogUserComponent
+    DialogUserComponent,
+    SidePanelComponent,
+    ChatCardComponent,
   ],
   providers: [
     ChatService,
     SocketService,
     StoreUserService,
   ],
-    imports: [
-        CommonModule,
-        RouterModule.forChild([
-            {
-                path: '',
-                component: ChatComponent,
-                canActivate: [AuthGuard]
-            }
-        ]),
-        HeaderModule,
-        MatListModule,
-        MatSidenavModule,
-        MatIconModule,
-        MatToolbarModule,
-        MatButtonModule,
-        MatInputModule,
-        MatCardModule,
-        MatMenuModule,
-        MatDialogModule,
-        ReactiveFormsModule,
-        FormsModule,
-        MaskModule,
-        DirectiveModule,
-        MomentPipeModule,
-    ]
+  imports: [
+    CommonModule,
+    RouterModule.forChild([
+      {
+        path: '',
+        component: ChatComponent,
+        canActivate: [AuthGuard]
+      }
+    ]),
+    HeaderModule,
+    MatListModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatInputModule,
+    MatCardModule,
+    MatMenuModule,
+    MatDialogModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MaskModule,
+    DirectiveModule,
+    MomentPipeModule,
+    TuiAccordionModule,
+    TuiSvgModule,
+    TuiSelectModule,
+    TuiInputModule,
+    TuiDataListWrapperModule,
+    TuiButtonModule,
+    TuiMarkerIconModule,
+  ]
 })
 export class ChatModule { }

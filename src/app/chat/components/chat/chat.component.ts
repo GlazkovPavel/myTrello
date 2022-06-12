@@ -1,8 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Action} from "../../enum/action";
 import {Event} from "../../enum/event";
 import {SocketService} from "../../services/socket.service";
-import {User} from "../interface/user.interface";
+import {User} from "../../interface/user.interface";
 import {Message} from "../../models/message.model";
 import {IUserInfoInterface} from "../../../interface/user-info.interface";
 import {Observable} from "rxjs";

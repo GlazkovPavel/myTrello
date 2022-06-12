@@ -1,0 +1,70 @@
+<div class="side" >
+
+  <tui-accordion
+    class="container"
+    [rounded]="false"
+  >
+    <tui-accordion-item
+      borders="top-bottom"
+      [open]="openPopup"
+    >
+      <div class="operation-header"
+      >
+        <div class="operation-title">{{title}}</div>
+      </div>
+      <ng-template tuiAccordionItemContent >
+        <div class="chats" *ngFor="let chat of chats">
+          <app-chat-card
+            (onChoose)="onChoose(chat)"
+            [chat]="chat">
+          </app-chat-card>
+        </div>
+        <h3 class="form-title">Создать рабочее пространство</h3>
+        <form
+          class="operation-form"
+          [formGroup]="testForm"
+          (submit)="onSubmit()"
+        >
+          <tui-input
+            tuiTextfieldExampleText="Рабочий чат"
+            formControlName="name"
+            class="input"
+          >
+            Название
+          </tui-input>
+          <tui-select
+            formControlName="accounts"
+            class="input"
+          >
+            Выберите тип
+            <tui-data-list-wrapper
+              *tuiDataList
+              [items]="accounts"
+            ></tui-data-list-wrapper>
+          </tui-select>
+          <div class="buttons">
+            <button
+              tuiButton
+              type="submit"
+              size="m"
+              class="tui-space_right-2"
+              [disabled]="!testForm.valid"
+            >
+              Send
+            </button>
+            <button
+              tuiButton
+              type="button"
+              appearance="flat"
+              size="m"
+              (click)="onClose()"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </ng-template>
+    </tui-accordion-item>
+
+  </tui-accordion>
+</div>
