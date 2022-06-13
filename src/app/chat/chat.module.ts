@@ -34,6 +34,7 @@ import {
   TuiSvgModule,
 } from "@taiga-ui/core";
 import {ChatCardComponent} from "./components/chat-card/chat-card.component";
+import {ChatResolver} from "./resolver/chat.resolver";
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import {ChatCardComponent} from "./components/chat-card/chat-card.component";
     ChatService,
     SocketService,
     StoreUserService,
+    ChatResolver,
   ],
   imports: [
     CommonModule,
@@ -53,7 +55,8 @@ import {ChatCardComponent} from "./components/chat-card/chat-card.component";
       {
         path: '',
         component: ChatComponent,
-        canActivate: [AuthGuard]
+        resolve: {chat: ChatResolver},
+        canActivate: [AuthGuard],
       }
     ]),
     HeaderModule,

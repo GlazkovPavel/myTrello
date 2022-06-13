@@ -2,12 +2,24 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {SpaseChat} from "../interface/space-chat";
 import {Observable} from "rxjs";
+import {ChatModel} from "../models/chat.model";
 
 @Injectable()
 export class ChatService {
+  public cashChats: SpaseChat[] = [];
+  private model: ChatModel = null;
   private isUrl: string = 'http://localhost:3000'
 
   constructor(private http: HttpClient) {}
+
+  public initModel(model: SpaseChat[]): SpaseChat[] {
+    this.cashChats = model;
+    return this.cashChats;
+  }
+
+  public getChats(): SpaseChat[] {
+    return this.cashChats;
+  }
 
   public createChat(chat: SpaseChat): Observable<any> {
     const jwt: string = localStorage.getItem('jwt');

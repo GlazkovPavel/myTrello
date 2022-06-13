@@ -4,7 +4,7 @@ import {User} from "./user.interface";
 
 export interface SpaseChat {
   title: string;
-  id: string,
+  _id?: string,
   kind: EChat;
   users?: User;
   chats?: Chats;

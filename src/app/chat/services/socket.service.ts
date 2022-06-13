@@ -22,6 +22,7 @@ export class SocketService {
   }
 
   public send(message: Message): void {
+    this.socket.value
     this.socket.emit('message', message);
   }
 
@@ -33,6 +34,7 @@ export class SocketService {
 
   public onEvent(event: Event): Observable<any> {
     return new Observable<Event>(observer => {
+      this.socket.value
       this.socket.on(event, () => observer.next());
     });
   }

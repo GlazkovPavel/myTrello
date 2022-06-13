@@ -8,26 +8,26 @@ import {MainLayoutComponent} from "./shared/component/main-layout/main-layout.co
 import {SignUpComponent} from "./authorization/sign-up/sign-up.component";
 import {SignInComponent} from "./authorization/sign-in/sign-in.component";
 import {UserInfoResolver} from "./user-info/user-info.resolver";
+import {ChatResolver} from "./chat/resolver/chat.resolver";
 
 const routes: Routes = [
   {path: 'sign-up', component: SignUpComponent,  canActivate: [AuthGuard]},
   {path: 'sign-in', component: SignInComponent,  canActivate: [AuthGuard]},
   {path: '', component: MainLayoutComponent},
   {path: '', redirectTo: '/', pathMatch: 'full'},
-  {path: 'home', component: HomeComponent,resolve: {userInfo: UserInfoResolver}, canActivate: [AuthGuard]},
+  {path: 'home', component: HomeComponent, resolve: {userInfo: UserInfoResolver}, canActivate: [AuthGuard]},
   {path: 'space', component: MainComponent, canActivate: [AuthGuard]},
-  //{path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard]},
   {path: 'calendar',
     loadChildren: () => import('./calendar/calendar.module')
-      .then((module) => module.CalendarModule)
+      .then((module) => module.CalendarModule),
   },
   {path: 'journal',
     loadChildren: () => import('./journal/journal.module')
-      .then((module) => module.JournalModule)
+      .then((module) => module.JournalModule),
   },
   {path: 'chat',
   loadChildren: () => import('./chat/chat.module')
-    .then((module) => module.ChatModule)
+    .then((module) => module.ChatModule),
   },
   {path: '404', component: NotFoundComponent},
 

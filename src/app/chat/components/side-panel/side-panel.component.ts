@@ -31,35 +31,7 @@ export class SidePanelComponent extends UnSubscriber implements OnInit {
   ];
 
   public title: string = '';
-  readonly chats: SpaseChat[] = [{
-    title: 'SpaseChat 1',
-    id: '1',
-    kind: EChat.PUBLIC,
-    chats: {
-      title: 'Первый чатик',
-      users: [
-        {
-          id: 123456,
-          name: 'Pavel'
-        }
-      ]
-    }
-  },
-    {
-      title: 'SpaseChat 2',
-      id: '2',
-      kind: EChat.PUBLIC,
-      chats: {
-        title: 'Второй чатик',
-        users: [
-          {
-            id: 123456,
-            name: 'Pavel'
-          }
-        ]
-      }
-    }];
-
+  public chats: SpaseChat[] = [];
 
   testForm = new FormGroup({
     name: new FormControl('', [
@@ -78,6 +50,7 @@ export class SidePanelComponent extends UnSubscriber implements OnInit {
   }
 
   public ngOnInit(): void {
+    this.chats = this.chatService.getChats()
     this.title = this.chats[0].title;
   }
 
@@ -90,7 +63,6 @@ export class SidePanelComponent extends UnSubscriber implements OnInit {
     const b = this.testForm.controls['accounts'].value.name
     const chat: SpaseChat = {
       title: a,
-      id: this.id,
       kind: b === 'Общедоступный' ? EChat.PUBLIC : EChat.PRIVATE,
     };
     this.chatService.createChat(chat).subscribe();
@@ -109,6 +81,6 @@ export class SidePanelComponent extends UnSubscriber implements OnInit {
   }
 
   public onChoose(chat: SpaseChat) {
-    this.title = this.chats.find((item: SpaseChat) => item.id === chat.id).title
+    this.title = this.chats.find((item: SpaseChat) => item._id === chat._id).title
   }
 }
