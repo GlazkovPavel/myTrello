@@ -1,0 +1,24 @@
+<div class="chats">
+
+  <mat-form-field class="example-form-field" appearance="fill">
+    <mat-label>Введите название чата</mat-label>
+    <input matInput type="text" [(ngModel)]="value">
+    <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <button
+    tuiIconButton
+    type="button"
+    class="tui-space_right-3 tui-space_bottom-3 button-plus"
+    [icon]="'tuiIconPlus'"
+    [appearance]="'outline'"
+    [size]="'s'"
+    (click)="onClick($event)"
+  ></button>
+
+  <div class="chats-name">
+    <span>Chat Name</span>
+  </div>
+</div>

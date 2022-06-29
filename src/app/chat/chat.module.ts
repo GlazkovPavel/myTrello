@@ -35,6 +35,7 @@ import {
 } from "@taiga-ui/core";
 import {ChatCardComponent} from "./components/chat-card/chat-card.component";
 import {ChatResolver} from "./resolver/chat.resolver";
+import { ChatsSideNameComponent } from './components/chats-side-name/chats-side-name.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import {ChatResolver} from "./resolver/chat.resolver";
     DialogUserComponent,
     SidePanelComponent,
     ChatCardComponent,
+    ChatsSideNameComponent,
   ],
   providers: [
     ChatService,

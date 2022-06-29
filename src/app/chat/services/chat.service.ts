@@ -8,6 +8,7 @@ import {ChatModel} from "../models/chat.model";
 export class ChatService {
   public cashChats: SpaseChat[] = [];
   private model: ChatModel = null;
+  private chat: SpaseChat = null;
   private isUrl: string = 'http://localhost:3000'
 
   constructor(private http: HttpClient) {}
@@ -19,6 +20,18 @@ export class ChatService {
 
   public getChats(): SpaseChat[] {
     return this.cashChats;
+  }
+
+  public setChat(chat: SpaseChat): void {
+    this.chat = chat;
+  }
+
+  public getChat(): SpaseChat {
+    return this.chat;
+  }
+
+  public resetChat(): void {
+    this.chat = null;
   }
 
   public createChat(chat: SpaseChat): Observable<any> {

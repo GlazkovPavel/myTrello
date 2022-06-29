@@ -81,6 +81,7 @@ export class SidePanelComponent extends UnSubscriber implements OnInit {
   }
 
   public onChoose(chat: SpaseChat) {
-    this.title = this.chats.find((item: SpaseChat) => item._id === chat._id).title
+    this.title = this.chats.find((item: SpaseChat) => item._id === chat._id).title;
+    this.chatService.setChat(chat);
   }
 }

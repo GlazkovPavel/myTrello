@@ -1,0 +1,19 @@
+.chats {
+  display: flex;
+  flex-direction: column;
+  margin-top: 28px;
+  justify-content: center;
+  align-content: center;
+}
+.button-plus {
+  margin: auto;
+}
+
+.chats-name {
+  margin: 14px auto 0;
+}
+
+.example-form-field {
+  width: 200px;
+  margin: 14px auto 0;
+}
