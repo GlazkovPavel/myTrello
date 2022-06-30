@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {SpaseChat} from "../../interface/space-chat";
 import {EChat} from "../../enum/chat";
@@ -6,15 +6,14 @@ import {map, takeUntil} from "rxjs/operators";
 import {IdGeneratorService} from "../../../shared/services/id-generator.service";
 import {UnSubscriber} from "../../../shared/utils/unsubscriber";
 import {ChatService} from "../../services/chat.service";
+import {Observable} from "rxjs";
+import {IModelItem} from "../../../shared/error/models/models.model";
+import {ChatMainModel} from "../../models/chat-main.model";
+import {accounts} from "../../utils/kind-chat";
+import {Chats} from "../../interface/chats";
 
-
-class Account {
-  constructor(readonly name: string) {}
-
-  toString(): string {
-    return `${this.name}`;
-  }
-}
+export type ChatModelArray = IModelItem<ChatMainModel[]>;
+export type ChatModelItem = IModelItem<ChatMainModel>;
 
 @Component({
   selector: 'app-side-panel',
@@ -23,21 +22,19 @@ class Account {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidePanelComponent extends UnSubscriber implements OnInit {
-  public openPopup: boolean = false;
+  @ViewChild('accordion') private accordion: any;
+  public panelOpenState: boolean = false;
+  public panelClose: boolean = false;
   private id: string = '';
-  readonly accounts = [
-    new Account('Общедоступный'),
-    new Account('Приватный'),
-  ];
-
+  public accounts: any;
   public title: string = '';
-  public chats: SpaseChat[] = [];
+  public chatModel$: Observable<ChatModelArray>;
 
-  testForm = new FormGroup({
+  public testForm = new FormGroup({
     name: new FormControl('', [
       Validators.required,
     ]),
-    accounts: new FormControl(this.accounts[0], [
+    accounts: new FormControl(accounts[0], [
       Validators.required,
     ]),
   });
@@ -49,9 +46,14 @@ export class SidePanelComponent extends UnSubscriber implements OnInit {
     super();
   }
 
+
   public ngOnInit(): void {
-    this.chats = this.chatService.getChats()
-    this.title = this.chats[0].title;
+    this.chatModel$ = this.chatService.getChats();
+    if (this.chatService?.cashChats[0]?.getTitle()) {
+      this.title = this.chatService.cashChats[0].getTitle();
+    } else {this.title = 'Создайте рабочее пространство'}
+
+    this.accounts = accounts;
   }
 
 
@@ -60,28 +62,34 @@ export class SidePanelComponent extends UnSubscriber implements OnInit {
       .pipe(takeUntil(this.unSubscribe))
       .subscribe((item: string) => this.id = item);
     const a = this.testForm.controls['name'].value
-    const b = this.testForm.controls['accounts'].value.name
+    const b = this.testForm.controls['accounts'].value
     const chat: SpaseChat = {
       title: a,
       kind: b === 'Общедоступный' ? EChat.PUBLIC : EChat.PRIVATE,
     };
-    this.chatService.createChat(chat).subscribe();
-    this.testForm.controls['name'].reset();
-    this.openPopup = true;
-    setTimeout(() => {
-      this.openPopup = false;
-    }, 0);  }
+    this.chatService.createChat(chat).subscribe(
+      (res: Chats) => {
+        const chatMainModel = new ChatMainModel({
+          _id: res._id,
+          kind: res.kind,
+          title: res.title,
+          users: res.users
+        })
+        //сделать отправку модели
+        //this.chatService.cashChats$.next()
+      }
+    );
+    this.testForm.reset();
+    this.accordion.close();
+  }
 
   public onClose(): void {
     this.testForm.controls['name'].reset();
-    this.openPopup = true;
-    setTimeout(() => {
-      this.openPopup = false;
-    }, 0);
+    this.accordion.close();
   }
 
-  public onChoose(chat: SpaseChat) {
-    this.title = this.chats.find((item: SpaseChat) => item._id === chat._id).title;
+  public onChoose(chat: ChatMainModel) {
+    this.title = chat.getTitle();
     this.chatService.setChat(chat);
   }
 }

@@ -1,7 +1,10 @@
 import {User} from "./user.interface";
+import {EChat} from "../enum/chat";
 
 export interface Chats {
   title: string;
-  users: [User];
+  _id?: string,
+  kind: EChat;
+  users?: User[];
 
 }

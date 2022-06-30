@@ -30,12 +30,14 @@ import {
   TuiSelectModule
 } from "@taiga-ui/kit";
 import {
-  TuiButtonModule,
+  TuiButtonModule, TuiScrollbarModule,
   TuiSvgModule,
 } from "@taiga-ui/core";
 import {ChatCardComponent} from "./components/chat-card/chat-card.component";
 import {ChatResolver} from "./resolver/chat.resolver";
 import { ChatsSideNameComponent } from './components/chats-side-name/chats-side-name.component';
+import {MatExpansionModule} from "@angular/material/expansion";
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
   declarations: [
@@ -83,6 +85,9 @@ import { ChatsSideNameComponent } from './components/chats-side-name/chats-side-
     TuiDataListWrapperModule,
     TuiButtonModule,
     TuiMarkerIconModule,
+    MatExpansionModule,
+    MatSelectModule,
+    TuiScrollbarModule,
   ]
 })
 export class ChatModule { }

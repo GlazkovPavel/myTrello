@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup} from "@angular/forms";
+import {Component, Input, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {ChatService} from "../../services/chat.service";
+import {Chat} from "../../models/chat.model";
+import {EChat} from "../../enum/chat";
+import {accounts} from "../../utils/kind-chat";
 
 @Component({
   selector: 'app-chats-side-name',
@@ -8,18 +12,46 @@ import {FormControl, FormGroup} from "@angular/forms";
 })
 export class ChatsSideNameComponent implements OnInit {
 
+  @Input() public panelOpenState: boolean;
+  public accounts: any;
+  public openForm: boolean = false;
 
-  constructor() { }
+  constructor(
+    private chatService: ChatService
+  ) { }
 
-  readonly testForm = new FormGroup({
-    testValue: new FormControl(),
+  public testForm = new FormGroup({
+    title: new FormControl('', [
+      Validators.required,
+    ]),
+    accounts: new FormControl(accounts[0], [
+      Validators.required,
+    ]),
   });
   value = '';
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
+    this.accounts = accounts;
   }
 
-  onClick($event: MouseEvent) {
+  public isChats(): boolean {
+    return (!!this.chatService.cashChats.length);
+  }
 
+  public onClick() {
+    if (!!this.testForm.controls['title']?.value) {
+      this.onSubmit();
+      this.openForm = !this.openForm;
+    } else {
+      this.openForm = !this.openForm;
+    }
+  }
+
+  public onSubmit() {
+    const chat: Chat = new Chat({
+      title: this.testForm.controls['title'].value,
+      kind: this.testForm.controls['accounts'].value
+    })
+    console.log(chat)
   }
 }

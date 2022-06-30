@@ -1,24 +1,42 @@
-<div class="chats">
+<div *ngIf="!panelOpenState" class="chats">
 
-  <mat-form-field class="example-form-field" appearance="fill">
-    <mat-label>Введите название чата</mat-label>
-    <input matInput type="text" [(ngModel)]="value">
-    <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-      <mat-icon>close</mat-icon>
-    </button>
-  </mat-form-field>
+  <form
+    *ngIf="openForm"
+    class="operation-form"
+    [formGroup]="testForm"
+    (submit)="onSubmit()"
+  >
+    <mat-form-field class="example-form-field" appearance="fill">
+      <mat-label>Введите название чата</mat-label>
+      <input matInput type="text" formControlName="title">
+      <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Выберите тип</mat-label>
+      <mat-select  formControlName="accounts">
+        <mat-option *ngFor="let items of accounts" [value]="items.name">
+          {{items.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
 
-  <button
-    tuiIconButton
-    type="button"
-    class="tui-space_right-3 tui-space_bottom-3 button-plus"
-    [icon]="'tuiIconPlus'"
-    [appearance]="'outline'"
-    [size]="'s'"
-    (click)="onClick($event)"
-  ></button>
+  <ng-container  *ngIf="isChats()">
+    <button
+      tuiIconButton
+      type="button"
+      class="tui-space_right-3 tui-space_bottom-3 button-plus"
+      [icon]="'tuiIconPlus'"
+      [appearance]="'outline'"
+      [size]="'s'"
+      (click)="onClick()"
+    ></button>
 
-  <div class="chats-name">
-    <span>Chat Name</span>
-  </div>
+    <div class="chats-name">
+      <span>Создать чат</span>
+    </div>
+  </ng-container>
+
 </div>

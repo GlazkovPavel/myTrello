@@ -1,33 +1,67 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {SpaseChat} from "../interface/space-chat";
-import {Observable} from "rxjs";
-import {ChatModel} from "../models/chat.model";
+import {BehaviorSubject, Observable, of} from "rxjs";
+import {ChatMainModel} from "../models/chat-main.model";
+import {ChatModelArray} from "../components/side-panel/side-panel.component";
+import {catchError, map, startWith} from "rxjs/operators";
+import {State} from "../enum/state";
+import {ErrorModel} from "../../shared/error/models/error.model";
+import {Chats} from "../interface/chats";
 
 @Injectable()
 export class ChatService {
-  public cashChats: SpaseChat[] = [];
-  private model: ChatModel = null;
-  private chat: SpaseChat = null;
+  public cashChats$: BehaviorSubject<ChatMainModel[]> = new BehaviorSubject<ChatMainModel[]>(null);
+  public chat$: BehaviorSubject<ChatMainModel> = new BehaviorSubject<ChatMainModel>(null);
+  public cashChats: ChatMainModel[] = [];
+  private spaseChat: SpaseChat[] = null;
+  private chat: ChatMainModel = null;
   private isUrl: string = 'http://localhost:3000'
 
   constructor(private http: HttpClient) {}
 
-  public initModel(model: SpaseChat[]): SpaseChat[] {
-    this.cashChats = model;
+  public initModel(model: SpaseChat[]): ChatMainModel[] {
+    this.spaseChat = model;
+    this.cashChats = this.spaseChat.map((res: SpaseChat) =>
+      new ChatMainModel({
+        _id: res._id,
+        title: res.title,
+        chats: res.chats,
+        users: res.users,
+        kind: res.kind,
+      }))
+
+    this.cashChats$.next(this.cashChats);
     return this.cashChats;
   }
 
-  public getChats(): SpaseChat[] {
-    return this.cashChats;
+  public getChats(): Observable<ChatModelArray> {
+    return this.cashChats$.pipe(
+      map((item: ChatMainModel[]) => ({
+        state: State.READY,
+        item,
+      })),
+      startWith({state: State.PENDING}),
+      catchError((ex: ErrorModel) =>
+        of({
+          state: State.ERROR,
+          error: ex,
+        }),
+      ),
+    );
   }
 
-  public setChat(chat: SpaseChat): void {
-    this.chat = chat;
+  public setCashChat(chat: Chats): void {
+    this.cashChats.push()
+    //this.cashChats$.next(chat);
   }
 
-  public getChat(): SpaseChat {
-    return this.chat;
+  public setChat(chat: ChatMainModel): void {
+    this.chat$.next(chat);
+  }
+
+  public getChat(): ChatMainModel {
+    return this.chat$.getValue();
   }
 
   public resetChat(): void {

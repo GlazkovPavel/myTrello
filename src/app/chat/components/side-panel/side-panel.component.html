@@ -1,47 +1,40 @@
 <div class="side" >
 
-  <tui-accordion
-    class="container"
-    [rounded]="false"
-  >
-    <tui-accordion-item
-      borders="top-bottom"
-      [open]="openPopup"
-    >
-      <div class="operation-header"
-      >
-        <div class="operation-title">{{title}}</div>
-      </div>
-      <ng-template tuiAccordionItemContent >
-        <div class="chats" *ngFor="let chat of chats">
-          <app-chat-card
-            (onChoose)="onChoose(chat)"
-            [chat]="chat">
-          </app-chat-card>
-        </div>
+  <ng-container *ngIf="chatModel$ | async as chatModel">
+    <mat-accordion>
+      <mat-expansion-panel #accordion
+        (opened)="panelOpenState = true"
+        (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <span class="operation-title">{{title}}</span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
         <h3 class="form-title">Создать рабочее пространство</h3>
         <form
           class="operation-form"
           [formGroup]="testForm"
           (submit)="onSubmit()"
         >
-          <tui-input
-            tuiTextfieldExampleText="Рабочий чат"
-            formControlName="name"
-            class="input"
-          >
-            Название
-          </tui-input>
-          <tui-select
-            formControlName="accounts"
-            class="input"
-          >
-            Выберите тип
-            <tui-data-list-wrapper
-              *tuiDataList
-              [items]="accounts"
-            ></tui-data-list-wrapper>
-          </tui-select>
+          <mat-form-field class="example-form-field" appearance="fill">
+            <mat-label>Название</mat-label>
+            <input class="input" formControlName="name" matInput type="text">
+            <button
+              *ngIf="testForm.controls['name'].value"
+              matSuffix mat-icon-button aria-label="Clear"
+              (click)="testForm.controls['name'].reset()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Выберите тип</mat-label>
+            <mat-select  formControlName="accounts">
+              <mat-option *ngFor="let items of accounts" [value]="items.name">
+                {{items.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
           <div class="buttons">
             <button
               tuiButton
@@ -63,10 +56,24 @@
             </button>
           </div>
         </form>
-      </ng-template>
-    </tui-accordion-item>
 
-  </tui-accordion>
+        <tui-scrollbar class="box">
+          <div class="chats" *ngFor="let chatItem of chatModel.item">
+            <app-chat-card
+              (onChoose)="onChoose($event)"
+              [chat]="chatItem">
+            </app-chat-card>
+          </div>
+        </tui-scrollbar>
 
-  <app-chats-side-name></app-chats-side-name>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <app-chats-side-name
+
+      [panelOpenState]="panelOpenState"
+    ></app-chats-side-name>
+  </ng-container>
+
 </div>

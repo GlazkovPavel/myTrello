@@ -1,12 +1,12 @@
 import {EChat} from "../enum/chat";
-import {Chats} from "./chats";
 import {User} from "./user.interface";
+import {Chat} from "../models/chat.model";
 
 export interface SpaseChat {
   title: string;
   _id?: string,
   kind: EChat;
-  users?: User;
-  chats?: Chats;
+  users?: User[];
+  chats?: Chat;
 
 }
