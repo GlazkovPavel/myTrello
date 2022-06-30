@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, OnInit, ViewChild} from '@angular/co
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {SpaseChat} from "../../interface/space-chat";
 import {EChat} from "../../enum/chat";
-import {map, takeUntil} from "rxjs/operators";
+import {takeUntil} from "rxjs/operators";
 import {IdGeneratorService} from "../../../shared/services/id-generator.service";
 import {UnSubscriber} from "../../../shared/utils/unsubscriber";
 import {ChatService} from "../../services/chat.service";
@@ -11,6 +11,7 @@ import {IModelItem} from "../../../shared/error/models/models.model";
 import {ChatMainModel} from "../../models/chat-main.model";
 import {accounts} from "../../utils/kind-chat";
 import {Chats} from "../../interface/chats";
+import {HttpChatService} from "../../services/http-chat.service";
 
 export type ChatModelArray = IModelItem<ChatMainModel[]>;
 export type ChatModelItem = IModelItem<ChatMainModel>;
@@ -42,6 +43,7 @@ export class SidePanelComponent extends UnSubscriber implements OnInit {
   constructor(
     private idGeneratorService: IdGeneratorService,
     private chatService: ChatService,
+    private httpChatService: HttpChatService,
     ) {
     super();
   }
@@ -67,7 +69,7 @@ export class SidePanelComponent extends UnSubscriber implements OnInit {
       title: a,
       kind: b === 'Общедоступный' ? EChat.PUBLIC : EChat.PRIVATE,
     };
-    this.chatService.createChat(chat).subscribe(
+    this.httpChatService.createChat(chat).subscribe(
       (res: Chats) => {
         const chatMainModel = new ChatMainModel({
           _id: res._id,
@@ -75,8 +77,8 @@ export class SidePanelComponent extends UnSubscriber implements OnInit {
           title: res.title,
           users: res.users
         })
-        //сделать отправку модели
-        //this.chatService.cashChats$.next()
+        this.chatService.setCashChat(chatMainModel);
+        this.onChoose(chatMainModel);
       }
     );
     this.testForm.reset();

@@ -38,6 +38,7 @@ import {ChatResolver} from "./resolver/chat.resolver";
 import { ChatsSideNameComponent } from './components/chats-side-name/chats-side-name.component';
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatSelectModule} from "@angular/material/select";
+import {HttpChatService} from "./services/http-chat.service";
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import {MatSelectModule} from "@angular/material/select";
     SocketService,
     StoreUserService,
     ChatResolver,
+    HttpChatService,
   ],
   imports: [
     CommonModule,
