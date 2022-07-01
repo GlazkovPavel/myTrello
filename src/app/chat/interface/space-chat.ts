@@ -7,6 +7,6 @@ export interface SpaseChat {
   _id?: string,
   kind: EChat;
   users?: User[];
-  chats?: Chat;
+  chats?: Chat[];
 
 }

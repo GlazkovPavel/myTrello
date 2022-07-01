@@ -4,6 +4,12 @@ import {ChatService} from "../../services/chat.service";
 import {Chat} from "../../models/chat.model";
 import {EChat} from "../../enum/chat";
 import {accounts} from "../../utils/kind-chat";
+import {IChats} from "../../interface/chats";
+import {HttpChatService} from "../../services/http-chat.service";
+import {SpaseChat} from "../../interface/space-chat";
+import {IModelItem} from "../../../shared/error/models/models.model";
+import {ChatMainModel} from "../../models/chat-main.model";
+import {State} from "../../../shared/enum/state";
 
 @Component({
   selector: 'app-chats-side-name',
@@ -13,11 +19,15 @@ import {accounts} from "../../utils/kind-chat";
 export class ChatsSideNameComponent implements OnInit {
 
   @Input() public panelOpenState: boolean;
+  @Input() public model: IModelItem<ChatMainModel>
+  public state: typeof State = State;
   public accounts: any;
   public openForm: boolean = false;
+  public chats: Chat[];
 
   constructor(
-    private chatService: ChatService
+    private chatService: ChatService,
+    private httpChatService: HttpChatService,
   ) { }
 
   public testForm = new FormGroup({
@@ -32,6 +42,7 @@ export class ChatsSideNameComponent implements OnInit {
 
   public ngOnInit(): void {
     this.accounts = accounts;
+    this.chats = this.model.item.getChats();
   }
 
   public isChats(): boolean {
@@ -48,10 +59,26 @@ export class ChatsSideNameComponent implements OnInit {
   }
 
   public onSubmit() {
-    const chat: Chat = new Chat({
+    const chatMainId = this.chatService.getChat().getChatMainId()
+    const kind: string = this.testForm.controls['accounts'].value
+    const chat: IChats = {
       title: this.testForm.controls['title'].value,
-      kind: this.testForm.controls['accounts'].value
+      kind: kind === 'Общедоступный' ? EChat.PUBLIC : EChat.PRIVATE,
+    }
+    this.httpChatService.createChat(chat, chatMainId).subscribe(
+      (value: SpaseChat) => {
+        this.testForm.reset();
+        this.openForm = !this.openForm;
+         this.chatService.setCashChat(this.chatService.getChat().setChat(value.chats));
+
+      },
+      () => {
+
     })
-    console.log(chat)
+
+  }
+
+  onChoose($event: any) {
+
   }
 }

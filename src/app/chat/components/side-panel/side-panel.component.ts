@@ -10,7 +10,7 @@ import {Observable} from "rxjs";
 import {IModelItem} from "../../../shared/error/models/models.model";
 import {ChatMainModel} from "../../models/chat-main.model";
 import {accounts} from "../../utils/kind-chat";
-import {Chats} from "../../interface/chats";
+import {IChats} from "../../interface/chats";
 import {HttpChatService} from "../../services/http-chat.service";
 
 export type ChatModelArray = IModelItem<ChatMainModel[]>;
@@ -30,6 +30,7 @@ export class SidePanelComponent extends UnSubscriber implements OnInit {
   public accounts: any;
   public title: string = '';
   public chatModel$: Observable<ChatModelArray>;
+  public chatModelItem$: Observable<ChatModelItem>;
 
   public testForm = new FormGroup({
     name: new FormControl('', [
@@ -50,9 +51,11 @@ export class SidePanelComponent extends UnSubscriber implements OnInit {
 
 
   public ngOnInit(): void {
-    this.chatModel$ = this.chatService.getChats();
+    this.chatModel$ = this.chatService.getChatRooms();
     if (this.chatService?.cashChats[0]?.getTitle()) {
       this.title = this.chatService.cashChats[0].getTitle();
+      this.chatService.setChat(this.chatService.cashChats[0]);
+      this.chatModelItem$ = this.chatService.getChatModelItem();
     } else {this.title = 'Создайте рабочее пространство'}
 
     this.accounts = accounts;
@@ -69,8 +72,8 @@ export class SidePanelComponent extends UnSubscriber implements OnInit {
       title: a,
       kind: b === 'Общедоступный' ? EChat.PUBLIC : EChat.PRIVATE,
     };
-    this.httpChatService.createChat(chat).subscribe(
-      (res: Chats) => {
+    this.httpChatService.createChatRoom(chat).subscribe(
+      (res: IChats) => {
         const chatMainModel = new ChatMainModel({
           _id: res._id,
           kind: res.kind,

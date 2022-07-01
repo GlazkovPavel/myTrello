@@ -8,7 +8,7 @@ export class ChatMainModel {
   private readonly id: string = '';
   private kind: EChat;
   private users: User[] = [];
-  private chats: Chat = null;
+  private chats: Chat[] = [];
 
   constructor(res: SpaseChat) {
     this.title = res.title;
@@ -27,8 +27,13 @@ export class ChatMainModel {
     return this.id;
 }
 
-  public setChat(): ChatMainModel {
-    return this
+  public setChat(chats: Chat[]): ChatMainModel {
+     this.chats = chats;
+     return this;
+  }
+
+  public getChats(): Chat[] {
+    return this.chats;
   }
 
 }

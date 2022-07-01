@@ -1,5 +1,5 @@
-import {State} from "../../../chat/enum/state";
 import {ErrorModel} from "./error.model";
+import {State} from "../../enum/state";
 
 export interface IModelItem<T> {
   item?: T;

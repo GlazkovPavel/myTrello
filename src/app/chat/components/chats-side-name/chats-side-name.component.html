@@ -39,4 +39,12 @@
     </div>
   </ng-container>
 
+  <tui-scrollbar class="box" *ngIf="model.state === state.READY">
+    <div class="chats" *ngFor="let chatItem of chats">
+      <app-chat-cards-item
+        (onChoose)="onChoose($event)"
+        [chat]="chatItem">
+      </app-chat-cards-item>
+    </div>
+  </tui-scrollbar>
 </div>

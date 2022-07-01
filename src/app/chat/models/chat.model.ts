@@ -1,16 +1,16 @@
 import {EChat} from "../enum/chat";
 import {User} from "../interface/user.interface";
-import {Chats} from "../interface/chats";
+import {IChats} from "../interface/chats";
 
 
 export class Chat {
 
-  private readonly title: string = '';
-  private readonly id: string = '';
+  private title: string = '';
+  private id: string = '';
   private kind: EChat;
   private users: User[] = [];
 
-  constructor(res: Chats) {
+  constructor(res: IChats) {
     this.title = res.title;
     this.id = res._id;
     this.kind = res.kind;
@@ -20,6 +20,10 @@ export class Chat {
 
   public getUsers(): User[] {
     return this.users;
+  }
+
+  public getChatTitle(): string {
+    return this.title;
   }
 
 }

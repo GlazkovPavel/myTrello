@@ -2,10 +2,10 @@ import {Injectable} from "@angular/core";
 import {SpaseChat} from "../interface/space-chat";
 import {BehaviorSubject, Observable, of} from "rxjs";
 import {ChatMainModel} from "../models/chat-main.model";
-import {ChatModelArray} from "../components/side-panel/side-panel.component";
+import {ChatModelArray, ChatModelItem} from "../components/side-panel/side-panel.component";
 import {catchError, map, startWith} from "rxjs/operators";
-import {State} from "../enum/state";
 import {ErrorModel} from "../../shared/error/models/error.model";
+import {State} from "../../shared/enum/state";
 
 @Injectable()
 export class ChatService {
@@ -32,9 +32,25 @@ export class ChatService {
     return this.cashChats;
   }
 
-  public getChats(): Observable<ChatModelArray> {
+  public getChatRooms(): Observable<ChatModelArray> {
     return this.cashChats$.pipe(
       map((item: ChatMainModel[]) => ({
+        state: State.READY,
+        item,
+      })),
+      startWith({state: State.PENDING}),
+      catchError((ex: ErrorModel) =>
+        of({
+          state: State.ERROR,
+          error: ex,
+        }),
+      ),
+    );
+  }
+
+  public getChatModelItem(): Observable<ChatModelItem> {
+    return this.chat$.pipe(
+      map((item: ChatMainModel) => ({
         state: State.READY,
         item,
       })),
