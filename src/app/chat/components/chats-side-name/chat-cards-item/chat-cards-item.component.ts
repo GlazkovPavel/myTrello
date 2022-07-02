@@ -12,7 +12,7 @@ import {Chat} from "../../../models/chat.model";
 })
 export class ChatCardsItemComponent implements OnInit {
 
-  @Input() public chat: Chat = null;
+  @Input() public chat: Chat;
   @Output() onChoose: EventEmitter<Chat> = new EventEmitter();
   public title: string;
 

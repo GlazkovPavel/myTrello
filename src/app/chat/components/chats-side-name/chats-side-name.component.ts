@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, DoCheck, Input, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ChatService} from "../../services/chat.service";
 import {Chat} from "../../models/chat.model";
@@ -14,9 +14,10 @@ import {State} from "../../../shared/enum/state";
 @Component({
   selector: 'app-chats-side-name',
   templateUrl: './chats-side-name.component.html',
-  styleUrls: ['./chats-side-name.component.scss']
+  styleUrls: ['./chats-side-name.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ChatsSideNameComponent implements OnInit {
+export class ChatsSideNameComponent implements OnInit, DoCheck {
 
   @Input() public panelOpenState: boolean;
   @Input() public model: IModelItem<ChatMainModel>
@@ -24,6 +25,7 @@ export class ChatsSideNameComponent implements OnInit {
   public accounts: any;
   public openForm: boolean = false;
   public chats: Chat[];
+  private idMainChat: string;
 
   constructor(
     private chatService: ChatService,
@@ -43,6 +45,14 @@ export class ChatsSideNameComponent implements OnInit {
   public ngOnInit(): void {
     this.accounts = accounts;
     this.chats = this.model.item.getChats();
+    this.idMainChat = this.model.item.getChatMainId();
+  }
+
+  public ngDoCheck(): void {
+    if (this.model.item.getChatMainId() !== this.idMainChat) {
+      this.chats = this.model.item.getChats();
+      this.idMainChat = this.model.item.getChatMainId();
+    }
   }
 
   public isChats(): boolean {

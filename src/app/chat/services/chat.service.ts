@@ -6,27 +6,35 @@ import {ChatModelArray, ChatModelItem} from "../components/side-panel/side-panel
 import {catchError, map, startWith} from "rxjs/operators";
 import {ErrorModel} from "../../shared/error/models/error.model";
 import {State} from "../../shared/enum/state";
+import {Chat} from "../models/chat.model";
+import {IChats} from "../interface/chats";
+import {ISpaceChatResponse} from "../interface/space-chat-response";
 
 @Injectable()
 export class ChatService {
   public cashChats$: BehaviorSubject<ChatMainModel[]> = new BehaviorSubject<ChatMainModel[]>(null);
   public chat$: BehaviorSubject<ChatMainModel> = new BehaviorSubject<ChatMainModel>(null);
   public cashChats: ChatMainModel[] = [];
-  private spaceChat: SpaseChat[] = null;
+  private spaceChat: ISpaceChatResponse[];
   private chat: ChatMainModel = null;
 
   constructor() {}
 
-  public initModel(model: SpaseChat[]): ChatMainModel[] {
-    this.spaceChat = model;
-    this.cashChats = this.spaceChat.map((res: SpaseChat) =>
-      new ChatMainModel({
+  public initModel(model: ISpaceChatResponse[]): ChatMainModel[] {
+      this.spaceChat = model;
+      this.cashChats = this.spaceChat.map((res: ISpaceChatResponse) => {
+      const chatsArray: Chat[] = res.chats.map((chat: IChats) => new Chat(chat));
+
+      return new ChatMainModel({
         _id: res._id,
         title: res.title,
-        chats: res.chats,
+        chats: chatsArray,
         users: res.users,
         kind: res.kind,
-      }))
+      })
+    }
+
+    )
 
     this.cashChats$.next(this.cashChats);
     return this.cashChats;

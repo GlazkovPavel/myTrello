@@ -5,7 +5,7 @@ import {IChats} from "../interface/chats";
 
 export class Chat {
 
-  private title: string = '';
+  private title: string;
   private id: string = '';
   private kind: EChat;
   private users: User[] = [];

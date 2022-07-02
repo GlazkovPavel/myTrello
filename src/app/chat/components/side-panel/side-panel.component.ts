@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {SpaseChat} from "../../interface/space-chat";
 import {EChat} from "../../enum/chat";
@@ -12,6 +12,8 @@ import {ChatMainModel} from "../../models/chat-main.model";
 import {accounts} from "../../utils/kind-chat";
 import {IChats} from "../../interface/chats";
 import {HttpChatService} from "../../services/http-chat.service";
+import {Chat} from "../../models/chat.model";
+import {ISpaceChatResponse} from "../../interface/space-chat-response";
 
 export type ChatModelArray = IModelItem<ChatMainModel[]>;
 export type ChatModelItem = IModelItem<ChatMainModel>;
@@ -25,7 +27,6 @@ export type ChatModelItem = IModelItem<ChatMainModel>;
 export class SidePanelComponent extends UnSubscriber implements OnInit {
   @ViewChild('accordion') private accordion: any;
   public panelOpenState: boolean = false;
-  public panelClose: boolean = false;
   private id: string = '';
   public accounts: any;
   public title: string = '';
@@ -45,6 +46,7 @@ export class SidePanelComponent extends UnSubscriber implements OnInit {
     private idGeneratorService: IdGeneratorService,
     private chatService: ChatService,
     private httpChatService: HttpChatService,
+    private changeDetectorRef: ChangeDetectorRef,
     ) {
     super();
   }
@@ -73,12 +75,15 @@ export class SidePanelComponent extends UnSubscriber implements OnInit {
       kind: b === 'Общедоступный' ? EChat.PUBLIC : EChat.PRIVATE,
     };
     this.httpChatService.createChatRoom(chat).subscribe(
-      (res: IChats) => {
+      (res: ISpaceChatResponse) => {
+        const chatsArray: Chat[] = res.chats.map((chat:IChats ) => new Chat(chat));
+
         const chatMainModel = new ChatMainModel({
           _id: res._id,
           kind: res.kind,
           title: res.title,
-          users: res.users
+          users: res.users,
+          chats: chatsArray,
         })
         this.chatService.setCashChat(chatMainModel);
         this.onChoose(chatMainModel);
@@ -96,5 +101,11 @@ export class SidePanelComponent extends UnSubscriber implements OnInit {
   public onChoose(chat: ChatMainModel) {
     this.title = chat.getTitle();
     this.chatService.setChat(chat);
+    this.accordion.close();
+    this.changeDetectorRef.markForCheck();
+  }
+
+  public onCloseAccordion(): void {
+    this.accordion.close();
   }
 }

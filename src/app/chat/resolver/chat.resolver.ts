@@ -10,6 +10,7 @@ import {map} from "rxjs/operators";
 import {ChatService} from "../services/chat.service";
 import {ChatMainModel} from "../models/chat-main.model";
 import {SpaseChat} from "../interface/space-chat";
+import {ISpaceChatResponse} from "../interface/space-chat-response";
 
 @Injectable()
 export class ChatResolver implements Resolve<ChatMainModel | null> {
@@ -26,7 +27,7 @@ export class ChatResolver implements Resolve<ChatMainModel | null> {
         'Content-Type': 'application/json'
       }
     }).pipe(
-      map((res: SpaseChat[]) => this.chatService.initModel(res))
+      map((res: ISpaceChatResponse[]) => this.chatService.initModel(res))
     );
   }
 }

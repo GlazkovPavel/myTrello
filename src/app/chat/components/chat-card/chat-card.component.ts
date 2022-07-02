@@ -1,5 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
-import {SpaseChat} from "../../interface/space-chat";
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {ChatMainModel} from "../../models/chat-main.model";
 import {HttpChatService} from "../../services/http-chat.service";
 import {ChatService} from "../../services/chat.service";
@@ -15,6 +14,7 @@ export class ChatCardComponent {
 
   @Input() public chat: ChatMainModel;
   @Output() onChoose: EventEmitter<ChatMainModel> = new EventEmitter();
+  @Output() onCloseAccordion: EventEmitter<void> = new EventEmitter();
 
   constructor(
     private httpChatService: HttpChatService,
@@ -34,6 +34,7 @@ export class ChatCardComponent {
     this.httpChatService.deleteChatSpace(idChatSpace).subscribe(
       () => {
         this.chatService.deleteChatSpace(idChatSpace);
+        this.onCloseAccordion.emit();
       },
       (err: ErrorModel) => {
         console.log('Упал deleteChatSpace', err);
