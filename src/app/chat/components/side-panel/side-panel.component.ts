@@ -29,7 +29,7 @@ export type ChatModelItem = IModelItem<ChatMainModel>;
 export class SidePanelComponent extends UnSubscriber implements OnInit {
   @ViewChild('accordion') private accordion: any;
   public panelOpenState: boolean = false;
-  private id: string = '';
+  private chooseChatMainId: string = '';
   public accounts: any;
   public title: string = '';
   public chatModel$: Observable<ChatModelArray>;
@@ -45,7 +45,6 @@ export class SidePanelComponent extends UnSubscriber implements OnInit {
   });
 
   constructor(
-    private idGeneratorService: IdGeneratorService,
     private chatService: ChatService,
     private httpChatService: HttpChatService,
     private changeDetectorRef: ChangeDetectorRef,
@@ -63,6 +62,10 @@ export class SidePanelComponent extends UnSubscriber implements OnInit {
     } else {this.title = 'Создайте рабочее пространство'}
 
     this.accounts = accounts;
+  }
+
+  public get isActive(): string {
+    return this.chatService.getChat().getChatMainId();
   }
 
   public getChatModelItem(): Observable<ChatModelItem> {
@@ -83,9 +86,6 @@ export class SidePanelComponent extends UnSubscriber implements OnInit {
 
 
   public onSubmit() {
-    this.idGeneratorService.onId()
-      .pipe(takeUntil(this.unSubscribe))
-      .subscribe((item: string) => this.id = item);
     const a = this.testForm.controls['name'].value
     const b = this.testForm.controls['accounts'].value
     const chat: SpaseChat = {
@@ -119,6 +119,7 @@ export class SidePanelComponent extends UnSubscriber implements OnInit {
   public onChoose(chat: ChatMainModel) {
     this.title = chat.getTitle();
     this.chatService.setChat(chat);
+    this.chooseChatMainId = chat.getChatMainId();
     this.accordion.close();
     this.changeDetectorRef.markForCheck();
   }

@@ -26,4 +26,8 @@ export class Chat {
     return this.title;
   }
 
+  public getChatId(): string {
+    return this.id;
+  }
+
 }

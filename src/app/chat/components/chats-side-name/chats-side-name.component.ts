@@ -6,7 +6,6 @@ import {EChat} from "../../enum/chat";
 import {accounts} from "../../utils/kind-chat";
 import {IChats} from "../../interface/chats";
 import {HttpChatService} from "../../services/http-chat.service";
-import {SpaseChat} from "../../interface/space-chat";
 import {IModelItem} from "../../../shared/error/models/models.model";
 import {ChatMainModel} from "../../models/chat-main.model";
 import {State} from "../../../shared/enum/state";
@@ -27,6 +26,7 @@ export class ChatsSideNameComponent implements OnInit, DoCheck {
   public openForm: boolean = false;
   public chats: Chat[];
   public cashChats: Chat[];
+  public currentChat: Chat;
 
   constructor(
     private chatService: ChatService,
@@ -45,15 +45,20 @@ export class ChatsSideNameComponent implements OnInit, DoCheck {
 
   public ngOnInit(): void {
     this.accounts = accounts;
-    this.chats = this.model.item.getChats();
+    this.chats = this.model?.item.getChats();
     this.cashChats = this.chats;
+    this.currentChat = this.chats[0];
   }
 
   public ngDoCheck(): void {
-    if (this.cashChats !== this.model.item.getChats()) {
-      this.chats = this.model.item.getChats();
+    if (this.cashChats !== this.model?.item.getChats()) {
+      this.chats = this.model?.item.getChats();
       this.cashChats = this.chats;
     }
+  }
+
+  public get currentChatId(): string {
+    return this.currentChat.getChatId();
   }
 
   public isChats(): boolean {
@@ -98,7 +103,7 @@ export class ChatsSideNameComponent implements OnInit, DoCheck {
 
   }
 
-  onChoose($event: any) {
-
+  onChoose(chat: Chat) {
+    this.currentChat = chat;
   }
 }

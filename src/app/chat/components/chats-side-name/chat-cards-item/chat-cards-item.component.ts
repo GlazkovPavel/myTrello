@@ -13,6 +13,7 @@ import {Chat} from "../../../models/chat.model";
 export class ChatCardsItemComponent implements OnInit {
 
   @Input() public chat: Chat;
+  @Input() public currentChatId: string;
   @Output() onChoose: EventEmitter<Chat> = new EventEmitter();
   public title: string;
 
@@ -22,6 +23,7 @@ export class ChatCardsItemComponent implements OnInit {
   }
   ngOnInit(): void {
     this.title = this.chat?.getChatTitle();
+    this.isActiveChat();
   }
 
   public edit() {
@@ -42,5 +44,9 @@ export class ChatCardsItemComponent implements OnInit {
     //     console.log('Упал deleteChatSpace', err);
     //   }
     // );
+  }
+
+  isActiveChat(): boolean {
+    return this.chat.getChatId() === this.currentChatId;
   }
 }

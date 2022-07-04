@@ -1,9 +1,10 @@
 .card {
   display: flex;
   align-items: center;
-  margin-bottom: 8px;
-  padding: 4px;
+  padding: 10px;
   cursor: pointer;
+  height: 36px;
+  color: white;
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.1);
@@ -16,4 +17,9 @@
     width: 100%;
   }
 
+}
+
+.is-focused {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
 }
