@@ -54,6 +54,7 @@ export class ChatsSideNameComponent implements OnInit, DoCheck {
     if (this.cashChats !== this.model?.item.getChats()) {
       this.chats = this.model?.item.getChats();
       this.cashChats = this.chats;
+       this.currentChat = this.model.item.getChats()[0];
     }
   }
 

@@ -4,7 +4,7 @@
     <mat-accordion>
       <mat-expansion-panel #accordion
         (opened)="panelOpenState = true"
-        (closed)="panelOpenState = false">
+        (closed)="onToggleAccordion()">
         <mat-expansion-panel-header>
           <mat-panel-title>
             <span class="operation-title">{{title}}</span>

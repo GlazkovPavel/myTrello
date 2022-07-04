@@ -2,8 +2,7 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {SpaseChat} from "../../interface/space-chat";
 import {EChat} from "../../enum/chat";
-import {catchError, map, startWith, takeUntil} from "rxjs/operators";
-import {IdGeneratorService} from "../../../shared/services/id-generator.service";
+import {catchError, map, startWith} from "rxjs/operators";
 import {UnSubscriber} from "../../../shared/utils/unsubscriber";
 import {ChatService} from "../../services/chat.service";
 import {Observable, of} from "rxjs";
@@ -126,5 +125,11 @@ export class SidePanelComponent extends UnSubscriber implements OnInit {
 
   public onCloseAccordion(): void {
     this.accordion.close();
+  }
+  public onToggleAccordion(): void {
+    setTimeout(() => {
+      this.panelOpenState = !this.panelOpenState;
+
+    }, 0)
   }
 }

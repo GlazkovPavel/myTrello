@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {ChatMainModel} from "../../../models/chat-main.model";
 import {HttpChatService} from "../../../services/http-chat.service";
 import {ChatService} from "../../../services/chat.service";
 import {ErrorModel} from "../../../../shared/error/models/error.model";
