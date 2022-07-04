@@ -60,7 +60,7 @@
         <tui-scrollbar class="box">
           <div class="chats" *ngFor="let chatItem of chatModel.item">
             <app-chat-card
-              (onChoose)="onChoose($event)"
+              (click)="onChoose(chatItem)"
               (onCloseAccordion)="onCloseAccordion()"
               [chat]="chatItem">
             </app-chat-card>

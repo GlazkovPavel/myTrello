@@ -6,6 +6,7 @@ import {User} from "../../interface/user.interface";
 import {Message} from "../../models/message.model";
 import {IUserInfoInterface} from "../../../interface/user-info.interface";
 import {Observable} from "rxjs";
+import {ChatService} from "../../services/chat.service";
 
 
 @Component({
@@ -17,13 +18,17 @@ export class ChatComponent implements OnInit {
   public usersWorkSpaceOwner$: Observable<IUserInfoInterface[]>;
   public users$!: Observable<IUserInfoInterface[]>;
   public userModalShow:  boolean = false;
+  public chatName: string = 'Название чата'
   action = Action;
   user: User;
   messages: Message[] = [];
   messageContent: string;
   ioConnection: any;
 
-  constructor(private socketService: SocketService) { }
+  constructor(
+    private socketService: SocketService,
+    private chatService: ChatService,
+    ) { }
 
   ngOnInit(): void {
     this.initIoConnection();
@@ -47,6 +52,10 @@ export class ChatComponent implements OnInit {
         console.log('disconnected');
       });
   }
+
+  // public getChatName(): string {
+  //   return
+  // }
 
   // public sendMessage(message: string): void {
   //   if (!message) {

@@ -16,7 +16,7 @@ export class ChatService {
   public chat$: BehaviorSubject<ChatMainModel> = new BehaviorSubject<ChatMainModel>(null);
   public cashChats: ChatMainModel[] = [];
   private spaceChat: ISpaceChatResponse[];
-  private chat: ChatMainModel = null;
+  private chatCash: ChatMainModel = null;
 
   constructor() {}
 
@@ -56,21 +56,21 @@ export class ChatService {
     );
   }
 
-  public getChatModelItem(): Observable<ChatModelItem> {
-    return this.chat$.pipe(
-      map((item: ChatMainModel) => ({
-        state: State.READY,
-        item,
-      })),
-      startWith({state: State.PENDING}),
-      catchError((ex: ErrorModel) =>
-        of({
-          state: State.ERROR,
-          error: ex,
-        }),
-      ),
-    );
-  }
+  // public getChatModelItem(): Observable<ChatModelItem> {
+  //   return this.chat$.pipe(
+  //     map((item: ChatMainModel) => ({
+  //       state: State.READY,
+  //       item,
+  //     })),
+  //     startWith({state: State.PENDING}),
+  //     catchError((ex: ErrorModel) =>
+  //       of({
+  //         state: State.ERROR,
+  //         error: ex,
+  //       }),
+  //     ),
+  //   );
+  // }
 
   public setCashChat(chat: ChatMainModel): void {
     this.cashChats.push(chat);
@@ -83,15 +83,22 @@ export class ChatService {
   }
 
   public setChat(chat: ChatMainModel): void {
+    this.chatCash = null;
     this.chat$.next(chat);
+    this.chatCash = chat;
+
   }
 
   public getChat(): ChatMainModel {
     return this.chat$.getValue();
   }
 
-  public resetChat(): void {
-    this.chat = null;
+  public resetChatCash(): void {
+    this.chatCash = null;
   }
+
+  // public getChatCash(): ChatMainModel {
+  //   return this.chatCash;
+  // }
 
 }

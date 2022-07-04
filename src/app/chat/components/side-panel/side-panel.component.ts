@@ -2,11 +2,11 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {SpaseChat} from "../../interface/space-chat";
 import {EChat} from "../../enum/chat";
-import {takeUntil} from "rxjs/operators";
+import {catchError, map, startWith, takeUntil} from "rxjs/operators";
 import {IdGeneratorService} from "../../../shared/services/id-generator.service";
 import {UnSubscriber} from "../../../shared/utils/unsubscriber";
 import {ChatService} from "../../services/chat.service";
-import {Observable} from "rxjs";
+import {Observable, of} from "rxjs";
 import {IModelItem} from "../../../shared/error/models/models.model";
 import {ChatMainModel} from "../../models/chat-main.model";
 import {accounts} from "../../utils/kind-chat";
@@ -14,6 +14,8 @@ import {IChats} from "../../interface/chats";
 import {HttpChatService} from "../../services/http-chat.service";
 import {Chat} from "../../models/chat.model";
 import {ISpaceChatResponse} from "../../interface/space-chat-response";
+import {State} from "../../../shared/enum/state";
+import {ErrorModel} from "../../../shared/error/models/error.model";
 
 export type ChatModelArray = IModelItem<ChatMainModel[]>;
 export type ChatModelItem = IModelItem<ChatMainModel>;
@@ -57,10 +59,26 @@ export class SidePanelComponent extends UnSubscriber implements OnInit {
     if (this.chatService?.cashChats[0]?.getTitle()) {
       this.title = this.chatService.cashChats[0].getTitle();
       this.chatService.setChat(this.chatService.cashChats[0]);
-      this.chatModelItem$ = this.chatService.getChatModelItem();
+      this.chatModelItem$ = this.getChatModelItem();
     } else {this.title = 'Создайте рабочее пространство'}
 
     this.accounts = accounts;
+  }
+
+  public getChatModelItem(): Observable<ChatModelItem> {
+    return this.chatService.chat$.pipe(
+      map((item: ChatMainModel) => ({
+        state: State.READY,
+        item,
+      })),
+      startWith({state: State.PENDING}),
+      catchError((ex: ErrorModel) =>
+        of({
+          state: State.ERROR,
+          error: ex,
+        }),
+      ),
+    );
   }
 
 

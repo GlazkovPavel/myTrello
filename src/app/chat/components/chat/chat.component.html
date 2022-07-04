@@ -6,6 +6,8 @@
       <div class="main">
         <div class="header">
 
+          <span>{{chatName}}</span>
+
           <div class="mask" *ngIf="usersWorkSpaceOwner$ | async as usersWorkSpaceOwner">
             <ng-container *ngFor="let mask of usersWorkSpaceOwner | filterSelf">
               <app-mask

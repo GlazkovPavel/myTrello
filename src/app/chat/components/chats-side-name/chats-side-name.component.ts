@@ -10,6 +10,7 @@ import {SpaseChat} from "../../interface/space-chat";
 import {IModelItem} from "../../../shared/error/models/models.model";
 import {ChatMainModel} from "../../models/chat-main.model";
 import {State} from "../../../shared/enum/state";
+import {ISpaceChatResponse} from "../../interface/space-chat-response";
 
 @Component({
   selector: 'app-chats-side-name',
@@ -25,7 +26,7 @@ export class ChatsSideNameComponent implements OnInit, DoCheck {
   public accounts: any;
   public openForm: boolean = false;
   public chats: Chat[];
-  private idMainChat: string;
+  public cashChats: Chat[];
 
   constructor(
     private chatService: ChatService,
@@ -45,13 +46,13 @@ export class ChatsSideNameComponent implements OnInit, DoCheck {
   public ngOnInit(): void {
     this.accounts = accounts;
     this.chats = this.model.item.getChats();
-    this.idMainChat = this.model.item.getChatMainId();
+    this.cashChats = this.chats;
   }
 
   public ngDoCheck(): void {
-    if (this.model.item.getChatMainId() !== this.idMainChat) {
+    if (this.cashChats !== this.model.item.getChats()) {
       this.chats = this.model.item.getChats();
-      this.idMainChat = this.model.item.getChatMainId();
+      this.cashChats = this.chats;
     }
   }
 
@@ -76,14 +77,23 @@ export class ChatsSideNameComponent implements OnInit, DoCheck {
       kind: kind === 'Общедоступный' ? EChat.PUBLIC : EChat.PRIVATE,
     }
     this.httpChatService.createChat(chat, chatMainId).subscribe(
-      (value: SpaseChat) => {
+      (res: ISpaceChatResponse) => {
         this.testForm.reset();
         this.openForm = !this.openForm;
-         this.chatService.setCashChat(this.chatService.getChat().setChat(value.chats));
+        const chatsArray: Chat[] = res.chats.map((chat: IChats) => new Chat(chat));
+        const spaseChat: ChatMainModel = new ChatMainModel({
+          _id: res._id,
+          title: res.title,
+          chats: chatsArray,
+          users: res.users,
+          kind: res.kind,
+        })
+          this.chatService.setChat(spaseChat);
+          this.openForm = !this.openForm;
 
       },
       () => {
-
+        this.openForm = !this.openForm;
     })
 
   }
