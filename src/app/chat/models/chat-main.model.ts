@@ -9,6 +9,7 @@ export class ChatMainModel {
   private kind: EChat;
   private users: User[] = [];
   private chats: Chat[] = [];
+  private currentChat: Chat;
 
   constructor(res: SpaseChat) {
     this.title = res.title;
@@ -30,6 +31,10 @@ export class ChatMainModel {
   public setChat(chats: Chat[]): ChatMainModel {
      this.chats = chats;
      return this;
+  }
+
+  public setCurrentChat(chat: Chat): void {
+    this.currentChat = chat;
   }
 
   public getChats(): Chat[] {
