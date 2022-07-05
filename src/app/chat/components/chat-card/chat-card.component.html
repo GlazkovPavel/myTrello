@@ -1,7 +1,10 @@
 <div class="card" [class.is-focused]="isActiveChat()">
-  <span class="card-span" (click)="choose(chat)">
+  <div class="card-span" (click)="choose(chat)">
+    <span>
     {{chat?.getTitle()}}
   </span>
+  </div>
+
 
   <button mat-icon-button *ngIf="isActiveChat()" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
     <mat-icon>more_vert</mat-icon>

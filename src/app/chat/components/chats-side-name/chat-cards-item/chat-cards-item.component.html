@@ -1,5 +1,5 @@
-<div class="card" [class.is-focused]="isActiveChat()">
-  <span class="card-span" (click)="choose(chat)">
+<div class="card" (click)="choose(chat)" [class.is-focused]="isActiveChat()">
+  <span class="card-span" >
     {{title}}
   </span>
 
