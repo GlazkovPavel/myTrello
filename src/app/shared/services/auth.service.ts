@@ -1,7 +1,7 @@
 import {Injectable, OnInit} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {IUserInterface} from "../../interface/user.interface";
-import {Observable, of, Subscription, throwError} from "rxjs";
+import {Observable, of, Subscription} from "rxjs";
 import {catchError, map} from "rxjs/operators";
 import {IUserLoginInterface} from "../../interface/user-login.interface";
 import {Router} from "@angular/router";
