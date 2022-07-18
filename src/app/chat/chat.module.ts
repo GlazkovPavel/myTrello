@@ -37,12 +37,6 @@ import {MatExpansionModule} from "@angular/material/expansion";
 import {MatSelectModule} from "@angular/material/select";
 import {HttpChatService} from "./services/http-chat.service";
 import {ChatCardsItemComponent} from './components/chats-side-name/chat-cards-item/chat-cards-item.component';
-import {EffectsModule} from "@ngrx/effects";
-import {StoreModule} from "@ngrx/store";
-import {ChatEffects} from "./store/effects/chat.effects";
-import {environment} from "../../environments/environment.prod";
-import {StoreDevtoolsModule} from "@ngrx/store-devtools";
-import {metaReducers, reducers} from "./store/reducers/chat.reducer";
 
 @NgModule({
   declarations: [
@@ -95,11 +89,6 @@ import {metaReducers, reducers} from "./store/reducers/chat.reducer";
     MatExpansionModule,
     MatSelectModule,
     TuiScrollbarModule,
-    StoreModule.forRoot(reducers, {
-      metaReducers
-    }),
-    StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
-    EffectsModule.forRoot([ChatEffects]),
   ]
 })
 
