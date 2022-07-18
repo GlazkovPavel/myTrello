@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ChatComponent } from './components/chat/chat.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {ChatComponent} from './components/chat/chat.component';
 import {RouterModule} from "@angular/router";
 import {AuthGuard} from "../shared/guard/auth.guard";
 import {HeaderModule} from "../header/header.module";
@@ -14,14 +14,14 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from "@angular/material/input";
 import {MatCardModule} from "@angular/material/card";
 import {MatMenuModule} from "@angular/material/menu";
-import { DialogUserComponent } from './components/dialog-user/dialog-user.component';
+import {DialogUserComponent} from './components/dialog-user/dialog-user.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {StoreUserService} from "./services/store-user-service";
 import {MaskModule} from "../mask/mask.module";
 import {DirectiveModule} from "../shared/directives/directive.module";
 import {MomentPipeModule} from "../shared/pipes/moment.module";
-import { SidePanelComponent } from './components/side-panel/side-panel.component';
+import {SidePanelComponent} from './components/side-panel/side-panel.component';
 import {
   TuiAccordionModule,
   TuiDataListWrapperModule,
@@ -29,17 +29,20 @@ import {
   TuiMarkerIconModule,
   TuiSelectModule
 } from "@taiga-ui/kit";
-import {
-  TuiButtonModule, TuiScrollbarModule,
-  TuiSvgModule,
-} from "@taiga-ui/core";
+import {TuiButtonModule, TuiScrollbarModule, TuiSvgModule,} from "@taiga-ui/core";
 import {ChatCardComponent} from "./components/chat-card/chat-card.component";
 import {ChatResolver} from "./resolver/chat.resolver";
-import { ChatsSideNameComponent } from './components/chats-side-name/chats-side-name.component';
+import {ChatsSideNameComponent} from './components/chats-side-name/chats-side-name.component';
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatSelectModule} from "@angular/material/select";
 import {HttpChatService} from "./services/http-chat.service";
-import { ChatCardsItemComponent } from './components/chats-side-name/chat-cards-item/chat-cards-item.component';
+import {ChatCardsItemComponent} from './components/chats-side-name/chat-cards-item/chat-cards-item.component';
+import {EffectsModule} from "@ngrx/effects";
+import {StoreModule} from "@ngrx/store";
+import {ChatEffects} from "./store/effects/chat.effects";
+import {environment} from "../../environments/environment.prod";
+import {StoreDevtoolsModule} from "@ngrx/store-devtools";
+import {metaReducers, reducers} from "./store/reducers/chat.reducer";
 
 @NgModule({
   declarations: [
@@ -92,6 +95,13 @@ import { ChatCardsItemComponent } from './components/chats-side-name/chat-cards-
     MatExpansionModule,
     MatSelectModule,
     TuiScrollbarModule,
+    StoreModule.forRoot(reducers, {
+      metaReducers
+    }),
+    StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
+    EffectsModule.forRoot([ChatEffects]),
   ]
 })
-export class ChatModule { }
+
+export class ChatModule {
+}
