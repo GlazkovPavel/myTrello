@@ -7,5 +7,5 @@ export interface ITodoInterface {
 export interface IListTodoInterface {
   _id: string,
   titleList: string,
-  list: ITodoInterface[]
+  list: ITodoInterface[],
 }

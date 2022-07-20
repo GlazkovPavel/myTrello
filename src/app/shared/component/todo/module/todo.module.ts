@@ -1,16 +1,21 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {TodoComponent} from "../component/todo.component";
 import {TodoService} from "../services/todo.service";
 import {FormsModule} from "@angular/forms";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
+import {EffectsModule} from "@ngrx/effects";
+import {StoreModule} from "@ngrx/store";
+import {KEY, todoReducer} from "../store/reducers/todo.reducer";
+import {STORE_KEY} from "../store/utils/key";
+import {TodoEffect} from "../store/effects/todo.effect";
 
 @NgModule({
   declarations: [TodoComponent],
   exports: [
-    TodoComponent
+    TodoComponent,
   ],
   providers: [TodoService],
   imports: [
@@ -19,6 +24,11 @@ import {MatIconModule} from "@angular/material/icon";
     MatSidenavModule,
     MatButtonModule,
     MatIconModule,
-  ]
+    EffectsModule.forFeature([TodoEffect]),
+    StoreModule.forFeature(STORE_KEY, {
+      [KEY]: todoReducer,
+    }),
+  ],
 })
-export class TodoModule { }
+export class TodoModule {
+}
