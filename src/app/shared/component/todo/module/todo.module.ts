@@ -11,6 +11,7 @@ import {StoreModule} from "@ngrx/store";
 import {KEY, todoReducer} from "../store/reducers/todo.reducer";
 import {STORE_KEY} from "../store/utils/key";
 import {TodoEffect} from "../store/effects/todo.effect";
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 @NgModule({
   declarations: [TodoComponent],
@@ -18,17 +19,18 @@ import {TodoEffect} from "../store/effects/todo.effect";
     TodoComponent,
   ],
   providers: [TodoService],
-  imports: [
-    CommonModule,
-    FormsModule,
-    MatSidenavModule,
-    MatButtonModule,
-    MatIconModule,
-    EffectsModule.forFeature([TodoEffect]),
-    StoreModule.forFeature(STORE_KEY, {
-      [KEY]: todoReducer,
-    }),
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        MatSidenavModule,
+        MatButtonModule,
+        MatIconModule,
+        EffectsModule.forFeature([TodoEffect]),
+        StoreModule.forFeature(STORE_KEY, {
+            [KEY]: todoReducer,
+        }),
+        MatCheckboxModule,
+    ],
 })
 export class TodoModule {
 }

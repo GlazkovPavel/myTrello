@@ -16,6 +16,7 @@
     </div>
   </mat-drawer>
 
+  <ng-container *ngIf="currentTodoList$ | async as currentTodoList">
   <div class="example-sidenav-content" >
     <p>{{currentTodoList?.titleList}}</p>
     <button *ngIf="!checkArrayTodo" class="button-sidenav" type="button" mat-button (click)="drawer.toggle()">
@@ -36,12 +37,13 @@
     <div class="todo-list" *ngIf="currentTodoList" (click)="drawer.close()">
       <ng-container *ngFor="let todo of currentTodoList?.list">
         <div class="todo" *ngIf="!todo?.isCompleted">
-          <input
+          <mat-checkbox
             class="checkbox"
             type="checkbox"
             name="isCompleted"
             (change)="onComplete(todo, $event)"
             [checked]="todo?.isCompleted">
+          </mat-checkbox>
           <span class="text" *ngIf="!todo?.isCompleted">{{ todo?.titleTodo }}</span>
           <button mat-icon-button color="accent" class="remove" mat-button (click)="onRemove(todo)">
             <mat-icon>delete</mat-icon>
@@ -57,12 +59,14 @@
       <ng-container *ngIf="showCompletedTodo">
         <ng-container *ngFor="let todo of currentTodoList?.list">
           <div class="todo" *ngIf="todo?.isCompleted">
-            <input
+            <mat-checkbox
               class="checkbox"
               type="checkbox"
               name="isCompleted"
               (change)="onComplete(todo, $event)"
               [checked]="todo?.isCompleted">
+
+            </mat-checkbox>
             <span class="text" *ngIf="todo?.isCompleted"><del>{{ todo?.titleTodo }}</del></span>
             <button mat-icon-button color="accent" class="remove" mat-button (click)="onRemove(todo)">
               <mat-icon>delete</mat-icon>
@@ -72,5 +76,6 @@
       </ng-container>
     </div>
   </div>
+  </ng-container>
 </mat-drawer-container>
 .

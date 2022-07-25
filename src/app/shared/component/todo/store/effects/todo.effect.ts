@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
 import {Action, Store} from "@ngrx/store";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
-import {addTodo, loadTodoList, loadTodoListSuccess, updateCurrentTodoList} from "../actions/todo.action";
+import {addTodo, loadTodoList, loadTodoListSuccess, updateCurrentTodoList, updateTodo} from "../actions/todo.action";
 import {map, switchMap, withLatestFrom} from "rxjs/operators";
 import {TodoService} from "../../services/todo.service";
 import {IListTodoInterface, ITodoInterface} from "../../interface/todo.interface";
@@ -40,6 +40,27 @@ export class TodoEffect {
           const array = {
             ...currentList,
             list: arara
+          }
+          return this.todoService.updateTodo(array).pipe(
+            map((currentList: IListTodoInterface) => updateCurrentTodoList({currentList}))
+          );
+        })
+      )
+  )
+
+  public updateTodo$: Observable<Action> = createEffect(
+    () => this.actions
+      .pipe(
+        ofType(updateTodo),
+        withLatestFrom(this.store.select(getCurrentTodoListSelector)),
+        switchMap(([{todo}, currentList]: [{ todo: ITodoInterface }, IListTodoInterface]) => {
+          const todoUpdate = currentList.list.concat()
+          todoUpdate.map(
+            item => item._id === todo._id ? { ...item, isCompleted: !todo.isCompleted} : item
+          )
+          const array = {
+            ...currentList,
+            list: todoUpdate
           }
           return this.todoService.updateTodo(array).pipe(
             map((currentList: IListTodoInterface) => updateCurrentTodoList({currentList}))

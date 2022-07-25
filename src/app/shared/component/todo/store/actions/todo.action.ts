@@ -11,4 +11,7 @@ export const updateCurrentTodoList = createAction('updateCurrentTodoList', props
 
 export const addTodo = createAction('addTodo', props<{ todo: ITodoInterface }>());
 
+export const updateTodo = createAction('addTodo', props<{ todo: ITodoInterface }>());
+
+
 
