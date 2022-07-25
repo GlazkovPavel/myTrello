@@ -72,9 +72,9 @@ export class TodoComponent implements OnInit {
   }
 
   private checkArrayTodos(): void {
-    if (this.lists.length === 0) {
-      this.checkArrayTodo = true;
-    }
+    // if (this.lists.length === 0) {
+    //   this.checkArrayTodo = true;
+    // }
   }
 
   public onRemove(todoDelete: ITodoInterface): void {

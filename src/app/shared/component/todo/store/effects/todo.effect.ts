@@ -54,14 +54,15 @@ export class TodoEffect {
         ofType(updateTodo),
         withLatestFrom(this.store.select(getCurrentTodoListSelector)),
         switchMap(([{todo}, currentList]: [{ todo: ITodoInterface }, IListTodoInterface]) => {
-          const todoUpdate = currentList.list.concat()
-          todoUpdate.map(
+          let todoUpdate = currentList.list.concat()
+          todoUpdate = todoUpdate.map(
             item => item._id === todo._id ? { ...item, isCompleted: !todo.isCompleted} : item
           )
           const array = {
             ...currentList,
             list: todoUpdate
           }
+          debugger
           return this.todoService.updateTodo(array).pipe(
             map((currentList: IListTodoInterface) => updateCurrentTodoList({currentList}))
           );
