@@ -34,15 +34,45 @@ export class TodoComponent implements OnInit {
     this.lists$ = this.getTodoList();
     //this.store.dispatch(getCurrentTodoList());
 
-    this.store.select(getCurrentTodoListSelector)
-      .subscribe(
-        ((item: IListTodoInterface) => {
-          this.titleTask = '';
-          this.currentTodoList = item;
+    // this.store.select(getCurrentTodoListSelector)
+    //   .subscribe(
+    //     ((item: IListTodoInterface) => {
+    //       this.titleTask = '';
+    //       this.currentTodoList = item;
+    //
+    //     })
+    //   )
 
-        })
-      )
+  }
 
+  private getTodoList(): Observable<IListTodoInterface[]> {
+    return this.store.select(getList).pipe(
+      tap((data: IListTodoInterface[]) => {
+        this.lists = data;
+        this.currentTodoList = this.lists[0];
+        this.store.dispatch(updateCurrentTodoList({currentList: this.lists[0]}))
+        this.checkCompleted(this.currentTodoList);
+        this.checkArrayTodos();
+        this.store.select(getCurrentTodoListSelector)
+          .subscribe(
+            ((item: IListTodoInterface) => {
+              this.titleTask = '';
+              this.currentTodoList = item;
+
+            })
+          )
+      })
+    );
+  }
+
+  private checkCompleted(item: IListTodoInterface) {
+    this.checkCompletedTodo = item?.list.some(value => value.isCompleted === true);
+  }
+
+  private checkArrayTodos(): void {
+    if (this.lists.length === 0) {
+      this.checkArrayTodo = true;
+    }
   }
 
   public onRemove(todoDelete: ITodoInterface): void {
@@ -60,7 +90,16 @@ export class TodoComponent implements OnInit {
     )
   };
 
-  public onComplete(todoOnComplete: ITodoInterface) {
+  public onComplete(todoOnComplete: ITodoInterface, event: any) {
+
+    // Сделать чтение чек-бокса через форму
+    // this.currentTodoList.list = this.currentTodoList.list.map(
+    //   item => item._id === todoOnComplete._id ? { ...item, isCompleted: todoOnComplete.isCompleted} : item
+    // )
+
+    // const a = event
+    //
+    // console.log(a.target.checked)
 
     this.currentTodoList.list = this.currentTodoList.list.filter((val) => val._id !== todoOnComplete._id);
     if (todoOnComplete.isCompleted === false) {
@@ -97,9 +136,6 @@ export class TodoComponent implements OnInit {
 
   public onCreateTask() {
 
-    //let listArray: IListTodoInterface;
-
-
     if (this.titleTask) {
       const todo: ITodoInterface = {
         titleTodo: this.titleTask,
@@ -107,23 +143,6 @@ export class TodoComponent implements OnInit {
       };
 
       this.store.dispatch(addTodo({todo}))
-
-
-      // const listArray = this.currentTodoList;
-      // listArray.list.unshift(todo);
-
-      // this.todoService.updateTodo(listArray).pipe(
-      // ).subscribe(
-      //   (value) => {
-      //     this.titleTask = '';
-      //     this.currentTodoList = value;
-      //     this.lists$ = of(this.lists);
-      //   },
-      //   error => {
-      //     this.currentTodoList.list.pop()
-      //     console.log(error)
-      //   }
-      // )
     }
   }
 
@@ -145,39 +164,4 @@ export class TodoComponent implements OnInit {
     this.showCompletedTodo = !this.showCompletedTodo
   }
 
-  private getTodoList(): Observable<IListTodoInterface[]> {
-    return this.store.select(getList).pipe(
-      tap((data: IListTodoInterface[]) => {
-        this.lists = data;
-        this.lists.map(val => val.list.reverse().sort(function (todo: ITodoInterface) {
-          if (todo.isCompleted === true) {
-            return 1;
-          }
-          return -1;
-        }));
-        this.currentTodoList = this.lists[0];
-        this.store.dispatch(updateCurrentTodoList({currentList: this.lists[0]}))
-        this.checkCompleted(this.currentTodoList);
-        this.checkArrayTodos();
-        this.store.select(getCurrentTodoListSelector)
-          .subscribe(
-            ((item: IListTodoInterface) => {
-              this.titleTask = '';
-              this.currentTodoList = item;
-
-            })
-          )
-      })
-    );
-  }
-
-  private checkCompleted(item: IListTodoInterface) {
-    this.checkCompletedTodo = item?.list.some(value => value.isCompleted === true);
-  }
-
-  private checkArrayTodos(): void {
-    if (this.lists.length === 0) {
-      this.checkArrayTodo = true;
-    }
-  }
 }

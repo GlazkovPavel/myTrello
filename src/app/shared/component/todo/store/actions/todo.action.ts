@@ -5,7 +5,7 @@ export const loadTodoList = createAction('loadTodoList');
 
 export const loadTodoListSuccess = createAction('loadTodoListSuccess', props<{ list: IListTodoInterface[] }>());
 
-export const getTodoList = createAction('getTodoList');
+//export const getTodoList = createAction('getTodoList');
 
 export const updateCurrentTodoList = createAction('updateCurrentTodoList', props<{ currentList: IListTodoInterface }>());
 

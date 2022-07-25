@@ -40,7 +40,7 @@
             class="checkbox"
             type="checkbox"
             name="isCompleted"
-            (change)="onComplete(todo)"
+            (change)="onComplete(todo, $event)"
             [checked]="todo?.isCompleted">
           <span class="text" *ngIf="!todo?.isCompleted">{{ todo?.titleTodo }}</span>
           <button mat-icon-button color="accent" class="remove" mat-button (click)="onRemove(todo)">
@@ -61,7 +61,7 @@
               class="checkbox"
               type="checkbox"
               name="isCompleted"
-              (change)="onComplete(todo)"
+              (change)="onComplete(todo, $event)"
               [checked]="todo?.isCompleted">
             <span class="text" *ngIf="todo?.isCompleted"><del>{{ todo?.titleTodo }}</del></span>
             <button mat-icon-button color="accent" class="remove" mat-button (click)="onRemove(todo)">

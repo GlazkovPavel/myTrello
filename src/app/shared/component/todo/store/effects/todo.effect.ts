@@ -15,7 +15,16 @@ export class TodoEffect {
       .pipe(
         ofType(loadTodoList),
         switchMap(() => this.todoService.getTodo().pipe(
-          map((list: IListTodoInterface[]) => loadTodoListSuccess({list}))
+          map((list: IListTodoInterface[]) => {
+            list.map(val => val.list.reverse().sort(function (todo: ITodoInterface) {
+              if (todo.isCompleted === true) {
+                return 1;
+              }
+              return -1;
+            }));
+            return  loadTodoListSuccess({list})
+            }
+          )
         ))
       )
   )

@@ -6,8 +6,6 @@ import {KEY} from "../reducers/todo.reducer";
 import {IToDoStore} from "../../interface/store.interface";
 import {IListTodoInterface} from "../../interface/todo.interface";
 
-//export const list = (state: StateInterface) => state.list;
-
 export const listState = createSelector(
   selectorByKey<IToDoStore>(STORE_KEY),
   (state: IToDoStore): StateInterface => state && state[KEY],

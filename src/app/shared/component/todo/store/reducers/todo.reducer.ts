@@ -1,6 +1,6 @@
 import {StateInterface} from "../../interface/state.interface";
 import {createReducer, on} from "@ngrx/store";
-import {getTodoList, loadTodoListSuccess, updateCurrentTodoList} from "../actions/todo.action";
+import {loadTodoListSuccess, updateCurrentTodoList} from "../actions/todo.action";
 import {IListTodoInterface} from "../../interface/todo.interface";
 
 export const KEY = 'todoList';
@@ -32,9 +32,9 @@ export const todoReducer = createReducer(
   //     ...state,
   //     currentList: state.currentList
   //   })),
-  on(getTodoList, state => ({
-    ...state,
-  })),
+  // on(getTodoList, state => ({
+  //   ...state,
+  // })),
   // on(addTodo, (state: StateInterface, {todo} : {todo: ITodoInterface}) => ({
   //   ...state,
   //   currentList:
