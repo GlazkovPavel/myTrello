@@ -2,8 +2,12 @@
   <mat-drawer #drawer class="example-sidenav" mode="side">
     <div class="sidenav">
       <p>Списки</p>
-      <form class="form" action="#" (ngSubmit)="onCreateList()">
-        <input class="form__input" type="text" name="title" placeholder="Назовите список..." [(ngModel)]="titleList">
+      <form [formGroup]="formList" class="form" action="#" (ngSubmit)="onCreateList()">
+        <input
+          class="form__input"
+          type="text" name="title"
+          placeholder="Назовите список..."
+          formControlName="list">
         <button class="form__button">Добавить новый список</button>
       </form>
       <ng-container *ngFor="let list of lists$ | async">
@@ -22,9 +26,19 @@
     <button *ngIf="!checkArrayTodo" class="button-sidenav" type="button" mat-button (click)="drawer.toggle()">
       <mat-icon>keyboard_arrow_left</mat-icon>Списки
     </button>
-    <form class="form" action="#" (ngSubmit)="onCreateTask()" (click)="drawer.close()">
-      <input class="form__input" type="text" name="title" placeholder="Нужно сделать..." [(ngModel)]="titleTask">
-      <button [hidden]="drawer.opened" class="form__button">Добавить новую запись</button>
+    <form [formGroup]="form" class="form" action="#" (submit)="onCreateTask()" (click)="drawer.close()">
+      <input
+        class="form__input"
+        type="text"
+        name="title"
+        placeholder="Нужно сделать..."
+        formControlName="titleTask">
+      <button
+        [hidden]="drawer.opened"
+        class="form__button"
+        (submit)="onCreateTask()"
+        [ngClass]="{invalid: form.invalid}"
+      >Добавить новую запись</button>
     </form>
 
 
@@ -35,7 +49,7 @@
             class="checkbox"
             type="checkbox"
             name="isCompleted"
-            (change)="onComplete(todo, $event)"
+            (change)="onComplete(todo)"
             [checked]="todo?.isCompleted">
           </mat-checkbox>
           <span class="text" *ngIf="!todo?.isCompleted">{{ todo?.titleTodo }}</span>
@@ -45,7 +59,7 @@
         </div>
       </ng-container>
 
-      <button *ngIf="checkCompletedTodo" mat-icon-button color="#9E9E9E"  mat-button (click)="onShowCompleted()">
+      <button *ngIf="checkCompleted(currentTodoList)" mat-icon-button color="#9E9E9E"  mat-button (click)="onShowCompleted()">
         <mat-icon *ngIf="!showCompletedTodo">keyboard_arrow_right</mat-icon>
         <mat-icon *ngIf="showCompletedTodo">keyboard_arrow_down</mat-icon>
         Выполненные
@@ -57,7 +71,7 @@
               class="checkbox"
               type="checkbox"
               name="isCompleted"
-              (change)="onComplete(todo, $event)"
+              (change)="onComplete(todo)"
               [checked]="todo?.isCompleted">
 
             </mat-checkbox>

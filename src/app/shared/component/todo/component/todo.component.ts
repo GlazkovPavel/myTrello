@@ -1,12 +1,19 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TodoService} from "../services/todo.service";
 import {Observable, of} from "rxjs";
 import {IListTodoInterface, ITodoInterface} from "../interface/todo.interface";
 import {tap} from "rxjs/operators";
 import {Store} from "@ngrx/store";
 import {getCurrentTodoListSelector, getList} from "../store/selectors/todo.selectors";
-import {addTodo, loadTodoList, updateCurrentTodoList, updateTodo} from "../store/actions/todo.action";
-import {MatCheckboxChange} from "@angular/material/checkbox";
+import {
+  addTodo,
+  createdTodoList,
+  deleteTodo,
+  loadTodoList,
+  updateCurrentTodoList,
+  updateTodo
+} from "../store/actions/todo.action";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-todo',
@@ -18,12 +25,11 @@ export class TodoComponent implements OnInit {
   //public currentTodoList: IListTodoInterface;
   public currentTodoList$: Observable<IListTodoInterface>;
   public lists$: Observable<IListTodoInterface[]>;
-  public titleTask: string = '';
-  public titleList: string = '';
   public lists: IListTodoInterface[] = [];
   public showCompletedTodo: boolean = false;
-  public checkCompletedTodo: boolean = false;
   public checkArrayTodo: boolean = false;
+  public form: FormGroup;
+  public formList: FormGroup;
 
   constructor(
     private todoService: TodoService,
@@ -34,16 +40,18 @@ export class TodoComponent implements OnInit {
   public ngOnInit(): void {
     this.store.dispatch(loadTodoList());
     this.lists$ = this.getTodoList();
-    //this.store.dispatch(getCurrentTodoList());
 
-    // this.store.select(getCurrentTodoListSelector)
-    //   .subscribe(
-    //     ((item: IListTodoInterface) => {
-    //       this.titleTask = '';
-    //       this.currentTodoList = item;
-    //
-    //     })
-    //   )
+    this.form = new FormGroup({
+      titleTask: new FormControl(null, [
+        Validators.required,
+      ]),
+    })
+
+    this.formList = new FormGroup({
+      list: new FormControl(null, [
+        Validators.required,
+      ]),
+    })
 
   }
 
@@ -67,8 +75,8 @@ export class TodoComponent implements OnInit {
     );
   }
 
-  private checkCompleted(item: IListTodoInterface) {
-    this.checkCompletedTodo = item?.list.some(value => value.isCompleted === true);
+  public checkCompleted(item: IListTodoInterface): boolean {
+    return item?.list.some(value => value.isCompleted === true);
   }
 
   private checkArrayTodos(): void {
@@ -79,81 +87,34 @@ export class TodoComponent implements OnInit {
 
   public onRemove(todoDelete: ITodoInterface): void {
 
-    // const listUpdate = this.currentTodoList
-    // listUpdate.list = listUpdate.list.filter(todo => todo._id !== todoDelete._id);
-    //
-    // this.todoService.updateTodo(listUpdate).subscribe(
-    //   (value: IListTodoInterface) => {
-    //     this.currentTodoList = value;
-    //     this.lists.map((list: IListTodoInterface) => list === value);
-    //     this.lists$ = of(this.lists);
-    //   },
-    //   error => console.log(error)
-    // )
+    this.store.dispatch(deleteTodo({todo: todoDelete}));
+
   };
 
-  public onComplete(todoOnComplete: ITodoInterface, event: MatCheckboxChange) {
-
-    //todoOnComplete.isCompleted = event.checked;
-
+  public onComplete(todoOnComplete: ITodoInterface) {
     this.store.dispatch(updateTodo({todo: todoOnComplete}))
 
-    // Сделать чтение чек-бокса через форму
-    // const currentTodoList = this.currentTodoList;
-    // currentTodoList.list = currentTodoList.list.map(
-    //   item => item._id === todoOnComplete._id ? { ...item, isCompleted: event.checked} : item
-    // )
-
-    //this.store.dispatch(updateCurrentTodoList({currentList: currentTodoList}))
-
-    // this.currentTodoList.list = this.currentTodoList.list.filter((val) => val._id !== todoOnComplete._id);
-    // if (todoOnComplete.isCompleted === false) {
-    //   this.currentTodoList.list.unshift(todoOnComplete);
-    // } else if (todoOnComplete.isCompleted === true) {
-    //   this.currentTodoList.list.push(todoOnComplete);
-    // }
-    // this.checkCompleted(this.currentTodoList);
-    //
-    // this.todoService.updateTodo(this.currentTodoList).subscribe(
-    //   (value: IListTodoInterface) => {
-    //     this.currentTodoList = value;
-    //     this.lists$ = of(this.lists);
-    //   },
-    //   error => console.log(error)
-    // )
   }
 
   public onCreateList() {
-    if (this.titleList) {
-      this.todoService.createTodo(this.titleList).pipe(
-      ).subscribe(
-        (value) => {
-          this.titleList = '';
-          this.lists.unshift(value)
-          this.lists$ = of(this.lists);
-          this.checkArrayTodo = false;
-          console.log(this.lists)
-        },
-        error => console.log(error)
-      )
-    }
+    const titleList: string = this.formList.controls['list'].value;
+
+    this.store.dispatch(createdTodoList({titleList}));
+    this.formList.reset();
   }
 
   public onCreateTask() {
-
-    if (this.titleTask) {
-      const todo: ITodoInterface = {
-        titleTodo: this.titleTask,
-        isCompleted: false
-      };
-
-      this.store.dispatch(addTodo({todo}))
-    }
+    const todo: ITodoInterface = {
+      titleTodo: this.form.controls['titleTask'].value,
+      isCompleted: false
+    };
+    this.store.dispatch(addTodo({todo}));
+    this.form.reset();
   }
 
   public currentTodo(list: IListTodoInterface) {
-    // this.currentTodoList = this.lists.find((value) => value._id === list._id);
-    // this.checkCompleted(this.currentTodoList);
+    this.store.dispatch(updateCurrentTodoList({currentList: list}));
+
   }
 
   public onDeleteList(list: IListTodoInterface) {

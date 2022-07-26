@@ -40,6 +40,9 @@
     margin-bottom: 6px;
     border: none;
     border-radius: 4px;
+    color: black;
+    padding: 0 3px;
+
   }
   &__button{
     height: 24px;
@@ -47,9 +50,14 @@
     border-radius: 4px;
     cursor: pointer;
     transition: opacity 300ms;
+    color: black;
   }
   &__button:hover{
     opacity: .8;
+  }
+  &__button.invalid{
+    opacity: .2;
+    cursor: default;
   }
 }
 
