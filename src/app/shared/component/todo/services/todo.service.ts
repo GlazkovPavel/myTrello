@@ -47,9 +47,9 @@ export class TodoService {
     })
   }
 
-  public deleteTodoById(todo: IListTodoInterface): Observable<void> {
+  public deleteTodoListById(todo: IListTodoInterface): Observable<IListTodoInterface> {
     const jwt: string = localStorage.getItem('jwt');
-    return this.http.delete<void>(`${this.isUrl}/todo/${todo._id}`, {
+    return this.http.delete<IListTodoInterface>(`${this.isUrl}/todo/${todo._id}`, {
       headers: {
         authorization: `Bearer ${jwt}`,
         'Content-Type': 'application/json'

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, OnInit} from '@angular/core';
 import {TodoService} from "../services/todo.service";
 import {Observable, of} from "rxjs";
 import {IListTodoInterface, ITodoInterface} from "../interface/todo.interface";
@@ -8,7 +8,7 @@ import {getCurrentTodoListSelector, getList} from "../store/selectors/todo.selec
 import {
   addTodo,
   createdTodoList,
-  deleteTodo,
+  deleteTodo, deleteTodoList,
   loadTodoList,
   updateCurrentTodoList,
   updateTodo
@@ -19,10 +19,10 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
   selector: 'app-todo',
   templateUrl: './todo.component.html',
   styleUrls: ['./todo.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TodoComponent implements OnInit {
 
-  //public currentTodoList: IListTodoInterface;
   public currentTodoList$: Observable<IListTodoInterface>;
   public lists$: Observable<IListTodoInterface[]>;
   public lists: IListTodoInterface[] = [];
@@ -60,16 +60,6 @@ export class TodoComponent implements OnInit {
       tap((data: IListTodoInterface[]) => {
         this.lists = data;
         this.store.dispatch(updateCurrentTodoList({currentList: this.lists[0]}))
-        //this.checkCompleted(this.currentTodoList);
-        this.checkArrayTodos();
-        // this.store.select(getCurrentTodoListSelector)
-        //   .subscribe(
-        //     ((item: IListTodoInterface) => {
-        //       this.titleTask = '';
-        //       this.currentTodoList = item;
-        //
-        //     })
-        //   )
         this.currentTodoList$ = this.store.select(getCurrentTodoListSelector);
       })
     );
@@ -77,12 +67,6 @@ export class TodoComponent implements OnInit {
 
   public checkCompleted(item: IListTodoInterface): boolean {
     return item?.list.some(value => value.isCompleted === true);
-  }
-
-  private checkArrayTodos(): void {
-    // if (this.lists.length === 0) {
-    //   this.checkArrayTodo = true;
-    // }
   }
 
   public onRemove(todoDelete: ITodoInterface): void {
@@ -118,12 +102,7 @@ export class TodoComponent implements OnInit {
   }
 
   public onDeleteList(list: IListTodoInterface) {
-    this.todoService.deleteTodoById(list).subscribe(() => {
-      this.lists = this.lists.filter((listDelete: IListTodoInterface) => listDelete._id !== list._id);
-      this.lists$ = of(this.lists);
-      //this.currentTodoList = this.lists[0];
-      this.checkArrayTodos();
-    })
+    this.store.dispatch(deleteTodoList({deleteTodoList: list}));
   }
 
   public onShowCompleted() {

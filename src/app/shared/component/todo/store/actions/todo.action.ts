@@ -15,5 +15,8 @@ export const deleteTodo = createAction('deleteTodo', props<{ todo: ITodoInterfac
 
 export const createdTodoList = createAction('createdTodoList', props<{ titleList: string }>());
 
+export const deleteTodoList = createAction('deleteTodoList', props<{ deleteTodoList: IListTodoInterface }>());
+
+
 
 
