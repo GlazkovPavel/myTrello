@@ -1,19 +1,22 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {TodoService} from "../services/todo.service";
 import {Observable, of} from "rxjs";
 import {IListTodoInterface, ITodoInterface} from "../interface/todo.interface";
-import {tap} from "rxjs/operators";
+import {catchError, tap} from "rxjs/operators";
 import {Store} from "@ngrx/store";
 import {getCurrentTodoListSelector, getList} from "../store/selectors/todo.selectors";
 import {
   addTodo,
   createdTodoList,
-  deleteTodo, deleteTodoList,
+  deleteTodo,
+  deleteTodoList,
   loadTodoList,
   updateCurrentTodoList,
   updateTodo
 } from "../store/actions/todo.action";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {ErrorModel} from "../../../error/models/error.model";
+import {ErrorMethods} from "../../../error/enum/error-methods.enum";
 
 @Component({
   selector: 'app-todo',
@@ -24,6 +27,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 export class TodoComponent implements OnInit {
 
   public currentTodoList$: Observable<IListTodoInterface>;
+  public currentTodoList: IListTodoInterface;
   public lists$: Observable<IListTodoInterface[]>;
   public lists: IListTodoInterface[] = [];
   public showCompletedTodo: boolean = false;
@@ -34,6 +38,7 @@ export class TodoComponent implements OnInit {
   constructor(
     private todoService: TodoService,
     private store: Store,
+    private cdr: ChangeDetectorRef,
   ) {
   }
 
@@ -60,7 +65,20 @@ export class TodoComponent implements OnInit {
       tap((data: IListTodoInterface[]) => {
         this.lists = data;
         this.store.dispatch(updateCurrentTodoList({currentList: this.lists[0]}))
-        this.currentTodoList$ = this.store.select(getCurrentTodoListSelector);
+        this.currentTodoList$ = this.store.select(getCurrentTodoListSelector).pipe(
+          catchError((err: ErrorModel) => {
+            if (err.getMethod() === ErrorMethods.UPDATE_LIST) {
+              this.store.dispatch(updateCurrentTodoList({currentList: this.currentTodoList}));
+            }
+            return of(null);
+          })
+        );
+      }),
+      catchError((err: ErrorModel) => {
+        if (err.getMethod() === ErrorMethods.UPDATE_LIST) {
+          this.store.dispatch(updateCurrentTodoList({currentList: this.currentTodoList}));
+        }
+        return of(null);
       })
     );
   }
@@ -76,7 +94,8 @@ export class TodoComponent implements OnInit {
   };
 
   public onComplete(todoOnComplete: ITodoInterface) {
-    this.store.dispatch(updateTodo({todo: todoOnComplete}))
+    this.store.dispatch(updateTodo({todo: todoOnComplete}));
+    //this.cdr.markForCheck();
 
   }
 
@@ -97,6 +116,7 @@ export class TodoComponent implements OnInit {
   }
 
   public currentTodo(list: IListTodoInterface) {
+    this.currentTodoList = list;
     this.store.dispatch(updateCurrentTodoList({currentList: list}));
 
   }

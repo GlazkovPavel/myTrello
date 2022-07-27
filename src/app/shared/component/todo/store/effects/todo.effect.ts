@@ -1,19 +1,26 @@
 import {Injectable} from "@angular/core";
-import {Observable, of} from "rxjs";
+import {Observable, of, throwError} from "rxjs";
 import {Action, Store} from "@ngrx/store";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {
-  addTodo, createdTodoList,
-  deleteTodo, deleteTodoList,
+  addTodo,
+  createdTodoList,
+  deleteTodo,
+  deleteTodoList,
   loadTodoList,
   loadTodoListSuccess,
   updateCurrentTodoList,
   updateTodo
 } from "../actions/todo.action";
-import {map, switchMap, withLatestFrom} from "rxjs/operators";
+import {catchError, map, switchMap, withLatestFrom} from "rxjs/operators";
 import {TodoService} from "../../services/todo.service";
 import {IListTodoInterface, ITodoInterface} from "../../interface/todo.interface";
 import {getCurrentTodoListSelector, getList} from "../selectors/todo.selectors";
+import {ErrorModel} from "../../../../error/models/error.model";
+import {GetMessageService} from "../../../message/services/get-message.service";
+import {MessageEnum} from "../../../message/enum/message.enum";
+import {ErrorMethods} from "../../../../error/enum/error-methods.enum";
+import {ErrorPlaces} from "../../../../error/enum/error-places.enum";
 
 @Injectable()
 export class TodoEffect {
@@ -31,7 +38,15 @@ export class TodoEffect {
             }));
             return  loadTodoListSuccess({list})
             }
-          )
+          ),
+          catchError((err: ErrorModel) => {
+            this.getMessageErrorService.showError(MessageEnum.MESSAGE_01);
+            console.log('Упал getTodo', err);
+            return throwError(new ErrorModel({
+              method: ErrorMethods.GET_TODO,
+              place: ErrorPlaces.TODO_LIST
+            }));
+          })
         ))
       )
   )
@@ -71,7 +86,16 @@ export class TodoEffect {
             list: todoUpdate
           }
           return this.todoService.updateTodo(array).pipe(
-            switchMap((currentList: IListTodoInterface) => this.updateList(currentList, list))
+            switchMap((currentList: IListTodoInterface) => this.updateList(currentList, list)),
+            catchError((err: ErrorModel) => {
+              this.getMessageErrorService.showError(MessageEnum.MESSAGE_01);
+              console.log('Упал updateTodo', err);
+              updateCurrentTodoList({currentList})
+              return throwError(new ErrorModel({
+                method: ErrorMethods.UPDATE_LIST,
+                place: ErrorPlaces.TODO_LIST
+              }));
+            })
           );
         })
       )
@@ -144,7 +168,8 @@ export class TodoEffect {
   constructor(
     private actions: Actions,
     private todoService: TodoService,
-    private store: Store
+    private store: Store,
+    private readonly getMessageErrorService: GetMessageService
   ) {
   }
 
