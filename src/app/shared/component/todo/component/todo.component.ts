@@ -29,7 +29,6 @@ export class TodoComponent implements OnInit {
   public currentTodoList$: Observable<IListTodoInterface>;
   public currentTodoList: IListTodoInterface;
   public lists$: Observable<IListTodoInterface[]>;
-  public lists: IListTodoInterface[] = [];
   public showCompletedTodo: boolean = false;
   public checkArrayTodo: boolean = false;
   public form: FormGroup;
@@ -62,23 +61,9 @@ export class TodoComponent implements OnInit {
   private getTodoList(): Observable<IListTodoInterface[]> {
     return this.store.select(getList).pipe(
       tap((data: IListTodoInterface[]) => {
-        this.lists = data;
-        this.store.dispatch(updateCurrentTodoList({currentList: this.lists[0]}))
-        this.currentTodoList$ = this.store.select(getCurrentTodoListSelector).pipe(
-          catchError((err: ErrorModel) => {
-            if (err.getMethod() === ErrorMethods.UPDATE_LIST) {
-              this.store.dispatch(updateCurrentTodoList({currentList: this.currentTodoList}));
-            }
-            return of(null);
-          })
-        );
+        this.store.dispatch(updateCurrentTodoList({currentList: data[0]}))
+        this.currentTodoList$ = this.store.select(getCurrentTodoListSelector)
       }),
-      catchError((err: ErrorModel) => {
-        if (err.getMethod() === ErrorMethods.UPDATE_LIST) {
-          this.store.dispatch(updateCurrentTodoList({currentList: this.currentTodoList}));
-        }
-        return of(null);
-      })
     );
   }
 

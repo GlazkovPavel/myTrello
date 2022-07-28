@@ -59,11 +59,16 @@
         </div>
       </ng-container>
 
-      <button *ngIf="checkCompleted(currentTodoList)" mat-icon-button color="#9E9E9E"  mat-button (click)="onShowCompleted()">
+      <button *ngIf="checkCompleted(currentTodoList)"
+              mat-icon-button
+              color="#9E9E9E"
+              mat-button
+              (click)="onShowCompleted()">
         <mat-icon *ngIf="!showCompletedTodo">keyboard_arrow_right</mat-icon>
         <mat-icon *ngIf="showCompletedTodo">keyboard_arrow_down</mat-icon>
         Выполненные
       </button>
+
       <ng-container *ngIf="showCompletedTodo">
         <ng-container *ngFor="let todo of currentTodoList?.list">
           <div class="todo" *ngIf="todo?.isCompleted">
