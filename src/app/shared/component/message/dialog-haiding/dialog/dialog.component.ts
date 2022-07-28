@@ -53,7 +53,7 @@ export class DialogComponent {
               this.id = null;
             },
             (error) => {
-              this.getMessageErrorService.showError(MessageEnum.MESSAGE_01);
+              this.getMessageErrorService.showError(MessageEnum.MESSAGE_ERROR_01);
               this.id = null;
               console.log(`Error: ${error.url}`, error);
             }
@@ -62,7 +62,7 @@ export class DialogComponent {
     ).subscribe(
       {
         error: err => {
-          this.getMessageErrorService.showError(MessageEnum.MESSAGE_01);
+          this.getMessageErrorService.showError(MessageEnum.MESSAGE_ERROR_01);
           this.id = '';
           console.log(`Error: ${err.url}`, err);
         }
@@ -82,7 +82,7 @@ export class DialogComponent {
               this.id = null;
             },
             (error) => {
-              this.getMessageErrorService.showError(MessageEnum.MESSAGE_01);
+              this.getMessageErrorService.showError(MessageEnum.MESSAGE_ERROR_01);
               this.id = null;
               console.log(`Error: ${error.url}`, error);
             }
@@ -91,7 +91,7 @@ export class DialogComponent {
     ).subscribe(
       {
         error: err => {
-          this.getMessageErrorService.showError(MessageEnum.MESSAGE_01);
+          this.getMessageErrorService.showError(MessageEnum.MESSAGE_ERROR_01);
           this.id = '';
           console.log(`Error: ${err.url}`, err);
         }

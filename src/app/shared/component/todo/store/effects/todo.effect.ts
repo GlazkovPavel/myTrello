@@ -21,6 +21,7 @@ import {GetMessageService} from "../../../message/services/get-message.service";
 import {MessageEnum} from "../../../message/enum/message.enum";
 import {ErrorMethods} from "../../../../error/enum/error-methods.enum";
 import {ErrorPlaces} from "../../../../error/enum/error-places.enum";
+import {IErrorInterface} from "../../interface/error.interface";
 
 @Injectable()
 export class TodoEffect {
@@ -39,13 +40,12 @@ export class TodoEffect {
             return  loadTodoListSuccess({list})
             }
           ),
-          catchError((err: ErrorModel) => {
-            this.getMessageErrorService.showError(MessageEnum.MESSAGE_01);
-            console.log('Упал getTodo', err);
-            return throwError(new ErrorModel({
-              method: ErrorMethods.GET_TODO,
-              place: ErrorPlaces.TODO_LIST
-            }));
+          catchError((error: ErrorModel) => {
+            return this.errorHandler({
+              error,
+              errorMethod: ErrorMethods.GET_TODO,
+              errorMessage: MessageEnum.MESSAGE_ERROR_04
+            });
           })
         ))
       )
@@ -65,7 +65,14 @@ export class TodoEffect {
             list: todoList
           }
           return this.todoService.updateTodo(array).pipe(
-            switchMap((currentList: IListTodoInterface) => this.updateList(currentList, list))
+            switchMap((currentList: IListTodoInterface) => this.updateList(currentList, list)),
+            catchError((error: ErrorModel) => {
+              return this.errorHandler({
+                error,
+                errorMethod: ErrorMethods.UPDATE_LIST,
+                errorMessage: MessageEnum.MESSAGE_ERROR_07
+              });
+            })
           );
         })
       )
@@ -87,14 +94,12 @@ export class TodoEffect {
           }
           return this.todoService.updateTodo(array).pipe(
             switchMap((currentList: IListTodoInterface) => this.updateList(currentList, list)),
-            catchError((err: ErrorModel) => {
-              this.getMessageErrorService.showError(MessageEnum.MESSAGE_01);
-              console.log('Упал updateTodo', err);
-              updateCurrentTodoList({currentList})
-              return throwError(new ErrorModel({
-                method: ErrorMethods.UPDATE_LIST,
-                place: ErrorPlaces.TODO_LIST
-              }));
+            catchError((error: ErrorModel) => {
+              return this.errorHandler({
+                error,
+                errorMethod: ErrorMethods.UPDATE_LIST,
+                errorMessage: MessageEnum.MESSAGE_ERROR_05
+              });
             })
           );
         })
@@ -117,7 +122,14 @@ export class TodoEffect {
           }
 
           return this.todoService.updateTodo(array).pipe(
-            switchMap((currentList: IListTodoInterface) => this.updateList(currentList, list))
+            switchMap((currentList: IListTodoInterface) => this.updateList(currentList, list)),
+            catchError((error: ErrorModel) => {
+              return this.errorHandler({
+                error,
+                errorMethod: ErrorMethods.UPDATE_LIST,
+                errorMessage: MessageEnum.MESSAGE_ERROR_08
+              });
+            })
           );
         })
       )
@@ -129,6 +141,13 @@ export class TodoEffect {
       .pipe(
         ofType(createdTodoList),
         switchMap(({titleList}) => this.todoService.createTodo(titleList).pipe(
+          catchError((error: ErrorModel) => {
+            return this.errorHandler({
+              error,
+              errorMethod: ErrorMethods.CREATE_TODO,
+              errorMessage: MessageEnum.MESSAGE_ERROR_06
+            });
+          }),
           map((item:IListTodoInterface) => {
             const list: IListTodoInterface = {
               _id: item._id,
@@ -153,6 +172,13 @@ export class TodoEffect {
       .pipe(
         ofType(deleteTodoList),
         switchMap(({deleteTodoList}) => this.todoService.deleteTodoListById(deleteTodoList).pipe(
+          catchError((error: ErrorModel) => {
+            return this.errorHandler({
+              error,
+              errorMethod: ErrorMethods.DELETE_TODO_LIST_BY_ID,
+              errorMessage: MessageEnum.MESSAGE_ERROR_09
+            });
+          }),
           withLatestFrom(this.store.select(getList)),
           map(([list, listArray]: [IListTodoInterface, IListTodoInterface[]]) => {
             let listTodoArray: IListTodoInterface[] = listArray.concat();
@@ -166,9 +192,9 @@ export class TodoEffect {
   )
 
   constructor(
-    private actions: Actions,
-    private todoService: TodoService,
-    private store: Store,
+    private readonly actions: Actions,
+    private readonly todoService: TodoService,
+    private readonly store: Store,
     private readonly getMessageErrorService: GetMessageService
   ) {
   }
@@ -179,5 +205,14 @@ export class TodoEffect {
     )
     updateCurrentTodoList({currentList})
     return of(loadTodoListSuccess({list}));
+  }
+
+  public errorHandler(err: IErrorInterface): Observable<never> {
+    this.getMessageErrorService.showError(err.errorMessage);
+    console.log(`Упал ${err.errorMethod}`, err.error);
+    return throwError(new ErrorModel({
+      method: err.errorMethod,
+      place: ErrorPlaces.TODO_LIST
+    }));
   }
 }

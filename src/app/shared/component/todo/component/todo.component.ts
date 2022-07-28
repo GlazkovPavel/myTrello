@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {TodoService} from "../services/todo.service";
 import {Observable, of} from "rxjs";
 import {IListTodoInterface, ITodoInterface} from "../interface/todo.interface";
@@ -38,7 +38,6 @@ export class TodoComponent implements OnInit {
   constructor(
     private todoService: TodoService,
     private store: Store,
-    private cdr: ChangeDetectorRef,
   ) {
   }
 
@@ -95,7 +94,6 @@ export class TodoComponent implements OnInit {
 
   public onComplete(todoOnComplete: ITodoInterface) {
     this.store.dispatch(updateTodo({todo: todoOnComplete}));
-    //this.cdr.markForCheck();
 
   }
 

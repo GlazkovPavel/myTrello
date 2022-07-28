@@ -132,7 +132,7 @@ export class FieldComponent implements OnInit {
             }))
           })
     } else {
-      this.getMessageErrorService.showError(MessageEnum.MESSAGE_02);
+      this.getMessageErrorService.showError(MessageEnum.MESSAGE_ERROR_02);
     }
   }
 
