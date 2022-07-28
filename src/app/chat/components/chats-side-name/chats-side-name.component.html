@@ -4,7 +4,7 @@
     *ngIf="openForm"
     class="operation-form"
     [formGroup]="testForm"
-    (submit)="onSubmit()"
+    (submit)="onCreateChat()"
   >
     <mat-form-field class="example-form-field" appearance="fill">
       <mat-label>Введите название чата</mat-label>

@@ -1,4 +1,13 @@
-import {ChangeDetectionStrategy, Component, DoCheck, Input, OnInit} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DoCheck,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild
+} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ChatService} from "../../services/chat.service";
 import {Chat} from "../../models/chat.model";
@@ -20,7 +29,8 @@ import {ISpaceChatResponse} from "../../interface/space-chat-response";
 export class ChatsSideNameComponent implements OnInit, DoCheck {
 
   @Input() public panelOpenState: boolean;
-  @Input() public model: IModelItem<ChatMainModel>
+  @Input() public model: IModelItem<ChatMainModel>;
+  @Output() public titleChat: EventEmitter<string> = new EventEmitter();
   public state: typeof State = State;
   public accounts: any;
   public openForm: boolean = false;
@@ -68,14 +78,14 @@ export class ChatsSideNameComponent implements OnInit, DoCheck {
 
   public onClick() {
     if (!!this.testForm.controls['title']?.value) {
-      this.onSubmit();
+      this.onCreateChat();
       this.openForm = !this.openForm;
     } else {
       this.openForm = !this.openForm;
     }
   }
 
-  public onSubmit() {
+  public onCreateChat() {
     const chatMainId = this.chatService.getChat().getChatMainId()
     const kind: string = this.testForm.controls['accounts'].value
     const chat: IChats = {
@@ -94,7 +104,7 @@ export class ChatsSideNameComponent implements OnInit, DoCheck {
           users: res.users,
           kind: res.kind,
         })
-          this.chatService.setChat(spaseChat);
+          this.chatService.updateChat(spaseChat);
           this.openForm = !this.openForm;
 
       },
@@ -106,5 +116,7 @@ export class ChatsSideNameComponent implements OnInit, DoCheck {
 
   onChoose(chat: Chat) {
     this.currentChat = chat;
+    this.titleChat.next(chat.getChatTitle())
+
   }
 }

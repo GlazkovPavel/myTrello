@@ -34,15 +34,15 @@ export class ChatCardsItemComponent implements OnInit {
   }
 
   public deleteChatSpace(chat: Chat) {
-    // const idChatSpace: string = chat.getChatMainId();
-    // this.httpChatService.deleteChatSpace(idChatSpace).subscribe(
-    //   () => {
-    //     this.chatService.deleteChatSpace(idChatSpace);
-    //   },
-    //   (err: ErrorModel) => {
-    //     console.log('Упал deleteChatSpace', err);
-    //   }
-    // );
+    const chatMainId: string = this.chatService.chat$.getValue().getChatMainId();
+    this.httpChatService.deleteChat(chatMainId, chat).subscribe(
+      () => {
+        this.chatService.deleteChat(chat.getChatId());
+      },
+      (err: ErrorModel) => {
+        console.log('Упал deleteChatSpace', err);
+      }
+    );
   }
 
   isActiveChat(): boolean {

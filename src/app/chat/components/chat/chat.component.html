@@ -2,11 +2,12 @@
   <app-header></app-header>
   <div class="container">
     <div class="container-row">
-      <app-side-panel></app-side-panel>
+      <app-side-panel
+      (nameChat)="setNameChat($event)"></app-side-panel>
       <div class="main">
         <div class="header">
 
-          <span>{{chatName}}</span>
+          <span #chatName>{{chatTitle}}</span>
 
           <div class="mask" *ngIf="usersWorkSpaceOwner$ | async as usersWorkSpaceOwner">
             <ng-container *ngFor="let mask of usersWorkSpaceOwner | filterSelf">

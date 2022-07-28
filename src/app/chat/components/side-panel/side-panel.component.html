@@ -58,14 +58,20 @@
         </form>
 
         <tui-scrollbar class="box" >
-          <div class="chats"  *ngFor="let chatItem of chatModel.item">
-            <app-chat-card
-              [isActive]="isActive"
-              (onChoose)="onChoose($event)"
-              (onCloseAccordion)="onCloseAccordion()"
-              [chat]="chatItem">
-            </app-chat-card>
-          </div>
+          <ng-container *ngIf="chatModel.item">
+            <div class="chats"  *ngFor="let chatItem of chatModel.item">
+              <app-chat-card
+                [isActive]="isActive"
+                (onChoose)="onChoose($event)"
+                (onCloseAccordion)="onCloseAccordion()"
+                [chat]="chatItem">
+              </app-chat-card>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="chatModel.error">
+            <span>Произошла ошибка</span>
+          </ng-container>
         </tui-scrollbar>
 
 
@@ -75,6 +81,7 @@
     <app-chats-side-name
       [model]="chatModelItem$ | async"
       [panelOpenState]="panelOpenState"
+      (titleChat)="titleChat($event)"
     ></app-chats-side-name>
   </ng-container>
 

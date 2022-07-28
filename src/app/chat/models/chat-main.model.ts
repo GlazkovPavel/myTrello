@@ -33,6 +33,11 @@ export class ChatMainModel {
      return this;
   }
 
+  public deleteChat(id: string): ChatMainModel {
+    this.chats = this.chats.filter((item: Chat) => item.getChatId() !== id)
+    return this;
+  }
+
   public setCurrentChat(chat: Chat): void {
     this.currentChat = chat;
   }

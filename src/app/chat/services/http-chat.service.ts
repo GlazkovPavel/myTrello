@@ -3,6 +3,7 @@ import {SpaseChat} from "../interface/space-chat";
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {IChats} from "../interface/chats";
+import {Chat} from "../models/chat.model";
 
 @Injectable()
 export class HttpChatService {
@@ -41,6 +42,18 @@ export class HttpChatService {
   public deleteChatSpace(_id: string): Observable<void> {
     const jwt: string = localStorage.getItem('jwt');
     return this.http.delete<void>(`${this.isUrl}/room/${_id}`, {
+      headers: {
+        authorization: `Bearer ${jwt}`,
+        'Content-Type': 'application/json'
+      }
+    })
+  }
+
+  public deleteChat(_id: string, chat: Chat): Observable<any> {
+    const jwt: string = localStorage.getItem('jwt');
+    return this.http.patch<any>(`${this.isUrl}/chat-delete/${_id}`, {
+      chat: chat
+    },{
       headers: {
         authorization: `Bearer ${jwt}`,
         'Content-Type': 'application/json'

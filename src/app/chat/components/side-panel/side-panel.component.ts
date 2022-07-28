@@ -1,4 +1,12 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild
+} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {SpaseChat} from "../../interface/space-chat";
 import {EChat} from "../../enum/chat";
@@ -27,6 +35,7 @@ export type ChatModelItem = IModelItem<ChatMainModel>;
 })
 export class SidePanelComponent extends UnSubscriber implements OnInit {
   @ViewChild('accordion') private accordion: any;
+  @Output() public nameChat: EventEmitter<string> = new EventEmitter();
   public panelOpenState: boolean = false;
   public accounts: any;
   public title: string = '';
@@ -129,5 +138,9 @@ export class SidePanelComponent extends UnSubscriber implements OnInit {
       this.panelOpenState = !this.panelOpenState;
 
     }, 0)
+  }
+
+  public titleChat(title: string): void {
+    this.nameChat.next(title)
   }
 }

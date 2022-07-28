@@ -82,10 +82,24 @@ export class ChatService {
     this.cashChats$.next(this.cashChats);
   }
 
+  public deleteChat(_id: string): void {
+    //this.chatCash = this.chatCash.deleteChat(_id);
+    this.chat$.next(this.chatCash.deleteChat(_id));
+  }
+
   public setChat(chat: ChatMainModel): void {
     this.chatCash = null;
     this.chat$.next(chat);
     this.chatCash = chat;
+
+  }
+
+  public updateChat(chat: ChatMainModel): void {
+    this.chatCash = null;
+    this.chat$.next(chat);
+    this.chatCash = chat;
+    this.cashChats = this.cashChats.map(item => item.getChatMainId() === chat.getChatMainId() ? chat : item);
+    this.cashChats$.next(this.cashChats);
 
   }
 

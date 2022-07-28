@@ -7,6 +7,7 @@ import {Message} from "../../models/message.model";
 import {IUserInfoInterface} from "../../../interface/user-info.interface";
 import {Observable} from "rxjs";
 import {ChatService} from "../../services/chat.service";
+import {delay, map} from "rxjs/operators";
 
 
 @Component({
@@ -18,7 +19,7 @@ export class ChatComponent implements OnInit {
   public usersWorkSpaceOwner$: Observable<IUserInfoInterface[]>;
   public users$!: Observable<IUserInfoInterface[]>;
   public userModalShow:  boolean = false;
-  public chatName: string = 'Название чата'
+  public chatTitle: string = 'Название чата'
   action = Action;
   user: User;
   messages: Message[] = [];
@@ -108,5 +109,9 @@ export class ChatComponent implements OnInit {
 
   addWorkspaceOwner(mask: any) {
 
+  }
+
+  public setNameChat(title: string): void {
+    this.chatTitle = title;
   }
 }
