@@ -37,6 +37,7 @@
   height: 30px;
   margin: 0;
   padding: 32px 12px 24px 14px;
+  justify-content: space-between;
 
   &__input {
     width: 15vw;
@@ -46,9 +47,16 @@
   }
 }
 
+.title {
+  //margin-left: 50%;
+  font-size: 20px;
+  line-height: 21px;
+  letter-spacing: 0.0025em;
+}
+
 .input {
   display: flex;
-  margin-left: auto;
+  //margin-left: auto;
 }
 
 .input-container {

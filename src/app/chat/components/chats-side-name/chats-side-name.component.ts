@@ -58,6 +58,7 @@ export class ChatsSideNameComponent implements OnInit, DoCheck {
     this.chats = this.model?.item.getChats();
     this.cashChats = this.chats;
     this.currentChat = this.chats[0];
+    this.chatService.setCurrentChat(this.chats[0]);
   }
 
   public ngDoCheck(): void {
@@ -114,9 +115,11 @@ export class ChatsSideNameComponent implements OnInit, DoCheck {
 
   }
 
-  onChoose(chat: Chat) {
+  public onChoose(chat: Chat) {
     this.currentChat = chat;
-    this.titleChat.next(chat.getChatTitle())
+    console.log(chat);
+    this.titleChat.next(chat.getChatTitle());
+    this.chatService.setCurrentChat(chat);
 
   }
 }

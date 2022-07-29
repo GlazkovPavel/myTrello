@@ -10,11 +10,11 @@ export class UserCardComponent implements OnInit {
   @Output() public deletedWorkspaceOwner: EventEmitter<IUserInfoInterface> = new EventEmitter();
   @Input() public userData: IUserInfoInterface;
   @Input() public showUserCard: boolean;
+  @Input() public showButtonDelete: boolean = true;
+
   public firstLetter!: string;
 
-  constructor() { }
-
-  ngOnInit(): void {
+  public ngOnInit(): void {
     const initials = {
       name: this.userData?.name,
       surname: this.userData?.surname,
@@ -32,11 +32,11 @@ export class UserCardComponent implements OnInit {
     this.firstLetter = initials.firstLetter
   }
 
-  clickMouseOver($event: boolean) {
+  public clickMouseOver($event: boolean): void {
     this.showUserCard = $event;
   }
 
-  delete(user: IUserInfoInterface) {
+  public delete(user: IUserInfoInterface): void {
     this.deletedWorkspaceOwner.emit(user);
   }
 }

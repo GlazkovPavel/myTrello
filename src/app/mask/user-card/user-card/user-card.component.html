@@ -8,5 +8,5 @@
     <span class="capitalize">{{userData?.surname}}</span>
     <span class="user-title">Информация о пользователе</span>
   </div>
-  <button class="delete" (click)="delete(userData)">Удалить из WorkSpace</button>
+  <button class="delete" *ngIf="showButtonDelete" (click)="delete(userData)">Удалить из WorkSpace</button>
 </div>

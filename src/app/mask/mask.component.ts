@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {IUserInfoInterface} from "../interface/user-info.interface";
 
 @Component({
@@ -9,13 +9,12 @@ import {IUserInfoInterface} from "../interface/user-info.interface";
 export class MaskComponent implements OnInit {
   @Output() public deletedOwnerWorkspace: EventEmitter<IUserInfoInterface> = new EventEmitter();
   @Input() mask!: IUserInfoInterface;
+  @Input() public showButtonDelete: boolean = true;
   public showUserCard: boolean = false;
   public userData: IUserInfoInterface;
   public firstLetter!: string;
 
-  constructor() {}
-
-  ngOnInit(): void {
+  public ngOnInit(): void {
     const initials = {
       name: this.mask.name,
       surname: this.mask?.surname,
@@ -31,12 +30,12 @@ export class MaskComponent implements OnInit {
     this.firstLetter = initials.firstLetter
   }
 
-  public clickMouseOver($event: boolean, mask: IUserInfoInterface) {
+  public clickMouseOver($event: boolean, mask: IUserInfoInterface): void {
     this.showUserCard = $event;
     this.userData = mask;
   }
 
-  public deletedWorkspaceOwner($event: IUserInfoInterface) {
+  public deletedWorkspaceOwner($event: IUserInfoInterface): void {
     this.deletedOwnerWorkspace.emit($event);
   }
 }

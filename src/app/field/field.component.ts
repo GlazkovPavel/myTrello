@@ -44,7 +44,7 @@ export class FieldComponent implements OnInit {
         return value;
       } ),
       switchMap((value: ISpaceInterface[]) => {
-        this.usersWorkSpaceOwner$ = this.usersService.searchUsersWorkSpace(this.currentSpace)
+        this.usersWorkSpaceOwner$ = this.usersService.searchUsersWorkSpace(this.currentSpace.owner)
         return of(value);
       })).subscribe()
   }
@@ -75,7 +75,7 @@ export class FieldComponent implements OnInit {
   }
 
   private searchUsersWorkSpace(space: ISpaceInterface) {
-   this.usersWorkSpaceOwner$ = this.usersService.searchUsersWorkSpace(space)
+   this.usersWorkSpaceOwner$ = this.usersService.searchUsersWorkSpace(space.owner)
   }
 
   public spacesAdd() {
@@ -109,13 +109,12 @@ export class FieldComponent implements OnInit {
      this.initialization();
       }
 
-  //тут сделать запрос юзеров
   public handleAddWorkspaceOwner($event: IUserInfoInterface) {
     this.currentSpace?.owner.push($event._id);
     this.workSpaceService.updateWorkSpaceOwner($event._id,  this.currentSpace._id)
       .pipe(
         switchMap((data: ISpaceInterface) => {
-          return this.usersWorkSpaceOwner$ = this.usersService.searchUsersWorkSpace(data)
+          return this.usersWorkSpaceOwner$ = this.usersService.searchUsersWorkSpace(data.owner)
         }),
 
       ).subscribe()

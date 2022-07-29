@@ -8,7 +8,7 @@ export class Chat {
   private title: string;
   private id: string = '';
   private kind: EChat;
-  private users: User[] = [];
+  private users: string[] = [];
 
   constructor(res: IChats) {
     this.title = res.title;
@@ -18,9 +18,19 @@ export class Chat {
 
   }
 
-  public getUsers(): User[] {
+  // public getUsers(): string[] {
+  //   return this.users;
+  // }
+
+  public getUsersId(): string[] {
     return this.users;
-  }
+  };
+
+  public setUsersId(usersId: string[]): Chat {
+    this.users = usersId;
+    return this;
+  };
+
 
   public getChatTitle(): string {
     return this.title;

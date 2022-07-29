@@ -5,6 +5,6 @@ export interface IChats {
   title: string;
   _id?: string,
   kind: EChat;
-  users?: User[];
+  users?: string[];
 
 }

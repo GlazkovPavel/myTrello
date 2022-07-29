@@ -1,29 +1,34 @@
 import {Injectable} from "@angular/core";
-import {SpaseChat} from "../interface/space-chat";
 import {BehaviorSubject, Observable, of} from "rxjs";
 import {ChatMainModel} from "../models/chat-main.model";
-import {ChatModelArray, ChatModelItem} from "../components/side-panel/side-panel.component";
+import {ChatModelArray} from "../components/side-panel/side-panel.component";
 import {catchError, map, startWith} from "rxjs/operators";
 import {ErrorModel} from "../../shared/error/models/error.model";
 import {State} from "../../shared/enum/state";
 import {Chat} from "../models/chat.model";
 import {IChats} from "../interface/chats";
 import {ISpaceChatResponse} from "../interface/space-chat-response";
+import {IUserInfoInterface} from "../../interface/user-info.interface";
 
 @Injectable()
 export class ChatService {
   public cashChats$: BehaviorSubject<ChatMainModel[]> = new BehaviorSubject<ChatMainModel[]>(null);
   public chat$: BehaviorSubject<ChatMainModel> = new BehaviorSubject<ChatMainModel>(null);
+  public usersIdChat$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>(null);
   public cashChats: ChatMainModel[] = [];
   private spaceChat: ISpaceChatResponse[];
   private chatCash: ChatMainModel = null;
+  private currentChat: Chat = null;
 
   constructor() {}
 
   public initModel(model: ISpaceChatResponse[]): ChatMainModel[] {
       this.spaceChat = model;
       this.cashChats = this.spaceChat.map((res: ISpaceChatResponse) => {
-      const chatsArray: Chat[] = res.chats.map((chat: IChats) => new Chat(chat));
+      const chatsArray: Chat[] = res.chats.map((chat: IChats) => {
+        this.usersIdChat$.next(chat.users)
+        return new Chat(chat)
+      });
 
       return new ChatMainModel({
         _id: res._id,
@@ -56,22 +61,6 @@ export class ChatService {
     );
   }
 
-  // public getChatModelItem(): Observable<ChatModelItem> {
-  //   return this.chat$.pipe(
-  //     map((item: ChatMainModel) => ({
-  //       state: State.READY,
-  //       item,
-  //     })),
-  //     startWith({state: State.PENDING}),
-  //     catchError((ex: ErrorModel) =>
-  //       of({
-  //         state: State.ERROR,
-  //         error: ex,
-  //       }),
-  //     ),
-  //   );
-  // }
-
   public setCashChat(chat: ChatMainModel): void {
     this.cashChats.push(chat);
     this.cashChats$.next(this.cashChats);
@@ -83,7 +72,6 @@ export class ChatService {
   }
 
   public deleteChat(_id: string): void {
-    //this.chatCash = this.chatCash.deleteChat(_id);
     this.chat$.next(this.chatCash.deleteChat(_id));
   }
 
@@ -111,8 +99,35 @@ export class ChatService {
     this.chatCash = null;
   }
 
-  // public getChatCash(): ChatMainModel {
-  //   return this.chatCash;
-  // }
+  public addWorkspaceOwner(user: IUserInfoInterface) {
+    this.currentChat.getUsersId().push(user._id);
+    console.log(this.currentChat)
+    const chats: Chat[] = this.chatCash.getChats().map(item =>
+      item.getChatId() === this.currentChat.getChatId() ? this.currentChat : item);
+    this.setChat(this.chatCash.setChat(chats));
+    this.usersIdChat$.next(this.currentChat.getUsersId());
+  }
+
+  public deleteUserWorkspaceOwner(user: IUserInfoInterface) {
+
+    const chatUsersId: string[] = this.currentChat.getUsersId().filter((item: string) => item !== user._id)
+
+    this.currentChat.setUsersId(chatUsersId);
+    console.log(this.currentChat)
+
+    const chats: Chat[] = this.chatCash.getChats().map(item =>
+      item.getChatId() === this.currentChat.getChatId() ? this.currentChat : item);
+    this.setChat(this.chatCash.setChat(chats));
+    this.usersIdChat$.next(this.currentChat.getUsersId());
+
+  }
+
+  public setCurrentChat(chat: Chat): void {
+    this.currentChat = chat;
+  }
+
+  public getCurrentChat(chat: Chat): Chat {
+    return this.currentChat;
+  }
 
 }

@@ -7,8 +7,6 @@
       <div class="main">
         <div class="header">
 
-          <span #chatName>{{chatTitle}}</span>
-
           <div class="mask" *ngIf="usersWorkSpaceOwner$ | async as usersWorkSpaceOwner">
             <ng-container *ngFor="let mask of usersWorkSpaceOwner | filterSelf">
               <app-mask
@@ -16,6 +14,8 @@
                 [mask]="mask" class="mask"></app-mask>
             </ng-container>
           </div>
+
+          <span class="title">{{chatTitle}}</span>
 
           <div class="input" (clickOutside)="clickOutside()" style="display: flex">
             <div class="input-container" *ngIf="userModalShow" >
@@ -27,7 +27,7 @@
 
               <div  class="user-modal" *ngIf="users$ | async as users" >
                 <div class="user-container" *ngFor="let mask of users" (click)="addWorkspaceOwner(mask)">
-                  <app-mask [mask]="mask" class="mask"></app-mask>
+                  <app-mask [mask]="mask" [showButtonDelete]="false" class="mask"></app-mask>
                   <p class="capitalize">{{mask.name}} {{mask.surname}}</p>
                 </div>
               </div>

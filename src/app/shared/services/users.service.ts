@@ -24,10 +24,10 @@ export class UsersService {
     })
   }
 
-  public searchUsersWorkSpace(space: ISpaceInterface): Observable<IUserInfoInterface[]> {
+  public searchUsersWorkSpace(users: string[]): Observable<IUserInfoInterface[]> {
     const jwt: string = localStorage.getItem('jwt');
     const req = {
-      users: space.owner
+      users: users
     }
     return this.http.post<IUserInfoInterface[]>(`${this.isUrl}/users-workspace`, req, {
       headers: {

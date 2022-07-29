@@ -64,6 +64,7 @@ export class SidePanelComponent extends UnSubscriber implements OnInit {
     this.chatModel$ = this.chatService.getChatRooms();
     if (this.chatService?.cashChats[0]?.getTitle()) {
       this.title = this.chatService.cashChats[0].getTitle();
+      this.titleChat(this.title);
       this.chatService.setChat(this.chatService.cashChats[0]);
       this.chatModelItem$ = this.getChatModelItem();
     } else {this.title = 'Создайте рабочее пространство'}
@@ -125,7 +126,12 @@ export class SidePanelComponent extends UnSubscriber implements OnInit {
 
   public onChoose(chat: ChatMainModel) {
     this.title = chat.getTitle();
-    this.chatService.setChat(chat);
+    this.chatService.setChat(chat)
+
+    if (chat?.getChats().length > 0) {
+      this.titleChat(chat.getChats()[0].getChatTitle());
+    } else { this.titleChat('')}
+
     this.accordion.close();
     this.changeDetectorRef.markForCheck();
   }
