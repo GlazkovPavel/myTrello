@@ -34,7 +34,7 @@ export class ChatService {
         _id: res._id,
         title: res.title,
         chats: chatsArray,
-        users: res.users,
+        users: res.userIds,
         kind: res.kind,
       })
     }

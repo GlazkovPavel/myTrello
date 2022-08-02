@@ -6,7 +6,7 @@ export interface ISpaceChatResponse {
   title: string;
   _id?: string,
   kind: EChat;
-  users?: User[];
+  userIds?: User[];
   chats?: IChats[];
 
 }

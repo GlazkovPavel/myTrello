@@ -102,7 +102,7 @@ export class ChatsSideNameComponent implements OnInit, DoCheck {
           _id: res._id,
           title: res.title,
           chats: chatsArray,
-          users: res.users,
+          users: res.userIds,
           kind: res.kind,
         })
           this.chatService.updateChat(spaseChat);

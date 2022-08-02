@@ -108,7 +108,7 @@ export class SidePanelComponent extends UnSubscriber implements OnInit {
           _id: res._id,
           kind: res.kind,
           title: res.title,
-          users: res.users,
+          users: res.userIds,
           chats: chatsArray,
         })
         this.chatService.setCashChat(chatMainModel);
