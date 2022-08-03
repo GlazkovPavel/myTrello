@@ -26,7 +26,7 @@ export class ChatService {
   public initModel(model: ISpaceChatResponse[]): ChatMainModel[] {
       this.spaceChat = model;
       this.cashChats = this.spaceChat.map((res: ISpaceChatResponse) => {
-      this.usersIdChat$.next(res.chats[0].users);
+      this.usersIdChat$.next(res?.chats[0]?.users);
       const chatsArray: Chat[] = res.chats.map((chat: IChats) => {
         return new Chat(chat)
       });

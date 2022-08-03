@@ -5,13 +5,17 @@ import {SocketService} from "../../services/socket.service";
 import {User} from "../../interface/user.interface";
 import {Message} from "../../models/message.model";
 import {IUserInfoInterface} from "../../../interface/user-info.interface";
-import {Observable, of} from "rxjs";
+import {BehaviorSubject, Observable, of} from "rxjs";
 import {ChatService} from "../../services/chat.service";
-import {debounceTime, distinctUntilChanged, filter, switchMap} from "rxjs/operators";
+import {catchError, debounceTime, distinctUntilChanged, filter, map, startWith, switchMap, tap} from "rxjs/operators";
 import {UsersService} from "../../../shared/services/users.service";
 import {Chat} from "../../models/chat.model";
 import {IChats} from "../../interface/chats";
+import {IModelItem} from "../../../shared/error/models/models.model";
+import {State} from "../../../shared/enum/state";
+import {ErrorModel} from "../../../shared/error/models/error.model";
 
+export type UserModelArray = IModelItem<IUserInfoInterface[]>;
 
 @Component({
   selector: 'app-components',
@@ -20,11 +24,13 @@ import {IChats} from "../../interface/chats";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChatComponent implements OnInit {
-  public usersWorkSpaceOwner$: Observable<IUserInfoInterface[]>;
+  public usersModel$: Observable<UserModelArray>;
+  public usersWorkSpaceOwner$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public users$!: Observable<IUserInfoInterface[]>;
   public searchText: Observable<string>;
   public userModalShow:  boolean = false;
-  public chatTitle: string = 'Название чата'
+  public chatTitle: string = 'Название чата';
+  private cashUsers: IUserInfoInterface[];
   action = Action;
   user: User;
   messages: Message[] = [];
@@ -40,12 +46,39 @@ export class ChatComponent implements OnInit {
 
   ngOnInit(): void {
     this.initIoConnection();
-    this.usersWorkSpaceOwner$ = this.getUsersWorkSpace();
+    this.usersModel$ = this.getUser();
+    //this.users1WorkSpaceOwner$ = this.getUsersWorkSpace();
 
   }
 
+  private getUser(): Observable<UserModelArray> {
+    return this.usersWorkSpaceOwner$.pipe(
+      switchMap(() => this.getUsersWorkSpace()),
+      tap((item: IUserInfoInterface[]) => {
+        this.cashUsers = item;
+      }),
+      map((item: IUserInfoInterface[]) => ({
+        state: State.READY,
+        item
+      })),
+      startWith(this.cashUsers ? {
+        state: State.READY,
+        item: this.cashUsers
+        } : {
+          state: State.PENDING
+        }
+      ),
+      catchError((ex: ErrorModel) =>
+        of({
+          state: State.ERROR,
+          error: ex,
+        }),
+      ),
+    )
+  }
+
   private getUsersWorkSpace(): Observable<IUserInfoInterface[]> {
-    return this.usersService.searchUsersWorkSpace(this.chatService.usersIdChat$.getValue());
+    return this.usersService.searchUsersWorkSpace(this.chatService.usersIdChat$.getValue())
   }
 
   private initIoConnection(): void {
@@ -113,7 +146,7 @@ export class ChatComponent implements OnInit {
           users: chat.users,
           kind: chat.kind
         }));
-        this.usersWorkSpaceOwner$ = this.getUsersWorkSpace();
+        this.usersWorkSpaceOwner$.next(true);
       },
       (error) => {
         console.log(error);
@@ -148,7 +181,7 @@ export class ChatComponent implements OnInit {
           users: chat.users,
           kind: chat.kind
         }));
-        this.usersWorkSpaceOwner$ = this.getUsersWorkSpace();
+        this.usersWorkSpaceOwner$.next(true);
       },
       (error) => {
         console.log(error);

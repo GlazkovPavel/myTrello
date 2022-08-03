@@ -7,8 +7,8 @@
       <div class="main">
         <div class="header">
 
-          <div class="mask" *ngIf="usersWorkSpaceOwner$ | async as usersWorkSpaceOwner">
-            <ng-container *ngFor="let mask of usersWorkSpaceOwner | filterSelf">
+          <div class="mask" *ngIf="usersModel$ | async as usersWorkSpaceOwner">
+            <ng-container *ngFor="let mask of usersWorkSpaceOwner.item | filterSelf">
               <app-mask
                 (deletedOwnerWorkspace)="deletedOwnerWorkspace($event)"
                 [mask]="mask" class="mask"></app-mask>
