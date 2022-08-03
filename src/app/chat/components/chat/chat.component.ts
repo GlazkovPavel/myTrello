@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, DoCheck, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Action} from "../../enum/action";
 import {Event} from "../../enum/event";
 import {SocketService} from "../../services/socket.service";
@@ -7,16 +7,17 @@ import {Message} from "../../models/message.model";
 import {IUserInfoInterface} from "../../../interface/user-info.interface";
 import {Observable, of} from "rxjs";
 import {ChatService} from "../../services/chat.service";
-import {debounceTime, delay, distinctUntilChanged, filter, map, switchMap} from "rxjs/operators";
+import {debounceTime, distinctUntilChanged, filter, switchMap} from "rxjs/operators";
 import {UsersService} from "../../../shared/services/users.service";
-import {ChatMainModel} from "../../models/chat-main.model";
 import {Chat} from "../../models/chat.model";
+import {IChats} from "../../interface/chats";
 
 
 @Component({
   selector: 'app-components',
   templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.scss']
+  styleUrls: ['./chat.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChatComponent implements OnInit {
   public usersWorkSpaceOwner$: Observable<IUserInfoInterface[]>;
@@ -104,17 +105,29 @@ export class ChatComponent implements OnInit {
   // }
 
   public deletedOwnerWorkspace(user: IUserInfoInterface): void {
-    this.chatService.deleteUserWorkspaceOwner(user);
-    this.usersWorkSpaceOwner$ = this.getUsersWorkSpace();
-  }
+    this.chatService.deleteUserInChat(user).subscribe(
+      (chat: IChats) => {
+        this.chatService.setCurrentChat(new Chat({
+          _id: chat._id,
+          title: chat.title,
+          users: chat.users,
+          kind: chat.kind
+        }));
+        this.usersWorkSpaceOwner$ = this.getUsersWorkSpace();
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  };
 
   public clickOutside(): void {
     this.userModalShow = false;
-  }
+  };
 
   public onInputShow(): void {
     this.userModalShow = !this.userModalShow;
-  }
+  };
 
   public searchUser($event: any): void {
     this.searchText = of(($event.target as HTMLInputElement).value.trim().toLowerCase())
@@ -124,14 +137,26 @@ export class ChatComponent implements OnInit {
       distinctUntilChanged(),
       switchMap( users => this.usersService.searchUser(users))
     )
-  }
+  };
 
-  public addWorkspaceOwner(user: IUserInfoInterface): void {
-    this.chatService.addWorkspaceOwner(user);
-    this.usersWorkSpaceOwner$ = this.getUsersWorkSpace();
-  }
+  public addUserInChat(user: IUserInfoInterface): void {
+    this.chatService.addUserInChat(user).subscribe(
+      (chat: IChats) => {
+        this.chatService.setCurrentChat(new Chat({
+          _id: chat._id,
+          title: chat.title,
+          users: chat.users,
+          kind: chat.kind
+        }));
+        this.usersWorkSpaceOwner$ = this.getUsersWorkSpace();
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  };
 
   public setNameChat(title: string): void {
     this.chatTitle = title;
-  }
+  };
 }

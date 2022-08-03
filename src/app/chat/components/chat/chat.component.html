@@ -26,7 +26,7 @@
                 placeholder="Введите имя" >
 
               <div  class="user-modal" *ngIf="users$ | async as users" >
-                <div class="user-container" *ngFor="let mask of users" (click)="addWorkspaceOwner(mask)">
+                <div class="user-container" *ngFor="let mask of users" (click)="addUserInChat(mask)">
                   <app-mask [mask]="mask" [showButtonDelete]="false" class="mask"></app-mask>
                   <p class="capitalize">{{mask.name}} {{mask.surname}}</p>
                 </div>

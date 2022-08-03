@@ -9,6 +9,7 @@ import {Chat} from "../models/chat.model";
 import {IChats} from "../interface/chats";
 import {ISpaceChatResponse} from "../interface/space-chat-response";
 import {IUserInfoInterface} from "../../interface/user-info.interface";
+import {HttpChatService} from "./http-chat.service";
 
 @Injectable()
 export class ChatService {
@@ -20,13 +21,13 @@ export class ChatService {
   private chatCash: ChatMainModel = null;
   private currentChat: Chat = null;
 
-  constructor() {}
+  constructor(private httpChatService: HttpChatService) {}
 
   public initModel(model: ISpaceChatResponse[]): ChatMainModel[] {
       this.spaceChat = model;
       this.cashChats = this.spaceChat.map((res: ISpaceChatResponse) => {
+      this.usersIdChat$.next(res.chats[0].users);
       const chatsArray: Chat[] = res.chats.map((chat: IChats) => {
-        this.usersIdChat$.next(chat.users)
         return new Chat(chat)
       });
 
@@ -99,31 +100,17 @@ export class ChatService {
     this.chatCash = null;
   }
 
-  public addWorkspaceOwner(user: IUserInfoInterface) {
-    this.currentChat.getUsersId().push(user._id);
-    console.log(this.currentChat)
-    const chats: Chat[] = this.chatCash.getChats().map(item =>
-      item.getChatId() === this.currentChat.getChatId() ? this.currentChat : item);
-    this.setChat(this.chatCash.setChat(chats));
-    this.usersIdChat$.next(this.currentChat.getUsersId());
+  public addUserInChat(user: IUserInfoInterface): Observable<IChats> {
+    return this.httpChatService.addUserInChat(user, this.currentChat);
   }
 
-  public deleteUserWorkspaceOwner(user: IUserInfoInterface) {
-
-    const chatUsersId: string[] = this.currentChat.getUsersId().filter((item: string) => item !== user._id)
-
-    this.currentChat.setUsersId(chatUsersId);
-    console.log(this.currentChat)
-
-    const chats: Chat[] = this.chatCash.getChats().map(item =>
-      item.getChatId() === this.currentChat.getChatId() ? this.currentChat : item);
-    this.setChat(this.chatCash.setChat(chats));
-    this.usersIdChat$.next(this.currentChat.getUsersId());
-
+  public deleteUserInChat(user: IUserInfoInterface): Observable<IChats> {
+    return this.httpChatService.deleteUserInChat(user, this.currentChat);
   }
 
   public setCurrentChat(chat: Chat): void {
     this.currentChat = chat;
+    this.usersIdChat$.next(this.currentChat.getUsersId());
   }
 
   public getCurrentChat(chat: Chat): Chat {

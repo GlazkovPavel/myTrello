@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {IChats} from "../interface/chats";
 import {Chat} from "../models/chat.model";
+import {IUserInfoInterface} from "../../interface/user-info.interface";
 
 @Injectable()
 export class HttpChatService {
@@ -54,6 +55,32 @@ export class HttpChatService {
     return this.http.patch<any>(`${this.isUrl}/chat-delete/${_id}`, {
       chat: chat
     },{
+      headers: {
+        authorization: `Bearer ${jwt}`,
+        'Content-Type': 'application/json'
+      }
+    })
+  };
+
+  public addUserInChat(user: IUserInfoInterface, chat: Chat): Observable<IChats> {
+    const jwt: string = localStorage.getItem('jwt');
+    return this.http.patch<IChats>(`${this.isUrl}/chat-add-user`, {
+      user,
+      chat
+    }, {
+      headers: {
+        authorization: `Bearer ${jwt}`,
+        'Content-Type': 'application/json'
+      }
+    })
+  }
+
+  public deleteUserInChat(user: IUserInfoInterface, chat: Chat): Observable<IChats> {
+    const jwt: string = localStorage.getItem('jwt');
+    return this.http.patch<IChats>(`${this.isUrl}/chat-delete-user`, {
+      user,
+      chat
+    }, {
       headers: {
         authorization: `Bearer ${jwt}`,
         'Content-Type': 'application/json'

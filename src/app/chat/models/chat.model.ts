@@ -6,13 +6,13 @@ import {IChats} from "../interface/chats";
 export class Chat {
 
   private title: string;
-  private id: string = '';
+  private _id: string = '';
   private kind: EChat;
   private users: string[] = [];
 
   constructor(res: IChats) {
     this.title = res.title;
-    this.id = res._id;
+    this._id = res._id;
     this.kind = res.kind;
     this.users = res.users;
 
@@ -37,7 +37,7 @@ export class Chat {
   }
 
   public getChatId(): string {
-    return this.id;
+    return this._id;
   }
 
 }

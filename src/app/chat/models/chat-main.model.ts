@@ -5,7 +5,7 @@ import {Chat} from "./chat.model";
 
 export class ChatMainModel {
   private readonly title: string = '';
-  private readonly id: string = '';
+  private readonly _id: string = '';
   private kind: EChat;
   private users: User[] = [];
   private chats: Chat[] = [];
@@ -13,7 +13,7 @@ export class ChatMainModel {
 
   constructor(res: SpaseChat) {
     this.title = res.title;
-    this.id = res._id;
+    this._id = res._id;
     this.kind = res.kind;
     this.users = res.users;
     this.chats = res.chats;
@@ -25,7 +25,7 @@ export class ChatMainModel {
   }
 
   public getChatMainId(): string {
-    return this.id;
+    return this._id;
 }
 
   public setChat(chats: Chat[]): ChatMainModel {
@@ -33,8 +33,8 @@ export class ChatMainModel {
      return this;
   }
 
-  public deleteChat(id: string): ChatMainModel {
-    this.chats = this.chats.filter((item: Chat) => item.getChatId() !== id)
+  public deleteChat(_id: string): ChatMainModel {
+    this.chats = this.chats.filter((item: Chat) => item.getChatId() !== _id)
     return this;
   }
 
