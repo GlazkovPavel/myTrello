@@ -30,6 +30,7 @@ export class ChatComponent implements OnInit {
   public searchText: Observable<string>;
   public userModalShow:  boolean = false;
   public chatTitle: string = 'Название чата';
+  public state: typeof State = State;
   private cashUsers: IUserInfoInterface[];
   action = Action;
   user: User;
@@ -137,23 +138,6 @@ export class ChatComponent implements OnInit {
   //   this.socketService.send(message);
   // }
 
-  public deletedOwnerWorkspace(user: IUserInfoInterface): void {
-    this.chatService.deleteUserInChat(user).subscribe(
-      (chat: IChats) => {
-        this.chatService.setCurrentChat(new Chat({
-          _id: chat._id,
-          title: chat.title,
-          users: chat.users,
-          kind: chat.kind
-        }));
-        this.usersWorkSpaceOwner$.next(true);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  };
-
   public clickOutside(): void {
     this.userModalShow = false;
   };
@@ -174,6 +158,23 @@ export class ChatComponent implements OnInit {
 
   public addUserInChat(user: IUserInfoInterface): void {
     this.chatService.addUserInChat(user).subscribe(
+      (chat: IChats) => {
+        this.chatService.setCurrentChat(new Chat({
+          _id: chat._id,
+          title: chat.title,
+          users: chat.users,
+          kind: chat.kind
+        }));
+        this.usersWorkSpaceOwner$.next(true);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  };
+
+  public deletedOwnerWorkspace(user: IUserInfoInterface): void {
+    this.chatService.deleteUserInChat(user).subscribe(
       (chat: IChats) => {
         this.chatService.setCurrentChat(new Chat({
           _id: chat._id,
