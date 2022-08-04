@@ -25,7 +25,7 @@ export type UserModelArray = IModelItem<IUserInfoInterface[]>;
 })
 export class ChatComponent implements OnInit {
   public usersModel$: Observable<UserModelArray>;
-  public usersWorkSpaceOwner$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  //public usersWorkSpaceOwner$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public users$!: Observable<IUserInfoInterface[]>;
   public searchText: Observable<string>;
   public userModalShow:  boolean = false;
@@ -53,7 +53,7 @@ export class ChatComponent implements OnInit {
   }
 
   private getUser(): Observable<UserModelArray> {
-    return this.usersWorkSpaceOwner$.pipe(
+    return this.chatService.usersWorkSpaceOwner$.pipe(
       switchMap(() => this.getUsersWorkSpace()),
       tap((item: IUserInfoInterface[]) => {
         this.cashUsers = item;
@@ -165,7 +165,6 @@ export class ChatComponent implements OnInit {
           users: chat.users,
           kind: chat.kind
         }));
-        this.usersWorkSpaceOwner$.next(true);
       },
       (error) => {
         console.log(error);
@@ -182,7 +181,6 @@ export class ChatComponent implements OnInit {
           users: chat.users,
           kind: chat.kind
         }));
-        this.usersWorkSpaceOwner$.next(true);
       },
       (error) => {
         console.log(error);

@@ -16,6 +16,7 @@ export class ChatService {
   public cashChats$: BehaviorSubject<ChatMainModel[]> = new BehaviorSubject<ChatMainModel[]>(null);
   public chat$: BehaviorSubject<ChatMainModel> = new BehaviorSubject<ChatMainModel>(null);
   public usersIdChat$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>(null);
+  public usersWorkSpaceOwner$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public cashChats: ChatMainModel[] = [];
   private spaceChat: ISpaceChatResponse[];
   private chatCash: ChatMainModel = null;
@@ -83,12 +84,18 @@ export class ChatService {
 
   }
 
-  public updateChat(chat: ChatMainModel): void {
+  public updateSpaceChat(chat: ChatMainModel): void {
     this.chatCash = null;
     this.chat$.next(chat);
     this.chatCash = chat;
     this.cashChats = this.cashChats.map(item => item.getChatMainId() === chat.getChatMainId() ? chat : item);
     this.cashChats$.next(this.cashChats);
+
+  }
+
+  public deleteUserFromChat(_id: string): void {
+    this.chat$.next(this.chatCash.deleteUser(_id));
+
 
   }
 
@@ -111,9 +118,10 @@ export class ChatService {
   public setCurrentChat(chat: Chat): void {
     this.currentChat = chat;
     this.usersIdChat$.next(this.currentChat.getUsersId());
+    this.usersWorkSpaceOwner$.next(true);
   }
 
-  public getCurrentChat(chat: Chat): Chat {
+  public getCurrentChat(): Chat {
     return this.currentChat;
   }
 

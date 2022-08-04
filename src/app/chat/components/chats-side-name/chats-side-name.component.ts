@@ -105,7 +105,7 @@ export class ChatsSideNameComponent implements OnInit, DoCheck {
           users: res.userIds,
           kind: res.kind,
         })
-          this.chatService.updateChat(spaseChat);
+          this.chatService.updateSpaceChat(spaseChat);
           this.openForm = !this.openForm;
 
       },

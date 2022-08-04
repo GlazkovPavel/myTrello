@@ -38,6 +38,11 @@ export class ChatMainModel {
     return this;
   }
 
+  public deleteUser(_id: string): ChatMainModel {
+    this.chats = this.chats.filter((item: Chat) => item.getUsersId().filter((val: string) => val !== _id));
+    return this;
+  }
+
   public setCurrentChat(chat: Chat): void {
     this.currentChat = chat;
   }
