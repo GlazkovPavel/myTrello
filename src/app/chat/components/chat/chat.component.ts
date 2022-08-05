@@ -14,6 +14,9 @@ import {IChats} from "../../interface/chats";
 import {IModelItem} from "../../../shared/error/models/models.model";
 import {State} from "../../../shared/enum/state";
 import {ErrorModel} from "../../../shared/error/models/error.model";
+import {EChat} from "../../enum/chat";
+import {MessageEnum} from "../../../shared/component/message/enum/message.enum";
+import {GetMessageService} from "../../../shared/component/message/services/get-message.service";
 
 export type UserModelArray = IModelItem<IUserInfoInterface[]>;
 
@@ -44,13 +47,12 @@ export class ChatComponent implements OnInit {
     private socketService: SocketService,
     private chatService: ChatService,
     private usersService: UsersService,
-    private changeDetectorRef: ChangeDetectorRef,
+    private readonly getMessageErrorService: GetMessageService,
     ) { }
 
   ngOnInit(): void {
     this.initIoConnection();
     this.usersModel$ = this.getUser();
-    //this.users1WorkSpaceOwner$ = this.getUsersWorkSpace();
 
   }
 
@@ -91,8 +93,15 @@ export class ChatComponent implements OnInit {
   }
 
   // проверка является ли пользователь владельцем данного чата
-  public checkOwner(user: IUserInfoInterface, chat: Chat): boolean {
-    return (user._id === chat.getChatId());
+  public checkOwner(): boolean {
+    const chat: Chat = this.chatService.getCurrentChat();
+    return (this.user._id === chat.getOwnerId());
+  }
+
+  // проверка на приватность чата, добавлять пользователей может только владелец или если он общедоступный
+  public checkKind(): boolean {
+    const chat: Chat = this.chatService.getCurrentChat();
+    return (this.user._id === chat.getOwnerId() || chat.getKind() === EChat.PUBLIC);
   }
 
   private initIoConnection(): void {
@@ -170,20 +179,26 @@ export class ChatComponent implements OnInit {
   };
 
   public addUserInChat(user: IUserInfoInterface): void {
-    this.chatService.addUserInChat(user).subscribe(
-      (chat: IChats) => {
-        this.chatService.addUserInChatModel(user._id, chat._id);
-        this.chatService.setCurrentChat(new Chat({
-          _id: chat._id,
-          title: chat.title,
-          users: chat.users,
-          kind: chat.kind
-        }));
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    if (this.checkKind()) {
+      this.chatService.addUserInChat(user).subscribe(
+        (chat: IChats) => {
+          this.chatService.addUserInChatModel(user._id, chat._id);
+          this.chatService.setCurrentChat(new Chat({
+            _id: chat._id,
+            title: chat.title,
+            users: chat.users,
+            kind: chat.kind,
+            chatInitiator: chat.chatInitiator,
+          }));
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    } else {
+      this.getMessageErrorService.showError(MessageEnum.MESSAGE_ERROR_10);
+    }
+
   };
 
   public deletedOwnerWorkspace(user: IUserInfoInterface): void {
@@ -194,7 +209,8 @@ export class ChatComponent implements OnInit {
           _id: chat._id,
           title: chat.title,
           users: chat.users,
-          kind: chat.kind
+          kind: chat.kind,
+          chatInitiator: chat.chatInitiator,
         }));
       },
       (error) => {

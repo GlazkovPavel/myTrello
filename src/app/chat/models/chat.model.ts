@@ -1,5 +1,4 @@
 import {EChat} from "../enum/chat";
-import {User} from "../interface/user.interface";
 import {IChats} from "../interface/chats";
 
 
@@ -9,13 +8,14 @@ export class Chat {
   private _id: string = '';
   private kind: EChat;
   private users: string[] = [];
+  private chatInitiator: string;
 
   constructor(res: IChats) {
     this.title = res.title;
     this._id = res._id;
     this.kind = res.kind;
     this.users = res.users;
-
+    this.chatInitiator = res.chatInitiator;
   }
 
   // public getUsers(): string[] {
@@ -50,7 +50,11 @@ export class Chat {
   };
 
   public getOwnerId(): string {
-    return '';
+    return this.chatInitiator;
+  };
+
+  public getKind(): number {
+    return this.kind;
   };
 
 }

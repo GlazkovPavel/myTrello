@@ -66,5 +66,12 @@ export const  errorMessage: Map<MessageEnum, IMessageInterface> = new Map( [
       message: 'Не удалось удалить лист задач'
     }
   ],
+  [
+    MessageEnum.MESSAGE_ERROR_10,
+    {
+      code: 'MESSAGE_ERROR_10',
+      message: ' Нет прав, так как чат является приватным. Добавить пользователя может только владелец чата.'
+    }
+  ],
 
 ])

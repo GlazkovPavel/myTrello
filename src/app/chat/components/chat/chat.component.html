@@ -14,7 +14,9 @@
 
                   <app-mask
                     (deletedOwnerWorkspace)="deletedOwnerWorkspace($event)"
-                    [mask]="mask" class="mask"></app-mask>
+                    [mask]="mask" class="mask"
+                    [showButtonDelete]="checkOwner() && !showYourSelf"
+                  ></app-mask>
 
               </ng-container>
             </div>
