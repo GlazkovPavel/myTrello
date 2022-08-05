@@ -10,7 +10,7 @@
           <ng-container *ngIf="usersModel$ | async as usersChatOwner">
 
             <div class="mask" *ngIf="usersChatOwner.state === state.READY">
-              <ng-container *ngFor="let mask of usersChatOwner.item | filterSelf">
+              <ng-container *ngFor="let mask of usersChatOwner.item | filterSelf:showYourSelf">
 
                   <app-mask
                     (deletedOwnerWorkspace)="deletedOwnerWorkspace($event)"
@@ -36,7 +36,7 @@
                 placeholder="Введите имя" >
 
               <div  class="user-modal" *ngIf="users$ | async as users" >
-                <div class="user-container" *ngFor="let mask of users" (click)="addUserInChat(mask)">
+                <div class="user-container" *ngFor="let mask of users | filterSelf" (click)="addUserInChat(mask)">
                   <app-mask [mask]="mask" [showButtonDelete]="false" class="mask"></app-mask>
                   <p class="capitalize">{{mask.name}} {{mask.surname}}</p>
                 </div>

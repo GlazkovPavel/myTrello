@@ -31,13 +31,26 @@ export class Chat {
     return this;
   };
 
+  public deleteUserFromChat(id: string): Chat {
+    this.users = this.users.filter(item => item !== id);
+    return this;
+  };
+
+  public addUserInChat(id: string): Chat {
+    this.users.push(id);
+    return this;
+  };
 
   public getChatTitle(): string {
     return this.title;
-  }
+  };
 
   public getChatId(): string {
     return this._id;
-  }
+  };
+
+  public getOwnerId(): string {
+    return '';
+  };
 
 }

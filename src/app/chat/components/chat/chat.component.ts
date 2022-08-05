@@ -31,9 +31,11 @@ export class ChatComponent implements OnInit {
   public userModalShow:  boolean = false;
   public chatTitle: string = 'Название чата';
   public state: typeof State = State;
+  public showYourSelf: boolean = false;
   private cashUsers: IUserInfoInterface[];
+  private user: IUserInfoInterface = JSON.parse(localStorage.getItem('userInfo'));
   action = Action;
-  user: User;
+  //user: User;
   messages: Message[] = [];
   messageContent: string;
   ioConnection: any;
@@ -79,7 +81,18 @@ export class ChatComponent implements OnInit {
   }
 
   private getUsersWorkSpace(): Observable<IUserInfoInterface[]> {
-    return this.usersService.searchUsersWorkSpace(this.chatService.usersIdChat$.getValue())
+    if (!!this.chatService.usersIdChat$.getValue().length) {
+      this.showYourSelf = false;
+      return this.usersService.searchUsersWorkSpace(this.chatService.usersIdChat$.getValue());
+    } else {
+      this.showYourSelf = true;
+      return of([this.user]);
+    }
+  }
+
+  // проверка является ли пользователь владельцем данного чата
+  public checkOwner(user: IUserInfoInterface, chat: Chat): boolean {
+    return (user._id === chat.getChatId());
   }
 
   private initIoConnection(): void {
@@ -159,6 +172,7 @@ export class ChatComponent implements OnInit {
   public addUserInChat(user: IUserInfoInterface): void {
     this.chatService.addUserInChat(user).subscribe(
       (chat: IChats) => {
+        this.chatService.addUserInChatModel(user._id, chat._id);
         this.chatService.setCurrentChat(new Chat({
           _id: chat._id,
           title: chat.title,
@@ -175,6 +189,7 @@ export class ChatComponent implements OnInit {
   public deletedOwnerWorkspace(user: IUserInfoInterface): void {
     this.chatService.deleteUserInChat(user).subscribe(
       (chat: IChats) => {
+        this.chatService.deleteUserFromChatModel(user._id, chat._id);
         this.chatService.setCurrentChat(new Chat({
           _id: chat._id,
           title: chat.title,

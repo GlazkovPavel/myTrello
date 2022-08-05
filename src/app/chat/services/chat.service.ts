@@ -25,9 +25,9 @@ export class ChatService {
   constructor(private httpChatService: HttpChatService) {}
 
   public initModel(model: ISpaceChatResponse[]): ChatMainModel[] {
-      this.spaceChat = model;
-      this.cashChats = this.spaceChat.map((res: ISpaceChatResponse) => {
-      this.usersIdChat$.next(res?.chats[0]?.users);
+    this.spaceChat = model;
+    this.usersIdChat$.next(this.spaceChat[0].chats[0]?.users);
+    this.cashChats = this.spaceChat.map((res: ISpaceChatResponse) => {
       const chatsArray: Chat[] = res.chats.map((chat: IChats) => {
         return new Chat(chat)
       });
@@ -77,10 +77,20 @@ export class ChatService {
     this.chat$.next(this.chatCash.deleteChat(_id));
   }
 
-  public setChat(chat: ChatMainModel): void {
+  public setChat(chat: ChatMainModel, onChooseSpase: boolean = false): void {
     this.chatCash = null;
     this.chat$.next(chat);
     this.chatCash = chat;
+
+    if (this.chatCash.getChats().length > 0) {
+      this.usersIdChat$.next(this.chatCash.getChats()[0].getUsersId());
+      if (onChooseSpase) {
+        this.usersWorkSpaceOwner$.next(true);
+      }
+    } else {
+      this.usersIdChat$.next([]);
+    }
+
 
   }
 
@@ -93,10 +103,12 @@ export class ChatService {
 
   }
 
-  public deleteUserFromChat(_id: string): void {
-    this.chat$.next(this.chatCash.deleteUser(_id));
+  public deleteUserFromChatModel(userId: string, chatId: string): void {
+    this.chat$.next(this.chatCash.deleteUser(userId, chatId));
+  }
 
-
+  public addUserInChatModel(userId: string, chatId: string): void {
+    this.chat$.next(this.chatCash.addUser(userId, chatId));
   }
 
   public getChat(): ChatMainModel {

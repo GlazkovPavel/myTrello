@@ -6,5 +6,6 @@ export interface IChats {
   _id?: string,
   kind: EChat;
   users?: string[];
+  chatInitiator?: string,
 
 }

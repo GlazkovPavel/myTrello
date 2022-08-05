@@ -18,37 +18,42 @@ export class ChatMainModel {
     this.users = res.users;
     this.chats = res.chats;
 
-  }
+  };
 
   public getTitle(): string {
     return this.title;
-  }
+  };
 
   public getChatMainId(): string {
     return this._id;
-}
+  };
 
   public setChat(chats: Chat[]): ChatMainModel {
      this.chats = chats;
      return this;
-  }
+  };
 
   public deleteChat(_id: string): ChatMainModel {
     this.chats = this.chats.filter((item: Chat) => item.getChatId() !== _id)
     return this;
-  }
+  };
 
-  public deleteUser(_id: string): ChatMainModel {
-    this.chats = this.chats.filter((item: Chat) => item.getUsersId().filter((val: string) => val !== _id));
+  public deleteUser(userId: string, chatId: string): ChatMainModel {
+    this.chats.find(item => item.getChatId() === chatId).deleteUserFromChat(userId);
     return this;
-  }
+  };
+
+  public addUser(userId: string, chatId: string): ChatMainModel {
+    this.chats.find(item => item.getChatId() === chatId).addUserInChat(userId);
+    return this;
+  };
 
   public setCurrentChat(chat: Chat): void {
     this.currentChat = chat;
-  }
+  };
 
   public getChats(): Chat[] {
     return this.chats;
-  }
+  };
 
 }

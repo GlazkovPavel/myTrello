@@ -126,7 +126,8 @@ export class SidePanelComponent extends UnSubscriber implements OnInit {
 
   public onChoose(chat: ChatMainModel) {
     this.title = chat.getTitle();
-    this.chatService.setChat(chat)
+    this.chatService.setChat(chat, true);
+    this.chatService.usersWorkSpaceOwner$.next(true);
 
     if (chat?.getChats().length > 0) {
       this.titleChat(chat.getChats()[0].getChatTitle());
