@@ -1,3 +1,5 @@
+@import '~@taiga-ui/core/styles/taiga-ui-local';
+
 .card {
   display: flex;
   align-items: center;
@@ -15,10 +17,17 @@
     display: flex;
     align-items: center;
     margin-right: auto;
-    width: 100%;
+    width: calc(100% - 40px);
     height: 36px;
   }
 
+}
+
+.operation-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-grow: 1;
 }
 
 .is-focused {

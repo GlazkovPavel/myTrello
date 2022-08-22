@@ -3,7 +3,14 @@
   <div class="container">
     <div class="container-row">
       <app-side-panel
-      (nameChat)="setNameChat($event)"></app-side-panel>
+      (nameChat)="setNameChat($event)"
+      ></app-side-panel>
+
+      <app-chats-side-name
+        [model]="chatModelItem$ | async"
+        (titleChat)="titleChat($event)"
+      ></app-chats-side-name>
+
       <div class="main">
         <div class="header">
 

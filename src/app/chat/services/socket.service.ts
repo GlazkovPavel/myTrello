@@ -8,8 +8,8 @@ const jwt: string = localStorage.getItem('jwt');
 const SERVER_URL = 'http://localhost:3000';
 @Injectable()
 export class SocketService {
-  // @ts-ignore
-  private socket;
+
+  private socket: any;
 
   public initSocket(): void {
     this.socket = socketIo.io(SERVER_URL, {

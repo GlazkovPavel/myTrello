@@ -1,24 +1,25 @@
-@import '~@taiga-ui/core/styles/taiga-ui-local';
-
 .side {
   background-color: #7E5A5AFF;
   width: 240px;
   height: 100%;
 }
+
+.create-folder {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  padding: 20px 0;
+}
+
+.operation-form {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+
 .example-form-field {
-  //width: 220px;
   margin: 0 auto;
-}
-
-.operation-title {
-  .text-overflow();
-  margin-right: 1.5rem;
-  flex-grow: 1;
-}
-
-.form-title {
-  font: var(--tui-font-heading-6);
-  margin: 0 0 1.25rem;
 }
 
 .input {
@@ -42,5 +43,13 @@
 .is-focused {
   background-color: rgba(0, 0, 0, 0.1);
   border-radius: 6px;
+}
+
+.button-plus {
+  margin: auto;
+}
+
+.chats-name {
+  margin: 14px auto 0;
 }
 

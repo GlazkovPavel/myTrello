@@ -17,6 +17,7 @@ export class ChatService {
   public chat$: BehaviorSubject<ChatMainModel> = new BehaviorSubject<ChatMainModel>(null);
   public usersIdChat$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>(null);
   public usersWorkSpaceOwner$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public allUserSpace$: BehaviorSubject<ChatMainModel> = new BehaviorSubject<ChatMainModel>(null);
   public cashChats: ChatMainModel[] = [];
   private spaceChat: ISpaceChatResponse[];
   private chatCash: ChatMainModel = null;
@@ -24,7 +25,7 @@ export class ChatService {
 
   constructor(private httpChatService: HttpChatService) {}
 
-  public initModel(model: ISpaceChatResponse[]): ChatMainModel[] {
+  public initModel(model: ISpaceChatResponse[]): void {
     this.spaceChat = model;
     this.usersIdChat$.next(this.spaceChat[0].chats[0]?.users);
     this.cashChats = this.spaceChat.map((res: ISpaceChatResponse) => {
@@ -37,14 +38,10 @@ export class ChatService {
         title: res.title,
         chats: chatsArray,
         users: res.userIds,
-        kind: res.kind,
       })
-    }
-
-    )
+    })
 
     this.cashChats$.next(this.cashChats);
-    return this.cashChats;
   }
 
   public getChatRooms(): Observable<ChatModelArray> {

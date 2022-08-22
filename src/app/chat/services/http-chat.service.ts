@@ -16,7 +16,6 @@ export class HttpChatService {
     const jwt: string = localStorage.getItem('jwt');
     return this.http.post<any>(`${this.isUrl}/chat/initiate`, {
       title: chat.title,
-      kind: chat.kind,
       users: []
     }, {
       headers: {

@@ -30,23 +30,19 @@ export type ChatModelItem = IModelItem<ChatMainModel>;
 @Component({
   selector: 'app-side-panel',
   templateUrl: './side-panel.component.html',
-  styleUrls: ['./side-panel.component.less'],
+  styleUrls: ['./side-panel.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidePanelComponent extends UnSubscriber implements OnInit {
-  @ViewChild('accordion') private accordion: any;
   @Output() public nameChat: EventEmitter<string> = new EventEmitter();
-  public panelOpenState: boolean = false;
-  public accounts: any;
+  //public panelOpenState: boolean = false;
   public title: string = '';
   public chatModel$: Observable<ChatModelArray>;
   public chatModelItem$: Observable<ChatModelItem>;
+  public openForm: boolean = false;
 
   public testForm = new FormGroup({
-    name: new FormControl('', [
-      Validators.required,
-    ]),
-    accounts: new FormControl(accounts[0], [
+    title: new FormControl('', [
       Validators.required,
     ]),
   });
@@ -66,62 +62,47 @@ export class SidePanelComponent extends UnSubscriber implements OnInit {
       this.title = this.chatService.cashChats[0].getTitle();
       this.titleChat(this.title);
       this.chatService.setChat(this.chatService.cashChats[0]);
-      this.chatModelItem$ = this.getChatModelItem();
     } else {this.title = 'Создайте рабочее пространство'}
-
-    this.accounts = accounts;
   }
 
   public get isActive(): string {
     return this.chatService.getChat().getChatMainId();
   }
 
-  public getChatModelItem(): Observable<ChatModelItem> {
-    return this.chatService.chat$.pipe(
-      map((item: ChatMainModel) => ({
-        state: State.READY,
-        item,
-      })),
-      startWith({state: State.PENDING}),
-      catchError((ex: ErrorModel) =>
-        of({
-          state: State.ERROR,
-          error: ex,
-        }),
-      ),
-    );
-  }
-
-
   public onSubmit() {
-    const a = this.testForm.controls['name'].value
-    const b = this.testForm.controls['accounts'].value
-    const chat: SpaseChat = {
-      title: a,
-      kind: b === 'Общедоступный' ? EChat.PUBLIC : EChat.PRIVATE,
-    };
-    this.httpChatService.createChatRoom(chat).subscribe(
-      (res: ISpaceChatResponse) => {
-        const chatsArray: Chat[] = res.chats.map((chat:IChats ) => new Chat(chat));
+    if (!!this.testForm.controls['title']?.value) {
+      const a = this.testForm.controls['title'].value
+      const chat: SpaseChat = {
+        title: a,
+      };
+      this.httpChatService.createChatRoom(chat).subscribe(
+        (res: ISpaceChatResponse) => {
+          const chatsArray: Chat[] = res.chats.map((chat: IChats) => new Chat(chat));
 
-        const chatMainModel = new ChatMainModel({
-          _id: res._id,
-          kind: res.kind,
-          title: res.title,
-          users: res.userIds,
-          chats: chatsArray,
-        })
-        this.chatService.setCashChat(chatMainModel);
-        this.onChoose(chatMainModel);
-      }
-    );
-    this.testForm.reset();
-    this.accordion.close();
+          const chatMainModel = new ChatMainModel({
+            _id: res._id,
+            title: res.title,
+            users: res.userIds,
+            chats: chatsArray,
+          })
+          this.chatService.setCashChat(chatMainModel);
+          this.onChoose(chatMainModel);
+        }
+      );
+      this.testForm.reset();
+      this.openForm = !this.openForm;
+    } else {
+      this.openForm = !this.openForm;
+    }
   }
 
-  public onClose(): void {
-    this.testForm.controls['name'].reset();
-    this.accordion.close();
+  public onClick() {
+    if (!!this.testForm.controls['title']?.value) {
+      this.onSubmit();
+      this.openForm = !this.openForm;
+    } else {
+      this.openForm = !this.openForm;
+    }
   }
 
   public onChoose(chat: ChatMainModel) {
@@ -132,19 +113,7 @@ export class SidePanelComponent extends UnSubscriber implements OnInit {
     if (chat?.getChats().length > 0) {
       this.titleChat(chat.getChats()[0].getChatTitle());
     } else { this.titleChat('')}
-
-    this.accordion.close();
     this.changeDetectorRef.markForCheck();
-  }
-
-  public onCloseAccordion(): void {
-    this.accordion.close();
-  }
-  public onToggleAccordion(): void {
-    setTimeout(() => {
-      this.panelOpenState = !this.panelOpenState;
-
-    }, 0)
   }
 
   public titleChat(title: string): void {

@@ -15,7 +15,6 @@ export class ChatCardComponent implements OnInit {
   @Input() public chat: ChatMainModel;
   @Input() public isActive: string = '';
   @Output() onChoose: EventEmitter<ChatMainModel> = new EventEmitter();
-  @Output() onCloseAccordion: EventEmitter<void> = new EventEmitter();
   constructor(
     private httpChatService: HttpChatService,
     private chatService: ChatService) {
@@ -38,7 +37,6 @@ export class ChatCardComponent implements OnInit {
     this.httpChatService.deleteChatSpace(idChatSpace).subscribe(
       () => {
         this.chatService.deleteChatSpace(idChatSpace);
-        this.onCloseAccordion.emit();
       },
       (err: ErrorModel) => {
         console.log('Упал deleteChatSpace', err);

@@ -11,6 +11,7 @@ import {ChatService} from "../services/chat.service";
 import {ChatMainModel} from "../models/chat-main.model";
 import {SpaseChat} from "../interface/space-chat";
 import {ISpaceChatResponse} from "../interface/space-chat-response";
+import {IInitialization} from "../interface/initialization";
 
 @Injectable()
 export class ChatResolver implements Resolve<ChatMainModel | null> {

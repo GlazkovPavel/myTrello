@@ -103,7 +103,6 @@ export class ChatsSideNameComponent implements OnInit, DoCheck {
           title: res.title,
           chats: chatsArray,
           users: res.userIds,
-          kind: res.kind,
         })
           this.chatService.updateSpaceChat(spaseChat);
           this.openForm = !this.openForm;
@@ -117,7 +116,6 @@ export class ChatsSideNameComponent implements OnInit, DoCheck {
 
   public onChoose(chat: Chat) {
     this.currentChat = chat;
-    console.log(chat);
     this.titleChat.next(chat.getChatTitle());
     this.chatService.setCurrentChat(chat);
 

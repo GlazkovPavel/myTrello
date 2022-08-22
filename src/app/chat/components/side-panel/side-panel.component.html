@@ -1,61 +1,42 @@
 <div class="side" >
 
   <ng-container *ngIf="chatModel$ | async as chatModel">
-    <mat-accordion>
-      <mat-expansion-panel #accordion
-        (opened)="panelOpenState = true"
-        (closed)="onToggleAccordion()">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            <span class="operation-title">{{title}}</span>
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <h3 class="form-title">Создать рабочее пространство</h3>
-        <form
-          class="operation-form"
-          [formGroup]="testForm"
-          (submit)="onSubmit()"
-        >
-          <mat-form-field class="example-form-field" appearance="fill">
-            <mat-label>Название</mat-label>
-            <input class="input" formControlName="name" matInput type="text">
-            <button
-              *ngIf="testForm.controls['name'].value"
-              matSuffix mat-icon-button aria-label="Clear"
-              (click)="testForm.controls['name'].reset()">
-              <mat-icon>close</mat-icon>
-            </button>
-          </mat-form-field>
 
-          <mat-form-field class="example-form-field" appearance="fill">
-            <mat-label>Выберите тип</mat-label>
-            <mat-select  formControlName="accounts">
-              <mat-option *ngFor="let items of accounts" [value]="items.name">
-                {{items.name}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <div class="buttons">
-            <button
-              tuiButton
-              type="submit"
-              size="m"
-              class="tui-space_right-2"
-              [disabled]="!testForm.valid"
-            >
-              Send
-            </button>
-            <button
-              tuiButton
-              type="button"
-              appearance="flat"
-              size="m"
-              (click)="onClose()"
-            >
-              Cancel
-            </button>
-          </div>
-        </form>
+    <div class="create-folder">
+      <form
+        *ngIf="openForm"
+        class="operation-form"
+        [formGroup]="testForm"
+        (submit)="onSubmit()"
+      >
+        <mat-form-field class="example-form-field" appearance="fill">
+          <mat-label>Название</mat-label>
+          <input class="input" formControlName="title" matInput type="text">
+<!--          <button-->
+<!--            *ngIf="testForm.controls['title']?.value"-->
+<!--            matSuffix mat-icon-button aria-label="Clear"-->
+<!--            (click)="testForm.reset()">-->
+<!--            <mat-icon>close</mat-icon>-->
+<!--          </button>-->
+        </mat-form-field>
+      </form>
+
+      <button
+        tuiIconButton
+        type="button"
+        class="tui-space_right-3 tui-space_bottom-3 button-plus"
+        [icon]="'tuiIconPlus'"
+        [appearance]="'outline'"
+        [size]="'s'"
+        (click)="onClick()"
+      ></button>
+
+      <div class="chats-name">
+        <span>Создать папку</span>
+      </div>
+
+    </div>
+
 
         <tui-scrollbar class="box" >
           <ng-container *ngIf="chatModel.item">
@@ -63,7 +44,6 @@
               <app-chat-card
                 [isActive]="isActive"
                 (onChoose)="onChoose($event)"
-                (onCloseAccordion)="onCloseAccordion()"
                 [chat]="chatItem">
               </app-chat-card>
             </div>
@@ -75,14 +55,6 @@
         </tui-scrollbar>
 
 
-      </mat-expansion-panel>
-    </mat-accordion>
-
-    <app-chats-side-name
-      [model]="chatModelItem$ | async"
-      [panelOpenState]="panelOpenState"
-      (titleChat)="titleChat($event)"
-    ></app-chats-side-name>
   </ng-container>
 
 </div>

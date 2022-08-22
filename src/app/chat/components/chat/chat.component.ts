@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Action} from "../../enum/action";
 import {Event} from "../../enum/event";
 import {SocketService} from "../../services/socket.service";
@@ -17,6 +17,8 @@ import {ErrorModel} from "../../../shared/error/models/error.model";
 import {EChat} from "../../enum/chat";
 import {MessageEnum} from "../../../shared/component/message/enum/message.enum";
 import {GetMessageService} from "../../../shared/component/message/services/get-message.service";
+import {ChatModelItem} from "../side-panel/side-panel.component";
+import {ChatMainModel} from "../../models/chat-main.model";
 
 export type UserModelArray = IModelItem<IUserInfoInterface[]>;
 
@@ -27,8 +29,10 @@ export type UserModelArray = IModelItem<IUserInfoInterface[]>;
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChatComponent implements OnInit {
+  @Output() public nameChat: EventEmitter<string> = new EventEmitter();
   public usersModel$: Observable<UserModelArray>;
   //public usersWorkSpaceOwner$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public chatModelItem$: Observable<ChatModelItem>;
   public users$!: Observable<IUserInfoInterface[]>;
   public searchText: Observable<string>;
   public userModalShow:  boolean = false;
@@ -53,7 +57,24 @@ export class ChatComponent implements OnInit {
   ngOnInit(): void {
     this.initIoConnection();
     this.usersModel$ = this.getUser();
+    this.chatModelItem$ = this.getChatModelItem();
 
+  }
+
+  private getChatModelItem(): Observable<ChatModelItem> {
+    return this.chatService.chat$.pipe(
+      map((item: ChatMainModel) => ({
+        state: State.READY,
+        item,
+      })),
+      startWith({state: State.PENDING}),
+      catchError((ex: ErrorModel) =>
+        of({
+          state: State.ERROR,
+          error: ex,
+        }),
+      ),
+    );
   }
 
   private getUser(): Observable<UserModelArray> {
@@ -67,8 +88,8 @@ export class ChatComponent implements OnInit {
         item
       })),
       startWith(this.cashUsers ? {
-        state: State.READY,
-        item: this.cashUsers
+          state: State.READY,
+          item: this.cashUsers
         } : {
           state: State.PENDING
         }
@@ -102,6 +123,10 @@ export class ChatComponent implements OnInit {
   public checkKind(): boolean {
     const chat: Chat = this.chatService.getCurrentChat();
     return (this.user._id === chat.getOwnerId() || chat.getKind() === EChat.PUBLIC);
+  }
+
+  public titleChat(title: string): void {
+    this.nameChat.next(title)
   }
 
   private initIoConnection(): void {
