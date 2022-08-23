@@ -87,25 +87,24 @@ export class ChatsSideNameComponent implements OnInit, DoCheck {
   }
 
   public onCreateChat() {
-    const chatMainId = this.chatService.getChat().getChatMainId()
     const kind: string = this.testForm.controls['accounts'].value
     const chat: IChats = {
       title: this.testForm.controls['title'].value,
       kind: kind === 'Общедоступный' ? EChat.PUBLIC : EChat.PRIVATE,
     }
-    this.httpChatService.createChat(chat, chatMainId).subscribe(
-      (res: ISpaceChatResponse) => {
-        this.testForm.reset();
-        this.openForm = !this.openForm;
-        const chatsArray: Chat[] = res.chats.map((chat: IChats) => new Chat(chat));
-        const spaseChat: ChatMainModel = new ChatMainModel({
+    this.httpChatService.createChat(chat).subscribe(
+      (res: IChats) => {
+        const chat: Chat = new Chat({
           _id: res._id,
+          users: res.users,
           title: res.title,
-          chats: chatsArray,
-          users: res.userIds,
-        })
-          this.chatService.updateSpaceChat(spaseChat);
-          this.openForm = !this.openForm;
+          kind: res.kind,
+          chatInitiator: res.chatInitiator
+        });
+        const oneChat = this.chatService.getChat()
+        this.testForm.reset();
+        this.chatService.updateSpaceChat(oneChat.addChat(chat));
+        this.openForm = !this.openForm;
 
       },
       () => {

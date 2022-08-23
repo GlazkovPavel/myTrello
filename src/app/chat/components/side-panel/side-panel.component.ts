@@ -5,27 +5,23 @@ import {
   EventEmitter,
   OnInit,
   Output,
-  ViewChild
 } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {SpaseChat} from "../../interface/space-chat";
-import {EChat} from "../../enum/chat";
-import {catchError, map, startWith} from "rxjs/operators";
 import {UnSubscriber} from "../../../shared/utils/unsubscriber";
 import {ChatService} from "../../services/chat.service";
-import {Observable, of} from "rxjs";
+import {Observable} from "rxjs";
 import {IModelItem} from "../../../shared/error/models/models.model";
 import {ChatMainModel} from "../../models/chat-main.model";
-import {accounts} from "../../utils/kind-chat";
 import {IChats} from "../../interface/chats";
 import {HttpChatService} from "../../services/http-chat.service";
 import {Chat} from "../../models/chat.model";
 import {ISpaceChatResponse} from "../../interface/space-chat-response";
-import {State} from "../../../shared/enum/state";
-import {ErrorModel} from "../../../shared/error/models/error.model";
+import {ChatsModel} from "../../models/chats.model";
 
 export type ChatModelArray = IModelItem<ChatMainModel[]>;
 export type ChatModelItem = IModelItem<ChatMainModel>;
+export type ChatsModelArr = IModelItem<Chat[]>;
 
 @Component({
   selector: 'app-side-panel',
@@ -38,7 +34,8 @@ export class SidePanelComponent extends UnSubscriber implements OnInit {
   //public panelOpenState: boolean = false;
   public title: string = '';
   public chatModel$: Observable<ChatModelArray>;
-  public chatModelItem$: Observable<ChatModelItem>;
+  //public chatModelItem$: Observable<ChatModelItem>;
+  //public chatsModel$: Observable<ChatsModelArr>;
   public openForm: boolean = false;
 
   public testForm = new FormGroup({
@@ -58,12 +55,14 @@ export class SidePanelComponent extends UnSubscriber implements OnInit {
 
   public ngOnInit(): void {
     this.chatModel$ = this.chatService.getChatRooms();
-    if (this.chatService?.cashChats[0]?.getTitle()) {
-      this.title = this.chatService.cashChats[0].getTitle();
-      this.titleChat(this.title);
-      this.chatService.setChat(this.chatService.cashChats[0]);
-    } else {this.title = 'Создайте рабочее пространство'}
-  }
+    //this.chatModelItem$ = this.chatService.getChats();
+  //   if (this.chatService?.cashChats[0]?.getTitle()) {
+  //     this.title = this.chatService.cashChats[0].getTitle();
+  //     this.titleChat(this.title);
+  //     this.chatService.setChat(this.chatService.cashChats[0]);
+  //   } else {this.title = 'Создайте рабочее пространство'}
+
+   }
 
   public get isActive(): string {
     return this.chatService.getChat().getChatMainId();
@@ -71,9 +70,9 @@ export class SidePanelComponent extends UnSubscriber implements OnInit {
 
   public onSubmit() {
     if (!!this.testForm.controls['title']?.value) {
-      const a = this.testForm.controls['title'].value
+      const title = this.testForm.controls['title'].value
       const chat: SpaseChat = {
-        title: a,
+        title,
       };
       this.httpChatService.createChatRoom(chat).subscribe(
         (res: ISpaceChatResponse) => {

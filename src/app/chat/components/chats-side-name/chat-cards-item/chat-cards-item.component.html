@@ -9,7 +9,7 @@
   <mat-menu #menu="matMenu">
     <button mat-menu-item [matMenuTriggerFor]="menus">
       <mat-icon>dialpad</mat-icon>
-      <span>Пользователи</span>
+      <span>Добавить в папку</span>
     </button>
     <button mat-menu-item>
       <mat-icon>delete</mat-icon>
@@ -21,20 +21,27 @@
     </button>
   </mat-menu>
 
-  <mat-menu #menus="matMenu">
-    <button mat-menu-item >
-      <mat-icon>dialpad</mat-icon>
-      <span>Redial</span>
-    </button>
-    <button mat-menu-item disabled>
-      <mat-icon>voicemail</mat-icon>
-      <span>Check voice mail</span>
-    </button>
-    <button mat-menu-item>
-      <mat-icon>notifications_off</mat-icon>
-      <span>Disable alerts</span>
-    </button>
-  </mat-menu>
+
+    <mat-menu #menus="matMenu">
+      <tui-scrollbar class="box" >
+        <ng-container *ngIf="chatModel$ | async as chatModel">
+        <ng-container *ngIf="chatModel.item">
+          <div class="chats"  *ngFor="let chatItem of chatModel.item | CardWithRoomsPipe">
+            <app-chat-card
+              (click)="addChatInRoom(chatItem)"
+              [chat]="chatItem">
+            </app-chat-card>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="chatModel.error">
+          <span>Произошла ошибка</span>
+        </ng-container>
+        </ng-container>
+      </tui-scrollbar>
+    </mat-menu>
+
+
 
 
 </div>

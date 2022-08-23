@@ -37,6 +37,7 @@ import {MatExpansionModule} from "@angular/material/expansion";
 import {MatSelectModule} from "@angular/material/select";
 import {HttpChatService} from "./services/http-chat.service";
 import {ChatCardsItemComponent} from './components/chats-side-name/chat-cards-item/chat-cards-item.component';
+import {CardWithRoomsPipe} from "./pipes/cardWithRooms.pipe";
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import {ChatCardsItemComponent} from './components/chats-side-name/chat-cards-it
     ChatCardComponent,
     ChatsSideNameComponent,
     ChatCardsItemComponent,
+    CardWithRoomsPipe,
   ],
   providers: [
     ChatService,

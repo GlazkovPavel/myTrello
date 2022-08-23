@@ -36,7 +36,7 @@ export class ChatComponent implements OnInit {
   public users$!: Observable<IUserInfoInterface[]>;
   public searchText: Observable<string>;
   public userModalShow:  boolean = false;
-  public chatTitle: string = 'Название чата';
+  public chatTitle: string = '';
   public state: typeof State = State;
   public showYourSelf: boolean = false;
   private cashUsers: IUserInfoInterface[];
@@ -58,7 +58,7 @@ export class ChatComponent implements OnInit {
     this.initIoConnection();
     this.usersModel$ = this.getUser();
     this.chatModelItem$ = this.getChatModelItem();
-
+    this.setNameChat(this.chatService.getChat().getChats()[0].getChatTitle());
   }
 
   private getChatModelItem(): Observable<ChatModelItem> {
@@ -125,10 +125,6 @@ export class ChatComponent implements OnInit {
     return (this.user._id === chat.getOwnerId() || chat.getKind() === EChat.PUBLIC);
   }
 
-  public titleChat(title: string): void {
-    this.nameChat.next(title)
-  }
-
   private initIoConnection(): void {
     this.socketService.initSocket();
 
@@ -147,10 +143,6 @@ export class ChatComponent implements OnInit {
         console.log('disconnected');
       });
   }
-
-  // public getChatName(): string {
-  //   return
-  // }
 
   // public sendMessage(message: string): void {
   //   if (!message) {

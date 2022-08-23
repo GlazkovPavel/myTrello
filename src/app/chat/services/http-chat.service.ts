@@ -5,6 +5,7 @@ import {HttpClient} from "@angular/common/http";
 import {IChats} from "../interface/chats";
 import {Chat} from "../models/chat.model";
 import {IUserInfoInterface} from "../../interface/user-info.interface";
+import {ChatMainModel} from "../models/chat-main.model";
 
 @Injectable()
 export class HttpChatService {
@@ -25,9 +26,9 @@ export class HttpChatService {
     })
   }
 
-  public createChat(chat: IChats, roomId: string): Observable<any> {
+  public createChat(chat: IChats): Observable<any> {
     const jwt: string = localStorage.getItem('jwt');
-    return this.http.patch<any>(`${this.isUrl}/chat/${roomId}`, {
+    return this.http.post<any>(`${this.isUrl}/chat`, {
       title: chat.title,
       kind: chat.kind,
       users: []
@@ -39,6 +40,30 @@ export class HttpChatService {
     })
   }
 
+  public addChatInRoom(chat: Chat, chatsModel: ChatMainModel): Observable<any> {
+    const jwt: string = localStorage.getItem('jwt');
+    return this.http.patch<any>(`${this.isUrl}/add-chat/${chatsModel.getChatMainId()}`, {
+      chat
+    }, {
+      headers: {
+        authorization: `Bearer ${jwt}`,
+        'Content-Type': 'application/json'
+      }
+    })
+  };
+
+  public deleteChatInRoom(chat: Chat, chatsModel: ChatMainModel): Observable<any> {
+    const jwt: string = localStorage.getItem('jwt');
+    return this.http.patch<any>(`${this.isUrl}/delete-chat/${chatsModel.getChatMainId()}`, {
+      chat
+    }, {
+      headers: {
+        authorization: `Bearer ${jwt}`,
+        'Content-Type': 'application/json'
+      }
+    })
+  };
+
   public deleteChatSpace(_id: string): Observable<void> {
     const jwt: string = localStorage.getItem('jwt');
     return this.http.delete<void>(`${this.isUrl}/room/${_id}`, {
@@ -47,11 +72,11 @@ export class HttpChatService {
         'Content-Type': 'application/json'
       }
     })
-  }
+  };
 
-  public deleteChat(_id: string, chat: Chat): Observable<any> {
+  public deleteChat(chat: Chat): Observable<any> {
     const jwt: string = localStorage.getItem('jwt');
-    return this.http.patch<any>(`${this.isUrl}/chat-delete/${_id}`, {
+    return this.http.patch<any>(`${this.isUrl}/chat-delete`, {
       chat: chat
     },{
       headers: {

@@ -2,8 +2,8 @@ import {SpaseChat} from "../interface/space-chat";
 import {User} from "../interface/user.interface";
 import {Chat} from "./chat.model";
 
-export class ChatMainModel {
-  private readonly title: string = '';
+export class ChatsModel {
+  private readonly title: string = 'Все чаты';
   private readonly _id: string = '';
   private users: User[] = [];
   private chats: Chat[] = [];
@@ -25,27 +25,22 @@ export class ChatMainModel {
     return this._id;
   };
 
-  public setChat(chats: Chat[]): ChatMainModel {
-     this.chats = chats;
-     return this;
+  public setChat(chats: Chat[]): ChatsModel {
+    this.chats = chats;
+    return this;
   };
 
-  public deleteChat(_id: string): ChatMainModel {
+  public deleteChat(_id: string): ChatsModel {
     this.chats = this.chats.filter((item: Chat) => item.getChatId() !== _id)
     return this;
   };
 
-  public addChat(chat: Chat): ChatMainModel {
-    this.chats.push(chat);
-    return this;
-  }
-
-  public deleteUser(userId: string, chatId: string): ChatMainModel {
+  public deleteUser(userId: string, chatId: string): ChatsModel {
     this.chats.find(item => item.getChatId() === chatId).deleteUserFromChat(userId);
     return this;
   };
 
-  public addUser(userId: string, chatId: string): ChatMainModel {
+  public addUser(userId: string, chatId: string): ChatsModel {
     this.chats.find(item => item.getChatId() === chatId).addUserInChat(userId);
     return this;
   };

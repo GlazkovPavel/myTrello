@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {BehaviorSubject, Observable, of} from "rxjs";
 import {ChatMainModel} from "../models/chat-main.model";
-import {ChatModelArray} from "../components/side-panel/side-panel.component";
+import {ChatModelArray, ChatModelItem, ChatsModelArr} from "../components/side-panel/side-panel.component";
 import {catchError, map, startWith} from "rxjs/operators";
 import {ErrorModel} from "../../shared/error/models/error.model";
 import {State} from "../../shared/enum/state";
@@ -10,6 +10,7 @@ import {IChats} from "../interface/chats";
 import {ISpaceChatResponse} from "../interface/space-chat-response";
 import {IUserInfoInterface} from "../../interface/user-info.interface";
 import {HttpChatService} from "./http-chat.service";
+import {ChatsModel} from "../models/chats.model";
 
 @Injectable()
 export class ChatService {
@@ -25,23 +26,35 @@ export class ChatService {
 
   constructor(private httpChatService: HttpChatService) {}
 
-  public initModel(model: ISpaceChatResponse[]): void {
+  public initModel(chats: IChats[], model: ISpaceChatResponse[]): void {
     this.spaceChat = model;
     this.usersIdChat$.next(this.spaceChat[0].chats[0]?.users);
     this.cashChats = this.spaceChat.map((res: ISpaceChatResponse) => {
       const chatsArray: Chat[] = res.chats.map((chat: IChats) => {
         return new Chat(chat)
       });
-
       return new ChatMainModel({
         _id: res._id,
         title: res.title,
         chats: chatsArray,
-        users: res.userIds,
       })
-    })
+    });
 
+    const chatsArray: Chat[] = chats.map((chat: IChats) => {
+      return new Chat(chat)
+    });
+
+    const chatsModel: ChatMainModel =  new ChatMainModel({
+      _id: '0',
+      title: 'Все чаты',
+      chats: chatsArray,
+    })
+    this.allUserSpace$.next(chatsModel);
+    this.cashChats.unshift(chatsModel);
+    this.chatCash = chatsModel;
+    this.chat$.next(chatsModel);
     this.cashChats$.next(this.cashChats);
+
   }
 
   public getChatRooms(): Observable<ChatModelArray> {
@@ -59,6 +72,22 @@ export class ChatService {
       ),
     );
   }
+
+  // public getChats(): Observable<ChatModelItem> {
+  //   return this.allUserSpace$.pipe(
+  //     map((item: ChatMainModel) => ({
+  //       state: State.READY,
+  //       item,
+  //     })),
+  //     startWith({state: State.PENDING}),
+  //     catchError((ex: ErrorModel) =>
+  //       of({
+  //         state: State.ERROR,
+  //         error: ex,
+  //       }),
+  //     ),
+  //   );
+  // }
 
   public setCashChat(chat: ChatMainModel): void {
     this.cashChats.push(chat);

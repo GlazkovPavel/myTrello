@@ -7,8 +7,9 @@
       ></app-side-panel>
 
       <app-chats-side-name
+        class="chat"
         [model]="chatModelItem$ | async"
-        (titleChat)="titleChat($event)"
+        (titleChat)="setNameChat($event)"
       ></app-chats-side-name>
 
       <div class="main">

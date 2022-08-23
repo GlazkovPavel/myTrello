@@ -28,7 +28,7 @@ export class ChatResolver implements Resolve<ChatMainModel | null> {
         'Content-Type': 'application/json'
       }
     }).pipe(
-      map((res: ISpaceChatResponse[]) => this.chatService.initModel(res))
+      map((res: IInitialization) => this.chatService.initModel(res.chats, res.rooms))
     );
   }
 }
