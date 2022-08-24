@@ -239,4 +239,8 @@ export class ChatComponent implements OnInit {
   public setNameChat(title: string): void {
     this.chatTitle = title;
   };
+
+  public checkChat(): boolean {
+    return (this.chatService.getChat().getChats().length !== 0);
+  }
 }

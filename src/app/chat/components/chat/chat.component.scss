@@ -1,3 +1,14 @@
+:host  {
+  scrollbar-color: #484747FF #484747;     /* «цвет ползунка» | «цвет полосы скроллбара» */
+  scrollbar-width: auto;  /* толщина: auto | thin | none */
+}
+
+.mat-tooltip {
+  /* your own custom styles here */
+  /* e.g. */
+  color: yellow;
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -33,6 +44,7 @@
   background-color: #181717;
   width: 100%;
   height: 5vh;
+  color: white;
 }
 
 .header{
@@ -51,16 +63,38 @@
   }
 }
 
+.mask-container {
+  width: 33%;
+  overflow-y: hidden;
+  margin-bottom: -12px;
+}
+
+.mask-container::-webkit-scrollbar {
+  //width: 15px; /* ширина для вертикального скролла */
+  height: 5px; /* высота для горизонтального скролла */
+  background-color: #a6a4a4;
+  border-radius: 3px;
+}
+
+/* ползунок скроллбара */
+.mask-container::-webkit-scrollbar-thumb {
+  background-color: #484747FF;
+  border-radius: 3px;
+}
+
 .title {
-  //margin-left: 50%;
+  width: 34%;
   font-size: 20px;
   line-height: 21px;
   letter-spacing: 0.0025em;
+  text-align: center;
 }
 
 .input {
   display: flex;
-  //margin-left: auto;
+  flex-direction: row-reverse;
+  width: 33%;
+  height: 32px;
 }
 
 .input-container {
@@ -92,7 +126,6 @@
 }
 .button-add{
   width: 32px;
-  height: 32px;
   background-color: #2F80ED;
   border-radius: 8px;
   border: none;

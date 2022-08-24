@@ -42,3 +42,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   background: rgba(77, 63, 63, 0.3)!important;
 
 }
+
+.mat-tooltip {
+  /* your own custom styles here */
+  color: white !important;
+  font-size: 12px;
+  background-color: #505050;
+  letter-spacing: 0.08em;
+}

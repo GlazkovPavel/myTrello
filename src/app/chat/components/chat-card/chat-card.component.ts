@@ -48,4 +48,8 @@ export class ChatCardComponent implements OnInit {
   public choose(chat: ChatMainModel) {
     this.onChoose.emit(chat);
   }
+
+  public isAllChats(): boolean {
+    return this.chatService.isAllChats();
+  }
 }

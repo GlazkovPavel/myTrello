@@ -38,6 +38,9 @@ import {MatSelectModule} from "@angular/material/select";
 import {HttpChatService} from "./services/http-chat.service";
 import {ChatCardsItemComponent} from './components/chats-side-name/chat-cards-item/chat-cards-item.component';
 import {CardWithRoomsPipe} from "./pipes/cardWithRooms.pipe";
+import {MatTooltipModule} from "@angular/material/tooltip";
+import { MessageComponent } from './components/dialog-user/message/message.component';
+import {AngularEditorModule} from "@kolkov/angular-editor";
 
 @NgModule({
   declarations: [
@@ -48,6 +51,7 @@ import {CardWithRoomsPipe} from "./pipes/cardWithRooms.pipe";
     ChatsSideNameComponent,
     ChatCardsItemComponent,
     CardWithRoomsPipe,
+    MessageComponent,
   ],
   providers: [
     ChatService,
@@ -91,6 +95,8 @@ import {CardWithRoomsPipe} from "./pipes/cardWithRooms.pipe";
     MatExpansionModule,
     MatSelectModule,
     TuiScrollbarModule,
+    MatTooltipModule,
+    AngularEditorModule,
   ]
 })
 

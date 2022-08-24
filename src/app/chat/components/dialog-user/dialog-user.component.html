@@ -1,17 +1,92 @@
-<mat-dialog-content class="dialog-content">
-  <mat-form-field>
-    <input matInput name="username" placeholder="Username"
-           (keyup.enter)="onSave()" [formControl]="usernameFormControl" required>
-<!--    <mat-error>FieldRequired</mat-error>-->
-<!--    <mat-hint>Please type your username</mat-hint>-->
-  </mat-form-field>
-</mat-dialog-content>
+<div class="user" xmlns="http://www.w3.org/1999/html">
+<div class="user__chat">
+  <div class="user__header">
+    <div class="user__headerLeft">
+      <h4 class="user__userName">
+      </h4>
+    </div>
+    <div class="user__headerRight">
 
-<!--<mat-dialog-actions *ngIf="params?.typeDialog === 'new-user'" [attr.align]="'end'">-->
-<!--  <button mat-raised-button color="primary" mat-dialog-close (click)="onSave()" [disabled]="usernameFormControl.hasError('required')">Chat!</button>-->
-<!--</mat-dialog-actions>-->
+    </div>
+  </div>
 
-<!--<mat-dialog-actions *ngIf="params?.typeDialog === 'edit-user'" [attr.align]="'end'">-->
-<!--  <button mat-button mat-dialog-close color="secondary">Close</button>-->
-<!--  <button mat-raised-button color="primary" mat-dialog-close (click)="onSave()">Save</button>-->
-<!--</mat-dialog-actions>-->
+  <div id="messages-container" class="user__messages">
+    <app-message></app-message>
+  </div>
+
+  <div class="user__chatInput">
+    <angular-editor formControlName="htmlContent" [config]="editorConfig"></angular-editor>
+
+  </div>
+</div>
+
+<div class="user__details">
+<div class="user__header">
+  <div class="user__headerLeft">
+    <h4 class="user__userName">
+      <strong>Details</strong>
+    </h4>
+  </div>
+  <div class="user__headerRight">
+    x
+  </div>
+</div>
+<div class="user__detailsBody">
+  <div class="user__detailsIdentity">
+    <img src=""  alt="yfti"/>
+    <h4 class='online'>
+    user?.name
+    </h4>
+  </div>
+  <div class="user__detailsActions">
+            <span>
+              Add
+            </span>
+    <span>
+              Find
+            </span>
+    <span>
+              Call
+            </span>
+    <span>
+
+              More
+            </span>
+  </div>
+  <form class="channel__detailsForm">
+  <input
+    placeholder="Search for a user"
+    required
+  />
+  <button >
+    <div id="loading"></div>
+<!--  {!searching ? 'Find' : <div id="loading"></div>}-->
+  </button>
+  </form>
+  <hr />
+  <div class="channel__detailsMembers">
+    <h4>Friends</h4>
+<!--    {users.map((user) => (-->
+<!--              <div-->
+<!--                key={user?.uid}-->
+<!--    class={`available__member ${-->
+<!--    user?.status === 'online' ? 'isOnline' : ''-->
+<!--    }`}-->
+<!--    >-->
+<!--      <Avatar src={user?.avatar} alt={user?.name} />-->
+<!--                <Link to={`/users/${user?.uid}`}>{user?.name}</Link>-->
+<!--                <FiberManualRecordIcon />-->
+<!--    {currentUser?.uid.toLowerCase() === id.toLowerCase() ? (-->
+<!--    <PersonAddDisabledIcon-->
+<!--      onClick={() => remFriend(id, user?.uid)}-->
+<!--    />-->
+<!--  ) : (-->
+<!--    ''-->
+<!--  )}-->
+  </div>
+  ))}
+</div>
+</div>
+</div>
+<div id="callScreen"></div>
+

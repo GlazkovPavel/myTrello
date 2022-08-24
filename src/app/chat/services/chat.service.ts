@@ -18,7 +18,7 @@ export class ChatService {
   public chat$: BehaviorSubject<ChatMainModel> = new BehaviorSubject<ChatMainModel>(null);
   public usersIdChat$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>(null);
   public usersWorkSpaceOwner$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  public allUserSpace$: BehaviorSubject<ChatMainModel> = new BehaviorSubject<ChatMainModel>(null);
+  public allChats$: BehaviorSubject<ChatMainModel> = new BehaviorSubject<ChatMainModel>(null);
   public cashChats: ChatMainModel[] = [];
   private spaceChat: ISpaceChatResponse[];
   private chatCash: ChatMainModel = null;
@@ -28,7 +28,7 @@ export class ChatService {
 
   public initModel(chats: IChats[], model: ISpaceChatResponse[]): void {
     this.spaceChat = model;
-    this.usersIdChat$.next(this.spaceChat[0].chats[0]?.users);
+    this.usersIdChat$.next(this.spaceChat[0]?.chats[0]?.users);
     this.cashChats = this.spaceChat.map((res: ISpaceChatResponse) => {
       const chatsArray: Chat[] = res.chats.map((chat: IChats) => {
         return new Chat(chat)
@@ -49,7 +49,7 @@ export class ChatService {
       title: 'Все чаты',
       chats: chatsArray,
     })
-    this.allUserSpace$.next(chatsModel);
+    this.allChats$.next(chatsModel);
     this.cashChats.unshift(chatsModel);
     this.chatCash = chatsModel;
     this.chat$.next(chatsModel);
@@ -74,7 +74,7 @@ export class ChatService {
   }
 
   // public getChats(): Observable<ChatModelItem> {
-  //   return this.allUserSpace$.pipe(
+  //   return this.allChats$.pipe(
   //     map((item: ChatMainModel) => ({
   //       state: State.READY,
   //       item,
@@ -162,5 +162,9 @@ export class ChatService {
   public getCurrentChat(): Chat {
     return this.currentChat;
   }
+
+ public isAllChats(): boolean {
+    return (this.chatCash.getChatMainId() === '0');
+ }
 
 }

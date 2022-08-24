@@ -98,7 +98,6 @@ export class SidePanelComponent extends UnSubscriber implements OnInit {
   public onClick() {
     if (!!this.testForm.controls['title']?.value) {
       this.onSubmit();
-      this.openForm = !this.openForm;
     } else {
       this.openForm = !this.openForm;
     }

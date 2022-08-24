@@ -7,13 +7,17 @@
     <mat-icon>more_vert</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item [matMenuTriggerFor]="menus">
+    <button mat-menu-item [matMenuTriggerFor]="menus" *ngIf="isAllChat()">
       <mat-icon>dialpad</mat-icon>
       <span>Добавить в папку</span>
     </button>
-    <button mat-menu-item>
+    <button mat-menu-item *ngIf="!isAllChat()" (click)="deleteChatInRoom(chat)">
       <mat-icon>delete</mat-icon>
-      <span (click)="deleteChatSpace(chat)">Удалить чат</span>
+      <span>Удалить чат из папки</span>
+    </button>
+    <button mat-menu-item *ngIf="isAllChat()">
+      <mat-icon>delete</mat-icon>
+      <span (click)="deleteChat(chat)">Удалить чат</span>
     </button>
     <button mat-menu-item>
       <mat-icon>notifications_off</mat-icon>
@@ -28,7 +32,7 @@
         <ng-container *ngIf="chatModel.item">
           <div class="chats"  *ngFor="let chatItem of chatModel.item | CardWithRoomsPipe">
             <app-chat-card
-              (click)="addChatInRoom(chatItem)"
+              (click)="addChatInRoom(chat, chatItem)"
               [chat]="chatItem">
             </app-chat-card>
           </div>

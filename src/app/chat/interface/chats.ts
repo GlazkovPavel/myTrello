@@ -2,9 +2,9 @@ import {User} from "./user.interface";
 import {EChat} from "../enum/chat";
 
 export interface IChats {
-  title: string;
+  title?: string;
   _id?: string,
-  kind: EChat;
+  kind?: EChat;
   users?: string[];
   chatInitiator?: string,
 

@@ -25,10 +25,10 @@ export class ChatMainModel {
     return this._id;
   };
 
-  public setChat(chats: Chat[]): ChatMainModel {
-     this.chats = chats;
-     return this;
-  };
+  // public setChat(chats: Chat[]): ChatMainModel {
+  //    this.chats = chats;
+  //    return this;
+  // };
 
   public deleteChat(_id: string): ChatMainModel {
     this.chats = this.chats.filter((item: Chat) => item.getChatId() !== _id)

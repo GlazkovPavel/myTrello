@@ -6,6 +6,8 @@ import {Chat} from "../../../models/chat.model";
 import {Observable} from "rxjs";
 import {ChatModelArray} from "../../side-panel/side-panel.component";
 import {ChatMainModel} from "../../../models/chat-main.model";
+import {ISpaceChatResponse} from "../../../interface/space-chat-response";
+import {IChats} from "../../../interface/chats";
 
 @Component({
   selector: 'app-chat-cards-item',
@@ -38,7 +40,7 @@ export class ChatCardsItemComponent implements OnInit {
     this.onChoose.emit(chat);
   }
 
-  public deleteChatSpace(chat: Chat) {
+  public deleteChat(chat: Chat) {
     this.httpChatService.deleteChat(chat).subscribe(
       () => {
         this.chatService.deleteChat(chat.getChatId());
@@ -53,7 +55,50 @@ export class ChatCardsItemComponent implements OnInit {
     return this.chat.getChatId() === this.currentChatId;
   }
 
-  public addChatInRoom(chatItem: ChatMainModel) {
-    console.log(chatItem);
+  public addChatInRoom(chat: Chat, chatMain: ChatMainModel): void {
+    this.httpChatService.addChatInRoom(chat, chatMain).subscribe(
+      (res: ISpaceChatResponse) => {
+        const chatsArray: Chat[] = res.chats.map((item: IChats) => new Chat(item));
+
+        const chatMainModel = new ChatMainModel({
+          _id: res._id,
+          title: res.title,
+          users: res.userIds,
+          chats: chatsArray,
+        })
+        console.log(chatMainModel);
+
+        this.chatService.updateSpaceChat(chatMainModel);
+      },
+      (err: ErrorModel) => {
+        console.log('Упал addChatInRoom', err);
+      }
+    )
+  }
+
+  public deleteChatInRoom(chat: Chat): void {
+    const chatMain = this.chatService.getChat();
+    this.httpChatService.deleteChatInRoom(chat, chatMain).subscribe(
+      (res: ISpaceChatResponse) => {
+        const chatsArray: Chat[] = res.chats.map((item: IChats) => new Chat(item));
+
+        const chatMainModel = new ChatMainModel({
+          _id: res._id,
+          title: res.title,
+          users: res.userIds,
+          chats: chatsArray,
+        })
+        console.log(chatMainModel);
+
+        this.chatService.updateSpaceChat(chatMainModel);
+      },
+      (err: ErrorModel) => {
+        console.log('Упал deleteChatInRoom', err);
+      }
+    )
+  }
+
+  public isAllChat(): boolean {
+    return this.chatService.isAllChats();
   }
 }
