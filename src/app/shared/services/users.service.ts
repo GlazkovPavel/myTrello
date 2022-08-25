@@ -2,7 +2,6 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Injectable} from "@angular/core";
 import {IUserInfoInterface} from "../../interface/user-info.interface";
-import {ISpaceInterface} from "../../interface/space.interface";
 
 @Injectable()
 export class UsersService {

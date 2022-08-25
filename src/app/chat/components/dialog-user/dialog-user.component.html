@@ -14,10 +14,25 @@
     <app-message></app-message>
   </div>
 
-  <div class="user__chatInput">
-    <angular-editor formControlName="htmlContent" [config]="editorConfig"></angular-editor>
+  <div class="container" [ngClass]="{focus: control.dirty && control.untouched}">
+      <tui-editor
+        new
+        class="container__editor"
+        [formControl]="control"
+        [tools]="tools"
+        #editorNewComponent
 
-  </div>
+      >
+        Введите текст...
+        <ng-container ngProjectAs="tools">
+          <span class="hint" (click)="submit()">
+            <tui-svg src="tuiIconArrowRight"></tui-svg>
+            Отправить
+        </span>
+        </ng-container>
+      </tui-editor>
+    </div>
+
 </div>
 
 <div class="user__details">
@@ -53,16 +68,16 @@
               More
             </span>
   </div>
-  <form class="channel__detailsForm">
-  <input
-    placeholder="Search for a user"
-    required
-  />
-  <button >
-    <div id="loading"></div>
-<!--  {!searching ? 'Find' : <div id="loading"></div>}-->
-  </button>
-  </form>
+<!--  <form class="channel__detailsForm">-->
+<!--  <input-->
+<!--    placeholder="Search for a user"-->
+<!--    required-->
+<!--  />-->
+<!--  <button >-->
+<!--    <div id="loading"></div>-->
+<!--&lt;!&ndash;  {!searching ? 'Find' : <div id="loading"></div>}&ndash;&gt;-->
+<!--  </button>-->
+<!--  </form>-->
   <hr />
   <div class="channel__detailsMembers">
     <h4>Friends</h4>

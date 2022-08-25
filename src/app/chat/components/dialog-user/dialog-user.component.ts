@@ -1,72 +1,60 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormControl, Validators } from '@angular/forms';
-import {StoreUserService} from "../../services/store-user-service";
-import {AngularEditorConfig} from "@kolkov/angular-editor";
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+  ViewContainerRef,
+  ViewRef
+} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {
+  defaultEditorExtensions,
+  tiptapEditorStyles,
+  TUI_EDITOR_CONTENT_PROCESSOR,
+  TUI_EDITOR_EXTENSIONS,
+  TUI_EDITOR_STYLES, TuiEditorNewComponent,
+  TuiEditorTool,
+  tuiLegacyEditorConverter,
+} from '@taiga-ui/addon-editor';
+import {toolbarEditor} from "../../utils/toolbar-editor";
+import {TuiToolbarNewComponent} from "@taiga-ui/addon-editor/components/toolbar-new/toolbar-new.component";
+import {CheckColumnsService} from "../../services/check-columns.service";
+
+//import {TuiEditorTool} from "@taiga-ui/addon-editor/enums/editor-tool";
 
 @Component({
   selector: 'app-dialog-user',
   templateUrl: './dialog-user.component.html',
-  styleUrls: ['./dialog-user.component.scss']
+  styleUrls: ['./dialog-user.component.scss'],
+  providers: [
+    {
+      provide: TUI_EDITOR_EXTENSIONS,
+      useValue: defaultEditorExtensions,
+    },
+    {
+      provide: TUI_EDITOR_STYLES,
+      useValue: tiptapEditorStyles,
+    },
+    {
+      provide: TUI_EDITOR_CONTENT_PROCESSOR,
+      useValue: tuiLegacyEditorConverter,
+    },
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DialogUserComponent implements OnInit {
-  public editorConfig: AngularEditorConfig = {
-    editable: true,
-    spellcheck: true,
-    height: 'auto',
-    minHeight: '0',
-    maxHeight: 'auto',
-    width: 'auto',
-    minWidth: '0',
-    translate: 'yes',
-    enableToolbar: true,
-    showToolbar: true,
-    placeholder: 'Enter text here...',
-    defaultParagraphSeparator: '',
-    defaultFontName: '',
-    defaultFontSize: '',
-    fonts: [
-      {class: 'arial', name: 'Arial'},
-      {class: 'times-new-roman', name: 'Times New Roman'},
-      {class: 'calibri', name: 'Calibri'},
-      {class: 'comic-sans-ms', name: 'Comic Sans MS'}
-    ],
-    customClasses: [
-      {
-        name: 'quote',
-        class: 'quote',
-      },
-      {
-        name: 'redText',
-        class: 'redText'
-      },
-      {
-        name: 'titleText',
-        class: 'titleText',
-        tag: 'h1',
-      },
-    ],
-    uploadUrl: 'v1/image',
-    //upload: (file: File) => { ... }
-    uploadWithCredentials: false,
-    sanitize: true,
-    toolbarPosition: 'bottom',
-    toolbarHiddenButtons: [
-      ['bold', 'italic'],
-      ['fontSize']
-    ]
-  };
-  // usernameFormControl = new FormControl('', [Validators.required]);
-  // previousUsername: string;
-  //
-  // constructor(public dialogRef: MatDialogRef<DialogUserComponent>,
-  //             @Inject(MAT_DIALOG_DATA) public params: any,
-  //             private storedUser: StoreUserService) {
-  //   this.previousUsername = storedUser.getStoredUser() ? storedUser.getStoredUser() : (params.username ? params.username : undefined);
-  //   this.usernameFormControl.setValue(storedUser.getStoredUser() ? storedUser.getStoredUser() : (params.username ? params.username : ""));
-  // }
-  //
+  @ViewChild('editorNewComponent') editorNewComponent: TuiEditorNewComponent;
+  public form: FormGroup;
+  public tools: TuiEditorTool[];
+
+  constructor(private checkColumnsService: CheckColumnsService) {
+  }
   ngOnInit() {
+    this.tools = toolbarEditor;
+    setTimeout(() => {
+      this.editorNewComponent.editorService.focus()
+    }, 100)
   }
   //
   // public onSave(): void {
@@ -78,5 +66,16 @@ export class DialogUserComponent implements OnInit {
   // }
   htmlContent: any;
   placeholder: any;
+  control = new FormControl('',
+    [
+      Validators.required,
+      this.checkColumnsService.checkColumns
+    ]
 
+  );
+
+
+  public submit(): void {
+    console.log('submit')
+  }
 }

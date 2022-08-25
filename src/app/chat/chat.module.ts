@@ -27,7 +27,7 @@ import {
   TuiDataListWrapperModule,
   TuiInputModule,
   TuiMarkerIconModule,
-  TuiSelectModule
+  TuiSelectModule, TuiTextAreaModule
 } from "@taiga-ui/kit";
 import {TuiButtonModule, TuiScrollbarModule, TuiSvgModule,} from "@taiga-ui/core";
 import {ChatCardComponent} from "./components/chat-card/chat-card.component";
@@ -41,6 +41,8 @@ import {CardWithRoomsPipe} from "./pipes/cardWithRooms.pipe";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import { MessageComponent } from './components/dialog-user/message/message.component';
 import {AngularEditorModule} from "@kolkov/angular-editor";
+import {TuiEditorModule, TuiEditorNewModule} from "@taiga-ui/addon-editor";
+import {CheckColumnsService} from "./services/check-columns.service";
 
 @NgModule({
   declarations: [
@@ -59,6 +61,7 @@ import {AngularEditorModule} from "@kolkov/angular-editor";
     StoreUserService,
     ChatResolver,
     HttpChatService,
+    CheckColumnsService,
   ],
   imports: [
     CommonModule,
@@ -97,6 +100,9 @@ import {AngularEditorModule} from "@kolkov/angular-editor";
     TuiScrollbarModule,
     MatTooltipModule,
     AngularEditorModule,
+    TuiTextAreaModule,
+    TuiEditorModule,
+    TuiEditorNewModule,
   ]
 })
 

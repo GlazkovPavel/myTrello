@@ -12,7 +12,10 @@
 }
 
 .user__chat {
+  display: flex;
+  flex-direction: column;
   flex: 1;
+  transition: 1s;
 }
 
 .user__details {
@@ -29,12 +32,13 @@
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid lightgray;
-  height: 10%;
+  flex: 0.4;
+  min-height: 60px;
 }
 
 .user__messages {
   overflow-y: auto;
-  height: 70%;
+  flex: 4;
 }
 
 .user__userName {
@@ -73,35 +77,46 @@
   transition: all 0.3s ease-in-out;
 }
 
-.user__chatInput {
+.container {
   display: flex;
-  height: 20%;
+  flex-wrap: nowrap;
+  flex: 1.5;
+  width: 100%;
+  margin-top: auto;
+  overflow: hidden;
+  transition: 1s;
+
+  &__editor {
+    width: 100%;
+    resize: both;
+  }
+
 }
 
-.user__chatInput > form {
-  justify-content: center;
+.focus {
+  flex: 3;
+}
+
+.hint {
+  color: var(--tui-base-09);
+  height: 100%;
+  display: flex;
   align-items: center;
+  cursor: pointer;
+  margin-left: 100%;
 }
 
-form {
-  margin: auto auto 0 auto;
-  width: 90%;
+.tui-row{
+  width: 80%;
 }
 
-.user__chatInput > form > input {
-  width: 90%;
-  border: 1px solid gray;
-  border-radius: 4px;
-  padding: 20px;
-  margin: 10px;
-}
+//.ql-editor {
+//  width: 300px;
+//  background-color: #0a8d48;
+//}
 
-.user__chatInput > form > input:focus {
-  outline: none;
-}
-
-.user__chatInput > form > button {
-  //display: none !important;
+.button {
+  width: 30px;
 }
 
 .user__messages::-webkit-scrollbar,
