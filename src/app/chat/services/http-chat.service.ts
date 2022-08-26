@@ -97,7 +97,7 @@ export class HttpChatService {
         'Content-Type': 'application/json'
       }
     })
-  }
+  };
 
   public deleteUserInChat(user: IUserInfoInterface, chat: Chat): Observable<IChats> {
     const jwt: string = localStorage.getItem('jwt');
@@ -110,5 +110,27 @@ export class HttpChatService {
         'Content-Type': 'application/json'
       }
     })
-  }
+  };
+
+  public postMessage(message: string, chat: Chat): Observable<any> {
+    const jwt: string = localStorage.getItem('jwt');
+    return this.http.post<any>(`${this.isUrl}/chat-message/${chat.getChatId()}`, {
+      messageText: message
+    }, {
+      headers: {
+        authorization: `Bearer ${jwt}`,
+        'Content-Type': 'application/json'
+      }
+    })
+  };
+
+  public getMessageByRoomId(chat: Chat): Observable<any> {
+    const jwt: string = localStorage.getItem('jwt');
+    return this.http.get<any>(`${this.isUrl}/chat-message/${chat.getChatId()}`, {
+      headers: {
+        authorization: `Bearer ${jwt}`,
+        'Content-Type': 'application/json'
+      }
+    })
+  };
 }

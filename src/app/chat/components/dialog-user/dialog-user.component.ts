@@ -20,6 +20,8 @@ import {
 import {toolbarEditor} from "../../utils/toolbar-editor";
 import {TuiToolbarNewComponent} from "@taiga-ui/addon-editor/components/toolbar-new/toolbar-new.component";
 import {CheckColumnsService} from "../../services/check-columns.service";
+import {HttpChatService} from "../../services/http-chat.service";
+import {ChatService} from "../../services/chat.service";
 
 @Component({
   selector: 'app-dialog-user',
@@ -46,7 +48,11 @@ export class DialogUserComponent implements OnInit {
   public form: FormGroup;
   public tools: TuiEditorTool[];
 
-  constructor(private checkColumnsService: CheckColumnsService) {}
+  constructor(
+    private checkColumnsService: CheckColumnsService,
+    private chatService: ChatService,
+    private httpService: HttpChatService,
+    ) {}
 
   ngOnInit() {
     this.tools = toolbarEditor;
@@ -62,6 +68,15 @@ export class DialogUserComponent implements OnInit {
   );
 
   public submit(): void {
-    console.log('submit')
+    if (this.control.value) {
+      console.log(this.control.value)
+      this.httpService.postMessage(this.control.value, this.chatService.getCurrentChat()).subscribe(
+        () => {
+          this.httpService.getMessageByRoomId(this.chatService.getCurrentChat()).subscribe();
+        },
+        () => {}
+      );
+      this.control.reset();
+    }
   }
 }
