@@ -17,11 +17,8 @@ import {IChats} from "../../interface/chats";
 import {HttpChatService} from "../../services/http-chat.service";
 import {Chat} from "../../models/chat.model";
 import {ISpaceChatResponse} from "../../interface/space-chat-response";
-import {ChatsModel} from "../../models/chats.model";
-
 export type ChatModelArray = IModelItem<ChatMainModel[]>;
 export type ChatModelItem = IModelItem<ChatMainModel>;
-export type ChatsModelArr = IModelItem<Chat[]>;
 
 @Component({
   selector: 'app-side-panel',
@@ -31,11 +28,8 @@ export type ChatsModelArr = IModelItem<Chat[]>;
 })
 export class SidePanelComponent extends UnSubscriber implements OnInit {
   @Output() public nameChat: EventEmitter<string> = new EventEmitter();
-  //public panelOpenState: boolean = false;
   public title: string = '';
   public chatModel$: Observable<ChatModelArray>;
-  //public chatModelItem$: Observable<ChatModelItem>;
-  //public chatsModel$: Observable<ChatsModelArr>;
   public openForm: boolean = false;
 
   public testForm = new FormGroup({
@@ -55,13 +49,6 @@ export class SidePanelComponent extends UnSubscriber implements OnInit {
 
   public ngOnInit(): void {
     this.chatModel$ = this.chatService.getChatRooms();
-    //this.chatModelItem$ = this.chatService.getChats();
-  //   if (this.chatService?.cashChats[0]?.getTitle()) {
-  //     this.title = this.chatService.cashChats[0].getTitle();
-  //     this.titleChat(this.title);
-  //     this.chatService.setChat(this.chatService.cashChats[0]);
-  //   } else {this.title = 'Создайте рабочее пространство'}
-
    }
 
   public get isActive(): string {

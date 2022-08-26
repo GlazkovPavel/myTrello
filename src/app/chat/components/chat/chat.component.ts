@@ -1,11 +1,10 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Action} from "../../enum/action";
 import {Event} from "../../enum/event";
 import {SocketService} from "../../services/socket.service";
-import {User} from "../../interface/user.interface";
 import {Message} from "../../models/message.model";
 import {IUserInfoInterface} from "../../../interface/user-info.interface";
-import {BehaviorSubject, Observable, of} from "rxjs";
+import {Observable, of} from "rxjs";
 import {ChatService} from "../../services/chat.service";
 import {catchError, debounceTime, distinctUntilChanged, filter, map, startWith, switchMap, tap} from "rxjs/operators";
 import {UsersService} from "../../../shared/services/users.service";
@@ -31,7 +30,6 @@ export type UserModelArray = IModelItem<IUserInfoInterface[]>;
 export class ChatComponent implements OnInit {
   @Output() public nameChat: EventEmitter<string> = new EventEmitter();
   public usersModel$: Observable<UserModelArray>;
-  //public usersWorkSpaceOwner$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public chatModelItem$: Observable<ChatModelItem>;
   public users$!: Observable<IUserInfoInterface[]>;
   public searchText: Observable<string>;

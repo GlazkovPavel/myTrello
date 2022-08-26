@@ -21,8 +21,6 @@ import {toolbarEditor} from "../../utils/toolbar-editor";
 import {TuiToolbarNewComponent} from "@taiga-ui/addon-editor/components/toolbar-new/toolbar-new.component";
 import {CheckColumnsService} from "../../services/check-columns.service";
 
-//import {TuiEditorTool} from "@taiga-ui/addon-editor/enums/editor-tool";
-
 @Component({
   selector: 'app-dialog-user',
   templateUrl: './dialog-user.component.html',
@@ -48,23 +46,12 @@ export class DialogUserComponent implements OnInit {
   public form: FormGroup;
   public tools: TuiEditorTool[];
 
-  constructor(private checkColumnsService: CheckColumnsService) {
-  }
+  constructor(private checkColumnsService: CheckColumnsService) {}
+
   ngOnInit() {
     this.tools = toolbarEditor;
-    setTimeout(() => {
-      this.editorNewComponent.editorService.focus()
-    }, 100)
   }
-  //
-  // public onSave(): void {
-  //   this.dialogRef.close({
-  //     username: this.usernameFormControl.value,
-  //     dialogType: this.params.dialogType,
-  //     previousUsername: this.previousUsername
-  //   });
-  // }
-  htmlContent: any;
+
   placeholder: any;
   control = new FormControl('',
     [
@@ -73,7 +60,6 @@ export class DialogUserComponent implements OnInit {
     ]
 
   );
-
 
   public submit(): void {
     console.log('submit')

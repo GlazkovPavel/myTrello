@@ -14,7 +14,7 @@
     <app-message></app-message>
   </div>
 
-  <div class="container" [ngClass]="{focus: control.dirty && control.untouched}">
+  <div class="container" [ngClass]="{focus: control?.errors?.checkColumns}">
       <tui-editor
         new
         class="container__editor"

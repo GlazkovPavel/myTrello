@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {BehaviorSubject, Observable, of} from "rxjs";
 import {ChatMainModel} from "../models/chat-main.model";
-import {ChatModelArray, ChatModelItem, ChatsModelArr} from "../components/side-panel/side-panel.component";
+import {ChatModelArray} from "../components/side-panel/side-panel.component";
 import {catchError, map, startWith} from "rxjs/operators";
 import {ErrorModel} from "../../shared/error/models/error.model";
 import {State} from "../../shared/enum/state";
@@ -10,7 +10,6 @@ import {IChats} from "../interface/chats";
 import {ISpaceChatResponse} from "../interface/space-chat-response";
 import {IUserInfoInterface} from "../../interface/user-info.interface";
 import {HttpChatService} from "./http-chat.service";
-import {ChatsModel} from "../models/chats.model";
 
 @Injectable()
 export class ChatService {
