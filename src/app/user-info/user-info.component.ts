@@ -7,6 +7,7 @@ import {CommonModule} from "@angular/common";
 import {UserCheckService} from "./user.service";
 import {ValidationService} from "../shared/services/validation.service";
 import {IUserInfoInterface} from "../interface/user-info.interface";
+import {DirectiveModule} from "../shared/directives/directive.module";
 
 @Component({
   selector: 'app-user-info',
@@ -81,13 +82,14 @@ export class UserInfoComponent implements OnInit {
 
 @NgModule({
   declarations: [UserInfoComponent],
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    AppModule,
-    MatFormFieldModule,
-    CommonModule
-  ],
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        AppModule,
+        MatFormFieldModule,
+        CommonModule,
+        DirectiveModule
+    ],
   providers: [
     UserCheckService
   ]

@@ -56,7 +56,7 @@ export class ChatComponent implements OnInit {
     this.initIoConnection();
     this.usersModel$ = this.getUser();
     this.chatModelItem$ = this.getChatModelItem();
-    this.setNameChat(this.chatService.getChat().getChats()[0].getChatTitle());
+    this.setNameChat(this.chatService.getChat().getChats()[0]?.getChatTitle());
   }
 
   private getChatModelItem(): Observable<ChatModelItem> {

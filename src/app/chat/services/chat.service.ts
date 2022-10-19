@@ -100,6 +100,17 @@ export class ChatService {
 
   public deleteChat(_id: string): void {
     this.chat$.next(this.chatCash.deleteChat(_id));
+    this.updateUsersChat();
+
+  }
+
+  private updateUsersChat(): void {
+    // this.cashChats[0].getChats().length > 0 ? this.usersIdChat$.next(this.cashChats[0].getChats()[0].getUsersId()) :
+    //   this.usersIdChat$.next([]);
+
+    this.chatCash.getChats().length > 0 ? this.usersIdChat$.next(this.chatCash.getChats()[0].getUsersId()) :
+    this.usersIdChat$.next(['']);
+    this.usersWorkSpaceOwner$.next(true);
   }
 
   public setChat(chat: ChatMainModel, onChooseSpase: boolean = false): void {
@@ -125,7 +136,7 @@ export class ChatService {
     this.chatCash = chat;
     this.cashChats = this.cashChats.map(item => item.getChatMainId() === chat.getChatMainId() ? chat : item);
     this.cashChats$.next(this.cashChats);
-
+    this.updateUsersChat();
   }
 
   public deleteUserFromChatModel(userId: string, chatId: string): void {
@@ -154,7 +165,7 @@ export class ChatService {
 
   public setCurrentChat(chat: Chat): void {
     this.currentChat = chat;
-    this.usersIdChat$.next(this.currentChat.getUsersId());
+    this.usersIdChat$.next(this.currentChat?.getUsersId());
     this.usersWorkSpaceOwner$.next(true);
   }
 

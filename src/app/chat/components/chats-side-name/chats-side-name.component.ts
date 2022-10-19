@@ -70,7 +70,7 @@ export class ChatsSideNameComponent implements OnInit, DoCheck {
   }
 
   public get currentChatId(): string {
-    return this.currentChat.getChatId();
+    return this.currentChat?.getChatId();
   }
 
   public isChats(): boolean {
