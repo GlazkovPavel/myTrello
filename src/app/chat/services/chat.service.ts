@@ -105,11 +105,8 @@ export class ChatService {
   }
 
   private updateUsersChat(): void {
-    // this.cashChats[0].getChats().length > 0 ? this.usersIdChat$.next(this.cashChats[0].getChats()[0].getUsersId()) :
-    //   this.usersIdChat$.next([]);
-
     this.chatCash.getChats().length > 0 ? this.usersIdChat$.next(this.chatCash.getChats()[0].getUsersId()) :
-    this.usersIdChat$.next(['']);
+    this.usersIdChat$.next([]);
     this.usersWorkSpaceOwner$.next(true);
   }
 
@@ -126,8 +123,6 @@ export class ChatService {
     } else {
       this.usersIdChat$.next([]);
     }
-
-
   }
 
   public updateSpaceChat(chat: ChatMainModel): void {

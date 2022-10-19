@@ -114,6 +114,9 @@ export class ChatsSideNameComponent implements OnInit, DoCheck {
   }
 
   public onChoose(chat: Chat) {
+    if (this.currentChat === chat) {
+      return;
+    }
     this.currentChat = chat;
     this.titleChat.next(chat.getChatTitle());
     this.chatService.setCurrentChat(chat);
