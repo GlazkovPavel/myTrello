@@ -12,12 +12,6 @@
         <mat-form-field class="example-form-field" appearance="fill">
           <mat-label>Название</mat-label>
           <input class="input" formControlName="title" matInput type="text">
-<!--          <button-->
-<!--            *ngIf="testForm.controls['title']?.value"-->
-<!--            matSuffix mat-icon-button aria-label="Clear"-->
-<!--            (click)="testForm.reset()">-->
-<!--            <mat-icon>close</mat-icon>-->
-<!--          </button>-->
         </mat-form-field>
       </form>
 
@@ -34,9 +28,7 @@
       <div class="chats-name">
         <span>Создать папку</span>
       </div>
-
     </div>
-
 
         <tui-scrollbar class="box" >
           <ng-container *ngIf="chatModel.item">

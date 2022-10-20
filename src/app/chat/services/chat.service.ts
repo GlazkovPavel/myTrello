@@ -17,7 +17,6 @@ export class ChatService {
   public chat$: BehaviorSubject<ChatMainModel> = new BehaviorSubject<ChatMainModel>(null);
   public usersIdChat$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>(null);
   public usersWorkSpaceOwner$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  public allChats$: BehaviorSubject<ChatMainModel> = new BehaviorSubject<ChatMainModel>(null);
   public cashChats: ChatMainModel[] = [];
   private spaceChat: ISpaceChatResponse[];
   private chatCash: ChatMainModel = null;
@@ -48,7 +47,6 @@ export class ChatService {
       title: 'Все чаты',
       chats: chatsArray,
     })
-    this.allChats$.next(chatsModel);
     this.cashChats.unshift(chatsModel);
     this.chatCash = chatsModel;
     this.chat$.next(chatsModel);
@@ -72,22 +70,6 @@ export class ChatService {
     );
   }
 
-  // public getChats(): Observable<ChatModelItem> {
-  //   return this.allChats$.pipe(
-  //     map((item: ChatMainModel) => ({
-  //       state: State.READY,
-  //       item,
-  //     })),
-  //     startWith({state: State.PENDING}),
-  //     catchError((ex: ErrorModel) =>
-  //       of({
-  //         state: State.ERROR,
-  //         error: ex,
-  //       }),
-  //     ),
-  //   );
-  // }
-
   public setCashChat(chat: ChatMainModel): void {
     this.cashChats.push(chat);
     this.cashChats$.next(this.cashChats);
@@ -105,9 +87,12 @@ export class ChatService {
   }
 
   private updateUsersChat(): void {
-    this.chatCash.getChats().length > 0 ? this.usersIdChat$.next(this.chatCash.getChats()[0].getUsersId()) :
-    this.usersIdChat$.next([]);
-    this.usersWorkSpaceOwner$.next(true);
+    if (this.chatCash.getChats().length > 0) {
+      this.setCurrentChat(this.chatCash.getChats()[0])
+    } else {
+      this.usersIdChat$.next([]);
+      this.usersWorkSpaceOwner$.next(true);
+    }
   }
 
   public setChat(chat: ChatMainModel, onChooseSpase: boolean = false): void {
@@ -136,18 +121,28 @@ export class ChatService {
 
   public deleteUserFromChatModel(userId: string, chatId: string): void {
     this.chat$.next(this.chatCash.deleteUser(userId, chatId));
+    this.updateCashChats(userId, chatId, 'delete');
+  }
+
+  private updateCashChats(userId: string, chatId: string, action: string): void {
+    let updateCashChat: ChatMainModel[] = this.cashChats.filter(item => item.getChats().find(item => item.getChatId() === chatId))
+    updateCashChat.forEach((chat: ChatMainModel) => {
+        action === 'delete' ? chat.deleteUser(userId, chatId) : chat.addUser(userId, chatId)
+      }
+    )
+    updateCashChat.forEach((chat: ChatMainModel) => {
+      this.cashChats = this.cashChats.map(item => item.getChatMainId() === chat.getChatMainId() ? chat : item);
+    })
+    this.cashChats$.next(this.cashChats);
   }
 
   public addUserInChatModel(userId: string, chatId: string): void {
     this.chat$.next(this.chatCash.addUser(userId, chatId));
+    this.updateCashChats(userId, chatId, 'add');
   }
 
   public getChat(): ChatMainModel {
     return this.chat$.getValue();
-  }
-
-  public resetChatCash(): void {
-    this.chatCash = null;
   }
 
   public addUserInChat(user: IUserInfoInterface): Observable<IChats> {
