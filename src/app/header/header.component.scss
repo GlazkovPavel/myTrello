@@ -37,9 +37,31 @@
     text-align: center;
   }
 
-  &__button-image{
+  &__button-image {
     width: 40px;
     height: 40px;
+  }
+
+  &__button-yandex {
+    width: 160px;
+    background-color: #010002;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 24px;
+    gap: 12px;
+    border-radius: 100px;
+    margin: 0 10px;
+  }
+
+  &__label-yandex {
+    background-image: url("../../assets/images/yandex.svg");
+    width: 40px;
+    height: 20px;
+    padding-top: 4px;
+    background-repeat: no-repeat;
   }
 
 }
