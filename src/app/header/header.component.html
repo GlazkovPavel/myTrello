@@ -40,9 +40,15 @@
       [routerLink]="['/sign-up']"
       routerLinkActive="active">Регистрация</a>
 
-    <button class="header__button-yandex">
+    <a
+      style="text-decoration: none"
+      class="header__button"
+      href="https://oauth.yandex.ru/authorize?response_type=code&client_id=31026068d92a40e791f27a255ea85f18&redirect_uri=http%3A%2F%2Flocalhost%3A4200"
+      routerLinkActive="active">aaa</a>
+
+    <a (click)="loginOAuthYandex()" class="header__button-yandex">
       <span class="header__label-yandex"></span> Войти с Яндекс ID
-    </button>
+    </a>
 
   </div>
 

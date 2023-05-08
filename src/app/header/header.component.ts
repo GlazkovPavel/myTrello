@@ -22,6 +22,8 @@ export class HeaderComponent implements OnInit {
   public form: FormGroup;
   public userInfo: IUserInfoInterface = JSON.parse(localStorage.getItem('userInfo'))
   public firstLetter$ : Observable<string>;
+  public isUrlOAuthYandex: string = 'https://oauth.yandex.ru/authorize?response_type=code&client_id=31026068d92a40e791f27a255ea85f18&redirect_uri=http%3A%2F%2Flocalhost%3A4200';
+
 
   constructor(public auth: AuthService,
               private route: Router,
@@ -50,10 +52,14 @@ export class HeaderComponent implements OnInit {
     })
   }
 
-  logout() {
+  public logout() {
     this.auth.logout();
     this.route.navigate(['/'])
   };
+
+  public loginOAuthYandex(): void {
+    //this.route.navigate(this.isUrlOAuthYandex)
+  }
 
   public async openPopup(): Promise<void> {
     const module = await import('../user-info/user-info.component')

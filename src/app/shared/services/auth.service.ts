@@ -13,12 +13,18 @@ export class AuthService implements OnInit{
   public isAuth: boolean;
   private isUrl: string = 'http://localhost:3000'
 
+  private isUrlOAuthYandex: string = 'https://oauth.yandex.ru/authorize?response_type=code&client_id=31026068d92a40e791f27a255ea85f18&redirect_uri=http%3A%2F%2Flocalhost%3A4200';
+
   constructor( private http: HttpClient, private route: Router ) {
   }
 
   ngOnInit(): void {
 
   }
+
+  // loginInYandexOAuth(): Observable<Object> {
+  //   //return this.route.navigate()
+  // }
 
   loginIn(userLogin: IUserLoginInterface): Subscription {
     return this.http.post<any>(`${this.isUrl}/signin`, userLogin)
