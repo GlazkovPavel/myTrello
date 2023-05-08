@@ -1,5 +1,5 @@
 import {Component, NgModule, OnInit} from '@angular/core';
-import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
+import {UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {ModalService} from "../modal/modal.service";
 import {AppModule} from "../app.module";
 import {MatFormFieldModule} from "@angular/material/form-field";
@@ -16,7 +16,7 @@ import {DirectiveModule} from "../shared/directives/directive.module";
 })
 export class UserInfoComponent implements OnInit {
 
-  public form: FormGroup;
+  public form: UntypedFormGroup;
   public isFormDisabled: boolean = true;
   public userName: string = '';
 
@@ -31,25 +31,25 @@ export class UserInfoComponent implements OnInit {
 
     this.userName = userInfo.name;
 
-    this.form = new FormGroup({
-      email: new FormControl({value: userInfo.email, disabled: true},[
+    this.form = new UntypedFormGroup({
+      email: new UntypedFormControl({value: userInfo.email, disabled: true},[
         Validators.email,
         Validators.required
       ]),
-      avatar: new FormControl({value: userInfo?.avatar, disabled: true},[
+      avatar: new UntypedFormControl({value: userInfo?.avatar, disabled: true},[
         Validators.pattern(/^((http|https):\/\/)?(([A-Z0-9][A-Z0-9_-]*)(\.[A-Z0-9][A-Z0-9_-]*)+)/i),
       ]),
-      name: new FormControl({value: userInfo.name, disabled: true},[
+      name: new UntypedFormControl({value: userInfo.name, disabled: true},[
         Validators.required,
         Validators.min(2),
         this.validationService.usernameSpecialSymbols
       ]),
-      surname: new FormControl({value: userInfo.surname, disabled: true},[
+      surname: new UntypedFormControl({value: userInfo.surname, disabled: true},[
         Validators.required,
         Validators.min(2),
         this.validationService.usernameSpecialSymbols
       ]),
-      username: new FormControl({value: userInfo.username, disabled: true},[
+      username: new UntypedFormControl({value: userInfo.username, disabled: true},[
         Validators.required,
         Validators.min(2),
         this.validationService.usernameSpecialSymbols

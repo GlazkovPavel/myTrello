@@ -8,7 +8,7 @@ import {
   Output,
   ViewChild
 } from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms";
 import {ChatService} from "../../services/chat.service";
 import {Chat} from "../../models/chat.model";
 import {EChat} from "../../enum/chat";
@@ -43,11 +43,11 @@ export class ChatsSideNameComponent implements OnInit, DoCheck {
     private httpChatService: HttpChatService,
   ) { }
 
-  public testForm = new FormGroup({
-    title: new FormControl('', [
+  public testForm = new UntypedFormGroup({
+    title: new UntypedFormControl('', [
       Validators.required,
     ]),
-    accounts: new FormControl(accounts[0], [
+    accounts: new UntypedFormControl(accounts[0], [
       Validators.required,
     ]),
   });

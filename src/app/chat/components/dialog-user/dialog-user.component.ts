@@ -7,7 +7,7 @@ import {
   ViewContainerRef,
   ViewRef
 } from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {
   defaultEditorExtensions,
   tiptapEditorStyles,
@@ -45,7 +45,7 @@ import {ChatService} from "../../services/chat.service";
 })
 export class DialogUserComponent implements OnInit {
   @ViewChild('editorNewComponent') editorNewComponent: TuiEditorNewComponent;
-  public form: FormGroup;
+  public form: UntypedFormGroup;
   public tools: TuiEditorTool[];
 
   constructor(
@@ -59,7 +59,7 @@ export class DialogUserComponent implements OnInit {
   }
 
   placeholder: any;
-  control = new FormControl('',
+  control = new UntypedFormControl('',
     [
       Validators.required,
       this.checkColumnsService.checkColumns

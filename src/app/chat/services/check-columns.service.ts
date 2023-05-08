@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
-import {FormControl, ValidationErrors} from "@angular/forms";
+import {UntypedFormControl, ValidationErrors} from "@angular/forms";
 
 @Injectable()
 export class CheckColumnsService {
 
-  public checkColumns(control: FormControl): ValidationErrors | null {
+  public checkColumns(control: UntypedFormControl): ValidationErrors | null {
     if (!!control?.value) {
       const reg = /<\/p>/gi;
       const found: number | undefined = control?.value.match(reg)?.length;

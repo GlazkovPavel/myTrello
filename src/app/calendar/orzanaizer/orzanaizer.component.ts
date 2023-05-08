@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {DateService} from "../../shared/services/date.service";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms";
 import {TaskService} from "../../shared/services/task.service";
 import {ITaskInterface} from "../../interface/task.interface";
 import {switchMap} from "rxjs/operators";
@@ -13,7 +13,7 @@ import {JournalService} from "../../shared/services/journal.service";
 })
 export class OrzanaizerComponent implements OnInit {
 
-  public form: FormGroup;
+  public form: UntypedFormGroup;
   public tasks: ITaskInterface[] = [];
 
   constructor(public dateService: DateService,
@@ -26,8 +26,8 @@ export class OrzanaizerComponent implements OnInit {
       this.tasks = tasks
     })
 
-    this.form = new FormGroup({
-      title: new FormControl('', Validators.required)
+    this.form = new UntypedFormGroup({
+      title: new UntypedFormControl('', Validators.required)
     })
   };
 

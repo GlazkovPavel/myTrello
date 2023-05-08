@@ -1,5 +1,5 @@
 import { Directive } from '@angular/core';
-import {FormControl, NG_VALIDATORS, ValidationErrors, Validator} from "@angular/forms";
+import {UntypedFormControl, NG_VALIDATORS, ValidationErrors, Validator} from "@angular/forms";
 
 @Directive({
   selector: '[appUsernameValidator]',
@@ -16,7 +16,7 @@ export class UsernameValidatorDirective implements Validator{
   constructor() { }
 
 
-  public validate(control: FormControl): ValidationErrors | null {
+  public validate(control: UntypedFormControl): ValidationErrors | null {
 
     const valid = /^[a-zA-Z0-9]*$/.test(control.value)
     return valid ? null : { username: 'Используйте только буквы и цифры'}

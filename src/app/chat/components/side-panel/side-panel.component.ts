@@ -6,7 +6,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms";
 import {SpaseChat} from "../../interface/space-chat";
 import {UnSubscriber} from "../../../shared/utils/unsubscriber";
 import {ChatService} from "../../services/chat.service";
@@ -32,8 +32,8 @@ export class SidePanelComponent extends UnSubscriber implements OnInit {
   public chatModel$: Observable<ChatModelArray>;
   public openForm: boolean = false;
 
-  public testForm = new FormGroup({
-    title: new FormControl('', [
+  public testForm = new UntypedFormGroup({
+    title: new UntypedFormControl('', [
       Validators.required,
     ]),
   });

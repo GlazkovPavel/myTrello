@@ -14,7 +14,7 @@ import {
   updateCurrentTodoList,
   updateTodo
 } from "../store/actions/todo.action";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms";
 import {ErrorModel} from "../../../error/models/error.model";
 import {ErrorMethods} from "../../../error/enum/error-methods.enum";
 
@@ -31,8 +31,8 @@ export class TodoComponent implements OnInit {
   public lists$: Observable<IListTodoInterface[]>;
   public showCompletedTodo: boolean = false;
   public checkArrayTodo: boolean = false;
-  public form: FormGroup;
-  public formList: FormGroup;
+  public form: UntypedFormGroup;
+  public formList: UntypedFormGroup;
 
   constructor(
     private todoService: TodoService,
@@ -44,14 +44,14 @@ export class TodoComponent implements OnInit {
     this.store.dispatch(loadTodoList());
     this.lists$ = this.getTodoList();
 
-    this.form = new FormGroup({
-      titleTask: new FormControl(null, [
+    this.form = new UntypedFormGroup({
+      titleTask: new UntypedFormControl(null, [
         Validators.required,
       ]),
     })
 
-    this.formList = new FormGroup({
-      list: new FormControl(null, [
+    this.formList = new UntypedFormGroup({
+      list: new UntypedFormControl(null, [
         Validators.required,
       ]),
     })

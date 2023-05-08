@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../shared/services/auth.service";
 import {IUserLoginInterface} from "../../interface/user-login.interface";
 
@@ -10,18 +10,18 @@ import {IUserLoginInterface} from "../../interface/user-login.interface";
 })
 export class SignInComponent implements OnInit {
 
-  public form: FormGroup;
+  public form: UntypedFormGroup;
 
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
 
-    this.form = new FormGroup({
-      email: new FormControl(null, [
+    this.form = new UntypedFormGroup({
+      email: new UntypedFormControl(null, [
         Validators.required,
         Validators.email
       ]),
-      password: new FormControl(null, [
+      password: new UntypedFormControl(null, [
         Validators.required,
         Validators.min(8)
       ])

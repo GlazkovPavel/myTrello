@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms";
 import {IUserInterface} from "../../interface/user.interface";
 import {AuthService} from "../../shared/services/auth.service";
 import {HttpClient} from "@angular/common/http";
@@ -13,11 +13,11 @@ import {ValidationService} from "../../shared/services/validation.service";
 })
 export class SignUpComponent implements OnInit {
 
-  public form: FormGroup;
+  public form: UntypedFormGroup;
   public errorMessage: string = '';
 
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(private formBuilder: UntypedFormBuilder,
               private authService: AuthService,
               private http: HttpClient,
               private validationService: ValidationService
@@ -25,25 +25,25 @@ export class SignUpComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.form = new FormGroup({
-      nameCtrl: new FormControl(null, [
+    this.form = new UntypedFormGroup({
+      nameCtrl: new UntypedFormControl(null, [
         Validators.required,
         this.validationService.usernameSpecialSymbols
       ]),
-      surnameCtrl: new FormControl(null, [
+      surnameCtrl: new UntypedFormControl(null, [
         Validators.required,
         this.validationService.usernameSpecialSymbols
       ]),
-      emailCtrl: new FormControl(null, [
+      emailCtrl: new UntypedFormControl(null, [
         Validators.required,
         Validators.email
       ]),
-      password: new FormGroup({
-        passwordCtrl: new FormControl(null, [
+      password: new UntypedFormGroup({
+        passwordCtrl: new UntypedFormControl(null, [
           Validators.required,
           Validators.min(8)
         ]),
-        cpassword: new FormControl(null, [
+        cpassword: new UntypedFormControl(null, [
           Validators.required,
           Validators.min(8),
         ])
@@ -51,7 +51,7 @@ export class SignUpComponent implements OnInit {
 
       }, [this.validationService.equalValidator]),
 
-      userNameCtrl: new FormControl('' || null, [
+      userNameCtrl: new UntypedFormControl('' || null, [
         Validators.required,
         Validators.min(2),
         this.validationService.usernameSpecialSymbols

@@ -4,7 +4,7 @@ import {interval, Observable, of} from "rxjs";
 import {map} from "rxjs/operators";
 import {AuthService} from "../shared/services/auth.service";
 import {Router} from "@angular/router";
-import {FormGroup} from "@angular/forms";
+import {UntypedFormGroup} from "@angular/forms";
 import {ModalService} from "../modal/modal.service";
 import {IUserInfoInterface} from "../interface/user-info.interface";
 
@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit {
   public isLoggedIn: boolean = false;
   public time$: Observable<string>;
   public data: number = new Date().getFullYear();
-  public form: FormGroup;
+  public form: UntypedFormGroup;
   public userInfo: IUserInfoInterface = JSON.parse(localStorage.getItem('userInfo'))
   public firstLetter$ : Observable<string>;
 
