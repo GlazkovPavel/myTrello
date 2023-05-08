@@ -2,7 +2,7 @@ import {Component, NgModule, OnInit} from '@angular/core';
 import {IMessageInterface} from "../../interfaces/message.interface";
 import {ModalService} from "../../../../../modal/modal.service";
 import {CommonModule} from "@angular/common";
-import {MatButtonModule} from "@angular/material/button";
+import {MatLegacyButtonModule as MatButtonModule} from "@angular/material/legacy-button";
 import {map} from "rxjs/operators";
 import {FieldComponent} from "../../../../../field/field.component";
 import {WorkSpaceService} from "../../../../services/work-space.service";

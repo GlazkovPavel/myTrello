@@ -2,7 +2,7 @@ import {Component, NgModule, OnInit} from '@angular/core';
 import {UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {ModalService} from "../modal/modal.service";
 import {AppModule} from "../app.module";
-import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatLegacyFormFieldModule as MatFormFieldModule} from "@angular/material/legacy-form-field";
 import {CommonModule} from "@angular/common";
 import {UserCheckService} from "./user.service";
 import {ValidationService} from "../shared/services/validation.service";

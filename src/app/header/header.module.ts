@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {HeaderComponent} from "./header.component";
 import {RouterModule} from "@angular/router";
-import {MatTooltipModule} from "@angular/material/tooltip";
+import {MatLegacyTooltipModule as MatTooltipModule} from "@angular/material/legacy-tooltip";
 import {MomentPipeModule} from "../shared/pipes/moment.module";
 import {TuiSvgModule} from "@taiga-ui/core";
 

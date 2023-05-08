@@ -2,7 +2,7 @@ import {Component, NgModule, OnInit} from '@angular/core';
 import {ModalService} from "../../../../../modal/modal.service";
 import {IMessageInterface} from "../../interfaces/message.interface";
 import {CommonModule} from "@angular/common";
-import {MatButtonModule} from "@angular/material/button";
+import {MatLegacyButtonModule as MatButtonModule} from "@angular/material/legacy-button";
 
 @Component({
   selector: 'app-error-handing',

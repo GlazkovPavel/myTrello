@@ -4,14 +4,14 @@ import {TodoComponent} from "../component/todo.component";
 import {TodoService} from "../services/todo.service";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatSidenavModule} from "@angular/material/sidenav";
-import {MatButtonModule} from "@angular/material/button";
+import {MatLegacyButtonModule as MatButtonModule} from "@angular/material/legacy-button";
 import {MatIconModule} from "@angular/material/icon";
 import {EffectsModule} from "@ngrx/effects";
 import {StoreModule} from "@ngrx/store";
 import {KEY, todoReducer} from "../store/reducers/todo.reducer";
 import {STORE_KEY} from "../store/utils/key";
 import {TodoEffect} from "../store/effects/todo.effect";
-import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatLegacyCheckboxModule as MatCheckboxModule} from "@angular/material/legacy-checkbox";
 
 @NgModule({
   declarations: [TodoComponent],
