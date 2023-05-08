@@ -62,7 +62,7 @@ export class TodoComponent implements OnInit {
     return this.store.select(getList).pipe(
       tap((data: IListTodoInterface[]) => {
         this.store.dispatch(updateCurrentTodoList({currentList: data[0]}))
-        this.currentTodoList$ = this.store.select(getCurrentTodoListSelector)
+        this.currentTodoList$ = this.store.select(getCurrentTodoListSelector);
       }),
     );
   }
@@ -92,9 +92,10 @@ export class TodoComponent implements OnInit {
   public onCreateTask() {
     const todo: ITodoInterface = {
       titleTodo: this.form.controls['titleTask'].value,
-      isCompleted: false
+      isCompleted: false,
     };
     this.store.dispatch(addTodo({todo}));
+    debugger;
     this.form.reset();
   }
 

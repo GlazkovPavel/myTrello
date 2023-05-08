@@ -27,16 +27,4 @@ export const todoReducer = createReducer(
     ...state,
     currentList: action.currentList
   })),
-  // on(getCurrentTodoList,
-  //   (state: StateInterface) => ({
-  //     ...state,
-  //     currentList: state.currentList
-  //   })),
-  // on(getTodoList, state => ({
-  //   ...state,
-  // })),
-  // on(addTodo, (state: StateInterface, {todo} : {todo: ITodoInterface}) => ({
-  //   ...state,
-  //   currentList:
-  // }))
 )

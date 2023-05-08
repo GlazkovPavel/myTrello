@@ -203,8 +203,8 @@ export class TodoEffect {
      list = list.map(
       item => item._id === currentList._id ? currentList : item
     )
-    updateCurrentTodoList({currentList})
-    return of(loadTodoListSuccess({list}));
+    loadTodoListSuccess({list})
+    return of(updateCurrentTodoList({currentList}));
   }
 
   public errorHandler(err: IErrorInterface): Observable<never> {
